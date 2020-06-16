@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="讓某個物件有個替身，藉以控制外界對物件的接觸。就是個經紀人的概念。(欸) Proxy pattern 主要目的在於「控制存取」，被代理的物件可以是遠端主機上的物件、建立成本高（例如需要時間下載）的物件、或者需要做存取權限管控的物件。 UML 很簡單的 UML，client 透過 interface Subject 使用物件，所以它不用知道使用的是真正有功能的物件 RealSubject 還是只是代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Proxy Pattern">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Proxy-Pattern/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="讓某個物件有個替身，藉以控制外界對物件的接觸。就是個經紀人的概念。(欸) Proxy pattern 主要目的在於「控制存取」，被代理的物件可以是遠端主機上的物件、建立成本高（例如需要時間下載）的物件、或者需要做存取權限管控的物件。 UML 很簡單的 UML，client 透過 interface Subject 使用物件，所以它不用知道使用的是真正有功能的物件 RealSubject 還是只是代">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.cjwind.idv.tw/images/proxy_pattern.png">
+<meta property="article:published_time" content="2016-12-11T07:31:47.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Design Pattern">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.cjwind.idv.tw/images/proxy_pattern.png">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Proxy-Pattern/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Proxy Pattern | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Proxy-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Proxy Pattern
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-11 15:31:47" itemprop="dateCreated datePublished" datetime="2016-12-11T15:31:47+08:00">2016-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Proxy-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Proxy-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>讓某個物件有個替身，藉以控制外界對物件的接觸。<del>就是個經紀人的概念。(欸)</del></p>
+<p>Proxy pattern 主要目的在於「控制存取」，被代理的物件可以是遠端主機上的物件、建立成本高（例如需要時間下載）的物件、或者需要做存取權限管控的物件。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/proxy_pattern.png" alt="Proxy Pattern"></p>
+<p>很簡單的 UML，client 透過 interface Subject 使用物件，所以它不用知道使用的是真正有功能的物件 RealSubject 還是只是代理人 Proxy。Proxy 依據型態不同會用不同方式取得 RealSubject、使用 RealSubject 的功能，再將結果丟回給 client。</p>
+<p>除了操作 interface 外，要讓 client 使用 proxy 而非真正的 object，有個方法是用 factory 產生物件、傳回給 client，不然 client 自己 new 了個 XXXProxy，看也知道不是真正的 object 啊 XD。不過，是不是真有必要再加一層 factory 隱藏使用 proxy 的事實倒是依情況而定，簡單的情境下讓 client 自己去生 XXXProxy 也不會怎麼樣，不見得非得用 factory 增加複雜度。</p>
+<h2 id="Proxy-與它的變種們"><a href="#Proxy-與它的變種們" class="headerlink" title="Proxy 與它的變種們"></a>Proxy 與它的變種們</h2><h3 id="Remote-Proxy"><a href="#Remote-Proxy" class="headerlink" title="Remote Proxy"></a>Remote Proxy</h3><p>代理另一台電腦上的物件或 service 等等的代理人。使用 proxy 的 client 基本上不會知道 proxy 多做了網路連線、傳遞資料等等的事情，例如 Java 的 RMI（Remote Method Invocation）（這東西應該有點年代了，就當作是個簡單的例子就好）。</p>
+<h3 id="Virtual-Proxy"><a href="#Virtual-Proxy" class="headerlink" title="Virtual Proxy"></a>Virtual Proxy</h3><p>代理建立成本很高的 object，所謂成本很高可能是需要比較多時間等等，例如 video object 需要從網路抓影片、回應很慢的 API 等等。等待過程中但又不希望卡到 UI 操作，這時候就可以透過 virtual proxy 先回一個 loading 畫面，等到 video 抓好或 API 回來之後，就由真正的 object 做事。</p>
+<h3 id="Protection-Proxy"><a href="#Protection-Proxy" class="headerlink" title="Protection Proxy"></a>Protection Proxy</h3><p>顧名思義，保護真正 object 的 proxy，它會根據權限決定外部可不可以存取真正的 object。</p>
+<h3 id="Dynamic-Proxy"><a href="#Dynamic-Proxy" class="headerlink" title="Dynamic Proxy"></a>Dynamic Proxy</h3><p>Java 把事情搞得更複雜，弄了個 dynamic proxy 出來，在 package <code>java.lang.reflect</code>。</p>
+<p>簡單來說，Java 讓 programmer 連 proxy 都不用寫了，只要寫個 <code>InvocationHandler</code> 讓 proxy object call，runtime 才依據要代理的 object 生出 proxy object。<del>除了讓人更懶之外不太懂為什麼要搞這個出來…</del></p>
+<h3 id="其他奇奇怪怪的-Proxy-們"><a href="#其他奇奇怪怪的-Proxy-們" class="headerlink" title="其他奇奇怪怪的 Proxy 們"></a>其他奇奇怪怪的 Proxy 們</h3><p>放關鍵字，需要用再查。</p>
+<p>Firewall proxy、Caching proxy、Synchronization proxy、Smart Reference proxy、Complexity Hiding proxy、Copy-On-Wrtie proxy。</p>
+<p>網路上常說的 proxy server，就有 cache 跟控制網頁存取的功能。</p>
+<h2 id="Proxy-與其他-pattern-的不同"><a href="#Proxy-與其他-pattern-的不同" class="headerlink" title="Proxy 與其他 pattern 的不同"></a>Proxy 與其他 pattern 的不同</h2><h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><p>proxy 跟 decorator 都是對一個物件包裝，有點像，但是兩者的意圖不同。proxy 的目的是控制存取，decorator 則是增加功能。而且 proxy 通常不會一直包一直包、像洋蔥一樣好多層，decorator 會依據想要的功能一直包。</p>
+<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><p>proxy 看到一半，我就想，啊這跟 <a href="/Adapter-Pattern">adapter</a> 不是一樣嗎！不都是在使用的 client 跟真正的 objec 之間加一層！！！（施主冷靜）</p>
+<p>還是不一樣啦。adapter 會改變 interface，例如 function 參數不一樣，proxy 會 implement 同樣的 interface。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Design-Pattern/" rel="tag"># Design Pattern</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/State-Pattern/" rel="prev" title="State Pattern">
+      <i class="fa fa-chevron-left"></i> State Pattern
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/MVC/" rel="next" title="MVC (Model-View-Controller)">
+      MVC (Model-View-Controller) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML"><span class="nav-number">1.</span> <span class="nav-text">UML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-與它的變種們"><span class="nav-number">2.</span> <span class="nav-text">Proxy 與它的變種們</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Remote-Proxy"><span class="nav-number">2.1.</span> <span class="nav-text">Remote Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Proxy"><span class="nav-number">2.2.</span> <span class="nav-text">Virtual Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Protection-Proxy"><span class="nav-number">2.3.</span> <span class="nav-text">Protection Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Proxy"><span class="nav-number">2.4.</span> <span class="nav-text">Dynamic Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他奇奇怪怪的-Proxy-們"><span class="nav-number">2.5.</span> <span class="nav-text">其他奇奇怪怪的 Proxy 們</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy-與其他-pattern-的不同"><span class="nav-number">3.</span> <span class="nav-text">Proxy 與其他 pattern 的不同</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Decorator"><span class="nav-number">3.1.</span> <span class="nav-text">Decorator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Adapter"><span class="nav-number">3.2.</span> <span class="nav-text">Adapter</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Proxy-Pattern/";
+    this.page.identifier = "Proxy-Pattern/";
+    this.page.title = "Proxy Pattern";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

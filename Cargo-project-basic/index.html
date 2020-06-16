@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Cargo basicCargo 是 Rust 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。安裝 Rust 會一起裝 Cargo。 這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package manag">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cargo project basic">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Cargo-project-basic/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="Cargo basicCargo 是 Rust 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。安裝 Rust 會一起裝 Cargo。 這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package manag">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-02-21T15:01:10.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.176Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Rust">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Cargo-project-basic/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Cargo project basic | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cargo-project-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cargo project basic
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-21 23:01:10" itemprop="dateCreated datePublished" datetime="2017-02-21T23:01:10+08:00">2017-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Cargo-project-basic/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cargo-project-basic/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Cargo-basic"><a href="#Cargo-basic" class="headerlink" title="Cargo basic"></a>Cargo basic</h2><p>Cargo 是 <a href="https://www.rust-lang.org/en-US/index.html" target="_blank" rel="noopener">Rust</a> 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。<a href="https://www.rust-lang.org/en-US/install.html" target="_blank" rel="noopener">安裝 Rust</a> 會一起裝 Cargo。</p>
+<p>這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package management 還有 build system。package manager 是為了解決各種 library 或 package dependency 的問題，例如像 C/C++ 得自己處理如何 build 跟 link library（還會有只剩 binary 檔不知道 source code 從哪來的 library）、維持 library 版本以及升級 library 等問題。</p>
+<p>Cargo 裡稱 package 或 library 為 crate。</p>
+<p>Cargo 基本指令：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>cargo build</span><br><span class="line"><span class="variable">$ </span>cargo run</span><br><span class="line"><span class="variable">$ </span>cargo clean</span><br><span class="line"><span class="variable">$ </span>cargo update  <span class="comment"># 升級 crate</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Start-new-project"><a href="#Start-new-project" class="headerlink" title="Start new project"></a>Start new project</h2><p><code>$ cargo new &lt;project name&gt; --bin</code></p>
+<p>產生基本 project 的 directory，內含 <code>src/</code> 跟 <code>Cargo.toml</code> 並且建立 git repository。加 <code>--bin</code> 是為了 build 出可執行檔，不加會是 library。建立 project 後修改 <code>Cargo.toml</code> 即可，<code>Cargo.toml</code> sample：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"rust-hello-cargo"</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">"0.1.0"</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">"cjwind &lt;cwentsai@gmail.com&gt;"</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Directory-structure"><a href="#Directory-structure" class="headerlink" title="Directory structure"></a>Directory structure</h2><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">src/    # source code directory</span><br><span class="line">    xxx.rs</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>toml    # Cargo configuration</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock    # Cargo uses the <span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock file <span class="keyword">to</span> keep track <span class="keyword">of</span> dependencies</span><br></pre></td></tr></table></figure>
+
+<p>Cargo 會自己維護 <code>Cargo.lock</code>，不須手動修改。</p>
+<h3 id="Cargo-toml"><a href="#Cargo-toml" class="headerlink" title="Cargo.toml"></a>Cargo.toml</h3><p>Cargo 用 <code>Cargo.toml</code> 來 maintain dependency──需要什麼 crate 以及 crate 版本。這跟 nodejs、PHP 之類的 package management 差不多，只是各自用不同格式而已。</p>
+<p>修改 <code>Cargo.toml</code> 之後再 build，Cargo 會去抓需要的 crate 跟處理 dependency──如果 crate 還有 depend 是 project 沒有的也會去抓──然後 compile 它們。</p>
+<h3 id="Cargo-lock"><a href="#Cargo-lock" class="headerlink" title="Cargo.lock"></a>Cargo.lock</h3><p>假設 project 依賴 crate A 1.0.12，crate A 有新版本 1.0.13 時會怎樣？</p>
+<p>如果 Cargo 自動更新 crate 版本，萬一新版 crate A 反而讓我們的程式爛掉怎麼辦？畢竟總是可能有 bug 的，又或者某些介面或功能被修改了、行為跟原本不一樣也可能造成問題。</p>
+<p>Cargo 對此的解決方式跟其他 package manager 差不多──使用 <code>Cargo.lock</code>。</p>
+<p>第一次 build project 的時候（應該是 dependency 改動過後的第一次），Cargo 會在 <code>Cargo.lock</code> 記下當下 crate 的版本並且認定這些版本是 ok 的。之後即使 crate 有新版本，Cargo 也不會主動去更新而是以 <code>Cargo.lock</code> 記錄的為準，直到我們要求升級 crate。</p>
+<p><code>cargo update</code> 預設只會升最後一碼版號，比較大版本的升級要手動改 <code>Cargo.toml</code>。因為大版本的更新可能會有 interface 的改動，需要我們確認相應修改沒問題才能更新。</p>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a href="http://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Rust/" rel="tag"># Rust</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Explicit-Runtime-Linking/" rel="prev" title="Explicit Runtime Linking">
+      <i class="fa fa-chevron-left"></i> Explicit Runtime Linking
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Murmur-software-flexibility/" rel="next" title="軟體擴充性">
+      軟體擴充性 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cargo-basic"><span class="nav-number">1.</span> <span class="nav-text">Cargo basic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-new-project"><span class="nav-number">2.</span> <span class="nav-text">Start new project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Directory-structure"><span class="nav-number">3.</span> <span class="nav-text">Directory structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargo-toml"><span class="nav-number">3.1.</span> <span class="nav-text">Cargo.toml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargo-lock"><span class="nav-number">3.2.</span> <span class="nav-text">Cargo.lock</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸閱讀"><span class="nav-number">4.</span> <span class="nav-text">延伸閱讀</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Cargo-project-basic/";
+    this.page.identifier = "Cargo-project-basic/";
+    this.page.title = "Cargo project basic";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="用 concurrency 就是為了更快，為了比 sequential 程式快，不然搞得那麼複雜幹嘛呢。 如何評估 concurrent 程式的效能提升？ speedup &#x3D; sequential 程式執行時間 &#x2F; concurrent 程式執行時間 speedup 可能隨著使用的 core 數改變，標示程式在不同 core 數上的 speedup，可以由不同 core 數的 speedup 變化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Performance of Concurrency">
+<meta property="og:url" content="http://www.cjwind.idv.tw/performance-of-concurrency/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="用 concurrency 就是為了更快，為了比 sequential 程式快，不然搞得那麼複雜幹嘛呢。 如何評估 concurrent 程式的效能提升？ speedup &#x3D; sequential 程式執行時間 &#x2F; concurrent 程式執行時間 speedup 可能隨著使用的 core 數改變，標示程式在不同 core 數上的 speedup，可以由不同 core 數的 speedup 變化">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-09-23T09:29:08.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Concurrency">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/performance-of-concurrency/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Performance of Concurrency | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/performance-of-concurrency/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Performance of Concurrency
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-09-23 17:29:08" itemprop="dateCreated datePublished" datetime="2017-09-23T17:29:08+08:00">2017-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/performance-of-concurrency/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="performance-of-concurrency/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>用 concurrency 就是為了更快，為了比 sequential 程式快，不然搞得那麼複雜幹嘛呢。</p>
+<p>如何評估 concurrent 程式的效能提升？</p>
+<p><code>speedup = sequential 程式執行時間 / concurrent 程式執行時間</code></p>
+<p>speedup 可能隨著使用的 core 數改變，標示程式在不同 core 數上的 speedup，可以由不同 core 數的 speedup 變化知道程式的 scalability。speedup 的提升隨著使用 core 數增加而增加甚至比例接近 core 增加的數量，表示有好的 scalability。理想狀況是 core 數加倍 speedup 也加倍。</p>
+<p>有時會發生 speedup 的提升超過 core 的增加數量，稱為 superlinear speedup。這通常是有問題，要再確認 concurrent 程式執行結果是否正確、是否使用一般情境下的 dataset 而非只是測試資料。superlinear speedup 常見的原因是資料量太小，sequential 程式因為不斷需要新資料而被清掉的 cache 反而在 concurrent 程式中因為各 core 處理的資料量太小而 cache 住，自然 concurrent 程式在資料讀取上會比較快，造成效能變超好的錯覺。<em>（假的！）</em></p>
+<p>如果已有 sequential 程式、要決定是否 concurrent 化，能事先估算效能提升比較好，畢竟 concurrent 程式複雜也需要投入成本開發，如果效能提升不好就白費工夫了。</p>
+<p>接下來兩個定理皆假設一個 core 上只執行一個 thread，如果一個 core 上執行多個 thread，就要把下面公式中的 core 數換成 thread 的數量。</p>
+<a id="more"></a>
+
+<h2 id="Amdahl’s-law"><a href="#Amdahl’s-law" class="headerlink" title="Amdahl’s law"></a>Amdahl’s law</h2><p>在 dataset 大小是固定的情況下（dataset 不會隨著可用 core 數變多而跟著變多），可以用 Amdahl’s law 估算 speedup 的理論值。</p>
+<p>使用 Amdahl’s law 要知道程式的執行時間有多少比例能平行化、又有多少比例只能以 sequential 執行，用估算值即可，當然也可以用 profiler 看程式的實際執行時間。Amdahl’s law 的 speedup 如下：</p>
+<p><code>speedup &lt;= 1 / ((1 - p) + (p / c))</code></p>
+<ul>
+<li><code>p</code> 是程式執行時間中可平行化的比例</li>
+<li><code>c</code> 是使用的 core 數</li>
+</ul>
+<p>舉個例子，假設一個 sequential 程式執行需要 10 分鐘，其中 2 分鐘的工作無法平行化、8 分鐘的工作可以平行化，那麼在 4 core 的環境下 speedup 是：</p>
+<p><code>speedup &lt;= 1 / ((1 - 0.8) + (0.8 / 4)) = 2.5</code></p>
+<p>假設有無限多 core 可以使用，speedup 會趨近於 <code>1 / (1 - p)</code>，也就是跟無法平行化的執行時間成反比。蠻符合直覺的，因為一個程式平行化到極限，它的執行時間就是不能平行化的部份的執行時間（像例子的 2 分鐘）。</p>
+<h2 id="Gustafson’s-law"><a href="#Gustafson’s-law" class="headerlink" title="Gustafson’s law"></a>Gustafson’s law</h2><p>Amdahl’s law 有個問題在它的前提：dataset 大小固定。這表示無論程式可使用的 core 如何變多，給程式跑的 dataset 都不變。問題是實際上隨著機器能力的增強（core 數變多），要處理的資料量也會變多（看看十幾年前 1MB 就很大了，現在隨便都是 TB 在喊的），在 dataset 會隨著 core 數變多的情況下就不能用 Amdahl’s law 啦。</p>
+<p>於是有了 Gustafson’s law，也稱為 scaled speedup，考慮 dataset 隨著 core 數變多而等比例增加的情況下計算 speedup 的理論上限：</p>
+<p><code>scaled speedup &lt;= c + (1 - c) * s</code></p>
+<ul>
+<li><code>c</code> 是使用的 core 數</li>
+<li><code>s</code> 是在給定 dataset 以及使用 core 數的情況下，程式花多少時間在 sequential 執行上的比例</li>
+</ul>
+<p>舉例，假設有個平行化程式在 32 core 上執行花了 1000 秒，其中 30 秒花在 sequential 執行上（在一個 core 上 sequential 執行），那麼這個程式比起相同 dataset 只用一個 thread 執行（dataset 大能不能 single thread 跑是另一回事）的 speedup 是：</p>
+<p><code>scaled speedup &lt;= 32 + (1 - 32) * (30/1000) = 31.07</code></p>
+<p>注意這邊的 <code>s</code> 不能當作 Amdahl’s law 的 <code>1 - p</code>，因為這裡的 <code>s</code> 是在某特定 core 數下的執行時間比例，而非 sequential 程式中預估可平行化部份的執行時間。</p>
+<p>Gustafson’s law 跟處理龐大資料有關。資料量變大不見得得 sequential 處理的資料就變多，如果是可平行處理的資料變多，那麼反而 sequential 執行所佔的整體比例會下降（Amdahl’s law 沒有這一點是因為 dataset 固定），於是在資料逐漸龐大的情況下，sequential 部份的影響可能減小。</p>
+<h2 id="Efficiency（效率）"><a href="#Efficiency（效率）" class="headerlink" title="Efficiency（效率）"></a>Efficiency（效率）</h2><p>跟 speedup 有關的是 efficiency，efficiency 反映的是系統運算資源的使用狀況，看看 concurrent 程式對系統資源的使用效率如何。</p>
+<p><code>efficiency = 實際觀察到的 speedup / 使用的 core 數</code></p>
+<p>efficiency 通常以百分比表示，愈高表示愈沒有資源是閒置的。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="https://en.wikipedia.org/wiki/Amdahl%27s_law" target="_blank" rel="noopener">Wiki Amdahl’s law</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Gustafson%27s_law" target="_blank" rel="noopener">Wiki Gustafson’s law</a></li>
+<li><a href="http://www.ithome.com.tw/voice/106886" target="_blank" rel="noopener">關注平行程式設計</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Concurrency/" rel="tag"># Concurrency</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/verification-of-concurrency/" rel="prev" title="驗證 Concurrent Algorithm">
+      <i class="fa fa-chevron-left"></i> 驗證 Concurrent Algorithm
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/the-clean-coder/" rel="next" title="The Clean Coder">
+      The Clean Coder <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Amdahl’s-law"><span class="nav-number">1.</span> <span class="nav-text">Amdahl’s law</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gustafson’s-law"><span class="nav-number">2.</span> <span class="nav-text">Gustafson’s law</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Efficiency（效率）"><span class="nav-number">3.</span> <span class="nav-text">Efficiency（效率）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/performance-of-concurrency/";
+    this.page.identifier = "performance-of-concurrency/";
+    this.page.title = "Performance of Concurrency";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

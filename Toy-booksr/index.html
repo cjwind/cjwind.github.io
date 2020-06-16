@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="做玩具的碎念心得。 用 Google Book API 找書的 Ruby 小程式。 一開始因為 anobii  改版後變得超級難用，一氣之下不用了，又找不到好用的，就想自己寫一個網路書櫃。但是網路書櫃有點大，而且暫時不想架需要維護的平台，索性簡化，結果簡化成這個小玩具（也簡化太多）。 目標是學寫 Ruby 程式、包 gem 跟丟上 RubyGems。 程式邏輯本身很簡單，而且 Ruby 有很多現成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[做玩具] booksr - Simple book searcher in Ruby">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Toy-booksr/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="做玩具的碎念心得。 用 Google Book API 找書的 Ruby 小程式。 一開始因為 anobii  改版後變得超級難用，一氣之下不用了，又找不到好用的，就想自己寫一個網路書櫃。但是網路書櫃有點大，而且暫時不想架需要維護的平台，索性簡化，結果簡化成這個小玩具（也簡化太多）。 目標是學寫 Ruby 程式、包 gem 跟丟上 RubyGems。 程式邏輯本身很簡單，而且 Ruby 有很多現成">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2015-01-31T07:08:48.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Murmur">
+<meta property="article:tag" content="Toy">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Toy-booksr/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[做玩具] booksr - Simple book searcher in Ruby | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Toy-booksr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [做玩具] booksr - Simple book searcher in Ruby
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-01-31 15:08:48" itemprop="dateCreated datePublished" datetime="2015-01-31T15:08:48+08:00">2015-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Toy-booksr/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Toy-booksr/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><del>做玩具的碎念心得。</del></p>
+<p>用 Google Book API 找書的 Ruby 小程式。</p>
+<p>一開始因為 anobii  改版後變得超級難用，一氣之下不用了，又找不到好用的，就想自己寫一個網路書櫃。但是網路書櫃有點大，而且暫時不想架需要維護的平台，索性簡化，結果簡化成這個小玩具<del>（也簡化太多）</del>。</p>
+<p>目標是學寫 Ruby 程式、包 gem 跟丟上 RubyGems。</p>
+<p>程式邏輯本身很簡單，而且 Ruby 有很多現成的套件可以用，節省不少時間。不過沒用過這套 test framework，bundler 跟 gem 的熟悉度只有 <code>bundle install</code>，所以花比較多時間在 test 跟包 gem。</p>
+<h2 id="關於功能"><a href="#關於功能" class="headerlink" title="關於功能"></a>關於功能</h2><p>原本功能縮小到只想寫 book wrapper，把書籍資料包成 class，寫完覺得實在太陽春才變成找書。擴大功能後卻開始不只想用 Google Book API，還想加上 search Amazon 跟 ISBNDB。但以原本作為練習的目的來說，這些功能有點多餘。</p>
+<p>我有時候會因為某個功能看起來好酷就想加上去，有時候是覺得東西很陽春、太簡單，想加更複雜的能力進去。如果這些事情不斷發生，程式會越長越大、越長越大，<strong>卻永遠沒有完成的一天</strong>。這裡說的完成是指階段性完成──什麼時候要喊「夠了，可以了」然後把東西丟出去。</p>
+<p>這些讓我在中途思考要以「看起來很厲害」為優先，還是以「完成核心功能及達到最初目的」為優先。最後決定縮小範圍，以後者為優先。</p>
+<p><del>雖然弄完覺得像寫了個垃圾就是了…</del></p>
+<h2 id="關於搜尋結果"><a href="#關於搜尋結果" class="headerlink" title="關於搜尋結果"></a>關於搜尋結果</h2><p>有想過搜尋結果的筆數會不會太多？考慮過用其他方式當 output，例如一開始可以設最多只找幾筆之類的。但是試了一下，書籍的搜尋結果似乎不會多到太誇張，又懶得把介面搞得太複雜，就變成很簡單的全部 search 完一次傳回結果。</p>
+<h2 id="關於測試"><a href="#關於測試" class="headerlink" title="關於測試"></a>關於測試</h2><p>我糾結了一陣子到底要怎麼測，中間 test case 一直換一直換。測試有用 Google API 抓資料，不能太多，太多會被 403 擋掉…XD 搜尋結果不是固定的，做太詳細的資料檢驗沒什麼意義，所以最後只有兩種 test case：</p>
+<ol>
+<li>用找 isbn 測 class Book 是好的</li>
+<li>用找 title 測當搜尋結果超過 40 筆時回傳的結果筆數大於 40。<br>這是因為 API 限制一次的 search 結果最多只能有 40 筆，可以用起始 index 決定要顯示哪些 search 結果。</li>
+</ol>
+<h2 id="關於-Ruby"><a href="#關於-Ruby" class="headerlink" title="關於 Ruby"></a>關於 Ruby</h2><p>為什麼選 Ruby？</p>
+<p>沒為什麼……只是它有點名氣，然後我想寫點高階的東西，不然一天到晚在用 C++ 做輪子有點煩……</p>
+<p>越方便的技術代表它抽象化的程度越高，寫起來通常比較快，像在把現成的積木拼起來。但也代表它隱藏更多細節，我有時候會覺得不知道這些細節很沒有安全感(?)。到目前為止，Ruby 寫起來有很多方便的地方，可是我隱約覺得真要用得好還是要了解背後的原理，但那些原理可就不像一開始學的這種方便性那麼容易了。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Murmur/" rel="tag"># Murmur</a>
+              <a href="/tags/Toy/" rel="tag"># Toy</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Pack-gem-and-publish-to-RubyGems/" rel="prev" title="Pack gem and publish to RubyGems">
+      <i class="fa fa-chevron-left"></i> Pack gem and publish to RubyGems
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/use-case/" rel="next" title="Use case">
+      Use case <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#關於功能"><span class="nav-number">1.</span> <span class="nav-text">關於功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於搜尋結果"><span class="nav-number">2.</span> <span class="nav-text">關於搜尋結果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於測試"><span class="nav-number">3.</span> <span class="nav-text">關於測試</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#關於-Ruby"><span class="nav-number">4.</span> <span class="nav-text">關於 Ruby</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Toy-booksr/";
+    this.page.identifier = "Toy-booksr/";
+    this.page.title = "[做玩具] booksr - Simple book searcher in Ruby";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

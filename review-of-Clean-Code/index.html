@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="忙了半年左右，我回來了(?)，來寫點早該看完的《Clean Code》小心得。 整本書講 clean code 的原則，最後以一個大例子運用原則跟示範 refactor。寫那些原則像在抄書，只針對比較有感的原則跟 code smell 寫點心得。 最少驚奇（嚇）原則讓看你的 code 的人（很可能就是你自己）對那段 code 的預期符合實際結果，儘量符合 common sense 以減少驚奇、驚嚇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clean Code">
+<meta property="og:url" content="http://www.cjwind.idv.tw/review-of-Clean-Code/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="忙了半年左右，我回來了(?)，來寫點早該看完的《Clean Code》小心得。 整本書講 clean code 的原則，最後以一個大例子運用原則跟示範 refactor。寫那些原則像在抄書，只針對比較有感的原則跟 code smell 寫點心得。 最少驚奇（嚇）原則讓看你的 code 的人（很可能就是你自己）對那段 code 的預期符合實際結果，儘量符合 common sense 以減少驚奇、驚嚇">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-07T12:27:19.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.184Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Programming">
+<meta property="article:tag" content="Reading">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/review-of-Clean-Code/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Clean Code | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/review-of-Clean-Code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Clean Code
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-07 20:27:19" itemprop="dateCreated datePublished" datetime="2018-10-07T20:27:19+08:00">2018-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/review-of-Clean-Code/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="review-of-Clean-Code/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>忙了半年左右，我回來了(?)，來寫點早該看完的《Clean Code》小心得。</p>
+<p>整本書講 clean code 的原則，最後以一個大例子運用原則跟示範 refactor。寫那些原則像在抄書，只針對比較有感的原則跟 code smell 寫點心得。</p>
+<h3 id="最少驚奇（嚇）原則"><a href="#最少驚奇（嚇）原則" class="headerlink" title="最少驚奇（嚇）原則"></a>最少驚奇（嚇）原則</h3><p>讓看你的 code 的人（很可能就是你自己）對那段 code 的預期符合實際結果，儘量符合 common sense 以減少驚奇、驚嚇與驚恐。code 愈能符合預期，愈能減少進去實作看細節的時間。反之，如果常常不符預期，不用多久大家就會戒慎恐懼的每次都進去看實作，不然天知道它會發生什麼事，對吧？</p>
+<p>不過我承認，似乎不是所有人的 commen sense 都一樣。</p>
+<a id="more"></a>
+
+<h3 id="base-class-不應該知道實作細節"><a href="#base-class-不應該知道實作細節" class="headerlink" title="base class 不應該知道實作細節"></a>base class 不應該知道實作細節</h3><p>跟實作細節有關的常數、變數或 function 只該出現在 derived class、不該出現在 base class。</p>
+<p>base class 不該對實作有任何假設。</p>
+<h3 id="Static-vs-Non-static-function"><a href="#Static-vs-Non-static-function" class="headerlink" title="Static vs Non-static function"></a>Static vs Non-static function</h3><p>本書建議少用 static function，在模糊不確定時讓 function 是 non-static，使用 static function 要確定不會有任何可能想讓該 function 是多型。</p>
+<p>我好像曾經在哪裡看過建議使用 static function 而非 non-static function，但忘記是哪了，也可能我記反了。總之有段時間只要遇到沒使用 member 的 function 一律宣告成 static，因為既然實作沒用到 member 就限制住它。</p>
+<p>好吧這是前陣子的爭論點之一。我發現在 interface 上將 function 們宣告成 static 會限制 class 的實作方式、class 無法使用 member，而 interface 不該知道或者限制 class 的實作（類似上一點的概念）。以多型基本上是操作 object 來說，讓 interface 的多數 function 是 static 挺奇怪的，static 表示不需要 object 就可以使用，那好像沒有定成 interface 意義？</p>
+<p>所以後來改觀了，現在傾向用 non-static function 而非 static，static function 只在有語意跟功能上較適合 static 才用。</p>
+<h3 id="不要在實作時假設其他-class-的東西"><a href="#不要在實作時假設其他-class-的東西" class="headerlink" title="不要在實作時假設其他 class 的東西"></a>不要在實作時假設其他 class 的東西</h3><p>這不是書裡的原則，是我的感想。這藏在很多地方，像是 base clas 不該知道實作細節、不要在 class A 假設知道 class B 的任何事、要使用多型就不要假設某個變數是某個 class 的 object 等等。</p>
+<p>發現實作上很容易忽略，可能因為如果不是使用別人的介面，程式設計師知道相關 class 們的各種細節，以至於容易把屬於 A 的東西放進 B 而渾然不覺。我避免這種「假設」的方法是想像自己是 class A 然後問：「我該知道這個資訊嗎？」</p>
+<h3 id="用多型取代-if-else-或-switch-case"><a href="#用多型取代-if-else-或-switch-case" class="headerlink" title="用多型取代 if/else 或 switch/case"></a>用多型取代 if/else 或 switch/case</h3><p>不是絕對，但如果 code 裡到處有跟 type 相關的 switch/case 或 if/else，用多型比較好。讓生出多型 object 的地方是唯一有 switch 的地方，其他部份的 switch 就能用多型 object 處理。</p>
+<h3 id="Structure-over-Convention（結構勝於常規）"><a href="#Structure-over-Convention（結構勝於常規）" class="headerlink" title="Structure over Convention（結構勝於常規）"></a>Structure over Convention（結構勝於常規）</h3><p>「具有強制決策設計特性的結構」勝於「慣例」。</p>
+<p>有大家遵守的慣例當然很好，但用強制性的程式結構更好。例如用有 abstract function 的 base class 比用 switch/case 好，因為 switch/case 的撰寫不是強制性的，很可能會漏改，而 abstract function 的實作是強制的，只要繼承該 base class 就必須實作，不然會 compile 不過或跑起來 error。</p>
+<p>強制性的程式結構可以降低漏改或改錯的可能性，改錯馬上就知道了。套句以前聽過的話：「就是要讓寫錯的編不過，他編不過就知道錯了」</p>
+<p>再說了，我很懶得記慣例（喂）</p>
+<h3 id="時序耦合"><a href="#時序耦合" class="headerlink" title="時序耦合"></a>時序耦合</h3><p>時序耦合是指某些 function 必須以某個次序 call，例如有三個 function A()、B()、C() 需要依序 call。如果 function 沒有顯著的顯示出時序耦合，可能被以錯誤的順序 call。書裡是建立流水線來凸顯時序性，也就是讓 <code>B()</code> 的 input 是 <code>A()</code> 的 output、<code>C()</code> 的 input 是 <code>B()</code> 的 output。</p>
+<p>另外我認為 public function 似乎儘量不要有密切的時序耦合比較好，例如上述三個 function 是 public <strong>要依序而且馬上</strong> call 才能完成一件事，這種情況用另一個 public function 把 call <code>A()</code>、<code>B()</code>、<code>C()</code> 包起來比較好。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Programming/" rel="tag"># Programming</a>
+              <a href="/tags/Reading/" rel="tag"># Reading</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/win10-and-linux-dual-system-note/" rel="prev" title="win10 與 linux 多重開機的糾葛(?)">
+      <i class="fa fa-chevron-left"></i> win10 與 linux 多重開機的糾葛(?)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Amdahl-s-law/" rel="next" title="Amdahl's law">
+      Amdahl's law <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#最少驚奇（嚇）原則"><span class="nav-number">1.</span> <span class="nav-text">最少驚奇（嚇）原則</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#base-class-不應該知道實作細節"><span class="nav-number">2.</span> <span class="nav-text">base class 不應該知道實作細節</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Static-vs-Non-static-function"><span class="nav-number">3.</span> <span class="nav-text">Static vs Non-static function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要在實作時假設其他-class-的東西"><span class="nav-number">4.</span> <span class="nav-text">不要在實作時假設其他 class 的東西</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用多型取代-if-else-或-switch-case"><span class="nav-number">5.</span> <span class="nav-text">用多型取代 if&#x2F;else 或 switch&#x2F;case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Structure-over-Convention（結構勝於常規）"><span class="nav-number">6.</span> <span class="nav-text">Structure over Convention（結構勝於常規）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#時序耦合"><span class="nav-number">7.</span> <span class="nav-text">時序耦合</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/review-of-Clean-Code/";
+    this.page.identifier = "review-of-Clean-Code/";
+    this.page.title = "Clean Code";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

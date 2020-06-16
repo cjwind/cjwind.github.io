@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Dynamic linking 遇到的問題Dynamic linking 想解決的一大問題是 memory 浪費。直覺想法是如果能讓不同 process 都會使用到的 library 在 memory 只有一份就能節省空間。對不同 process 來說 library 的內容必須是相同的才能共用。library 主要是 instruction 以及 data （executable file 都是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dynamic Linking Position-independent Code（PIC）">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Dynamic-Linking-PIC/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="Dynamic linking 遇到的問題Dynamic linking 想解決的一大問題是 memory 浪費。直覺想法是如果能讓不同 process 都會使用到的 library 在 memory 只有一份就能節省空間。對不同 process 來說 library 的內容必須是相同的才能共用。library 主要是 instruction 以及 data （executable file 都是">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-03-07T15:45:15.000Z">
+<meta property="article:modified_time" content="2017-03-18T14:47:00.000Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="System Software">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Dynamic-Linking-PIC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Dynamic Linking Position-independent Code（PIC） | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dynamic-Linking-PIC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dynamic Linking Position-independent Code（PIC）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-07 23:45:15" itemprop="dateCreated datePublished" datetime="2017-03-07T23:45:15+08:00">2017-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-03-18 22:47:00" itemprop="dateModified" datetime="2017-03-18T22:47:00+08:00">2017-03-18</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dynamic-Linking-PIC/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dynamic-Linking-PIC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Dynamic-linking-遇到的問題"><a href="#Dynamic-linking-遇到的問題" class="headerlink" title="Dynamic linking 遇到的問題"></a>Dynamic linking 遇到的問題</h2><p>Dynamic linking 想解決的一大問題是 memory 浪費。直覺想法是如果能讓不同 process 都會使用到的 library 在 memory 只有一份就能節省空間。對不同 process 來說 library 的內容必須是相同的才能共用。library 主要是 instruction 以及 data （executable file 都是這樣辣），data 不可能在 process 間共用，因為每個 process 都需要它自己的 data，不然會互相干擾（好像有古代系統是共用的…），因此能共用的主要是 instruction。</p>
+<p>excutable file、object file 以及 library 等 binary file 中 instruction 會以不同定址方式 access symbol，絕對定址模式會將 symbol 的 virtual address 寫進 instruction，相對定址模式則跟 instruction 及 data 之間的相對位置有關。也就是說，無論是 executable file 還是要共用的 library，instruction 都可能涉及 symbol 的 address 資訊。</p>
+<p>不像 executable file，library 在 compile time 無法知道會被 load 到哪，因為系統裡會有多個 library，如果各自指定要 load 到哪可能會撞到，所以得等到 runtime 由系統決定，其中 symbol 位置也要到 runtime 才能決定。這使得 compile time 無法修改 instruction 內的 address 資訊，也就是 static linking 做的事。</p>
+<p>另一方面，即使在 runtime 修改 library 的 instruction，也會造成不同 process 實際上有不同的 library instruction 而無法共用。例如 library A 使用某個外部 symbol <code>foo</code>，process 1 跟 process 2 都有使用 library A，但它們分別以 library B 跟 library C 來提供 symbol <code>foo</code> 給 library A。此時，process 1 的 <code>foo</code> 的 address 在 library B，process 2 則在 library C，runtime 修改 library A instruction 會有兩種版本。</p>
+<h2 id="Position-independent-Code（PIC）"><a href="#Position-independent-Code（PIC）" class="headerlink" title="Position-independent Code（PIC）"></a>Position-independent Code（PIC）</h2><p>上面的問題基本上是因為 instruction 裡含有 symbol address 相關資訊，就出現 Position-independent Code（PIC）「與位置無關的程式碼」來解決。</p>
+<p>由於 process 有各自的 data section 而且可以修改裡面的值，PIC 將 library 會被修改的部分（instruction 中的 address 相關資訊）放到 data section，讓 instruction 跟 address 無關而能共用。</p>
+<p>library 的 address reference 可分為 library 內與跨 library，各自又再分成 reference 到資料或 instruction（function call 或 jump），處理方式主要依據 library 內或跨 library 而不同。</p>
+<h3 id="library-內"><a href="#library-內" class="headerlink" title="library 內"></a>library 內</h3><p>同一 library 內的 instruction 跟資料間相對位置是固定的，所以可以用相對位置來 access 資料、call function 或 jump。</p>
+<h3 id="跨-library"><a href="#跨-library" class="headerlink" title="跨 library"></a>跨 library</h3><p>ELF 在 data section 放一個指向其他 library 的 symbol 的 pointer array，稱為 Global Offset Table（GOT）。instruction 可以從 GOT 找到對應的 element 進行間接 reference。先找到 GOT（不同平台有不同作法，可以用相對定址也可以有特殊 register 記錄），再從 GOT 以及 instruction 所知道的「該 symbol 在 GOT 裡的 offset」得到 element，最後得到 symbol address。</p>
+<p>GOT 由 linker 載入 library 時填填內容，同樣使用 relocation table 的 entry 標示需要修改的位置及如何修改。relocation table 不會管 offset 指向的位置是什麼，改那個地方的內容就對了，放 GOT element 就會改 GOT。至於變數與 call function 的差別在 GOT element 存的是變數還是 function 的 address，不過實際上 ELF 有區分變數跟 function，這部份下一篇再說。</p>
+<p>雖然 GOT 可以達到 PIC，但代價是 access symbol 的速度會變慢，因為要先找到 GOT 再間接定址。</p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> sum;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>* p = (<span class="keyword">int</span>*)<span class="number">123</span>;    <span class="comment">// avoid to be placed in .bss</span></span><br><span class="line">    p = &amp;sum;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ gcc -<span class="keyword">c</span> foo.<span class="keyword">c</span></span><br><span class="line">$ gcc -fPIC -<span class="keyword">c</span> foo.<span class="keyword">c</span> -o foo.o.pic</span><br></pre></td></tr></table></figure>
+
+<p>有 <code>-fPIC</code> 跟沒有的差別：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ objdump -d foo.o</span><br><span class="line"></span><br><span class="line">foo.o:     file format elf64-x86<span class="number">-64</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line"><span class="number">0000000000000000</span> &lt;foo&gt;:</span><br><span class="line">   <span class="number">0</span>:   <span class="number">55</span>                      push   %rbp</span><br><span class="line">   <span class="number">1</span>:   <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">   <span class="number">4</span>:   <span class="number">89</span> <span class="number">7</span>d fc                mov    %edi,<span class="number">-0x4</span>(%rbp)</span><br><span class="line">   <span class="number">7</span>:   <span class="number">89</span> <span class="number">75</span> f8                mov    %esi,<span class="number">-0x8</span>(%rbp)</span><br><span class="line">   a:   <span class="number">48</span> c7 <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    movq   $<span class="number">0x0</span>,<span class="number">0x0</span>(%rip)        # <span class="number">15</span> &lt;foo+<span class="number">0x15</span>&gt;</span><br><span class="line">  <span class="number">11</span>:   <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line">  <span class="number">15</span>:   <span class="number">8</span>b <span class="number">55</span> fc                mov    <span class="number">-0x4</span>(%rbp),%edx</span><br><span class="line">  <span class="number">18</span>:   <span class="number">8</span>b <span class="number">45</span> f8                mov    <span class="number">-0x8</span>(%rbp),%eax</span><br><span class="line">  <span class="number">1</span>b:   <span class="number">01</span> d0                   add    %edx,%eax</span><br><span class="line">  <span class="number">1</span>d:   <span class="number">5</span>d                      pop    %rbp</span><br><span class="line">  <span class="number">1</span>e:   c3                      retq   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ objdump -d foo.o.pic</span><br><span class="line"></span><br><span class="line">foo.o.pic:     file format elf64-x86<span class="number">-64</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line"><span class="number">0000000000000000</span> &lt;foo&gt;:</span><br><span class="line">   <span class="number">0</span>:   <span class="number">55</span>                      push   %rbp</span><br><span class="line">   <span class="number">1</span>:   <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">   <span class="number">4</span>:   <span class="number">89</span> <span class="number">7</span>d fc                mov    %edi,<span class="number">-0x4</span>(%rbp)</span><br><span class="line">   <span class="number">7</span>:   <span class="number">89</span> <span class="number">75</span> f8                mov    %esi,<span class="number">-0x8</span>(%rbp)</span><br><span class="line">   a:   <span class="number">48</span> <span class="number">8</span>b <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    mov    <span class="number">0x0</span>(%rip),%rax        # <span class="number">11</span> &lt;foo+<span class="number">0x11</span>&gt;</span><br><span class="line">  <span class="number">11</span>:   <span class="number">48</span> <span class="number">89</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    mov    %rax,<span class="number">0x0</span>(%rip)        # <span class="number">18</span> &lt;foo+<span class="number">0x18</span>&gt;</span><br><span class="line">  <span class="number">18</span>:   <span class="number">8</span>b <span class="number">55</span> fc                mov    <span class="number">-0x4</span>(%rbp),%edx</span><br><span class="line">  <span class="number">1</span>b:   <span class="number">8</span>b <span class="number">45</span> f8                mov    <span class="number">-0x8</span>(%rbp),%eax</span><br><span class="line">  <span class="number">1</span>e:   <span class="number">01</span> d0                   add    %edx,%eax</span><br><span class="line">  <span class="number">20</span>:   <span class="number">5</span>d                      pop    %rbp</span><br><span class="line">  <span class="number">21</span>:   c3                      retq</span><br></pre></td></tr></table></figure>
+
+<p>結果是用 <code>-fPIC</code> compile 出來跟沒有用的 object file 不一樣<del>（好像廢話）</del>，而且沒有 <code>-fPIC</code> 無法 link 成 shared object。</p>
+<figure class="highlight nimrod"><table><tr><td class="code"><pre><span class="line">$ gcc -<span class="literal">shared</span> foo.o -o foo.so</span><br><span class="line">/usr/bin/ld: foo.o: relocation <span class="type">R_X86_64_32S</span> against `sum' can <span class="keyword">not</span> be used <span class="keyword">when</span> making a <span class="literal">shared</span> <span class="keyword">object</span>; recompile <span class="keyword">with</span> -fPIC</span><br></pre></td></tr></table></figure>
+
+<p>relocation table 如果有 <code>R_X86_64_32S</code> 定址無法變成 DSO。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -r foo.o</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">'.rela.text'</span> at offset 0x240 contains 2 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">00000000000d  000300000002 R_X86_64_PC32     0000000000000000 .data - 8</span><br><span class="line">000000000011  000a0000000b R_X86_64_32S      0000000000000000 sum + 0</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">'.rela.eh_frame'</span> at offset 0x270 contains 1 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000020  000200000002 R_X86_64_PC32     0000000000000000 .text + 0</span><br><span class="line"></span><br><span class="line">$ readelf -r foo.o.pic</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">'.rela.text'</span> at offset 0x278 contains 2 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">00000000000d  000b00000009 R_X86_64_GOTPCREL 0000000000000000 sum - 4</span><br><span class="line">000000000014  000300000002 R_X86_64_PC32     0000000000000000 .data - 4</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">'.rela.eh_frame'</span> at offset 0x2a8 contains 1 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000020  000200000002 R_X86_64_PC32     0000000000000000 .text + 0</span><br></pre></td></tr></table></figure>
+
+<p>再看看 shared library 的 section 們，只列出比較相關的部份。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ gcc -fPIC -<span class="keyword">shared</span> -o foo.so foo.c</span><br><span class="line">$ readelf -S foo.so</span><br><span class="line">There are <span class="number">27</span> section headers, starting at offset <span class="number">0x1170</span>:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type             Address           Offset</span><br><span class="line">       Size              EntSize          Flags  Link  Info  Align</span><br><span class="line">  ...</span><br><span class="line">  [ <span class="number">3</span>] .dynsym           DYNSYM           <span class="number">00000000000001f</span>8  <span class="number">000001f</span>8</span><br><span class="line">       <span class="number">0000000000000150</span>  <span class="number">0000000000000018</span>   A       <span class="number">4</span>     <span class="number">2</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">4</span>] .dynstr           STRTAB           <span class="number">0000000000000348</span>  <span class="number">00000348</span></span><br><span class="line">       <span class="number">00000000000000</span>ab  <span class="number">0000000000000000</span>   A       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  ...</span><br><span class="line">  [ <span class="number">7</span>] .rela.dyn         RELA             <span class="number">0000000000000430</span>  <span class="number">00000430</span></span><br><span class="line">       <span class="number">00000000000000</span>d8  <span class="number">0000000000000018</span>   A       <span class="number">3</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">8</span>] .rela.plt         RELA             <span class="number">0000000000000508</span>  <span class="number">00000508</span></span><br><span class="line">       <span class="number">0000000000000030</span>  <span class="number">0000000000000018</span>  AI       <span class="number">3</span>    <span class="number">10</span>     <span class="number">8</span></span><br><span class="line">  ...</span><br><span class="line">  [<span class="number">10</span>] .plt              PROGBITS         <span class="number">0000000000000560</span>  <span class="number">00000560</span></span><br><span class="line">       <span class="number">0000000000000030</span>  <span class="number">0000000000000010</span>  AX       <span class="number">0</span>     <span class="number">0</span>     <span class="number">16</span></span><br><span class="line">  ...</span><br><span class="line">  [<span class="number">18</span>] .dynamic          DYNAMIC          <span class="number">0000000000200760</span>  <span class="number">00000760</span></span><br><span class="line">       <span class="number">00000000000001</span>c0  <span class="number">0000000000000010</span>  WA       <span class="number">4</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [<span class="number">19</span>] .got              PROGBITS         <span class="number">0000000000200920</span>  <span class="number">00000920</span></span><br><span class="line">       <span class="number">0000000000000030</span>  <span class="number">0000000000000008</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [<span class="number">20</span>] .got.plt          PROGBITS         <span class="number">0000000000200950</span>  <span class="number">00000950</span></span><br><span class="line">       <span class="number">0000000000000028</span>  <span class="number">0000000000000008</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Lazy-Binding"><a href="#Lazy-Binding" class="headerlink" title="Lazy Binding"></a>Lazy Binding</h2><p>dynamic linking 以犧牲一點效能達到模組使用的靈活度。效能降低發生在兩個地方：程式開始執行時的 linking 工作以及 GOT 帶來的間接定址。</p>
+<p>程式裡可能有很多 function 在執行過程中不會或很少被用到，例如錯誤處理跟少用的功能。一開始執行就 link 所有 library 裡的 function 顯然有點浪費，畢竟可能花時間 link 了卻沒用到。如果等到 function 第一次被使用時才 bind symbol（找 symbol、relocate 等等）可以加快程式啟動的速度，這個方法稱為 lazy binding。</p>
+<p>ELF 用 Procedure Linkage Table（PLT）來實作 lazy binding。在沒有 lazy binding 前，會藉由 GOT 進行間接跳轉來 access 另一個模組的 function 。有了 lazy binding 表示一開始 load 模組時不會把 GOT 填完，所以使用 GOT 跳轉前要多一層 PLT 的處理：如果 GOT element 沒有值，會先由 dynamic linker 找到該 function 的 address，填入 GOT 後跳去該 function 執行。之後再使用到同一個 function，由於 GOT 裡已經有值，可以直接進行間接跳轉。</p>
+<h2 id="Related-posts-amp-Ref"><a href="#Related-posts-amp-Ref" class="headerlink" title="Related posts &amp; Ref"></a>Related posts &amp; Ref</h2><ul>
+<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
+<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
+<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+<li><a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a></li>
+<li>《程式設計師的自我修養》ch7</li>
+<li><a href="https://www.bottomupcs.com/chapter08.xhtml" target="_blank" rel="noopener">https://www.bottomupcs.com/chapter08.xhtml</a></li>
+<li><a href="https://hackmd.io/s/HkK7Uf4Ml" target="_blank" rel="noopener">你所不知道的 C 語言：動態連結器篇</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/System-Software/" rel="tag"># System Software</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Dynamic-Linking-Basic/" rel="prev" title="Dynamic Linking Basic">
+      <i class="fa fa-chevron-left"></i> Dynamic Linking Basic
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/RD-murmur-1/" rel="next" title="工程師碎碎念 1">
+      工程師碎碎念 1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-linking-遇到的問題"><span class="nav-number">1.</span> <span class="nav-text">Dynamic linking 遇到的問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Position-independent-Code（PIC）"><span class="nav-number">2.</span> <span class="nav-text">Position-independent Code（PIC）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#library-內"><span class="nav-number">2.1.</span> <span class="nav-text">library 內</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨-library"><span class="nav-number">2.2.</span> <span class="nav-text">跨 library</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">2.3.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lazy-Binding"><span class="nav-number">3.</span> <span class="nav-text">Lazy Binding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts-amp-Ref"><span class="nav-number">4.</span> <span class="nav-text">Related posts &amp; Ref</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Dynamic-Linking-PIC/";
+    this.page.identifier = "Dynamic-Linking-PIC/";
+    this.page.title = "Dynamic Linking Position-independent Code（PIC）";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

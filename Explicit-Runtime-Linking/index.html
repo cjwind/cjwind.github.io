@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。 在程式碼裡指定了什麼時候要 load 哪個模組">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Explicit Runtime Linking">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。 在程式碼裡指定了什麼時候要 load 哪個模組">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-02-19T15:21:48.000Z">
+<meta property="article:modified_time" content="2017-04-14T15:04:00.000Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="System Software">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Explicit Runtime Linking | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Explicit Runtime Linking
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-19 23:21:48" itemprop="dateCreated datePublished" datetime="2017-02-19T23:21:48+08:00">2017-02-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-04-14 23:04:00" itemprop="dateModified" datetime="2017-04-14T23:04:00+08:00">2017-04-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Explicit-Runtime-Linking/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Explicit-Runtime-Linking/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。</p>
+<p>在程式碼裡指定了什麼時候要 load 哪個模組，對程式來說它就「知道」要有載入模組的動作。如果是以 dynamic linker 來 load 跟 link，模組跟 library 對程式是透明的，它不知道它用了什麼。兩者的差別即在手動或自動 load shared library，以及load 的時機。</p>
+<p>另一方面，如果需要知道一個程式依賴哪些模組，例如移植時要將所有相關模組移植到其他平台以確保所有功能正常。這時以 explicit runtime linking 載入的模組可能增加檢查 dependency 的難度，因為無法用 <code>ldd</code> 得知依賴的模組，可能要等到用到某個功能時才當掉或無法使用。當然這問題並不是太大的缺點，可以透過適當管理 dependency library 以及以一致的方式撰寫 explicit linking 程式碼來避免。</p>
+<p>linux 以四個 function 來達到 explicit runtime linking，分別是 <code>dlopen()</code>、<code>dlsym()</code>、<code>dlerror()</code> 以及 <code>dlclose()</code>，它們宣告在 <code>&lt;dlfcn.h&gt;</code>，link 時須 <code>-ldl</code>。</p>
+<h2 id="dlopen"><a href="#dlopen" class="headerlink" title="dlopen()"></a>dlopen()</h2><p><code>dlopen()</code> 開啟一個 dynamic library，將其 load 到 process 的 adddress space，並完成初始化。</p>
+<p><code>void *dlopen(const char *filename, int flag);</code></p>
+<p>第一個參數 <code>filename</code> 很簡單，就是 dynamic library 的路徑。如果是絕對路徑就能直接打開 dynamic library，如果是相對路徑則會依照某個順序尋找 library，詳細的順序可參考 <code>man dlopen</code>。</p>
+<p><code>flag</code> 必須指定 <code>RTLD_LAZY</code> 或 <code>RTLD_NOW</code> 之一，<code>RTLD_LAZY</code> 表示 lazy binding，也就是 symbol 在第一次被用到的時候才 resolve。lazy binding 只用於 function，variable 會在 library load 時就 bind 好。<code>RTLD_NOW</code> 當然就是在 load library 的時候就會把所有 symbol 都 resolve。除了 <code>RTLD_LAZY</code> 跟 <code>RTLD_NOW</code> 之外，還有 <code>RTLD_GLOBAL</code> 可以跟他們一起使用，表示之後載入的 library 都可以使用這個 library 的 symbol。其他更多 flag 就參考 manual 囉。</p>
+<p><code>dlopen()</code> return 一個 handle，之後的操作要傳這個 handle 給其他 function。如果 load 失敗，會 return NULL。如果要 load 的 library 之前已經 load 過，會 return 跟之前相同的 handle。</p>
+<p>如果 load 進來的 library 依賴其他 shared library（link 時指定，非 explicit runtime linking），<code>dlopen()</code> 會自動 load 那些 shared library。</p>
+<h2 id="dlsym"><a href="#dlsym" class="headerlink" title="dlsym()"></a>dlsym()</h2><p>讓我們可以找到 library 的 symbol。</p>
+<p><code>void *dlsym(void *handle, const char *symbol);</code></p>
+<p><code>handle</code> 是剛剛 <code>dlopen()</code> return 的 handle。</p>
+<p><code>symbol</code> 是要找的 symbol 的名字，如果找不到 symbol 會 return NULL。找到 symbol 會 return 該 symbol 的 address。根據 manual，return 值是 NULL 無法當作找不到 symbol 的判斷，因為 return 值有可能真的是 NULL<em>（不過我想不到這種狀況的例子…）</em>，須配合 <code>dlerror()</code> 才能確認是不是有找到 symbol：首先 call <code>dlerror()</code> 清掉前面的 error，接著 call <code>dlsym()</code> 找 symbol，再 call <code>dlerror()</code> 看是否有 error 來判斷是否找到 symbol。</p>
+<p>如果多個 library 有相同的 symbol 會用哪個？<code>dlsym()</code> 會以 BFS 找 library 的 dependency tree，直到找到 symbol 或完全找不到為止。也就是說 load 順序會決定 symbol 同名時使用到誰，先 load 會先用。</p>
+<h2 id="dlerror"><a href="#dlerror" class="headerlink" title="dlerror()"></a>dlerror()</h2><p>call <code>dlopen()</code>、<code>dlsym()</code> 跟 <code>dlclose()</code> 之後可以 call <code>dlerror()</code> 看上次呼叫有沒有成功。如果成功 <code>dlerror()</code> 會 return NULL，反之則 return error 相關資訊。</p>
+<p><code>char *dlerror(void);</code></p>
+<h2 id="dlclose"><a href="#dlclose" class="headerlink" title="dlclose()"></a>dlclose()</h2><p>用來 unload library。</p>
+<p><code>int dlclose(void *handle);</code></p>
+<p>系統會用 counter 紀錄一個 library load 的次數，也就是 <code>dlopen()</code> 時加一，<code>dlclose()</code> 則減一，當 counter 變成 0 時 library 才會真的被 unload 掉。unload 的順序跟 load 相反，會先執行 <code>.finit</code> section 的程式碼，接著從 symbol table 中移除相關 symbol，取消 process address space 跟 library 的 memory mapping，最後關閉 library 檔案。</p>
+<p>成功 return 0，失敗 return 非 0 值。</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>簡單用個例子實作跟驗證。以下共有 <code>libfoo.so</code>、<code>libbar.so</code> 跟 <code>libkar.so</code> 三個 library，主程式 <code>main.c</code> 以 explicit runtime linking load <code>libfoo.so</code>，而 <code>libfoo.so</code> 依賴 <code>libbar.so</code> 以及 <code>libkar.so</code>，後兩者有相同名稱的 function。</p>
+<figure class="highlight c"><figcaption><span>bar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">"bar() in bar.c\n"</span>); &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>kar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">"bar() in kar.c\n"</span>); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>compile with </p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gcc -g -fPIC -<span class="keyword">shared </span>-o libbar.so <span class="keyword">bar.c</span></span><br><span class="line"><span class="keyword">$ </span>gcc -g -fPIC -<span class="keyword">shared </span>-o libkar.so kar.c</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> zoo = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> coo = <span class="number">5566</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"foo = %x, &amp;zoo = %x, &amp;coo = %x\n"</span>, foo, &amp;zoo, &amp;coo);</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">koo</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n + coo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>compile with <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libbar.so ./libkar.so</code></p>
+<figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* handle = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(<span class="string">"./libfoo.so"</span>, RTLD_LAZY);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (handle == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Load library failed. error: %s\n"</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> (*fn)(<span class="keyword">int</span>, <span class="keyword">int</span>) = <span class="literal">NULL</span>;</span><br><span class="line">    dlerror();  <span class="comment">// clear error condition</span></span><br><span class="line">    fn = dlsym(handle, <span class="string">"foo"</span>);</span><br><span class="line"><span class="comment">//    fn = dlsym(handle, "koo");    // fail</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>* error = dlerror();</span><br><span class="line">    <span class="keyword">if</span> (error != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Load symbol failed. error: %s\n"</span>, error);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fn = %x\n"</span>, fn);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = fn(<span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"ret = %d\n"</span>, ret);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// doesn't check error</span></span><br><span class="line">    <span class="keyword">int</span>* p = <span class="literal">NULL</span>;</span><br><span class="line">    p = dlsym(handle, <span class="string">"zoo"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"p = %x\n"</span>, p);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>* c = <span class="literal">NULL</span>;</span><br><span class="line">    c = dlsym(handle, <span class="string">"coo"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"c = %x, *c = %d\n"</span>, c, *c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> (*bar)() = <span class="literal">NULL</span>;</span><br><span class="line">    bar = dlsym(handle, <span class="string">"bar"</span>);</span><br><span class="line">    bar();</span><br><span class="line"></span><br><span class="line">    getchar();  <span class="comment">// just pause process</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dlclose(handle) != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Close library fail. error: %s\n"</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>compile with <code>gcc -g -o main main.c -ldl</code></p>
+<p>執行結果顯示拿到主程式 <code>libfoo.so</code> 裡 symbol 的 address，以及 load 到 <code>libbar.so</code> 裡的 <code>bar()</code>：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">$ ./main </span><br><span class="line"><span class="attr">fn</span> = ef40f740</span><br><span class="line"><span class="attr">foo</span> = ef40f740, &amp;<span class="attr">zoo</span> = ef60faf0, &amp;<span class="attr">coo</span> = ef40f7a8</span><br><span class="line"><span class="attr">ret</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">p</span> = ef60faf0</span><br><span class="line"><span class="attr">c</span> = ef40f7a8, *<span class="attr">c</span> = <span class="number">5566</span></span><br><span class="line">bar() <span class="keyword">in</span> bar.c</span><br></pre></td></tr></table></figure>
+
+<p>process 的 address space：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">00400000</span><span class="number">-00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/<span class="keyword">explicit</span>-load/main</span><br><span class="line"><span class="number">00600000</span><span class="number">-00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/<span class="keyword">explicit</span>-load/main</span><br><span class="line"><span class="number">02552000</span><span class="number">-02573000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                  [heap]</span><br><span class="line"><span class="number">7fe9</span>bee48000<span class="number">-7fe9</span>bee49000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libkar.so</span><br><span class="line"><span class="number">7fe9</span>bee49000<span class="number">-7fe9</span>bf048000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libkar.so</span><br><span class="line"><span class="number">7fe9</span>bf048000<span class="number">-7fe9</span>bf049000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libkar.so</span><br><span class="line"><span class="number">7fe9</span>bf049000<span class="number">-7fe9</span>bf04a000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libbar.so</span><br><span class="line"><span class="number">7fe9</span>bf04a000<span class="number">-7fe9</span>bf249000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libbar.so</span><br><span class="line"><span class="number">7fe9</span>bf249000<span class="number">-7fe9</span>bf24a000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libbar.so</span><br><span class="line"><span class="number">7fe9</span>bf24a000<span class="number">-7fe9</span>bf24b000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libfoo.so</span><br><span class="line"><span class="number">7fe9</span>bf24b000<span class="number">-7fe9</span>bf44a000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libfoo.so</span><br><span class="line"><span class="number">7fe9</span>bf44a000<span class="number">-7fe9</span>bf44b000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libfoo.so</span><br><span class="line"><span class="number">7fe9</span>bf44b000<span class="number">-7fe9</span>bf5ec000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf5ec000<span class="number">-7fe9</span>bf7ec000 ---p <span class="number">001</span>a1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7ec000<span class="number">-7fe9</span>bf7f0000 r--p <span class="number">001</span>a1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7f0000<span class="number">-7fe9</span>bf7f2000 rw-p <span class="number">001</span>a5000 <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7f2000<span class="number">-7fe9</span>bf7f6000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7fe9</span>bf7f6000<span class="number">-7fe9</span>bf7f9000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7f9000<span class="number">-7fe9</span>bf9f8000 ---p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf9f8000<span class="number">-7fe9</span>bf9f9000 r--p <span class="number">00002000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf9f9000<span class="number">-7fe9</span>bf9fa000 rw-p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf9fa000<span class="number">-7fe9</span>bfa1a000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x86_64-linux-gnu/ld<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bfbf9000<span class="number">-7fe9</span>bfbfc000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7fe9</span>bfc16000<span class="number">-7fe9</span>bfc1a000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7fe9</span>bfc1a000<span class="number">-7fe9</span>bfc1b000 r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x86_64-linux-gnu/ld<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bfc1b000<span class="number">-7fe9</span>bfc1c000 rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x86_64-linux-gnu/ld<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bfc1c000<span class="number">-7fe9</span>bfc1d000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7f</span>fdd05ea000<span class="number">-7f</span>fdd060b000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [stack]</span><br><span class="line"><span class="number">7f</span>fdd0755000<span class="number">-7f</span>fdd0757000 r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [vdso]</span><br><span class="line"><span class="number">7f</span>fdd0757000<span class="number">-7f</span>fdd0759000 r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [vvar]</span><br><span class="line">ffffffffff600000-ffffffffff601000 r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                  [vsyscall]</span><br></pre></td></tr></table></figure>
+
+<p>三個 library 都 load 進來啦～</p>
+<p>用 gdb 在 <code>_init</code> 跟 <code>_fini</code> 設 break point 可以看到在 <code>dlopen()</code> 跟 <code>dlclose()</code> 時會分別執行 <code>libfoo.so</code> 及其他 library 的 <code>_init</code> 及 <code>_fini</code>。同樣適用 GCC 提供的 shared library constructor 及 destructor，<a href="/Dynamic-Linking-Relocation/">Ref</a>。</p>
+<p>可以用 <code>ldd</code> 看 <code>libfoo.so</code> 的 dependency：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.so </span><br><span class="line">        linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fffde785000</span>)</span><br><span class="line">        ./libbar.so (<span class="number">0x00007fdf77158000</span>)</span><br><span class="line">        ./libkar.so (<span class="number">0x00007fdf76f57000</span>)</span><br><span class="line">        libc.so<span class="number">.6</span> =&gt; /lib/x86_64-linux-gnu/libc.so<span class="number">.6</span> (<span class="number">0x00007fdf76bac000</span>)</span><br><span class="line">        /lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span> (<span class="number">0x00007fdf7755a000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果 compile <code>libfoo.so</code> 時改變 link 的 shared library 順序，變成 <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libkar.so ./libbar.so</code>，load 到的 <code>bar()</code> 會變成是 <code>libkar.so</code> 的。</p>
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ ./main</span><br><span class="line">fn = a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span></span><br><span class="line">foo = a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span>, &amp;zoo = a<span class="number">279</span>caf<span class="number">0</span>, &amp;coo = a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span></span><br><span class="line"><span class="keyword">ret</span> = <span class="number">8</span></span><br><span class="line">p = a<span class="number">279</span>caf<span class="number">0</span></span><br><span class="line"><span class="keyword">c</span> = a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span>, *<span class="keyword">c</span> = <span class="number">5566</span></span><br><span class="line">bar() in kar.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
+
+<p><code>ldd</code> 看到的順序也會變：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.so </span><br><span class="line">        linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fff4db40000</span>)</span><br><span class="line">        ./libkar.so (<span class="number">0x00007f5b4ddb5000</span>)</span><br><span class="line">        ./libbar.so (<span class="number">0x00007f5b4dbb4000</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Related-posts"><a href="#Related-posts" class="headerlink" title="Related posts"></a>Related posts</h2><ul>
+<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
+<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
+<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
+<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/System-Software/" rel="tag"># System Software</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/solve-servo-blank/" rel="prev" title="解決執行 Servo 只有白畫面問題">
+      <i class="fa fa-chevron-left"></i> 解決執行 Servo 只有白畫面問題
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Cargo-project-basic/" rel="next" title="Cargo project basic">
+      Cargo project basic <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dlopen"><span class="nav-number">1.</span> <span class="nav-text">dlopen()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlsym"><span class="nav-number">2.</span> <span class="nav-text">dlsym()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlerror"><span class="nav-number">3.</span> <span class="nav-text">dlerror()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlclose"><span class="nav-number">4.</span> <span class="nav-text">dlclose()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts"><span class="nav-number">6.</span> <span class="nav-text">Related posts</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Explicit-Runtime-Linking/";
+    this.page.identifier = "Explicit-Runtime-Linking/";
+    this.page.title = "Explicit Runtime Linking";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Bob 大叔的書之一《The Clean Coder》，算是《Clean Code》的續集吧。 《Clean Code》講怎麼寫 code，《The Clean Coder》講怎麼當 clean coder。記錄些心有戚戚焉的片段跟感想。 測試 設計「易於測試的程式碼」(p.48)  我想設計良好的程式應該也會好測試？從設計還是從測試出發，最後目標是一樣的，偏好哪種我覺得沒什麼差。 到目前為止，我">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Clean Coder">
+<meta property="og:url" content="http://www.cjwind.idv.tw/the-clean-coder/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="Bob 大叔的書之一《The Clean Coder》，算是《Clean Code》的續集吧。 《Clean Code》講怎麼寫 code，《The Clean Coder》講怎麼當 clean coder。記錄些心有戚戚焉的片段跟感想。 測試 設計「易於測試的程式碼」(p.48)  我想設計良好的程式應該也會好測試？從設計還是從測試出發，最後目標是一樣的，偏好哪種我覺得沒什麼差。 到目前為止，我">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-10-30T12:00:18.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.184Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Reading">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/the-clean-coder/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>The Clean Coder | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/the-clean-coder/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Clean Coder
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-10-30 20:00:18" itemprop="dateCreated datePublished" datetime="2017-10-30T20:00:18+08:00">2017-10-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/the-clean-coder/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="the-clean-coder/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Bob 大叔的書之一《The Clean Coder》，算是《Clean Code》的續集吧。</p>
+<p>《Clean Code》講怎麼寫 code，《The Clean Coder》講怎麼當 clean coder。記錄些心有戚戚焉的片段跟感想。</p>
+<h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><blockquote>
+<p>設計「易於測試的程式碼」(p.48)</p>
+</blockquote>
+<p>我想設計良好的程式應該也會好測試？從設計還是從測試出發，最後目標是一樣的，偏好哪種我覺得沒什麼差。</p>
+<p>到目前為止，我大多從設計出發。先想概略設計、class 的責任、class 之間的關係等等，接著實作會邊寫功能邊寫測試，但不是 TDD。通常是實作一小塊、寫那一小塊的測試，而不是先寫測試才實作。即使從設計出發還是需要測試的，因為可以確保程式是對的，之後也不怕修改。</p>
+<p>沒有實際用 TDD 寫 code，只在 dojo 小小玩過，所以說不上從測試出發是不是會導向好設計，能想像的只有因為要測試所以功能切分上應該不會太糟。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>這一策略有時也叫無情重構（merciless refactoring），我稱它叫作「童子軍規則」：對每個模組，每次 check in 程式碼，就要讓它比上次 checked out 時更為簡潔。(p.49)</p>
+</blockquote>
+<p>幾年前曾經聽一位大師說過，不過很多時候不要弄得更亂已經謝天謝地了，偶爾才順手修一點。</p>
+<blockquote>
+<p>如果你有一套覆蓋了所有程式碼的自動化測試，如果那套測試可以隨時快速執行，那麼你根本不會害怕修改程式碼。(p.50)</p>
+</blockquote>
+<blockquote>
+<p>看到混亂的函式時，你的第一反應是：「真是一團糟，這個函式需要整理。」你的第二反應是：「我不會去碰它！」為什麼？因為你知道，如果去動它，就要冒著破壞它的風險；而如果你破壞了它，那麼它就纏上你了。</p>
+<p>但是如果你能確信自己的整理工作不會破壞任何東西，那又會是怎樣的一個情況呢？如果你擁有我剛才提到的那種把握，會怎樣呢？如果你只需按下一個按鈕，然後在 90 秒內便可以確信你的修改沒有破壞任何東西，只是讓程式碼變得更好了，那麼又會是怎樣的一種情況呢？</p>
+<p>這就是 TDD 最強大之處。擁有一套值得信賴的測試，便可完全打消對修改程式碼的全部恐懼。當看見糟糕的程式碼時，就可以放手整理。程式碼會變得具有可塑性，你可以安全地將之雕琢成簡單而滿意的結構。(p.113)</p>
+</blockquote>
+<p>呵呵呵……真的。看到一團亂 code 覺得該整理又立刻覺得不想碰它。改了就得保證它還是正常的，再小的變動都無法確保不會弄壞些什麼。因為就是會自認不會有問題的修改卻在意想不到的地方壞掉（通常 code 愈沒有分清楚權責愈容易發生這種事）。沒測試可能沒發現改壞，沒有完整的測試可能沒發現壞在其他地方。在測試得花費時間的情況下，我通常不會碰路過看到的亂 code，不然就是賭人品簡單測過就「相信它是好的」。完整的自動化測試是個很好的保護措施，如果能確保東西不會改壞，就能安心修整雜亂的 code。</p>
+<p>現實總是不美好，在沒有自動化測試的情況下，我的變通方式是「在加新功能或修改功能時順便整理」。如果可以也會一起加入 unit test。因為會改 code（雖然以一些設計原則來說，加新功能所需修改的 code 應該不多甚至沒有），測試時也會確認舊有功能是否正常，既然本來就要測，就能順便整理啦。</p>
+<h3 id="GUI-的測試"><a href="#GUI-的測試" class="headerlink" title="GUI 的測試"></a>GUI 的測試</h3><blockquote>
+<p>編寫 GUI 的驗收測試時，必須使用 GUI 背後相對穩定的抽象元素。</p>
+</blockquote>
+<blockquote>
+<p>測試系統功能時，應當呼叫真實的 API，而不是 GUI。</p>
+</blockquote>
+<blockquote>
+<p>要把 GUI 和業務邏輯分開。</p>
+</blockquote>
+<blockquote>
+<p>透過 GUI 來進行測試非常容易出問題，除非你要測試的僅僅只有 GUI。因為 GUI 很容易變化，所以針對 GUI 的測試很不穩定。</p>
+</blockquote>
+<blockquote>
+<p>最好把 GUI 和業務規則「去耦合」，在測試 GUI 本身時，用 Stubs（一種測試替身）替代業務規則。(p.139)</p>
+</blockquote>
+<p>像 submit form 用 post data 去測，測試 business logic 要用 API 測而不要用 GUI 操作測。js object 中功能及邏輯部份跟 UI element 分得愈開愈好，這樣才能測功能跟邏輯而不用管變動性很大的 UI element。只有在要測試的東西就是「GUI 本身」才用 GUI 測試。</p>
+<h3 id="TDD-三大法則"><a href="#TDD-三大法則" class="headerlink" title="TDD 三大法則"></a>TDD 三大法則</h3><ol>
+<li>在撰寫一個單元測試（測試失敗的單元測試）前，不可撰寫任何產品程式。</li>
+<li>只撰寫剛好無法通過的單元測試，不能編譯也算無法通過。</li>
+<li>只撰寫剛好能通過當前測試失敗的產品程式。</li>
+</ol>
+<p>看這本書前就聽過某大師講過，還是記錄一下免得難找 XD</p>
+<h3 id="測試金字塔"><a href="#測試金字塔" class="headerlink" title="測試金字塔"></a>測試金字塔</h3><ul>
+<li>人工探索式測試：約 5%</li>
+<li>系統測試：約 10%</li>
+<li>整合測試：約佔 20%</li>
+<li>元件測試：50% 覆蓋</li>
+<li>單元測試：近乎 100% 覆蓋</li>
+</ul>
+<h2 id="需求測不準定理"><a href="#需求測不準定理" class="headerlink" title="需求測不準定理"></a>需求測不準定理</h2><blockquote>
+<p>有一種現象叫作「觀察者效應」或稱為「不確定原則」。每次你向業務方展示一項功能，他們就獲得了比之前更多的資訊，這些新資訊反過頭來又會影響他們對於整個系統的看法。(p.127)</p>
+</blockquote>
+<p>偷拿物理來用！XD</p>
+<blockquote>
+<p>做業務的人和寫程式的人都容易陷入一個陷阱，即「過早進行精細化」。</p>
+<p>一看到需求已經被滿足，關於到底要什麼，他們就會冒出更好的想法──通常那不會是他們當時看到的樣子。(p.127)</p>
+</blockquote>
+<p>這也是 RD 會覺得很幹的地方。</p>
+<p>RD 的心聲：「怎麼拼命滿足了需求，demo 的時候又說要這個要那個？跟之前說的又不一樣，到底是怎樣？」</p>
+<p>雖然我能稍微理解對其他人來說，會以現在看到的東西為基礎再更進一步知道更確切的需求，但我自己在 demo 聽到要這個又要那個，有時候難免升起一把火，尤其是中間要是遇到很麻煩的問題好不容易解掉了之類的。<del>想想好像是修養不夠…</del></p>
+<p>如果體認到「需求一定會一直變」，能做點因應是比較好的，例如用些設計原則跟方式，降低需求變動時的修改難度。</p>
+<blockquote>
+<p>開發人員也會掉進精確化的陷阱。他們知道必須評估整個系統，而且通常認為需要精確評估。但是，事實並非如此。</p>
+<p>首先，即便擁有全面準確的資訊，評估也通常存在著巨大的變數。其次，因為「不確定原則」的存在，所以不可能透過反覆推敲而實現早期的精確性。需求是一定會變化的，所以追求那種精確性是白作工的。</p>
+<p>專業開發人員知道，預估可以並且必須基於「那不怎麼精確的需求」，這些預估只是預估而已。為了強調這點，專業開發人員通常會在預估中使用誤差棒，這樣業務方就能理解不確定性。(p.127)</p>
+</blockquote>
+<p>我曾經希望完整知道整個系統的細節後才評估，可是沒多久就發現辦不太到，有太多因素導致系統某些部份是不那麼確定的，例如 third party 複雜的使用方式、商業流程尚未確定、domain knowledge 不足、系統的隱藏問題等等。以至於無論如何避免，還是會在做下去後發現這裡缺了那裡漏了，或者後來才知道這個 domain 有些觀念是一開始不曉得的。</p>
+<p>既然無法一開始完整知道所有細節，只好換個方法。首先，設計時在一個程度上保持軟體的彈性，但不過度使用複雜的 pattern 增加彈性，只要降低 component 間的耦合度就能讓往後的修改不那麼難。其次，雖然系統中有不確定性很高的地方，卻也有「現在就能確定」的部份，所以我會將不確定的部份劃分在系統的某一塊並且對它有個基本結構的想法，先實作現在確定的部份。隨著時間推進，原本不太確定的部份可能變得確定，例如幾天後拿到 API 文件、確定了商業流程等等，到這時再做細部設計跟實作。</p>
+<blockquote>
+<p>避免過早精細化的辦法是盡可能地「推遲」精細化。(p.127)</p>
+</blockquote>
+<p>我算是在針對系統不確定性高的部份推遲「精細化」，延遲細部確認各種作法跟設計。</p>
+<h3 id="三元分析法"><a href="#三元分析法" class="headerlink" title="三元分析法"></a>三元分析法</h3><p>可以用來預估時程。</p>
+<ul>
+<li>O：樂觀預估（Optimistic Estimate）<ul>
+<li>非常樂觀的數字。如果一切異常順利，可以在這個時間內完成。</li>
+<li>發生機率應小於 1%</li>
+</ul>
+</li>
+<li>N：常規預估（Nominal Estimate）<ul>
+<li>機率最大的數字。</li>
+</ul>
+</li>
+<li>P：悲觀預估（Pessimistic Estimate）<ul>
+<li>非常悲觀的數字。考慮各種意外狀況的預估。</li>
+<li>發生機率應小於 1%</li>
+</ul>
+</li>
+</ul>
+<p>任務的期望完成時間：</p>
+<p><code>u = (O + 4N + P) / 6</code></p>
+<p>任務完成時間的機率分佈標準差，用來衡量不確定性：</p>
+<p><code>a = (P - O) / 6</code></p>
+<p>讓預估時程是個機率分佈，而非一個聽起來確定（實際上根本是瞎猜）的值。</p>
+<h2 id="溝通"><a href="#溝通" class="headerlink" title="溝通"></a>溝通</h2><blockquote>
+<p>通常，各方握手言歡，以為其他人都明白自己的意思。雙方以為取得了共識，然後帶著截然不同的想法離開，這種事屢見不鮮。(p.140)</p>
+</blockquote>
+<p>這超級無敵容易發生。</p>
+<p>人類語言十分不精確，一個字詞對不同人可能有不同意義或解讀。有精確意義的科學或工程術語還好，但大多數討論需求是不會用這種術語的<del>（會逼死客人或業務）</del>，而需求描述卻是軟體開發非常需要清楚確認的部份。如果不確認過某些字詞的精確意義，或者不在過程中不斷的確認彼此的意思，非常容易出現大家都說 A 可是我的是 A、你的是 a、他的是 A’，等到東西做下去才發現怎麼通通不一樣<del>，然後又要改，RD 哭哭</del>。</p>
+<p>Bob 大叔解決溝通問題的方式是使用驗收測試，但我還沒有很了解為什麼驗收測試可以解決溝通問題，是因為驗收測試足夠精確並且是由業務端認可過的？</p>
+<blockquote>
+<p>「凡是不能在 5 分鐘內解決的爭論，都不能靠辯論解決。」這類爭論之所以要花這麼多時間，是因為各方都拿不出「足夠有力的證據」來支持己見。所以這類爭論依據的不是「事實」，而是「信念」。</p>
+<p>在沒有資料的情況下，如果觀點無法在短時間（5 ~ 30 分鐘）內達成一致，就永遠無法達成一致。唯一的解決方法是「去取得資料，讓資料來說話」。</p>
+<p>該怎麼得到解決問題所需要的資料呢？有時候可以做一些實驗，也可以做些模擬或是建立模型。但是有些時候，最好的辦法是拋硬幣來決定到底該如何選擇。</p>
+<p>如果爭論必須解決，就應當要求爭論各方在 5 分鐘內向大家表明問題，然後大家投票。(p.151)</p>
+</blockquote>
+<p>愈缺乏客觀知識、資料或數據的討論，愈容易陷入主觀之爭。而陷入主觀之爭，往往誰也無法說服誰，容易變成長時間的辯論，到最後只是看誰肯先讓步。</p>
+<h2 id="專注力"><a href="#專注力" class="headerlink" title="專注力"></a>專注力</h2><blockquote>
+<p>專業開發人員會學習安排時間，妥善使用自己的專注力點數。我們選擇專注力點數充裕的時候進行程式設計，在專注力點數匱乏時做其他事情。(p.152)</p>
+</blockquote>
+<blockquote>
+<p>一旦專注力點數耗盡，你就無法控制專注力。你仍然可以寫程式，但是多半寫出來的程式需要在第二天重寫，或者在幾週或幾個月之後備受這段程式碼的煎熬。所以，更好的辦法還是花 30 ~ 60 分鐘來換換腦子。(p.153)</p>
+</blockquote>
+<p>想睡覺的時候不要寫 code 不要寫 code 不要寫 code。</p>
+<p>這念書的時候就有所感了，因為我基本上無法熬夜，愈晚腦子愈頓。想睡覺寫出來的東西往往不知道在幹嘛，與其寫出一堆不知道在幹嘛、事後還要重改的東西，不如去休息。這才是效率啊。</p>
+<h2 id="壓力"><a href="#壓力" class="headerlink" title="壓力"></a>壓力</h2><blockquote>
+<p>觀察自己在危機時刻中的反應，就可以瞭解自己的信念。如果在危機中依然遵循著你在常規狀況下遵循的紀律，就說明你確實相信那些紀律。反過來說，如果在危機中改變了行為，就說明你並不真的相信常規行為中的紀律。</p>
+<p>選擇那些「你在危機時刻依然會遵循的紀律原則」，並且在所有工作中都遵守這些紀律。遵守這些紀律原則是避免陷入危機的最好途徑。(p.172)</p>
+</blockquote>
+<blockquote>
+<p>當事情十分困難時，要堅信你的紀律原則。之所以你會將之奉為紀律，是因為他們可以指引你度過高壓時期。(p.173)</p>
+</blockquote>
+<p>我想到飛行訓練或者任何有風險運動的練習。這些活動遇到危機或危險，通常不會希望自己整個亂掉、胡亂跑亂衝，能依靠的應該是平常練習中的訓練、紀律以及習慣。同理，軟體開發遇到危機應該更要依靠平常的習慣跟紀律，而非打亂原本的工作方式。</p>
+<h2 id="協作"><a href="#協作" class="headerlink" title="協作"></a>協作</h2><blockquote>
+<p>深刻理解業務目標。<br>你需要理解「手上正在撰寫的程式碼，其業務價值是什麼」(p.177)</p>
+</blockquote>
+<p>有時候知道業務價值會比較有動力。</p>
+<p>有時候知道業務價值才能判斷 solution 對不對，尤其是討論對象一開始就是 RD 的時候。以目前的經驗來說，RD 似乎很容易直接進入 solution 的細部討論，萬一一開始理解錯業務價值或目標或者一開始 solution 是錯的，後續 RD 間無論如何討論細部都無法達到業務重點。</p>
+<blockquote>
+<p>不正常的團隊最糟糕的症狀是，每位程式設計師在自己的程式碼週邊築起一道高牆，拒絕讓其他程式設計師接觸到這些程式碼。</p>
+<p>將程式碼所有權的各種隔斷全部打破、由整個團隊共同擁有全部程式碼的做法，相較於上述方式要好得多。我讚同這種做法：團隊中每位成員都能簽出任和模組的程式碼，做出任何他們認為合適的修改。我期望擁有程式碼的是整個團隊，而非個人。(p.180)</p>
+<p>儘管每位團隊成員都有自己的位置，但在緊要關頭時，每位團隊成員也要能夠接替其他人的位置。(p.181)</p>
+</blockquote>
+<p>嘛，我同意原作者容易修改自己寫的程式，改起來可能比較快，但這是我唯一想得到這種「護住地盤」行為可能的好處了。所有人都能改所有程式碼，好處就像 Bob 大叔說的其他人可以看到盲點、提供不同意見、每個人都可以接替其他人的位置等等。</p>
+<p>我好像除非完全是自己的 project，不然不怎麼在意別人看或改我寫的 code（只要別把結構愈改愈爛就好）。而且我也不怎麼喜歡讓自己成為「唯一能修改或看得懂某一塊程式的人」，因為……這樣放假還可能被找很煩，呃，咳咳，我只是覺得工作的時候就專心工作、放假的時候就好好放假。另外，東西其他人能接手代表我可以再去做其他東西。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reading/" rel="tag"># Reading</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/performance-of-concurrency/" rel="prev" title="Performance of Concurrency">
+      <i class="fa fa-chevron-left"></i> Performance of Concurrency
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/prefix-scan/" rel="next" title="Prefix Scan">
+      Prefix Scan <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#測試"><span class="nav-number">1.</span> <span class="nav-text">測試</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GUI-的測試"><span class="nav-number">1.1.</span> <span class="nav-text">GUI 的測試</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TDD-三大法則"><span class="nav-number">1.2.</span> <span class="nav-text">TDD 三大法則</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#測試金字塔"><span class="nav-number">1.3.</span> <span class="nav-text">測試金字塔</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求測不準定理"><span class="nav-number">2.</span> <span class="nav-text">需求測不準定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三元分析法"><span class="nav-number">2.1.</span> <span class="nav-text">三元分析法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#溝通"><span class="nav-number">3.</span> <span class="nav-text">溝通</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#專注力"><span class="nav-number">4.</span> <span class="nav-text">專注力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#壓力"><span class="nav-number">5.</span> <span class="nav-text">壓力</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#協作"><span class="nav-number">6.</span> <span class="nav-text">協作</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/the-clean-coder/";
+    this.page.identifier = "the-clean-coder/";
+    this.page.title = "The Clean Coder";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

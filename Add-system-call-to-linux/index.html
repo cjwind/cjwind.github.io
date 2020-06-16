@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="Download kernel source code我用的 kernel source code 是從 https:&#x2F;&#x2F;git.kernel.org&#x2F;pub&#x2F;scm&#x2F;linux&#x2F;kernel&#x2F;git&#x2F;stable&#x2F;linux.git clone 的，寫這篇的版本是 5.0.0-rc3。 $ git clone https:&#x2F;&#x2F;git.kernel.org&#x2F;pub&#x2F;scm&#x2F;linux&#x2F;kernel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux kernel 5.0 增加 System Call">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Add-system-call-to-linux/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="Download kernel source code我用的 kernel source code 是從 https:&#x2F;&#x2F;git.kernel.org&#x2F;pub&#x2F;scm&#x2F;linux&#x2F;kernel&#x2F;git&#x2F;stable&#x2F;linux.git clone 的，寫這篇的版本是 5.0.0-rc3。 $ git clone https:&#x2F;&#x2F;git.kernel.org&#x2F;pub&#x2F;scm&#x2F;linux&#x2F;kernel">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-02-05T14:08:57.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.176Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="System Software">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Add-system-call-to-linux/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Linux kernel 5.0 增加 System Call | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Add-system-call-to-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux kernel 5.0 增加 System Call
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-02-05 22:08:57" itemprop="dateCreated datePublished" datetime="2019-02-05T22:08:57+08:00">2019-02-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Add-system-call-to-linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Add-system-call-to-linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Download-kernel-source-code"><a href="#Download-kernel-source-code" class="headerlink" title="Download kernel source code"></a>Download kernel source code</h2><p>我用的 kernel source code 是從 <code>https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</code> clone 的，寫這篇的版本是 <code>5.0.0-rc3</code>。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/git.kernel.org/pub</span><span class="regexp">/scm/linux</span><span class="regexp">/kernel/git</span><span class="regexp">/stable/linux</span>.git linux-stable</span><br></pre></td></tr></table></figure>
+
+<h2 id="Add-system-call"><a href="#Add-system-call" class="headerlink" title="Add system call"></a>Add system call</h2><p>首先在 kernel source code root 建立一個資料夾 <code>mysyscall/</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> linux-stable</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir mysyscall</span></span><br></pre></td></tr></table></figure>
+
+<p>新增 <code>mysyscall/hello.c</code>、加入新的 system call <code>sys_hello()</code>（不可免俗的來 hello world 一下）：</p>
+<figure class="highlight c"><figcaption><span>mysyscall/hello.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_hello</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">"Hello Kernel World!\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>新增 <code>mysyscall/Makefile</code> 編譯 <code>hello.c</code>：</p>
+<figure class="highlight makefile"><figcaption><span>mysycall/Makefile</span></figcaption><table><tr><td class="code"><pre><span class="line">obj-y := hello.o</span><br></pre></td></tr></table></figure>
+
+<p>修改 <code>Makefile</code> 下面這行：</p>
+<figure class="highlight makefile"><figcaption><span>Makefile</span></figcaption><table><tr><td class="code"><pre><span class="line">core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/</span><br></pre></td></tr></table></figure>
+
+<p>加入 <code>mysyscall/</code>：</p>
+<figure class="highlight makefile"><figcaption><span>Makefile</span></figcaption><table><tr><td class="code"><pre><span class="line">core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/ mysyscall/</span><br></pre></td></tr></table></figure>
+
+<p>接下來將 system call 加入 system call header file，在 <code>include/linux/syscalls.h</code> 最下面 <code>#endif</code> 前加入以下這行。</p>
+<figure class="highlight c"><figcaption><span>include/linux/syscalls.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_hello</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>最後在 system call table 加入新 entry。我是 64bit，system call table 在 <code>arch/x86/entry/syscalls/syscall_64.tbl</code>。</p>
+<figure class="highlight plain"><figcaption><span>arch/x86/entry/syscalls/syscall_64.tbl</span></figcaption><table><tr><td class="code"><pre><span class="line">330	common	pkey_alloc		__x64_sys_pkey_alloc</span><br><span class="line">331	common	pkey_free		__x64_sys_pkey_free</span><br><span class="line">332	common	statx			__x64_sys_statx</span><br><span class="line">333	common	io_pgetevents		__x64_sys_io_pgetevents</span><br><span class="line">334	common	rseq			__x64_sys_rseq</span><br><span class="line">335	64	hello			sys_hello</span><br></pre></td></tr></table></figure>
+
+<p>加在 64bit 區域的最後面，<code>335</code> 是新 system call 的編號。後面還有 500 多編號的是 32bit 的 system call。</p>
+<h2 id="Build-and-install"><a href="#Build-and-install" class="headerlink" title="Build and install"></a>Build and install</h2><p>改完後當然是 compile 跟安裝啦！</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>make menuconfig       <span class="comment"># 如果之前設定過可以不用</span></span><br><span class="line"><span class="variable">$ </span>make                  <span class="comment"># 可以加 -j N 來平行編譯</span></span><br><span class="line"><span class="variable">$ </span>sudo make modules_install</span><br><span class="line"><span class="variable">$ </span>sudo make install</span><br></pre></td></tr></table></figure>
+
+<p><code>make</code> 後就可以去睡個覺惹～(無誤)</p>
+<h2 id="Call-new-system-call"><a href="#Call-new-system-call" class="headerlink" title="Call new system call"></a>Call new system call</h2><p>經過「build、install、打不開、改一改 config 再 build、還是打不開…」的千山萬水(?)後，終於用新 kernel 成功開機，來用新 system call say hello 吧！</p>
+<figure class="highlight c"><figcaption><span>hello.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/syscall.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> ret = syscall(<span class="number">335</span>);    <span class="comment">// 335 是剛剛的 system call 編號</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"sys_hello return %d\n"</span>, ret);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>執行正常會看到：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">sys_hello <span class="keyword">return</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>在 kernel 裡用 <code>printk()</code> 印出的訊息可以用指令 <code>dmesg</code>（需要 root 權限）看到：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">[</span>    <span class="number">3.211745</span><span class="string">]</span> <span class="string">AVX2</span> <span class="string">version</span> <span class="string">of</span> <span class="string">gcm_enc/dec</span> <span class="string">engaged.</span></span><br><span class="line"><span class="string">[</span>    <span class="number">3.211748</span><span class="string">]</span> <span class="string">AES</span> <span class="string">CTR</span> <span class="string">mode</span> <span class="string">by8</span> <span class="string">optimization</span> <span class="string">enabled</span></span><br><span class="line"><span class="string">[</span>    <span class="number">3.459866</span><span class="string">]</span> <span class="attr">IPv6:</span> <span class="string">ADDRCONF(NETDEV_CHANGE):</span> <span class="attr">ens3:</span> <span class="string">link</span> <span class="string">becomes</span> <span class="string">ready</span></span><br><span class="line"><span class="string">[</span>   <span class="number">81.608954</span><span class="string">]</span> <span class="string">Hello</span> <span class="string">Kernel</span> <span class="string">World!</span></span><br></pre></td></tr></table></figure>
+
+<p>以上是在 Linux kernel 5.0.0 加個新 system call 的方式，基本上 4.x 也差不多（5.0 好像是因為 4.x 版本號太多才跳的…）</p>
+<h2 id="所謂的千山萬水-…"><a href="#所謂的千山萬水-…" class="headerlink" title="所謂的千山萬水(??)…"></a>所謂的千山萬水(??)…</h2><p>數不清重編又重開了幾次……</p>
+<p>kernel 的 config 我是用原本系統裡，為了縮短編譯時間再 <code>make menuconfig</code> 拔掉很多不需要的設定，畢竟只是用個 VM 編那麼多硬體 driver 是要幹嘛……但拔到不該拔的就打不開啦哈哈哈……</p>
+<p>再來是我想在 host OS 上 build、裝進 VM 裡開，試圖搬 kernel、system map、module 然後做 initramfs，但不知為何這麼幹就是開不起來，同樣的 code 在 VM build 然後 install 就開起來了……應該是裝的時候有東西沒弄好……Orz</p>
+<p>最後……先 NFS 吧～（喂</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"># Linux</a>
+              <a href="/tags/System-Software/" rel="tag"># System Software</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Dependency-Injection-Extract-and-Override/" rel="prev" title="Dependency Injection - Extract and Override">
+      <i class="fa fa-chevron-left"></i> Dependency Injection - Extract and Override
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/test-event/" rel="next" title="如何測試 event">
+      如何測試 event <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Download-kernel-source-code"><span class="nav-number">1.</span> <span class="nav-text">Download kernel source code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Add-system-call"><span class="nav-number">2.</span> <span class="nav-text">Add system call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-and-install"><span class="nav-number">3.</span> <span class="nav-text">Build and install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Call-new-system-call"><span class="nav-number">4.</span> <span class="nav-text">Call new system call</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#所謂的千山萬水-…"><span class="nav-number">5.</span> <span class="nav-text">所謂的千山萬水(??)…</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Add-system-call-to-linux/";
+    this.page.identifier = "Add-system-call-to-linux/";
+    this.page.title = "Linux kernel 5.0 增加 System Call";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

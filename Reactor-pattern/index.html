@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="看這篇 paper。 問題 &amp; 情境Reactor pattern 處理一個 application 收到從一個或多個 client 同時（concurrently）送 request 的情況。 分散式環境的 server 必須處理多個送 request 過來的 client。為了處理 request，server 必須 demultiplex 以及 dispatch request 給對">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reactor pattern">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Reactor-pattern/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="看這篇 paper。 問題 &amp; 情境Reactor pattern 處理一個 application 收到從一個或多個 client 同時（concurrently）送 request 的情況。 分散式環境的 server 必須處理多個送 request 過來的 client。為了處理 request，server 必須 demultiplex 以及 dispatch request 給對">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://www.cjwind.idv.tw/images/reactor.png">
+<meta property="og:image" content="http://www.cjwind.idv.tw/images/reactor2.png">
+<meta property="article:published_time" content="2017-08-27T06:49:27.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Design Pattern">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://www.cjwind.idv.tw/images/reactor.png">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Reactor-pattern/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Reactor pattern | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Reactor-pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Reactor pattern
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-08-27 14:49:27" itemprop="dateCreated datePublished" datetime="2017-08-27T14:49:27+08:00">2017-08-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Reactor-pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Reactor-pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>看<a href="http://www.cs.wustl.edu/~schmidt/PDF/reactor-siemens.pdf" target="_blank" rel="noopener">這篇 paper</a>。</p>
+<h2 id="問題-amp-情境"><a href="#問題-amp-情境" class="headerlink" title="問題 &amp; 情境"></a>問題 &amp; 情境</h2><p>Reactor pattern 處理一個 application 收到從一個或多個 client 同時（concurrently）送 request 的情況。</p>
+<p>分散式環境的 server 必須處理多個送 request 過來的 client。為了處理 request，server 必須 demultiplex 以及 dispatch request 給對應的 service。設計 demultiplexing 及 dispatching 需考量：</p>
+<ul>
+<li>Availability<br>server 在等待某些 request 時（例如 server 與 client 間需要多步驟溝通，server 正在等 client 的某個步驟），server 依然能處理收到的 request，不能因為處理某個 request 而 block 住，不然會卡到對其他 request 的 response。</li>
+<li>Efficiency<br>server 要最小化 latency、最大化 throughput 以及避免不必要的 CPU 使用。</li>
+<li>Programming simplicity<br>顧名思義，程式寫得愈簡單愈好。</li>
+<li>Adaptability<br>容易新增或改進 service，修改最少現有的 code 就能加新功能或改進功能，例如新增 service 不用修改底層的 dispatching 機制。</li>
+<li>Portability<br>容易 porting 到其他 OS 平台等。</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>整合 demultiplexing 以及 dispatching 並且 decouple 通用的 event demultiplexing &amp; dispatching 以及處理 request 的 service 實作邏輯、屬於應用邏輯的部份。讓 dispatch 歸 dispatch，應用邏輯歸應用邏輯，兩邊別混在一起。</p>
+<h3 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h3><p>看圖說故事比較容易，<a href="http://www.cs.wustl.edu/~schmidt/PDF/reactor-siemens.pdf" target="_blank" rel="noopener">圖片出處</a>。</p>
+<p><img src="/images/reactor.png" alt="Reactor"></p>
+<ul>
+<li>Handle<ul>
+<li>代表由 OS 管理的 resource，例如 network、file 等 resource。</li>
+<li>像 Linux 用 file descriptor 代表 file、socket 等等，Windows 用各種 handle 代表 resource。</li>
+</ul>
+</li>
+<li>Synchronous Event Demultiplexer<ul>
+<li>負責看一堆 handle 有沒有人有 event、可以動作了。</li>
+<li>如果沒人可以動會 block 住，有人可以動時會 return，例如處理 IO event 的 <code>select()</code>。</li>
+</ul>
+</li>
+<li>Initiation Dispatcher<ul>
+<li>提供 register、remove event handler 以及 dispatch event 的介面。</li>
+<li>Synchronous Event Demultiplexer 收到 event 時會通知 Initiation Dispatcher，Initiation Dispatcher dispatch event 給處理的 event handler。</li>
+</ul>
+</li>
+<li>Event Handler<ul>
+<li>定義 event handler 的介面。</li>
+</ul>
+</li>
+<li>Concrete Event Handler<ul>
+<li>繼承 Event Handler，實際實作處理 event 的邏輯。</li>
+</ul>
+</li>
+</ul>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>application 向 Initiation Dispatcher 註冊 Concrete Event Handler，告訴 Initiation Dispatcher 這個 handler 處理哪種 event。</li>
+<li>application call Initiation Dispatcher 的 <code>handle_events()</code> 進入 event loop。Initiation Dispatcher 由 Event Handler 取得 Handle 交給 Synchronous Event Demultiplexer 等待 event。</li>
+<li>event 發生時 Synchronous Event Demultiplexer 通知 Initiation Dispatcher（以 <code>select()</code> 來說是 return）。</li>
+<li>Initiation Dispatcher call 對應 Event Handler 的 function 來處理 event。</li>
+</ol>
+<p><img src="/images/reactor2.png" alt="Reactor"></p>
+<h2 id="優缺點"><a href="#優缺點" class="headerlink" title="優缺點"></a>優缺點</h2><h3 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h3><ul>
+<li>decouple 了 application 功能上的實作邏輯以及與 application 無關的 demultiplexing &amp; dispatching 機制，各自負責各自的事。</li>
+<li>區分多個 service、各 service 負責自己相關的事情，讓 event-driven application 有較好的模組化並且能重複使用模組。</li>
+<li>增加 portability。Initiation Dispatcher 的 interface 不受限於特定 OS，可在不同的 demultiplexing system call 重複使用。</li>
+<li>Initiation Dispatcher 的 event loop 依序 call event handler 減少複雜的 synchronization 機制。</li>
+</ul>
+<h3 id="缺點"><a href="#缺點" class="headerlink" title="缺點"></a>缺點</h3><ul>
+<li>只在有提供 Handle 的 OS 上有效率。</li>
+<li>non-preemptive：single thread application 中 Event Handler 執行時是無法被中斷、改去做其他事的，所以 Event Handler 處理 event 時不能被 block 住，不然整個 process 就卡住了。所以需要較長時間處理 event 的 application 不適合 reactor pattern。</li>
+<li>reactor pattern 會用在 framework 裡，導致 control flow 在 application 的 handler 及 framework 間跳來跳去，對於寫 application  、不熟悉 framework 運作或者根本看不到 framework 的 code 的開發者較難以 debug。</li>
+</ul>
+<h2 id="實作細節"><a href="#實作細節" class="headerlink" title="實作細節"></a>實作細節</h2><p>流程上雖然一開始就向 Dispatcher 註冊完 event handler，但也可能是某種 event handler 處理 event 時才生另外的 event handler 並且註冊，即註冊及移除 event handler 是動態的。例如 Linux 處理 accept socket connection 的 event handler 在 <code>accept()</code> 後才生處理 client request 的 event handler 並向 Dispatcher 註冊，之後由該 event handler 處理 client 的 request。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Design-Pattern/" rel="tag"># Design Pattern</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Reentrancy-and-Thread-safety/" rel="prev" title="Reentrancy and Thread-safety">
+      <i class="fa fa-chevron-left"></i> Reentrancy and Thread-safety
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Concurrency-and-Parallelism/" rel="next" title="Concurrency and Parallelism">
+      Concurrency and Parallelism <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#問題-amp-情境"><span class="nav-number">1.</span> <span class="nav-text">問題 &amp; 情境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution"><span class="nav-number">2.</span> <span class="nav-text">Solution</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Structure"><span class="nav-number">2.1.</span> <span class="nav-text">Structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程"><span class="nav-number">2.2.</span> <span class="nav-text">流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#優缺點"><span class="nav-number">3.</span> <span class="nav-text">優缺點</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#優點"><span class="nav-number">3.1.</span> <span class="nav-text">優點</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺點"><span class="nav-number">3.2.</span> <span class="nav-text">缺點</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#實作細節"><span class="nav-number">4.</span> <span class="nav-text">實作細節</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Reactor-pattern/";
+    this.page.identifier = "Reactor-pattern/";
+    this.page.title = "Reactor pattern";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

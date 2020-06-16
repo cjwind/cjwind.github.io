@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="這篇是設計 concurrent algorithem 的理論概念，沒什麼例子。 兩種設計 concurrent algorithem 的方法：  Task Decomposition：計算是一堆獨立的 task，可以由 thread 以任意順序執行。 Data Decomposition：程式處理大量資料，其中個別 element 的計算可以獨立執行。  Task Decompositionta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Design Models for Concurrent Algorithems">
+<meta property="og:url" content="http://www.cjwind.idv.tw/design-models-for-concurrent-algorithems/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="這篇是設計 concurrent algorithem 的理論概念，沒什麼例子。 兩種設計 concurrent algorithem 的方法：  Task Decomposition：計算是一堆獨立的 task，可以由 thread 以任意順序執行。 Data Decomposition：程式處理大量資料，其中個別 element 的計算可以獨立執行。  Task Decompositionta">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2017-07-09T09:55:22.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Concurrency">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/design-models-for-concurrent-algorithems/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Design Models for Concurrent Algorithems | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/design-models-for-concurrent-algorithems/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Design Models for Concurrent Algorithems
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-07-09 17:55:22" itemprop="dateCreated datePublished" datetime="2017-07-09T17:55:22+08:00">2017-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/design-models-for-concurrent-algorithems/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design-models-for-concurrent-algorithems/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>這篇是設計 concurrent algorithem 的理論概念，沒什麼例子。</p>
+<p>兩種設計 concurrent algorithem 的方法：</p>
+<ul>
+<li>Task Decomposition：計算是一堆獨立的 task，可以由 thread 以任意順序執行。</li>
+<li>Data Decomposition：程式處理大量資料，其中個別 element 的計算可以獨立執行。</li>
+</ul>
+<h2 id="Task-Decomposition"><a href="#Task-Decomposition" class="headerlink" title="Task Decomposition"></a>Task Decomposition</h2><p>task decomposition 的目標是找出完全獨立的計算，才能 concurrent 執行多個 task。但是計算常常互相有關係，這樣的關係稱為 dependency。程式平行化前必須先消除 dependency。</p>
+<p>將 sequential 程式轉成 concurrent 程式要確保原本有順序性的步驟也要依序完成，也就是確保 sequential consistency，使得 concurrent 程式在相同的 input 可以得到跟 sequential 程式一樣的結果。</p>
+<p>concurrent 程式的基本架構：main thread 定義以及準備 task，產生 thread 執行 task，最後等待 thread 們完成工作。</p>
+<p>一種分解 task 的方式是在要進行 concurrent 計算的外層進行分解，接著將 task 分給 thread 執行。另一種是 task 會在計算過程中動態產生，這需要額外程式碼封裝新產生的 task。</p>
+<p>Task Decomposition 要考慮：</p>
+<ol>
+<li>task 是什麼以及如何定義？</li>
+<li>task 間的 dependency 為何以及如何滿足？</li>
+<li>task 如何分派給 thread？</li>
+</ol>
+<h3 id="task-是什麼以及如何定義？"><a href="#task-是什麼以及如何定義？" class="headerlink" title="task 是什麼以及如何定義？"></a>task 是什麼以及如何定義？</h3><p>基本上，要識別出能獨立執行的 task，得依靠對程式以及其計算的理解。要對可能平行化執行的程式模擬兩個 thread 一起執行的狀況<em>（真心覺得這靠練習跟經驗，做多了自然會有莫名的直覺(?)）</em>，以此決定 task 是否彼此獨立或有可接受的 dependency。</p>
+<p>並行化（concurrent）程式執行最頻繁或者計算最繁重的地方可以有比較好的成效。因為並行化需要修改程式碼、驗證以及debug 等等，也會讓程式變得複雜，當然要選擇最有成效的地方做。除此之外，concurrent 程式會比 sequential 程式多出為了並行化的程式碼，例如管理及分派 task，所以會有 overhead。</p>
+<p>找到可以獨立執行的 task 後，拆分 task 需注意：</p>
+<ol>
+<li>task 數量至少要跟 thread 或 core 數量一樣多。<br>確保不會有 idle 的 thread，能達到較好的 load balance。</li>
+<li>每個 task 的計算量（granularity）必須大到能抵消管理 task 及 thread 的 overhead。<br>coarse-grained 代表 granularity 高（task 的計算量高），fine-grained 代表 granularity 低。如果 task 的 granularity 不夠大，光是管理 task 跟 thread 的 overhead 就把效能提升給吃光了。</li>
+</ol>
+<p>這兩個條件看起來有點矛盾，因為在總 task 固定的情況下 task 愈大數量愈少，反之亦然，因此    要在 task 計算量及數量間取得平衡。並行化（concurrent）程式最主要的目的是減少執行時間，如果使用所有 core/thread 卻需要較長執行時間，寧可調整為使用較少 core/thread 但執行時間較短的 task decomposition。</p>
+<p>拆分 task 可能需要多次嘗試，一個切法的效果不太好，就應該嘗試其他分解方式。</p>
+<h3 id="task-間的-dependency-為何以及如何滿足？"><a href="#task-間的-dependency-為何以及如何滿足？" class="headerlink" title="task 間的 dependency 為何以及如何滿足？"></a>task 間的 dependency 為何以及如何滿足？</h3><p>task 間的 dependency 有兩種：</p>
+<ol>
+<li>執行順序的 dependency<br>某些 task 必須等其他 task 完成才能做，可能是需要前面 task 的結果作為參數。<br>要滿足執行順序 dependency 最簡單的方式是將有此 dependency 的 task 交給同一個 thread 執行。但當某 task 需要許多 thread 的 task 完成後才能執行，或者 thread 間有執行順序的限制（例如要 thread1 做完前幾步 thread2 才能執行），而且無法以其他 task decomposition 處理時就得加入 synchoronization 機制來確保 thread 間的執行順序。</li>
+<li>data dependency<br>區分是否有 data dependency 的方法：先列出所有 assignment 左邊的變數，檢查這些變數是否有並行（concurrent）寫入或者寫入與讀取會並行發生的狀況，因為至少要有一個 thread 寫入變數才會有 data dependency。找到 data dependency 後就要看能不能消除 dependency。消除 data dependency 有很多種作法，最簡單的是以互斥存取（mutually exclusive access）的方式 access shared data，也就是使用 lock 或 mutex 保護資料。</li>
+</ol>
+<p>消除 dependency 的方法很多，不見得都得用 mutually exclusive access，如果可以以消除 dependency 的作法來達到 concurrency，就可以減少使用 synchoronization 物件帶來的 overhead。</p>
+<h3 id="task-如何分派給-thread？"><a href="#task-如何分派給-thread？" class="headerlink" title="task 如何分派給 thread？"></a>task 如何分派給 thread？</h3><p>thread 執行時希望各 thread 有差不多的計算量，平衡 thread 們的 loading。</p>
+<p>兩種分派 task 的方式：static scheduling 以及 dynamic scheduling。</p>
+<p>static scheduling 會要並行化（concurrent）的計算外面決定 task 的切分，而且計算過程中不會改變。實作 static scheduling 會讓 N 個 thread 有 0 到 N-1 的唯一識別碼，可以透過識別碼分派 task 給 thread。static scheduling 適用於每個 task 的運算量差不多，或是能預先知道計算量的情況。反之，各 task 計算量變動大或無法預先知道的狀況比較適合 dynamic scheduling。</p>
+<p>dynamic scheduling 在計算過程中才將 task 指派給 thread，會儘量平均各 thread 的計算量，理想上會有較好的 load balance。分派 task 給 thread 以及 thread 找新 task 的邏輯是原先 sequential 程式沒有的，這些額外的邏輯當然有 overhead。</p>
+<p>最簡單的 scheduling 是為 task 加上 index，用 counter 記錄下一個要分派的 task，當 thread 要新 task 時就從 counter 得知拿哪個 task。這個 counter 是 thread 間共用的，因此 access 它需要 mutually exclusive。另一種 dynamic scheduling 使用 shared container 保存 task，通常會用 queue，thread 從 container 拿新 task 執行，例如 producer-consumer 就是這種方式的變形。因為放在 container 裡，task 必須被封裝成可以放進 container 的結構，例如可能是一包描述 task input 的 structure。</p>
+<h2 id="Data-Decomposition"><a href="#Data-Decomposition" class="headerlink" title="Data Decomposition"></a>Data Decomposition</h2><p>計算是一連串更新一個或多個巨大 data structure 中的 element 時，如果這些更新是彼此獨立的，則可以切割 data structure 並將不同部份分給不同 thread 處理，進而達到並行化（concurrent）。切割 data structure 並交給 thread 處理的方法稱為 data decomposition。</p>
+<p>如何將 data structure 切割成多個連續區域（稱為 chunk）取決於 data structure 的 type，例如常見的 array 會依照 dimension 來切割。</p>
+<p>將資料分割成 chunk 也代表將整個計算分解成針對單一 chunk 的 task，這些 task 會分配給 thread 執行。由於資料是已經分解過的，所以 thread 可以安心使用這些 data，不需要擔心其他 thread 也會使用到。但如果計算需要 chunk 鄰近的資料，task 間就得共享這些資料，thread 也需要彼此協調資料存取。</p>
+<p>data decomposition 要考慮：</p>
+<ol>
+<li>如何將資料分割成 chunk？</li>
+<li>如何確保 task 能 access 到其計算所需的所有資料？</li>
+<li>如何分派 chunk 給 thread？</li>
+</ol>
+<h3 id="如何將資料分割成-chunk？"><a href="#如何將資料分割成-chunk？" class="headerlink" title="如何將資料分割成 chunk？"></a>如何將資料分割成 chunk？</h3><p>每個 chunk 都跟 task 有關，要考慮上述 task 的幾個條件，除此之外還需要注意：</p>
+<ol>
+<li>每個 thread 至少分到一個 chunk，每個 thread 分到的 chunk 愈多愈好。</li>
+<li>處理 chunk 的計算量要遠大於分割 data 所產生的 overhead。<ol>
+<li>task 處理 chunk 需要的計算量一樣稱為 granularity，granularity 跟 chunk 中的 element 數量有關。</li>
+<li>分割 data 還需要考慮 chunk 的 shape（就是形狀啦）。chunk 的 shape 決定了跟相鄰 chunk 的關係以及計算時如何處理資料交換，shape 並不見得是畫得出來、看得到的形狀，而是 chunk 之間的「關係」。資料交換是為了計算與更新自己的資料而需要去 access 別人（別的 chunk）的資料。如果每個 chunk 的邊界（處在邊界的 element）都需要資料交換，減少整體邊界數量就能減少資料交換。針對每個 chunk 減少與其相鄰的 chunk 數量也能降低交換資料的程式複雜度，因為一個 chunk 與愈多 chunk 相鄰代表一個 task 跟更多 task 有關聯。</li>
+</ol>
+</li>
+</ol>
+<p>考慮 chunk 的 shape 時，granularity 愈大表示 chunk 擁有的 element 數量愈多，也代表有愈多需要資料交換的 element，因此資料交換的 overhead 愈大，又需要在 shape 與 granularity 之間取得平衡。針對這個問題，一個解法是最大化 volume-to-surface ratio，也就是 chunk 的 element 數量與需要交換資料的邊界比例，也就是 <code>chunk 的 element 數 / chunk 中在邊界的 element 數</code>。例如一個 4 x 8 的資料（想像一個二維陣列），分割成兩個 2 x 8 的 chunk，volume-to-surface ratio 是  16 / 8 = 2，分割兩個 4 x 4 的 chunk 則是 16 / 4 = 4。</p>
+<h3 id="如何確保-task-能-access-到其計算所需的所有資料？"><a href="#如何確保-task-能-access-到其計算所需的所有資料？" class="headerlink" title="如何確保 task 能 access 到其計算所需的所有資料？"></a>如何確保 task 能 access 到其計算所需的所有資料？</h3><p>如果 chunk 內包含計算與更新所需的所有資料，task 間就不需要協調資料交換<del>（這不是廢話）</del>。反之，如果計算需要鄰近 chunk 的資料，就得找出較有效率的資料交換機制。一般有兩種方法：將資料從鄰近 chunk 複製到 task/thread 的 local structure，或者直接 access 鄰近 chunk 的資料。</p>
+<p>如果鄰近 chunk 的資料不會隨著計算改變，複製資料是比較容易的方法，因為不需要處理同步問題。缺點是需要額外的儲存空間存放資料副本。這些額外配置的儲存空間一般稱為 ghost cells。複製資料也需要考慮複製次數，如果次數太多或每次複製太多資料，比較適合直接 access 鄰近 chunk 的資料。</p>
+<p>直接 access 鄰近 chunk 的資料可以利用 thread 間以 shared memory 為基礎的溝通機制，在真正需要資料前也可以不用協調。缺點是必須確保拿到正確的資料，尤其是鄰近 chunk 也會更新其資料的時候。要確保拿到正確的資料，得找出計算過程中資料交換與更新資料間的關係或互動，才能知道如何協調。有些 sequential 程式計算 element 時需要鄰近 element 的舊資料而非更新後的新資料，此時 sequential 程式與 concurrent 程式遇到的問題是一樣的，concurrent 程式有時能借用 sequential 程式的解法。</p>
+<h3 id="如何分派-chunk-給-thread？"><a href="#如何分派-chunk-給-thread？" class="headerlink" title="如何分派 chunk 給 thread？"></a>如何分派 chunk 給 thread？</h3><p>類似 task decomposition，與 chunk 關聯的 task 可以用 static 或 dynamic scheduling 指派給 thread。static scheduling 所有跟資料交換有關的協調可以在計算外面、也就是計算開始前處理好，適合 task 的計算是一致或可預期的情況。如果 task 處理各 chunk 的計算量不一致，dynamic scheduling 可能有比較好的 load balance，但也讓資料更新、交換以及與其他 task 協調變得複雜。</p>
+<p>data decomposition 中 task 是由資料的分解方式定義的，應該以 task 間的關係找出所需的互動，不管這個 task 是由哪個 thread 執行。</p>
+<h2 id="選擇-Design-Model-需考量的因素"><a href="#選擇-Design-Model-需考量的因素" class="headerlink" title="選擇 Design Model 需考量的因素"></a>選擇 Design Model 需考量的因素</h2><p>在做 task 或 data decomposition 時，會考量以下四個因素以建立最有效率的 concurrent solution：</p>
+<ol>
+<li>Efficiency（效率）<br>效率必須考慮 concurrency 帶來的額外 overhead、thread 的調配以及 task 的組織方式等等問題。</li>
+<li>Simplicity<br>concurrent algorithem 愈簡單愈容易開發、debug、驗證以及維護。simplicity 著重在要加多少額外程式碼才能將程式並行化（concurrent）。</li>
+<li>Portability<br>使用不同 multiple threading model 的取捨。</li>
+<li>Scalability<br>考量 concurrent 程式在不同 core/thread 數以及 data set 上的行為如何。照目前的趨勢，機器的 core 數會愈來愈多，concurrent 程式應該要能夠有效率的在不同數量的 thread/core 或不同大小的 data set 上執行。</li>
+</ol>
+<p>重要性：scalability &gt; efficiency &gt; simplicity ~ portability</p>
+<p>有時候 concurrent 程式的 scalability 會在某個階段達到高峰後趨於平緩，這可能是因為 algorithem 的需求或是 threading model 提供的環境。遇到這種狀況要評估是否值得花更多力氣嘗試提高 scalability 或者使用不同的 threading model 重新寫過。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Concurrency/" rel="tag"># Concurrency</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Open-Street-Map-API/" rel="prev" title="Open Street Map API">
+      <i class="fa fa-chevron-left"></i> Open Street Map API
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Reentrancy-and-Thread-safety/" rel="next" title="Reentrancy and Thread-safety">
+      Reentrancy and Thread-safety <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Task-Decomposition"><span class="nav-number">1.</span> <span class="nav-text">Task Decomposition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-是什麼以及如何定義？"><span class="nav-number">1.1.</span> <span class="nav-text">task 是什麼以及如何定義？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#task-間的-dependency-為何以及如何滿足？"><span class="nav-number">1.2.</span> <span class="nav-text">task 間的 dependency 為何以及如何滿足？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#task-如何分派給-thread？"><span class="nav-number">1.3.</span> <span class="nav-text">task 如何分派給 thread？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-Decomposition"><span class="nav-number">2.</span> <span class="nav-text">Data Decomposition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何將資料分割成-chunk？"><span class="nav-number">2.1.</span> <span class="nav-text">如何將資料分割成 chunk？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何確保-task-能-access-到其計算所需的所有資料？"><span class="nav-number">2.2.</span> <span class="nav-text">如何確保 task 能 access 到其計算所需的所有資料？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何分派-chunk-給-thread？"><span class="nav-number">2.3.</span> <span class="nav-text">如何分派 chunk 給 thread？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#選擇-Design-Model-需考量的因素"><span class="nav-number">3.</span> <span class="nav-text">選擇 Design Model 需考量的因素</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/design-models-for-concurrent-algorithems/";
+    this.page.identifier = "design-models-for-concurrent-algorithems/";
+    this.page.title = "Design Models for Concurrent Algorithems";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

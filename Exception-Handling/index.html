@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="前陣子寫 code 遇到 exception 或程式執行錯誤該丟出 exception 的情況，雖然知道 try catch 跟 throw exception，但「什麼時候」要「如何使用」exception 卻沒個概念然後搞得一團亂。只好來念念《例外處理設計的逆襲》，順便整理下嗑完書的簡略筆記。 區分 Fault、Error、Failure、Exception首先區分幾個名詞的概念，不然這些東西">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Exception Handling">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Exception-Handling/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="前陣子寫 code 遇到 exception 或程式執行錯誤該丟出 exception 的情況，雖然知道 try catch 跟 throw exception，但「什麼時候」要「如何使用」exception 卻沒個概念然後搞得一團亂。只好來念念《例外處理設計的逆襲》，順便整理下嗑完書的簡略筆記。 區分 Fault、Error、Failure、Exception首先區分幾個名詞的概念，不然這些東西">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-04-05T14:04:26.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Exception Handling">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Exception-Handling/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Exception Handling | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Exception-Handling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Exception Handling
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-05 22:04:26" itemprop="dateCreated datePublished" datetime="2018-04-05T22:04:26+08:00">2018-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Exception-Handling/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Exception-Handling/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>前陣子寫 code 遇到 exception 或程式執行錯誤該丟出 exception 的情況，雖然知道 try catch 跟 throw exception，但「什麼時候」要「如何使用」exception 卻沒個概念然後搞得一團亂。只好來念念《例外處理設計的逆襲》，順便整理下嗑完書的簡略筆記。</p>
+<h2 id="區分-Fault、Error、Failure、Exception"><a href="#區分-Fault、Error、Failure、Exception" class="headerlink" title="區分 Fault、Error、Failure、Exception"></a>區分 Fault、Error、Failure、Exception</h2><p>首先區分幾個名詞的概念，不然這些東西都很像，不分清楚講到後來都不知道在講些什麼了。</p>
+<ul>
+<li>（從外部看）一個 <strong>component 沒有提供正確服務稱為 service failure</strong>，簡稱 failure。</li>
+<li><strong>error 是種「狀態」</strong>，表示 component 內部處於錯誤狀態。這種狀態可能導致 component 執行失敗，造成 failure。</li>
+<li><strong>fault 則是導致 error 發生的「原因」</strong>。</li>
+<li>程式語言以 exception 表達 error 與 failure 的概念。<ul>
+<li>從不同角度來看（如 caller 跟 callee），exception 可以代表 error 也可以代表 failure。</li>
+<li>遇到某種情況要不要丟出 exception，決定方式之一是看在該 function 的語意及功能下，該狀況是不是屬於「目前可能處在不正確的狀態」或「被 call 的 function 沒做好該做的事」。如果是，當然就丟出 exception。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<h3 id="Fault-的種類"><a href="#Fault-的種類" class="headerlink" title="Fault 的種類"></a>Fault 的種類</h3><p>依據「存在時間長短」，fault 可區分為：</p>
+<ul>
+<li>transient fault<br>出現一次就消失，重新執行一次操作又能正常執行。</li>
+<li>intermittent fault<br>出現後消失，接著重複出現。例如 memory leak，重新啟動後能正常使用，但過陣子 memory 又爆掉。</li>
+<li>permanent fault<br>發生後除非將有問題的 component 換掉或修好，否則 component 會一直處於 failure 狀態，如 bug。</li>
+</ul>
+<p>依據「產生原因」，fault 可區分為：</p>
+<ul>
+<li>design fault<br>就是 bug，如誤解需求、邏輯寫錯等等。design fault 屬於 permanent fault，除非 deveoper 修好，不然不會自己消失的啦～<del>（我也希望有一天 bug 會自己修好）</del></li>
+<li>component fault<br>硬體 component failure 產生的 error，或者 software component 與 software component、software component 與執行環境、software component 與硬體環境，彼此互動時所產生的不正常情況。component fault 有可能是 transient fault、intermittent fault 或 permanent fault，因此有不同的處理方式。針對 transient fault 只要 retry 系統就能恢復正常，例如 call REST API 時網路抖了一下連不上。但 intermittent 與 permanent fault 得釐清 root cause，單純的 retry 無法解決問題。</li>
+</ul>
+<h2 id="Exception-Handling-vs-Fault-Tolerant"><a href="#Exception-Handling-vs-Fault-Tolerant" class="headerlink" title="Exception Handling vs Fault Tolerant"></a>Exception Handling vs Fault Tolerant</h2><p>一個 software component 發生 error，必須加以處理以免變成 failure。error handling 可分為兩種：</p>
+<ul>
+<li>exception handling：負責處理 component fault（可預期的錯誤狀況）。</li>
+<li>fault-tolerant programming：負責處理 design fault（不可預期的錯誤狀況）。</li>
+</ul>
+<p>因為程式語言並沒有特別區分兩者，所以實作上無論是 exception handling 還是 fault-tolerent programming 都使用程式語言的 exception handling 機制來處理。</p>
+<p>exception handling 跟 fault-tolerant programming 的成本差很多。如果要做到 fault-tolerant，像 Java 的 <code>NullPointerException</code> 會變成得在程式中處理的 exception，但這在大多數時候（尤其是內部 function 間的呼叫）算是 design fault，而且會出現 <code>NullPointerException</code> 的地方很多，所有地方都要處理當然會提升開發成本。</p>
+<p>fault-tolerant，容錯，顧名思義是「能容忍程式裡的錯誤，就算是程式有錯也要能夠正常執行」。fault-tolerant 設計通常用在需要非常 robust 的應用系統，像飛機啊軍事啊等等。<del>（沒弄好會死人的系統）</del></p>
+<p>區分 exception handling 跟 fault-tolerant programming 並且確認開發的軟體系統需要多強的 robustness、能付出多少成本，就能知道在實作上需要處理哪些 exception，才不會一下這邊處理了屬於 design fault 的 exception 一下那邊又不處理一團亂。</p>
+<h2 id="定義強健度等級"><a href="#定義強健度等級" class="headerlink" title="定義強健度等級"></a>定義強健度等級</h2><p>例外處理設計的第一步是定義強健度等級。強健度等級是例外處理的需求，有了需求開發時就知道要如何處理 exception。</p>
+<h3 id="等級-0：未定義（undefined）"><a href="#等級-0：未定義（undefined）" class="headerlink" title="等級 0：未定義（undefined）"></a>等級 0：未定義（undefined）</h3><p>沒特別定義跟做什麼的時候。</p>
+<p>簡單說，一切都是混亂不清。caller 無法確定 service 是否有完成任務。發生問題時 caller 可能知道也可能不知道、service 的狀態是不明或者錯誤狀態。發生問題後 service 可能終止也可能繼續跑。</p>
+<h3 id="等級-1：錯誤回報（Error-reporting）"><a href="#等級-1：錯誤回報（Error-reporting）" class="headerlink" title="等級 1：錯誤回報（Error-reporting）"></a>等級 1：錯誤回報（Error-reporting）</h3><p><strong>service 發生錯誤時一定要讓 caller 知道</strong>。caller 能確切知道 service 是否有成功達成任務。發生問題時 service 的狀態可能是不明或錯誤狀態。發生問題後 service 必須終止執行，因為狀態已經不明，繼續執行可能會造成更多錯誤。</p>
+<p>要達到這個等級就是把 exception 都往外丟，然後在主程式捕捉所有 exception 並回報給 user 或 developer 知道。</p>
+<h3 id="等級-2：狀態回復（State-recovery）"><a href="#等級-2：狀態回復（State-recovery）" class="headerlink" title="等級 2：狀態回復（State-recovery）"></a>等級 2：狀態回復（State-recovery）</h3><p>又稱 weakly tolerant。</p>
+<p>有 error-reporting 的要求，並且<strong>錯誤發生後 service 須保證系統依然處在正確狀態</strong>。因為狀態依然正確，所以發生問題後系統仍然可以繼續執行。</p>
+<p>要達到此等級，要多做 <strong>error handling 以及 cleanup</strong>，讓系統回復到正確狀態並且釋放資源，例如把修改過的 db 做 rollback 以及釋放要來的 memory。</p>
+<h3 id="等級-3：行為回復（Behavior-recovery）"><a href="#等級-3：行為回復（Behavior-recovery）" class="headerlink" title="等級 3：行為回復（Behavior-recovery）"></a>等級 3：行為回復（Behavior-recovery）</h3><p>又稱 strongly tolerant。</p>
+<p><strong>service failure 時會試圖排除困難，達成原本應該做到的任務。</strong></p>
+<p>除了狀態回復需要做的事情外，行為回復還要想替代方案達成原本的任務。為了不讓下次執行任務依然失敗，會先啟動 fault handling 排除造成失敗的原因，再套用 retry 等技巧來嘗試繼續提供服務。</p>
+<p>目前遇到的都沒有那麼複雜，往往是對 transient fault 直接 retry，例如連不上對方 server 就等個幾秒再試一次。</p>
+<h4 id="無論如何都無法回復行為？"><a href="#無論如何都無法回復行為？" class="headerlink" title="無論如何都無法回復行為？"></a>無論如何都無法回復行為？</h4><p>將強健度等級降為 2。</p>
+<p>如果行為回復失敗，service 要嘗試達到狀態回復，如果依然失敗，再降到錯誤回報等級。</p>
+<h3 id="如何使用強健度等級？"><a href="#如何使用強健度等級？" class="headerlink" title="如何使用強健度等級？"></a>如何使用強健度等級？</h3><p>這回答了我「在程式中遇到 exception 該怎麼處理？」的問題，算是個準則吧。</p>
+<ul>
+<li>預設所有 function 要達到強健度等級 1。<ul>
+<li>系統開發到一定程度才較容易知道 exception 該在哪層處理以及如何處理、哪些 function 需要提升強健度。要求 function 都達到錯誤回報可以在開發時將問題曝露出來，讓 developer 比較容易 debug、決定如何處理 exception。</li>
+<li>要求 function 達到錯誤回報，能讓 developer 在開發正常流程的階段知道遇到 exception 該怎麼處理（往外丟就對了），減少各自用各自方式處理的混亂。<del>（別說每個人處理方式不同會亂，我自己寫沒想好都會一團亂了啊哈哈）</del></li>
+<li>實作上只要在主程式統一捕捉 exception 就不會讓程式不預期的當掉，也可以統一做 logging，其他 function 只要安心丟出 exception 即可。</li>
+</ul>
+</li>
+<li>針對特定 function 要求達到強健度等級 2。<ul>
+<li>例如資料庫處理。</li>
+</ul>
+</li>
+<li>除非特別要求或者會很難用，否則不特別要求做到行為回復。<ul>
+<li>像在 call REST 之類 API 會做 retry，retry 一定次數依然失敗後才當作 failure。</li>
+</ul>
+</li>
+</ul>
+<p>在正常功能尚未完成時不太容易決定 exception handling 該做在系統的哪一層，過早的例外處理實作不見得有用。甚至開發早期可能無法判斷該如何處理，要等到系統正常功能開發得差不多才有足夠多的資訊知道如何處理例外。一開始規定強健度等級在 1 或 2，開發後期有更充足的 context 後再決定是否要提升強健度等級。</p>
+<p>強健度等級也是隨著軟體開發漸漸提升的，不需要一開始就要達到很高的強健度（畢竟一開始通常沒有那個時間）。</p>
+<h2 id="try、catch-以及-finally-block-的責任"><a href="#try、catch-以及-finally-block-的責任" class="headerlink" title="try、catch 以及 finally block 的責任"></a>try、catch 以及 finally block 的責任</h2><h3 id="try-block"><a href="#try-block" class="headerlink" title="try block"></a>try block</h3><ul>
+<li>實作 function 的功能，包含主要方法與替代方法。</li>
+<li>為恢復狀態做準備，例如建立 checkpoint。</li>
+<li>回報系統錯誤。如果發生錯誤導致無法提供正確服務，而且該錯誤無法在 function 內部處理，則可以在此直接回報服務 failure（丟出 exception）。</li>
+</ul>
+<h3 id="catch-block"><a href="#catch-block" class="headerlink" title="catch block"></a>catch block</h3><ul>
+<li>進行 error handling 與 fault handling。<ul>
+<li>error handling 是如果系統因為發生問題而處於 error 狀態，需要修正這種 error 狀態，讓系統回復到可以繼續運行的正常狀態。</li>
+<li>fault handling 則是要嘗試排除造成錯誤的根本原因。要程式來做這件事頗難，所以通常交由人來處理。</li>
+</ul>
+</li>
+<li>回報錯誤狀況。<ul>
+<li>failure 可以在 try block 也可以在 catch block 回報，看是在哪裡發生。</li>
+<li>回報的方式有丟出 exception、在螢幕上印出錯誤訊息、寫到 log 等等。</li>
+</ul>
+</li>
+<li>控制 retry 流程。<ul>
+<li>如果 exception 發生後要以 retry 的方式處理，可以在 catch block 控制 retry 流程。</li>
+<li>舉例來說，在 catch block 檢查 retry 次數，超過某個次數就算失敗、丟出 exception。</li>
+</ul>
+</li>
+</ul>
+<h3 id="finally-block"><a href="#finally-block" class="headerlink" title="finally block"></a>finally block</h3><ul>
+<li>釋放資源並且回報釋放資源失敗的狀況。</li>
+<li>如果在 try block 做了 checkpoint，在這裡要把 checkpoint 砍掉免得佔用 resource。</li>
+</ul>
+<h2 id="實作的二三事"><a href="#實作的二三事" class="headerlink" title="實作的二三事"></a>實作的二三事</h2><p>exception handling 的基本做法就是以語意清楚的 exception 回報所有發生的問題，之後再針對需要更 robust 的部份去做狀態或行為回復。</p>
+<p>前面多是概念，總要講點實作面，但我又不想一一列舉各種實作小技巧，簡單寫點二三事就好。</p>
+<h3 id="越底層越不特別處理-exception"><a href="#越底層越不特別處理-exception" class="headerlink" title="越底層越不特別處理 exception"></a>越底層越不特別處理 exception</h3><p>通常寫某個 module 是因為它現在會在某種應用情境下使用到，但越底層的 module 就越不要針對目前的應用情境去處理問題或 exception，只要往上丟 exception 就好。底層 module 針對特定情境處理 exception，會讓 module 難以在其他情境中使用，降低 module 的 reusable。</p>
+<h3 id="用不同-exception-class-區分不同-fault"><a href="#用不同-exception-class-區分不同-fault" class="headerlink" title="用不同 exception class 區分不同 fault"></a>用不同 exception class 區分不同 fault</h3><p>主要是區分 design fault 與 component fault。</p>
+<p>以不同的 exception class 區分兩種 fault 後，開發時就能依照需要 exception handling 還是 fault-tolerant 知道是否需要處理特定 exception。debug 時也比較容易知道發生什麼問題，是有機會回復的問題還是是 bug。</p>
+<p>對於丟出 exception 的 module，也可以藉由丟出不同的 exception 區分程式中的 fault 是哪種。</p>
+<p>我想分清楚不同 fault 對實作跟 debug 是有好處的。</p>
+<h3 id="error-reporting-catch-exception-in-main-function"><a href="#error-reporting-catch-exception-in-main-function" class="headerlink" title="error-reporting + catch exception in main function"></a>error-reporting + catch exception in main function</h3><p>在達到強健度等級 1 error reporting 時，function 們就是丟出 exception。exception 一直往上傳，為了避免程式不預期結束，可以在 main function 或 thread entry point 或程式的各 entry point 加上 try catch，在 catch block 捕捉所有的 exception 並且寫入 log。這樣 logging 的動作只在最外層做一次，內部 function 不需要特別再管 logging。</p>
+<h3 id="不要在-console-印-exception"><a href="#不要在-console-印-exception" class="headerlink" title="不要在 console 印 exception"></a>不要在 console 印 exception</h3><p>「遇到 exception 不知道怎麼處理，就把它印出來就好啦！這樣就有處裡啦！」</p>
+<p>問題是，印在 console 的東西很難被注意到，所以 exception 只印在 console 跟被忽略差不了多少，甚至還有已經處理 exception 的錯覺。</p>
+<p>因為現在程式多是圖形介面，印在 console 不只使用者不會看到，連 developer 都可能因為 console 太多東西而忽略 exception。</p>
+<h3 id="用哪裡出了問題來命名-exception"><a href="#用哪裡出了問題來命名-exception" class="headerlink" title="用哪裡出了問題來命名 exception"></a>用哪裡出了問題來命名 exception</h3><p>用哪裡出了問題、出了什麼問題來命名，而不是用誰丟出 exception。</p>
+<h3 id="關於-exception-object-所帶的資訊"><a href="#關於-exception-object-所帶的資訊" class="headerlink" title="關於 exception object 所帶的資訊"></a>關於 exception object 所帶的資訊</h3><p>從 exception 的名稱、其繼承結構、身上帶的其他 exception、error code 以及訊息等等可以知道發生的問題的資訊，能在 exception 上越清楚的附上這些資訊，越有利於 error handling 以及 debug。</p>
+<h3 id="將低階層-exception-轉成高階層所理解的-exception"><a href="#將低階層-exception-轉成高階層所理解的-exception" class="headerlink" title="將低階層 exception 轉成高階層所理解的 exception"></a>將低階層 exception 轉成高階層所理解的 exception</h3><p>不要將低階層的 implementation exception 直接傳給上層的人，因為這樣收到 exception 的人會被底層的實作細節綁住，造成不必要的相依性。</p>
+<h3 id="exception-handling-失敗怎麼辦？"><a href="#exception-handling-失敗怎麼辦？" class="headerlink" title="exception handling 失敗怎麼辦？"></a>exception handling 失敗怎麼辦？</h3><p>簡單說，丟出一個代表「例外處理失敗」的例外。將「代表例外處理失敗的例外」附在原本 exception 上，再丟出原本的 exception。</p>
+<h3 id="用-checkpoint-class-做狀態回復"><a href="#用-checkpoint-class-做狀態回復" class="headerlink" title="用 checkpoint class 做狀態回復"></a>用 checkpoint class 做狀態回復</h3><p>以 checkpoint class 負責狀態回復相關的動作，這個 class 具有保存狀態、回復狀態以及丟棄狀態等功能。</p>
+<p>在 try block 改變系統狀態前保存狀態，發生 exception 後在 catch block 回復狀態，最後無論有無發生 exception 都在 finally block 丟棄先前保存的狀態。</p>
+<p>保存及回復狀態的實作會因功能不同而不同。使用 checkpoint 回復狀態可以簡化例外處理程式，並且分開狀態回復的實作跟正常功能的實作。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Exception-Handling/" rel="tag"># Exception Handling</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/prefix-scan/" rel="prev" title="Prefix Scan">
+      <i class="fa fa-chevron-left"></i> Prefix Scan
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/win10-and-linux-dual-system-note/" rel="next" title="win10 與 linux 多重開機的糾葛(?)">
+      win10 與 linux 多重開機的糾葛(?) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#區分-Fault、Error、Failure、Exception"><span class="nav-number">1.</span> <span class="nav-text">區分 Fault、Error、Failure、Exception</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Fault-的種類"><span class="nav-number">1.1.</span> <span class="nav-text">Fault 的種類</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exception-Handling-vs-Fault-Tolerant"><span class="nav-number">2.</span> <span class="nav-text">Exception Handling vs Fault Tolerant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定義強健度等級"><span class="nav-number">3.</span> <span class="nav-text">定義強健度等級</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#等級-0：未定義（undefined）"><span class="nav-number">3.1.</span> <span class="nav-text">等級 0：未定義（undefined）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等級-1：錯誤回報（Error-reporting）"><span class="nav-number">3.2.</span> <span class="nav-text">等級 1：錯誤回報（Error-reporting）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等級-2：狀態回復（State-recovery）"><span class="nav-number">3.3.</span> <span class="nav-text">等級 2：狀態回復（State-recovery）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#等級-3：行為回復（Behavior-recovery）"><span class="nav-number">3.4.</span> <span class="nav-text">等級 3：行為回復（Behavior-recovery）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#無論如何都無法回復行為？"><span class="nav-number">3.4.1.</span> <span class="nav-text">無論如何都無法回復行為？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用強健度等級？"><span class="nav-number">3.5.</span> <span class="nav-text">如何使用強健度等級？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#try、catch-以及-finally-block-的責任"><span class="nav-number">4.</span> <span class="nav-text">try、catch 以及 finally block 的責任</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#try-block"><span class="nav-number">4.1.</span> <span class="nav-text">try block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#catch-block"><span class="nav-number">4.2.</span> <span class="nav-text">catch block</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finally-block"><span class="nav-number">4.3.</span> <span class="nav-text">finally block</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#實作的二三事"><span class="nav-number">5.</span> <span class="nav-text">實作的二三事</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#越底層越不特別處理-exception"><span class="nav-number">5.1.</span> <span class="nav-text">越底層越不特別處理 exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用不同-exception-class-區分不同-fault"><span class="nav-number">5.2.</span> <span class="nav-text">用不同 exception class 區分不同 fault</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#error-reporting-catch-exception-in-main-function"><span class="nav-number">5.3.</span> <span class="nav-text">error-reporting + catch exception in main function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不要在-console-印-exception"><span class="nav-number">5.4.</span> <span class="nav-text">不要在 console 印 exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用哪裡出了問題來命名-exception"><span class="nav-number">5.5.</span> <span class="nav-text">用哪裡出了問題來命名 exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#關於-exception-object-所帶的資訊"><span class="nav-number">5.6.</span> <span class="nav-text">關於 exception object 所帶的資訊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#將低階層-exception-轉成高階層所理解的-exception"><span class="nav-number">5.7.</span> <span class="nav-text">將低階層 exception 轉成高階層所理解的 exception</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exception-handling-失敗怎麼辦？"><span class="nav-number">5.8.</span> <span class="nav-text">exception handling 失敗怎麼辦？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用-checkpoint-class-做狀態回復"><span class="nav-number">5.9.</span> <span class="nav-text">用 checkpoint class 做狀態回復</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Exception-Handling/";
+    this.page.identifier = "Exception-Handling/";
+    this.page.title = "Exception Handling";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

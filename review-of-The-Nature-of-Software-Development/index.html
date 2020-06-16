@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="薄薄一本、每頁短短的還有可愛插圖(?)，觀念不難但做到很難。 軟體開發環繞著「value」，翻成中文我想是「價值」。  value is “what you want”.  重要概念：  決定 value 是什麼或者說要什麼，feature 會為軟體帶來 value 以重要性決定做 feature 的順序 以 feature 組織 team feature by feature 開發，以 feat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Nature of Software Development">
+<meta property="og:url" content="http://www.cjwind.idv.tw/review-of-The-Nature-of-Software-Development/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="薄薄一本、每頁短短的還有可愛插圖(?)，觀念不難但做到很難。 軟體開發環繞著「value」，翻成中文我想是「價值」。  value is “what you want”.  重要概念：  決定 value 是什麼或者說要什麼，feature 會為軟體帶來 value 以重要性決定做 feature 的順序 以 feature 組織 team feature by feature 開發，以 feat">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2018-10-27T09:57:58.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.184Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Reading">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/review-of-The-Nature-of-Software-Development/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>The Nature of Software Development | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/review-of-The-Nature-of-Software-Development/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          The Nature of Software Development
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-27 17:57:58" itemprop="dateCreated datePublished" datetime="2018-10-27T17:57:58+08:00">2018-10-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/review-of-The-Nature-of-Software-Development/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="review-of-The-Nature-of-Software-Development/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>薄薄一本、每頁短短的還有可愛插圖(?)，觀念不難但<strong>做到很難</strong>。</p>
+<p>軟體開發環繞著「value」，翻成中文我想是「價值」。</p>
+<blockquote>
+<p>value is “what you want”.</p>
+</blockquote>
+<p>重要概念：</p>
+<ul>
+<li>決定 value 是什麼或者說要什麼，feature 會為軟體帶來 value</li>
+<li>以重要性決定做 feature 的順序</li>
+<li>以 feature 組織 team</li>
+<li>feature by feature 開發，以 feature 了解目前進度</li>
+<li>頻繁 deliver 得到回饋以知道是否需要調整 feature、方向甚至可以結束開發</li>
+</ul>
+<p>每個概念都有更細的觀念跟具體作法，不過本書不太提具體作法。</p>
+<h2 id="Agile"><a href="#Agile" class="headerlink" title="Agile"></a>Agile</h2><p>整本書概念算是環繞著 Agile 的精神吧，看完最大感想：</p>
+<blockquote>
+<p>Agile is simple, but not easy.</p>
+</blockquote>
+<p>Agile 應該不只是開發人員的事，也包含業務甚至客人，而光開發要能做到就已經很困難了。</p>
+<p>我沒有長時間跑 Agile style 開發的經驗，不知道長時間運作的結果，也不知道跑起來順的 Agile 是什麼樣子。只有拿相關東西做些實驗，例如 unit test 跟自動化測試，但連 CI 都還稱不上。</p>
+<p>對開發而言光是「隨時保持軟體可正常運作、可以 deploy」，也就是完整 CI/CD 就已經很不容易了。</p>
+<a id="more"></a>
+
+<h2 id="Feature-by-Feature"><a href="#Feature-by-Feature" class="headerlink" title="Feature by Feature"></a>Feature by Feature</h2><p>feature by feature 開發也是我覺得很困難的地方。我對 feature 的定義是軟體功能，但書裡不是這樣定義 feature，那什麼東西可以是 feature？</p>
+<p>本書觀點：Features add value to software and value is what you want.</p>
+<p><del>然後你就覺得有講跟沒講一樣……</del></p>
+<p>好吧，假設我們知道要什麼了（喂），接下來如何估 feature size？如果 feature 太大要怎麼切？分工又要怎麼分？</p>
+<p>目前遇到做不到 feature by feature 開發（這邊說的 feature 還是偏向「軟體功能」）的最大困難在「不知道怎麼將一個大功能切成多個部份去分工」。有時候大功能可以切分成比較不互相干擾的小功能，這種情況還可以分工，但很多時候怕修改的 code 互相衝突所以不敢再切再分。</p>
+<p>不是做所有東西都需要多人分工，畢竟多人就有溝通成本。東西大到某個程度後分工會比較快，可是大到多大該分？而「害怕修改互相衝突所以不分」又真的無法解決嗎？</p>
+<h2 id="Design-and-Clean-Code"><a href="#Design-and-Clean-Code" class="headerlink" title="Design and Clean Code"></a>Design and Clean Code</h2><p>本書主張快速並且持續的 deploy 小 feature 來進行開發，能這麼做的基礎來自 clean code、自動化測試、不斷 refine 的 design 等等。</p>
+<p>程式整體架構跟結構是會逐漸變動的，並不是一開始定好長怎樣，往後就不再變動。</p>
+<p>我現在傾向做「比剛好符合需求多一點擴充性的 design」，完全不考慮擴充性會讓之後有些東西動不了，例如 DB，現在還不知道到底要怎麼在中後期改善 DB 結構。也儘量避免做擴充性超強或者非常 general 的設計，一是擴充性超強不見得用得到，二是一開始做的 general 常常是自以為的 general，有第二組類似東西要加的時候很容易根本不合。</p>
+<h3 id="Planning-with-“stretch-goals”-is-destructive-p-39"><a href="#Planning-with-“stretch-goals”-is-destructive-p-39" class="headerlink" title="Planning with “stretch goals” is destructive (p.39)"></a>Planning with “stretch goals” is destructive (p.39)</h3><p>不要試圖在一段時間內增加要做的 feature。</p>
+<p>這會導致 team 為了「多加一個 feature」變得匆忙、開始「趕」，然後開始這裡少一個 test、那裡髒一點，結果是增加出 bug 的機率，之後得花其他時間修，或者後續開發因為 code 太髒而變慢。</p>
+<p>蠻同意這一點的。我在匆忙下會開始掉東西，也會試圖減一些不太該減的東西，還有加 feature 看到別人趕出來的亂 code 真的會覺得「為什麼當初不好好寫，現在還不是要先 refactor……」</p>
+<p>「匆忙趕工」只會更慢。</p>
+<p>心有戚戚焉也能理解，但還是有點違反直覺。就是來不及或者多塞東西了才想要用趕的，反射性認為用趕的就能追上或比較快，但……事後要嘛有 bug 不嘛掉東西再不然下次加新功能難改到想罵人。因為違反直覺，所以現在遇到還是得克制一下衝動(?)。</p>
+<h2 id="About-member"><a href="#About-member" class="headerlink" title="About member"></a>About member</h2><p>請容我說一句，我認為開發 team 裡每個人能力都要在一個水準之上並且擁有「想不斷改進」的 mindset，才能做到還算順暢的 Agile style 開發。</p>
+<p>同時，發現 team member 欠缺某些能力時，是要去提升的。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>本書最後結論寫得蠻有意境的。</p>
+<p>Agile style 開發是很多人面對軟體開發的種種問題，經過實際使用然後認為有效的方式。</p>
+<p>對於習慣，呃，土砲硬幹開發法？（不要亂取名字）的人來說，Agile 可能蠻容易違反直覺的？或者，違反「一直以來都這麼做」。</p>
+<p>只是，那些直覺跟那些「一直以來都這麼做」的方式，真的有經過試驗確認有效？又真的試過 Agile 方法確認無效？</p>
+<p>有用同樣標準看待各種方法嗎？</p>
+<p>還是說，之所以堅持那些直覺跟「一直以來都這麼做」，是因為試驗跟換方法很麻煩？</p>
+<p>每種方法有適用的問題跟情境以及使用後的效果，武器庫有愈多武器，面對各種狀況就有愈多選擇、愈能針對情境選擇最適用的。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reading/" rel="tag"># Reading</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Amdahl-s-law/" rel="prev" title="Amdahl's law">
+      <i class="fa fa-chevron-left"></i> Amdahl's law
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Visual-Studio-2017-NUnit-Usage/" rel="next" title="Visual Studio 2017 NUnit Usage">
+      Visual Studio 2017 NUnit Usage <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Agile"><span class="nav-number">1.</span> <span class="nav-text">Agile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Feature-by-Feature"><span class="nav-number">2.</span> <span class="nav-text">Feature by Feature</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-and-Clean-Code"><span class="nav-number">3.</span> <span class="nav-text">Design and Clean Code</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Planning-with-“stretch-goals”-is-destructive-p-39"><span class="nav-number">3.1.</span> <span class="nav-text">Planning with “stretch goals” is destructive (p.39)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#About-member"><span class="nav-number">4.</span> <span class="nav-text">About member</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">5.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/review-of-The-Nature-of-Software-Development/";
+    this.page.identifier = "review-of-The-Nature-of-Software-Development/";
+    this.page.title = "The Nature of Software Development";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

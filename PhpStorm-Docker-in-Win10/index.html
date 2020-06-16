@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="跟主題無關的 murmur：來嘗試一種筆記方式，以「解決某個問題」或「達到某個目標」為主，記錄中間的試驗跟操作等過程。因為是過程記錄，路途中可能歪掉(?)、出現好像有關但最後跟解決方式無關的東西。  目標目標是 Win10 下的 PhpStorm 可以用不同版本 PHP 執行程式。 一個方式是裝多個版本的 PHP （覺得把環境弄得很亂不蘇胡），既然 PhpStorm 的 CLI Interpret">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PhpStorm + Docker in Win10">
+<meta property="og:url" content="http://www.cjwind.idv.tw/PhpStorm-Docker-in-Win10/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="跟主題無關的 murmur：來嘗試一種筆記方式，以「解決某個問題」或「達到某個目標」為主，記錄中間的試驗跟操作等過程。因為是過程記錄，路途中可能歪掉(?)、出現好像有關但最後跟解決方式無關的東西。  目標目標是 Win10 下的 PhpStorm 可以用不同版本 PHP 執行程式。 一個方式是裝多個版本的 PHP （覺得把環境弄得很亂不蘇胡），既然 PhpStorm 的 CLI Interpret">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/Z8L0D9M.png">
+<meta property="og:image" content="https://i.imgur.com/tHnVCLa.png">
+<meta property="og:image" content="https://i.imgur.com/yvtJNK4.png">
+<meta property="og:image" content="https://i.imgur.com/IlNFxsJ.png">
+<meta property="og:image" content="https://i.imgur.com/98YX11z.png">
+<meta property="og:image" content="https://i.imgur.com/TchnKCP.png">
+<meta property="og:image" content="https://i.imgur.com/zyZOLjx.png">
+<meta property="og:image" content="https://i.imgur.com/hxkVPlV.png">
+<meta property="og:image" content="https://i.imgur.com/fCz0HBw.png">
+<meta property="og:image" content="https://i.imgur.com/S2Hietl.png">
+<meta property="og:image" content="https://i.imgur.com/FAE2e4r.png">
+<meta property="og:image" content="https://i.imgur.com/vz9mIV2.png">
+<meta property="article:published_time" content="2019-07-26T01:13:38.000Z">
+<meta property="article:modified_time" content="2020-06-16T14:51:34.180Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="PhpStorm">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/Z8L0D9M.png">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/PhpStorm-Docker-in-Win10/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>PhpStorm + Docker in Win10 | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line toggle-line-first"></span>
+        <span class="toggle-line toggle-line-middle"></span>
+        <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">cjwind's note</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/PhpStorm-Docker-in-Win10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PhpStorm + Docker in Win10
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-26 09:13:38" itemprop="dateCreated datePublished" datetime="2019-07-26T09:13:38+08:00">2019-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/PhpStorm-Docker-in-Win10/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PhpStorm-Docker-in-Win10/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>跟主題無關的 murmur：來嘗試一種筆記方式，以「解決某個問題」或「達到某個目標」為主，記錄中間的試驗跟操作等過程。因為是過程記錄，路途中可能歪掉(?)、出現好像有關但最後跟解決方式無關的東西。</p>
+<hr>
+<h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>目標是 Win10 下的 PhpStorm 可以用不同版本 PHP 執行程式。</p>
+<p>一個方式是裝多個版本的 PHP <del>（覺得把環境弄得很亂不蘇胡）</del>，既然 PhpStorm 的 CLI Interpreter 可以用 Docker，乾脆來玩一下 Docker～</p>
+<p>雖然是在 Win10，但除了安裝 Docker 的版本不同，其他 Docker 操作基本在 Linux 應該是可以用的（畢竟這沒有牽涉到更細節的什麼 linux container、windows container 之類的，我也不確定那有沒有關係）。</p>
+<h2 id="Win10-Docker-Installation"><a href="#Win10-Docker-Installation" class="headerlink" title="Win10 Docker Installation"></a>Win10 Docker Installation</h2><p>google it，裝完就忘了，大概是 Hyper-V 要開、Win10 要某個版本之後，然後去裝 Docker for Windows，可以參考<a href="http://marcus116.blogspot.com/2019/01/docker-docker-for-windows.html" target="_blank" rel="noopener">這篇</a>。</p>
+<h2 id="Docker-的-Image-amp-Container-極簡概念"><a href="#Docker-的-Image-amp-Container-極簡概念" class="headerlink" title="Docker 的 Image &amp; Container 極簡概念"></a>Docker 的 Image &amp; Container 極簡概念</h2><ul>
+<li>image：類似 VM image 的東西，而且 image 可以一層層疊起來。</li>
+<li>container：依據 image 開起來的 instance，container 的環境是互相隔離的。</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="Docker-Command-Line-Usage"><a href="#Docker-Command-Line-Usage" class="headerlink" title="Docker Command Line Usage"></a>Docker Command Line Usage</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 跑起一個 ubuntu container 並且用 foreground 模式進入 bash</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker run -it ubuntu bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 列出 <span class="built_in">local</span> 有的 image</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker images</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 在 Docker Hub 搜尋 image</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker search &lt;term&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="利用-image-tag-執行不同-PHP-版本的-container"><a href="#利用-image-tag-執行不同-PHP-版本的-container" class="headerlink" title="利用 image tag 執行不同 PHP 版本的 container"></a>利用 image tag 執行不同 PHP 版本的 container</h3><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker run [OPTIONS] IMAGE[<span class="symbol">:TAG|</span><span class="variable">@DIGEST</span>] [COMMAND] [ARG...]</span><br><span class="line"><span class="variable">$ </span>docker run <span class="symbol">php:</span>&lt;version&gt;-cli</span><br></pre></td></tr></table></figure>
+
+<p>不加 <code>:&lt;version&gt;-cli</code> 就能執行最新版。這裡有 <a href="https://hub.docker.com/_/php?tab=tags" target="_blank" rel="noopener">PHP image 支援的 tag</a>。</p>
+<h3 id="跑-phpunit-image（需要-login-Docker-Hub）"><a href="#跑-phpunit-image（需要-login-Docker-Hub）" class="headerlink" title="跑 phpunit image（需要 login Docker Hub）"></a>跑 phpunit image（需要 login Docker Hub）</h3><p><code>$ docker run phpunit/phpunit</code></p>
+<h3 id="以-php-container-執行本機的-php-file"><a href="#以-php-container-執行本機的-php-file" class="headerlink" title="以 php container 執行本機的 php file"></a>以 php container 執行本機的 php file</h3><p><code>$ docker run -it --rm --name my-running-script -v D:\tmp:/usr/src/myapp -w /usr/src/myapp php php hello.php</code></p>
+<ul>
+<li><code>-t</code> : Allocate a pseudo-tty</li>
+<li><code>-i</code> : Keep STDIN open even if not attached<ul>
+<li><code>-i</code> 跟 <code>-t</code> 可以合寫成 <code>-it</code>，需要 <code>-it</code> 才能跟 interactive process 互動。</li>
+</ul>
+</li>
+<li><code>-rm</code>：預設上 container 的 file system 在 container 結束後仍會保留。<code>-rm</code> 可以在 container 結束後自動 clean up container 以及刪除其 file system。</li>
+<li><code>--name</code> 指定 container 的名字</li>
+<li><code>-w</code> 指定 container 中跑執行檔的 working directory，預設是 root directory (<code>/</code>)</li>
+<li><code>-v</code> 是做 shared volume<ul>
+<li><code>-v, --volume=[host-src:]container-dest[:&lt;options&gt;]: Bind mount a volume.</code></li>
+<li>最簡單的用法是 host 跟 container 的 file system mapping，將 host 的某個路徑 mapping 到 container 的某個路徑。<a href="https://docs.docker.com/engine/reference/run/#volume-shared-filesystems" target="_blank" rel="noopener">更詳細的說明</a>。</li>
+</ul>
+</li>
+</ul>
+<p><code>docker run</code> 可以指定 container 中要執行的指令，也就是上面指令的第二個 <code>php</code>（第一個 <code>php</code> 是 image 名稱），當然也可以不指定、直接執行 image 預設的指令。</p>
+<p>總結一下，這個指令是把 host 的 <code>D:\tmp</code> mapping 到 container 的 <code>/usr/src/myapp</code>，並將 container working directory 改為 <code>/usr/src/myapp</code>，以 <code>php</code> 執行 <code>hello.php</code>（<code>hello.php</code> 當然是放在 host 的 <code>D:\tmp\</code>）。</p>
+<h2 id="Docker-Build-Image"><a href="#Docker-Build-Image" class="headerlink" title="Docker Build Image"></a>Docker Build Image</h2><p>開個資料夾，在裡面建立檔案 <code>Dockerfile</code>，內容如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Use an official PHP runtime as a parent image</span></span><br><span class="line"><span class="keyword">FROM</span> php</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set the working directory to /app</span></span><br><span class="line"><span class="keyword">WORKDIR</span><span class="bash"> /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy the current directory contents into the container at /app</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . /app</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Run app.py when the container launches</span></span><br><span class="line"><span class="keyword">CMD</span><span class="bash"> [<span class="string">"php"</span>, <span class="string">"hello.php"</span>]</span></span><br></pre></td></tr></table></figure>
+
+<p>新增 <code>hello.php</code>，裡面隨意寫點 PHP code。最後在 command line 切到該資料夾，執行：</p>
+<p><code>$ docker build -t myhelloworld:first .</code></p>
+<p>如此即建立一個名稱為 <code>myhelloworld</code>、tag 為 <code>first</code>（不加 tag 也可以）的 image，可以用 <code>docker image ls</code> 看到。也可以不指定名稱，每個 image 都有 id。</p>
+<h2 id="PhpStorm-Docker"><a href="#PhpStorm-Docker" class="headerlink" title="PhpStorm + Docker"></a>PhpStorm + Docker</h2><p>在 PhpStorm 裡要先設定 Docker Server。</p>
+<ol>
+<li>Docker daemon 開啟 <code>localhost:2375</code></li>
+</ol>
+<img src="https://i.imgur.com/Z8L0D9M.png" class="" width="800">
+
+<ol start="2">
+<li>PhpStorm 設定 Docker server</li>
+</ol>
+<img src="https://i.imgur.com/tHnVCLa.png" class="" width="800">
+
+<h3 id="用-Docker-當-CLI-interpreter"><a href="#用-Docker-當-CLI-interpreter" class="headerlink" title="用 Docker 當 CLI interpreter"></a>用 Docker 當 CLI interpreter</h3><ol>
+<li>進 PHP 設定，點 CLI Interpreter 右邊的 <code>...</code></li>
+</ol>
+<img src="https://i.imgur.com/yvtJNK4.png" class="" width="800">
+
+<ol start="2">
+<li>增加 CLI Interpreter From Docker</li>
+</ol>
+<img src="https://i.imgur.com/IlNFxsJ.png" class="" width="800">
+
+<ol start="3">
+<li>選擇 Docker server 及 Image</li>
+</ol>
+<img src="https://i.imgur.com/98YX11z.png" class="" width="800">
+
+<ol start="4">
+<li>Load 到 PHP 相關資訊啦～</li>
+</ol>
+<img src="https://i.imgur.com/TchnKCP.png" class="" width="800">
+
+<ol start="5">
+<li>選擇剛剛新增的 interpreter</li>
+</ol>
+<img src="https://i.imgur.com/zyZOLjx.png" class="" width="800">
+
+<p>設定完就能用 Docker container 的 php 執行 code 啦～</p>
+<p>需要多個 PHP 版本可以設定多個 interpreter 來切換，不會搞得 host 環境裝一堆不同版本 PHP 難以管理。</p>
+<h3 id="Build-amp-Run-Dockerfile"><a href="#Build-amp-Run-Dockerfile" class="headerlink" title="Build &amp; Run Dockerfile"></a>Build &amp; Run Dockerfile</h3><ol>
+<li>在 project 裡建立 Dockerfile，<a href="#Docker-Build-Image">如上</a></li>
+<li>編輯 Run configuration</li>
+</ol>
+<img src="https://i.imgur.com/hxkVPlV.png" class="" width="800">
+
+<ol start="3">
+<li>增加 Dockerfile configuration</li>
+</ol>
+<img src="https://i.imgur.com/fCz0HBw.png" class="" width="800">
+
+<ol start="4">
+<li>選擇 Dockerfile 檔案</li>
+</ol>
+<img src="https://i.imgur.com/S2Hietl.png" class="" width="800">
+
+<ol start="5">
+<li>執行！</li>
+</ol>
+<img src="https://i.imgur.com/FAE2e4r.png" class="" width="800">
+
+<p>執行一次會產生一個 image，它會先 build 一個 image 再去 run 它。</p>
+<h3 id="Build-Docker-image"><a href="#Build-Docker-image" class="headerlink" title="Build Docker image"></a>Build Docker image</h3><p>也可以直接在 <code>Dockerfile</code> build image：</p>
+<img src="https://i.imgur.com/vz9mIV2.png" class="" width="800">
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/PhpStorm/" rel="tag"># PhpStorm</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/C-stringify/" rel="prev" title="C 語言 stringify 技巧">
+      <i class="fa fa-chevron-left"></i> C 語言 stringify 技巧
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/get-started-with-docker/part-1-2/" rel="next" title="Get started with Docker Part 1 & 2">
+      Get started with Docker Part 1 & 2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目標"><span class="nav-number">1.</span> <span class="nav-text">目標</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Win10-Docker-Installation"><span class="nav-number">2.</span> <span class="nav-text">Win10 Docker Installation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-的-Image-amp-Container-極簡概念"><span class="nav-number">3.</span> <span class="nav-text">Docker 的 Image &amp; Container 極簡概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Command-Line-Usage"><span class="nav-number">4.</span> <span class="nav-text">Docker Command Line Usage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用-image-tag-執行不同-PHP-版本的-container"><span class="nav-number">4.1.</span> <span class="nav-text">利用 image tag 執行不同 PHP 版本的 container</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跑-phpunit-image（需要-login-Docker-Hub）"><span class="nav-number">4.2.</span> <span class="nav-text">跑 phpunit image（需要 login Docker Hub）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以-php-container-執行本機的-php-file"><span class="nav-number">4.3.</span> <span class="nav-text">以 php container 執行本機的 php file</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker-Build-Image"><span class="nav-number">5.</span> <span class="nav-text">Docker Build Image</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PhpStorm-Docker"><span class="nav-number">6.</span> <span class="nav-text">PhpStorm + Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用-Docker-當-CLI-interpreter"><span class="nav-number">6.1.</span> <span class="nav-text">用 Docker 當 CLI interpreter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-amp-Run-Dockerfile"><span class="nav-number">6.2.</span> <span class="nav-text">Build &amp; Run Dockerfile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Build-Docker-image"><span class="nav-number">6.3.</span> <span class="nav-text">Build Docker image</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/PhpStorm-Docker-in-Win10/";
+    this.page.identifier = "PhpStorm-Docker-in-Win10/";
+    this.page.title = "PhpStorm + Docker in Win10";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
