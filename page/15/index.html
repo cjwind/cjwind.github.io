@@ -196,6 +196,216 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pthread-mutex/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/pthread-mutex/" class="post-title-link" itemprop="url">Pthread Mutex</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-04 23:55:51" itemprop="dateCreated datePublished" datetime="2014-04-04T23:55:51+08:00">2014-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/pthread-mutex/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="pthread-mutex/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>mutex 用來保護多個 thread 共享（shared）的資料，避免 concurrent modification 造成問題。</p>
+<p>lock mutex =&gt; modify shared data =&gt; unlock mutex</p>
+<p>mutex 有三種 type：</p>
+<ol>
+<li>fast</li>
+<li>recursive</li>
+<li>error check</li>
+</ol>
+<p>操作 mutex 的 function 會依照 type 不同而可能有不同的操作方式。</p>
+<h2 id="Initialize-Mutex"><a href="#Initialize-Mutex" class="headerlink" title="Initialize Mutex"></a>Initialize Mutex</h2><p>initial 時，可以用 pthread_mutex_init() 或直接 assign const 指定 mutex 的 type。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex, <span class="keyword">const</span> <span class="keyword">pthread_mutexattr_t</span> *mutexattr)</span></span>;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 直接 assign const</span></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> fastmutex = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> recmutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> errchkmutex = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Lock-Mutex"><a href="#Lock-Mutex" class="headerlink" title="Lock Mutex"></a>Lock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_lock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<p>如果 mutex 是 unlock 狀態，則 lock 該 mutex 且讓該 mutex 為 call phread_mutex_lock() 的 thread 擁有，做完這些後立刻 return。</p>
+<p>如果 mutex 正被 lock 住，此 function 會依照不同 type 的 mutex 有不同動作：</p>
+<ol>
+<li><p>fast</p>
+<p>calling thread 會 suspend，直到 mutex unlock。沒寫好的話可能造成 deadlock。</p>
+</li>
+<li><p>recursive</p>
+<p>成功並立刻 return。這種 mutex 會記錄它被 lock 幾次，也就是一個 thread 可以 lock 這種 mutex 很多次。要 unlock 這種 mutex 時，也必須 call 相應 lock 次數的 unlock function 才能真正 unlock。</p>
+</li>
+<li><p>error check</p>
+<p>立刻 return，但 errno = EDEADLK。<em>真是個會讓人誤會的 errno 名稱…</em></p>
+<p>EDEADLK 在 man page 的解釋：</p>
+<blockquote>
+<p>the mutex is already locked by the calling thread (``error checking’’ mutexes only).</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="Try-Lock-Mutex"><a href="#Try-Lock-Mutex" class="headerlink" title="Try Lock Mutex"></a>Try Lock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_trylock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<p>跟 pthread_mutex_lock() 差不多，差別是這個不會 block 住。</p>
+<p>操作 fast mutex 時，trylock() 會立刻 return，而 errno 為 EBUSY。</p>
+<h2 id="Unlock-Mutex"><a href="#Unlock-Mutex" class="headerlink" title="Unlock Mutex"></a>Unlock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_unlock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<p>進入此 function 前，mutex 應為 locked 且被 calling thread 擁有。</p>
+<p>fast mutex 會直接被 unlock。recursive mutex 需 call 相同於 lock 次數的 unlock 才會真正 unlock。</p>
+<p>error check 跟 recursive 的 mutex 會檢查兩個條件：此 mutex 是否為 locked 且被 calling thread 擁有。若有一條件不符合，則不會 unlock，會 return error code。fast mutex 不會做此檢查，所以非擁有此 mutex 的 thread 也可以 unlock 它（這當然不好）。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>Linux pthread_mutex man page<ul>
+<li>PS：Ubuntu 上要裝 glic-doc 才有 pthread 的 man page</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-virtual-destructor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/c-plus-plus-virtual-destructor/" class="post-title-link" itemprop="url">C++ Virtual Destructor</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-04 20:53:38" itemprop="dateCreated datePublished" datetime="2014-04-04T20:53:38+08:00">2014-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/c-plus-plus-virtual-destructor/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-virtual-destructor/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>為有「多型」性質（即有 virtual function）的 base class 宣告 virtual destructor。</strong></p>
+<p>C++ 沒有定義 base class 的 destructor 是 non-virtual 時以 base class pointer 刪除 derived class 的 object 的行為。常出現的結果是只有 base class 部分的 memory 會被釋放、derived class 部分的不會釋放，這會造成「局部銷毀」物件的問題，memory 當然就沒 free 乾淨。</p>
+<p>用 virtual destructor 可以解決上述問題，因為 virtual function 的性質會 call 到 derived class 的 destructor。</p>
+<p>不過不是把所有 base class 的 destructor 宣告成 virtual 就好，非必要（沒有 virtual function）時不需要這麼宣告。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-type-casting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -549,7 +759,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

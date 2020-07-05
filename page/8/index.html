@@ -196,6 +196,253 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/DLL-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/DLL-usage/" class="post-title-link" itemprop="url">DLL usage</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-11-22 15:56:35" itemprop="dateCreated datePublished" datetime="2015-11-22T15:56:35+08:00">2015-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/DLL-usage/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="DLL-usage/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>link DLL 分成 implicit link 及 explicit link。</p>
+<h2 id="Implicit-link"><a href="#Implicit-link" class="headerlink" title="Implicit link"></a>Implicit link</h2><p>DLL library 需要 export 出 symbol，使用 DLL 的程式則需要 import symbol。VC 裡透過 <code>__declspec(export)</code> 來標示要 export 的  symbol，以及 <code>__declspec(import)</code> 標示要從外面 import 的 symbol。如果要讓 C++ 的 symbol 跟 C 相容，需要加 <code>extern &quot;C&quot;</code>（不做 C++ 名稱修飾）。</p>
+<p>使用 library 的程式需要：</p>
+<ul>
+<li>compile 時需要 library export 的 symbol 的 header file</li>
+<li>需 link library 的 <code>.lib</code>，<code>.lib</code> 會在 build DLL 時一起 build 出來</li>
+<li>執行時需 <code>.dll</code></li>
+</ul>
+<p>build DLL 產生的 <code>.lib</code> 跟 static library 的不一樣，DLL 的 <code>.lib</code> 只是告訴使用的程式去哪找到 DLL，不會包含實際功能，所以檔案比較小。使用 implicitly link DLL 的程式必須要在 load 時可以找到 DLL，否則會跳錯誤訊息而且無法繼續執行。</p>
+<p>作為 library 的 project 需在 VC 的 project properties→General→Configuration Type 設為 <code>Dynamic Library (.dll)</code>、Target Extension 設為 <code>.dll</code>。另外，如果 code 實際上沒有 export symbol，build DLL 時不會生出 <code>.lib</code>。</p>
+<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><h4 id="Foo-library"><a href="#Foo-library" class="headerlink" title="Foo library"></a>Foo library</h4><p>compile 時需 define <code>FOO_DLL_EXPORTS</code>。</p>
+<figure class="highlight c++"><figcaption><span>Foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> FOO_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOO_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> FOO_DLL_EXPORTS</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> FOO_API __declspec(dllexport)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> FOO_API __declspec(dllimport)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">FOO_API <span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> <span class="function">FOO_API <span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><figcaption><span>Foo.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Foo.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a + b); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a - b); &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>dumpbin</code> 要從 VC 的 command prompt 才叫得出來。</p>
+<figure class="highlight plain"><figcaption><span>export symbol</span></figcaption><table><tr><td class="code"><pre><span class="line">D:\tmp\FooLibrary\Debug&gt;dumpbin &#x2F;EXPORTS FooLibrary.dll</span><br><span class="line">Dump of file FooLibrary.dll</span><br><span class="line"></span><br><span class="line">File Type: DLL</span><br><span class="line"></span><br><span class="line">  Section contains the following exports for FooLibrary.dll</span><br><span class="line"></span><br><span class="line">    00000000 characteristics</span><br><span class="line">    56507D3B time date stamp Sat Nov 21 22:18:35 2015</span><br><span class="line">        0.00 version</span><br><span class="line">           1 ordinal base</span><br><span class="line">           2 number of functions</span><br><span class="line">           2 number of names</span><br><span class="line"></span><br><span class="line">    ordinal hint RVA      name</span><br><span class="line"></span><br><span class="line">          1    0 0001107D ?Add@@YAHHH@Z &#x3D; @ILT+120(?Add@@YAHHH@Z)</span><br><span class="line">          2    1 000110FA Sub &#x3D; @ILT+245(_Sub)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Test-program"><a href="#Test-program" class="headerlink" title="Test program"></a>Test program</h4><p>project 的 include file 中須包含 <code>Foo.h</code>，link library 需有 <code>FooLibrary.lib</code>，執行檔旁則需放 <code>FooLibrary.dll</code>。</p>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"Foo.h"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; Add(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; <span class="string">", "</span> &lt;&lt; Sub(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Explicit-link"><a href="#Explicit-link" class="headerlink" title="Explicit link"></a>Explicit link</h2><p>在 runtime 時才 load DLL。因為 runtime 才 load，即使 load DLL 失敗也可以在程式裡處理錯誤並繼續執行下去。</p>
+<p>使用 library 的程式需要：</p>
+<ul>
+<li>call <code>LoadLibrary()</code> load DLL</li>
+<li>call <code>GetProcAddress()</code> 取得想要的 function 的 address</li>
+<li>用完 library 需 call <code>FreeLibrary()</code></li>
+<li>程式 compile 時不一定需要 library 的 header file（但需要知道要 call 的 function 的 prototype），link 時不需要 <code>.lib</code>，僅在執行時需要 <code>.dll</code></li>
+</ul>
+<p>用 <code>GetProcAddress()</code> 需指定的 function name 是 library export 出來的 symbol，不是 library source code 裡的 function name。經過 C++ 名稱修飾，需要指定的 function name 會變得難以理解，這種 interface 應該沒人想用。除了 <code>__declspec(dllexport)</code> 外，export function symbol 的另一個做法是使用 <code>.def</code> 模組定義檔來宣告名稱。實際上是指定 alias 給原本的 symbol。</p>
+<h3 id="Sample-load-DLL"><a href="#Sample-load-DLL" class="headerlink" title="Sample load DLL"></a>Sample load DLL</h3><p>library source code 同上。</p>
+<p>有加 <code>extern &quot;C&quot;</code> 的 <code>Sub()</code> 因為沒經過 C++ 名稱修飾，所以能直接用 function name，但 <code>Add()</code> 就得寫出 C++ 修飾後的 symbol name 才拿得到 function pointer。</p>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*pfn)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HINSTANCE dllHandle = LoadLibrary(<span class="string">"FooLibrary.dll"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dllHandle != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Get address of function</span></span><br><span class="line">        pfn pSubFunc = (pfn)GetProcAddress(dllHandle, <span class="string">"Sub"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!pSubFunc)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Load Sub() fail"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  <span class="comment">// handle the error</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; pSubFunc(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; <span class="comment">// call the function</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pfn pAddFunc = (pfn)GetProcAddress(dllHandle, <span class="string">"?Add@@YAHHH@Z"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!pAddFunc)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Load Add() fail"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; pAddFunc(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        FreeLibrary(dllHandle);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Load FooLibrary.dll fail"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Sample-模組定義檔"><a href="#Sample-模組定義檔" class="headerlink" title="Sample 模組定義檔"></a>Sample 模組定義檔</h3><p>刪掉 <code>Foo.h</code> 裡的 <code>__declspec(dllexport)</code>。</p>
+<figure class="highlight plain"><figcaption><span>Foo.def</span></figcaption><table><tr><td class="code"><pre><span class="line">LIBRARY FooLibrary</span><br><span class="line">EXPORTS</span><br><span class="line">Add</span><br><span class="line">Sub</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">D:\tmp\FooLibrary\Debug&gt;dumpbin &#x2F;EXPORTS FooLibrary.dll</span><br><span class="line">Dump of file FooLibrary.dll</span><br><span class="line"></span><br><span class="line">File Type: DLL</span><br><span class="line"></span><br><span class="line">  Section contains the following exports for FooLibrary.dll</span><br><span class="line"></span><br><span class="line">    00000000 characteristics</span><br><span class="line">    56516FE9 time date stamp Sun Nov 22 15:34:01 2015</span><br><span class="line">        0.00 version</span><br><span class="line">           1 ordinal base</span><br><span class="line">           2 number of functions</span><br><span class="line">           2 number of names</span><br><span class="line"></span><br><span class="line">    ordinal hint RVA      name</span><br><span class="line"></span><br><span class="line">          1    0 0001107D Add &#x3D; @ILT+120(?Add@@YAHHH@Z)</span><br><span class="line">          2    1 000110FA Sub &#x3D; @ILT+245(_Sub)</span><br></pre></td></tr></table></figure>
+
+<p><code>main.cpp</code> 的 <code>GetProcAddress()</code> 可以直接寫 <code>Add</code> 跟 <code>Sub</code>。</p>
+<p><del>其實這是小實驗筆記吧…</del></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/d14wsce5%28v=vs.120%29.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/d14wsce5%28v=vs.120%29.aspx</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/784bt7z7%28v=vs.120%29.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/784bt7z7%28v=vs.120%29.aspx</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/zzk20sxw%28v=vs.120%29.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/zzk20sxw%28v=vs.120%29.aspx</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms684175%28v=vs.85%29.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms684175%28v=vs.85%29.aspx</a></li>
+<li><a href="https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms683212%28v=vs.85%29.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms683212%28v=vs.85%29.aspx</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-trace-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Murmur-trace-code/" class="post-title-link" itemprop="url">trace code</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-08-30 17:07:57" itemprop="dateCreated datePublished" datetime="2015-08-30T17:07:57+08:00">2015-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Murmur-trace-code/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Murmur-trace-code/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近看了些 code，發現不同情況下有不同 trace code 的方式，來 murmur 一下。</p>
+<p>通常拿到一份 code 會先看它主要 component 的結構。如果有 UI 會先大概了解有哪些 component、分別叫什麼、彼此階層關係是什麼，例如哪個 container 裡放著什麼之類的。如果是網頁會先看資料夾結構是一般自己寫的還是用 framework。之後依照要做的事情不同而有不同的 trace 方式。</p>
+<p>第一種，debug 或者找特定功能。</p>
+<p>意識到這種 trace code 方式應該是大學在計中打工的時候，那時候想將 Wordpress 跟一個系統做簡單的整合連結，所以要找 Wordpress 裡相對應的功能。工作後 debug 也常常是用這種方式在看 code。</p>
+<ul>
+<li>如果有 UI 操作，從 UI 操作 trigger 的地方開始一路往下看。</li>
+<li>簡單的東西可能只需要找到特定 function，改一改或加一加功能就好。</li>
+<li>稍微複雜一點就得看懂整條路在幹嘛。</li>
+</ul>
+<p>這方式是單看程式裡某一條路徑、某一段特定邏輯，除非發現是架構上的 bug 才會再往外擴。要是對那份 code 很熟，是也不用從最開始往下找啦……</p>
+<p>第二種，想知道程式整體結構或運作之類的。</p>
+<p>想全面但不深入細節的了解結構跟 high level 的邏輯概念。著重架構及概念，會看大致的流程邏輯，但不會細看每個 function 怎麼實作。這是最近演化(?)出來的方式。</p>
+<ul>
+<li>找最主要的 component 當起點，通常那 project 叫什麼主要 component 就叫什麼，找不到就從 <code>main()</code> 開始。</li>
+<li>看 class name 猜用途<del>猜猜樂</del><ul>
+<li>看名字看不出來的就看 public function 來了解這 class 提供什麼功能</li>
+<li>function name 還是看不出來，找其他地方如何使用或者快速掃一下實作</li>
+<li>有時候會遇到「這個 class 就是這堆功能的集合，我也看不出來這名字跟這堆功能有啥關係」的狀況就是……</li>
+</ul>
+</li>
+<li>需要知道某些流程的時候<ul>
+<li>以類似第一種做法順著流程邏輯看，但只看概略，不細看實作。</li>
+<li>偶爾會看點實作，但比較像用大筆刷過去……第一種方式看實作比較像要刻字那樣精雕細琢…….<del>我到底在寫什麼…Orz…</del></li>
+</ul>
+</li>
+<li>了解各 object 的關係，通常看 member。<ul>
+<li>如果是 pointer 要注意是自己生的還是別人傳進來的。</li>
+</ul>
+</li>
+<li>遇到某些關鍵字，例如 XXXFactory、XXXObserver，直接套用已知概念。<ul>
+<li>只注意誰跟誰有這類的關係，不細看如何實作這些關係。當然也有人家有關鍵字但我不會那概念就沒東西套的狀況……XD</li>
+</ul>
+</li>
+<li>遇見某些常見寫法，直接套用那種寫法的概念。<ul>
+<li>例如 <code>select()</code> 常常就是一個 while loop、塞一塞 <code>fdset</code>、call <code>select()</code>、後面依照 <code>fdset</code> 做事。某些 event loop 做法也有相似性。</li>
+</ul>
+</li>
+</ul>
+<p>我覺得如果遇到關鍵字跟常見做法可以直接套用已知觀念，相對來說就會快很多，因為不需要特別再看實作去理解這部分在做什麼。有時候需要看實作是因為拼湊其他線索後還是不知道那段在幹嘛，只好透過實作細節重新抽象化成概念。</p>
+<p>至於如何找 code？find all 與 <code>grep --color -nr *</code> 萬歲！(欸)</p>
+<p>PS：寫這個是想知道自己怎麼 trace code 的，但怎麼寫一寫好像還是有點像要心領神會的難以言喻……Orz……</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch5-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1024,180 +1271,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/About-note-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/About-note-2/" class="post-title-link" itemprop="url">關於筆記</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-07 22:23:04" itemprop="dateCreated datePublished" datetime="2015-07-07T22:23:04+08:00">2015-07-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/About-note-2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="About-note-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天看到<a href="http://www.buffettism88.com/2015/07/notetoaction.html" target="_blank" rel="noopener">這篇文章</a>，加上近日對於整理筆記之厭倦，在想到底寫筆記是寫來幹嘛的？</p>
-<p>那篇文章表示不用寫「資訊」，但以學習知識來說，我還是需要一點「重點整理」方便日後查找，尤其是一些從書上看來、稍微消化過但也還沒熟到整個記下來的部分。資訊的確幾乎都可以找 google 大神，但是重新 google 到的資訊可能跟我的印象有出入，還有一些眉眉角角不見得記得，有個地方作為資訊的集中地對我還是有用的。</p>
-<p>只不過，有時候似乎會趨向小時候在課堂上抄寫筆記的狀況，像在抄書。這感覺就怪怪的，有時候分不清楚自己是在抄書還是那真是重點（好吧，我猜如果覺得很厭倦的話大概就是在抄書或者已經不需要寫了）。想著想著發現原來今年初寫過<a href="/Murmur-about-note">筆記這回事</a>。</p>
-<p>以上是跟專業、學習知識有關的「筆記」。至於看其他書啊、聽演講啊之類的，我比較會寫心得感想，像那篇文章所說的第二種筆記。在專業有關的學習上，這種感想會在書裡變眉批，這裡一句、那裡一段的，有時候是疑問，有時候是吐槽(欸?)，但這種亂七八糟的心得就不太會去整理了。</p>
-<p>可能會慢慢增加對於專業領域的想法吧，我對時事或一些事情會有某些想法，但很奇怪，對於自身專業卻不太有自己的想法。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cpp-Virtual-destructor-in-interface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Cpp-Virtual-destructor-in-interface/" class="post-title-link" itemprop="url">C++ Virtual destructor in interface</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-06-19 22:51:40" itemprop="dateCreated datePublished" datetime="2015-06-19T22:51:40+08:00">2015-06-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Cpp-Virtual-destructor-in-interface/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cpp-Virtual-destructor-in-interface/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>C++ 不像 Java 有 interface，這邊說的 interface 是所有 function 皆為 pure virtual function 的 abstract class。</p>
-<p>interface 依然要有 virtual destructor，否則用 interface pointer 去砍 object 的時候會變成 undefined behavior。如果希望 interface 中的 virtual destructor 仍是 pure virtual，可以這樣寫：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Interface</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~Interface() = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Interface::~Interface() &#123; &#125;</span><br></pre></td></tr></table></figure>
-
-<p>由於只要有 class 繼承 Interface，Interface 的 destructor 就會被 derived class call 到，所以必須要有 definition 才不會 link error。</p>
-<p>virtual destructor 另一個使用場合──希望訂一個 interface 但不想訂定其中要有什麼 function──不想訂 function 但又需要該 class 是 abstract class 時就可用 virtual destructor 達到目的。聽起來有點怪，我遇到這種狀況是希望有個 interface 可以代表某種類的 object，但是在 interface 的階段卻又無法確定 derived class 會有那些 function，最後因為覺得結構上不需要而沒有真的使用，不曉得有沒有其他更好的方法？</p>
-<p>2018-12：現在看看覺得「希望訂一個 interface 但不想訂定其中要有什麼 function」的情況有點怪……又想不起來之前遇到什麼了……要訂 interface 至少要有基本 function，否則是否先不訂 interface、先做 class，等漸漸看到有共通的 function 時再訂定 interface？</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="/c-plus-plus-virtual-destructor">C++ Virtual Destructor</a></li>
-<li><a href="http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c</a></li>
-<li><a href="http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c</a></li>
-<li><a href="http://www.gotw.ca/gotw/031.htm" target="_blank" rel="noopener">http://www.gotw.ca/gotw/031.htm</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1267,7 +1340,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">143</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
