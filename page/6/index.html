@@ -196,6 +196,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Proxy-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Proxy-Pattern/" class="post-title-link" itemprop="url">Proxy Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-11 15:31:47" itemprop="dateCreated datePublished" datetime="2016-12-11T15:31:47+08:00">2016-12-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Proxy-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Proxy-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>讓某個物件有個替身，藉以控制外界對物件的接觸。<del>就是個經紀人的概念。(欸)</del></p>
+<p>Proxy pattern 主要目的在於「控制存取」，被代理的物件可以是遠端主機上的物件、建立成本高（例如需要時間下載）的物件、或者需要做存取權限管控的物件。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/proxy_pattern.png" alt="Proxy Pattern"></p>
+<p>很簡單的 UML，client 透過 interface Subject 使用物件，所以它不用知道使用的是真正有功能的物件 RealSubject 還是只是代理人 Proxy。Proxy 依據型態不同會用不同方式取得 RealSubject、使用 RealSubject 的功能，再將結果丟回給 client。</p>
+<p>除了操作 interface 外，要讓 client 使用 proxy 而非真正的 object，有個方法是用 factory 產生物件、傳回給 client，不然 client 自己 new 了個 XXXProxy，看也知道不是真正的 object 啊 XD。不過，是不是真有必要再加一層 factory 隱藏使用 proxy 的事實倒是依情況而定，簡單的情境下讓 client 自己去生 XXXProxy 也不會怎麼樣，不見得非得用 factory 增加複雜度。</p>
+<h2 id="Proxy-與它的變種們"><a href="#Proxy-與它的變種們" class="headerlink" title="Proxy 與它的變種們"></a>Proxy 與它的變種們</h2><h3 id="Remote-Proxy"><a href="#Remote-Proxy" class="headerlink" title="Remote Proxy"></a>Remote Proxy</h3><p>代理另一台電腦上的物件或 service 等等的代理人。使用 proxy 的 client 基本上不會知道 proxy 多做了網路連線、傳遞資料等等的事情，例如 Java 的 RMI（Remote Method Invocation）（這東西應該有點年代了，就當作是個簡單的例子就好）。</p>
+<h3 id="Virtual-Proxy"><a href="#Virtual-Proxy" class="headerlink" title="Virtual Proxy"></a>Virtual Proxy</h3><p>代理建立成本很高的 object，所謂成本很高可能是需要比較多時間等等，例如 video object 需要從網路抓影片、回應很慢的 API 等等。等待過程中但又不希望卡到 UI 操作，這時候就可以透過 virtual proxy 先回一個 loading 畫面，等到 video 抓好或 API 回來之後，就由真正的 object 做事。</p>
+<h3 id="Protection-Proxy"><a href="#Protection-Proxy" class="headerlink" title="Protection Proxy"></a>Protection Proxy</h3><p>顧名思義，保護真正 object 的 proxy，它會根據權限決定外部可不可以存取真正的 object。</p>
+<h3 id="Dynamic-Proxy"><a href="#Dynamic-Proxy" class="headerlink" title="Dynamic Proxy"></a>Dynamic Proxy</h3><p>Java 把事情搞得更複雜，弄了個 dynamic proxy 出來，在 package <code>java.lang.reflect</code>。</p>
+<p>簡單來說，Java 讓 programmer 連 proxy 都不用寫了，只要寫個 <code>InvocationHandler</code> 讓 proxy object call，runtime 才依據要代理的 object 生出 proxy object。<del>除了讓人更懶之外不太懂為什麼要搞這個出來…</del></p>
+<h3 id="其他奇奇怪怪的-Proxy-們"><a href="#其他奇奇怪怪的-Proxy-們" class="headerlink" title="其他奇奇怪怪的 Proxy 們"></a>其他奇奇怪怪的 Proxy 們</h3><p>放關鍵字，需要用再查。</p>
+<p>Firewall proxy、Caching proxy、Synchronization proxy、Smart Reference proxy、Complexity Hiding proxy、Copy-On-Wrtie proxy。</p>
+<p>網路上常說的 proxy server，就有 cache 跟控制網頁存取的功能。</p>
+<h2 id="Proxy-與其他-pattern-的不同"><a href="#Proxy-與其他-pattern-的不同" class="headerlink" title="Proxy 與其他 pattern 的不同"></a>Proxy 與其他 pattern 的不同</h2><h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><p>proxy 跟 decorator 都是對一個物件包裝，有點像，但是兩者的意圖不同。proxy 的目的是控制存取，decorator 則是增加功能。而且 proxy 通常不會一直包一直包、像洋蔥一樣好多層，decorator 會依據想要的功能一直包。</p>
+<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><p>proxy 看到一半，我就想，啊這跟 <a href="/Adapter-Pattern">adapter</a> 不是一樣嗎！不都是在使用的 client 跟真正的 objec 之間加一層！！！（施主冷靜）</p>
+<p>還是不一樣啦。adapter 會改變 interface，例如 function 參數不一樣，proxy 會 implement 同樣的 interface。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/State-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1057,110 +1151,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Load-process/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Load-process/" class="post-title-link" itemprop="url">Load process</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-06-12 17:07:36" itemprop="dateCreated datePublished" datetime="2016-06-12T17:07:36+08:00">2016-06-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-02-12 16:40:11" itemprop="dateModified" datetime="2017-02-12T16:40:11+08:00">2017-02-12</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Load-process/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Load-process/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>要執行一隻程式須將它的 instruction 跟 data load 到 memory。現代 OS 結合 virtual memory 以及 memory management 的 paging 機制來 load process。</p>
-<p>virtual memory 將 process 認知的 memory space 跟 physical memory 分離，藉此達到 process 不一定要在它認定的 physical memory address 上執行。如果實際有的記憶體比較少，virtual memory 也可以在記憶體不足的情況下讓 process 以為它有這麼多 memory 可用。</p>
-<p>每個 process 有自己的 virtual memory space，virtual memory space 的大小由平台的定址 bit 數決定，例如 32 bit 的平台可定址的 address 就從 0 到 2^32 - 1，總大小為 4 GB。process 在 32 bit 系統中的 virtual memory space 大小是 4GB，但不是 4GB 都可以為 process 使用，process 只能用 OS 分配給它的空間，亂用的話會被強制結束。</p>
-<p>paging 簡單來說是將 memory space 分成固定 size 的 page，現在 OS 大多使用 4K size 的 page。virtual memory space 跟 physical memory space 都以 page 切分，MMU（Memory Management Unit）負責 virtual page 與 physical page 的 mapping。virtual page 不存在 physical memory 而該 virtual page 又要被使用時會發生 page fault，此時 OS 負責將 virtual page 從 disk 中讀到 memory 並建立 virtual page 與 physical page 之間的 mapping。</p>
-<p>結合 virtual memory 跟 paging 的 load process 步驟：</p>
-<ol>
-<li>建立這個 process 的 virtual memory space，實際上是建立 virtual page 對應到 physical page 所需的 data structure。</li>
-<li>由 executable file header 的資訊建立 virtual space 與 executable file 的關係，也就是 process 的 virtual memory space 哪一塊對應到 executable file 的哪一塊。</li>
-<li>將 PC register 設到執行入口，process 開始執行。</li>
-<li>process 執行到的程式或需要的 data 沒有 load 進 physical memory，發生 page fault。OS 依照 virtual space 與 executable file 的對應關係知道要從 disk load 哪個 page 到 physical memory，load 進 physical memory 後建立 virtual apge 與該 physical page 的關係，這段即一般講 load 所指的動作。控制權還給 process 繼續跑。</li>
-</ol>
-<p>其中 step 4 會不斷發生。至於 physical memory 被用到需要換掉裡面的 page 才能放新 page 又是另一個故事了……</p>
-<h2 id="View"><a href="#View" class="headerlink" title="View"></a>View</h2><p>對 load 來說，executabl file 裡 section 內容是什麼不重要，重要的是權限。ELF 檔以 load 的角度被分為多個 segment，而一個 segment 裡會有多個屬性類似的 section。以不同角度劃分 executable file 在 ELF 中稱為不同 view，以 section 角度劃分是 linking view，以 segment 角度劃分是 execution view。</p>
-<p>之所以分了 section 又以 segment 再區分 ELF 檔，是因為以上述的 loading 方式，load 必須以 page 為單位。如果依據 section 區分 page 會使用太多 page 而且每個 page 又只用一點點，很浪費 memory。</p>
-<h2 id="Program-header-table"><a href="#Program-header-table" class="headerlink" title="Program header table"></a>Program header table</h2><p>executable file 用 program header table 保存 segment 的資訊，可以用 <code>readelf -l</code> 查看。</p>
-<p>program header table 中每個 segment 都有些欄位分別表示不同意義，其中 file size 跟 memory size 分別表示這個 segment 在 ELF file 中的 size 以及 load 到 memory 後佔用多少 virtual memory。正常來說 file size &lt;= memory size，兩個相等沒什麼好說的，就是 file 內容 load 進 memory。出現 file size &lt; memory size 其中一個可能是 bss section。</p>
-<p>bss section 是放 C 語言裡沒有初始化或初始化為 0 的 global variable，在 ELF 檔中只會記錄「有這個 variable」以及它的 size，不會給予該 variable 所需要的空間，因而能縮小 ELF 檔。到執行時當然要給這些 variable 其所需要的空間好讓它存 value，所以以 segment 角度來看包含 bss section 的 segment 會看到 memory size &gt; file size。另外，C 語言規定 bss section 的初始內容都是 0，不同系統會以不同方式實作。</p>
-<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>用 <a href="/Static-Link">Static link</a> 裡的例子看 segment。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -l foo</span><br><span class="line"></span><br><span class="line">Elf file<span class="built_in"> type </span>is EXEC (Executable file)</span><br><span class="line">Entry point 0x40010d</span><br><span class="line">There are 3 program headers, starting at offset 64</span><br><span class="line"></span><br><span class="line">Program Headers:</span><br><span class="line"> <span class="built_in"> Type </span>          Offset             VirtAddr           PhysAddr</span><br><span class="line">                 FileSiz            MemSiz              Flags  Align</span><br><span class="line">  LOAD           0x0000000000000000 0x0000000000400000 0x0000000000400000</span><br><span class="line">                 0x0000000000000180 0x0000000000000180  R E    200000</span><br><span class="line">  LOAD           0x0000000000000180 0x0000000000600180 0x0000000000600180</span><br><span class="line">                 0x0000000000000018 0x0000000000000018  RW     200000</span><br><span class="line">  GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000</span><br><span class="line">                 0x0000000000000000 0x0000000000000000  RW     10</span><br><span class="line"></span><br><span class="line"> Section <span class="keyword">to</span> Segment mapping:</span><br><span class="line">  Segment Sections<span class="built_in">..</span>.</span><br><span class="line">   00     .text .eh_frame </span><br><span class="line">   01     .data </span><br><span class="line">   02</span><br></pre></td></tr></table></figure>
-
-<p>type 是 LOAD 才是需要 load 的 segment（這句話怎麼聽起來像廢話）。有兩個 segment，分別是 <code>.text</code> section 所在的可讀可執行 segment 以及 <code>.data</code> section 所在的可讀可寫 segment，他們分別會 load 到 <code>0x400000</code> 跟 <code>0x600180</code>，執行後可以用 <code>cat /proc/&lt;pid&gt;/maps</code> 驗證。這個例子的 file size 跟 memory size 相等，因為裡面沒有 <code>.bss</code> section，加個未 initialize 的 global 變數就可以看到不一樣啦～</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://en.wikipedia.org/wiki/Von_Neumann_architecture" target="_blank" rel="noopener">Von Neumann architecture wiki</a></li>
-<li>《程式設計師的自我修養》ch 6</li>
-<li>《一步步寫嵌入式操作系統》ch 3</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1230,7 +1220,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

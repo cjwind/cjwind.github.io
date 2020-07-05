@@ -196,6 +196,89 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/small-test-by-hand-and-unit-test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/small-test-by-hand-and-unit-test/" class="post-title-link" itemprop="url">手動驗證與 unit test</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-01-08 23:58:08" itemprop="dateCreated datePublished" datetime="2015-01-08T23:58:08+08:00">2015-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/small-test-by-hand-and-unit-test/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="small-test-by-hand-and-unit-test/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>很久很久以前<del>（講得好像很老一樣）</del>，剛學寫程式的時候，我有個習慣是寫一點點就會執行起來看對不對。在那個連用迴圈做輸入都不太熟的超新手時期，連輸入都會做這種「測試」。這習慣延續了很久，直到現在，在剛開始學一個新語言或者環境許可的狀況下（編得過、可以跑、測起來不會太複雜），還是會這樣──寫一點點就跑起來看對不對。</p>
+<p>今天晚上寫小玩具的時候，新語言嘛，不熟，就又出現這種習慣。就在我還沒把程式 run 下去、正覺得這種驗證很囉唆的電光石火(?)之間，我突然想到──幹嘛不把這種驗證寫成 unit test 就好？這樣就不用跑很多次、人眼校對很多次了啊！</p>
+<p>於是乎，這次改變方式，先把要寫的東西全部寫完，再寫 unit test，直接 run unit test 看 code 有沒有寫對。在這種很瑣碎但又得確認是對的事情上，用 unit test 真是神清氣爽啊！雖然不知道之後重複利用的機會多大，但是不用在那裡對到快脫窗真好。也還真給我抓到一個漏掉 assign 的 member…</p>
+<p>看來我的寫 code 方式終於跟 test 連上了一點，不然每次想要硬套 TDD 之類的時候，就像學了個新方法，可是並沒有改變舊習慣，兩邊有點接不起來。這次是注意到舊習慣<del>令人厭煩</del>可以改善的地方，再套一點新東西進去變成好一點的方式。</p>
+<p>最近在想，獨立開發的時候，更該利用自動化測試減少花在重複性工作上的時間。我想，運用科技讓人能更妥善運用時間，才是科技的本意吧。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/sort-by-qmap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1018,94 +1101,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Open-Closed-Principle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Open-Closed-Principle/" class="post-title-link" itemprop="url">Open Closed Principle (OCP)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-11-29 16:02:33" itemprop="dateCreated datePublished" datetime="2014-11-29T16:02:33+08:00">2014-11-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-05-20 23:35:00" itemprop="dateModified" datetime="2019-05-20T23:35:00+08:00">2019-05-20</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Open-Closed-Principle/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Open-Closed-Principle/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Software entities such as class, modules, functions should be <strong>open for extension, but closed for modification</strong>.</p>
-<p>直接英翻中就是「對擴展開放，對修改關閉。」</p>
-<p>換句話說，允許擴展但不允許修改原有的 code。在現有程式運作得好好、通過測試的狀況下，應該以擴展的方式新增系統功能，而非修改原有的 code。OCP 著重於軟體彈性，遵守這原則能在增加新功能時確保原本行為不會被更動，減少在原本運作良好的部分產生 bug 的風險。不過遵循 OCP 可能會引入新的抽象層、增加 code 的複雜度，所以並不是整個系統所有地方都該遵守，而是找出最有可能改變的地方才使用 OCP，沒必要的地方使用也是種浪費。</p>
-<p>OCP 是設計層次上的原則。</p>
-<p>舉個例子：較 high level 的 class 應該以 interface 使用較 low level 的 class，而非直接使用 low level 的 class。如此需要支援其他種 low level 實作時，便能直接實作 interface 並修改產生 instance 的地方，即可做到「不修改原本 high level 的 code，而能擴充 low level 實作」。</p>
-<p>另外像瀏覽器的 plugin、Linux kernel 的 module（即使 C 語言不是所謂的物件導向語言，依然能以物件導向的概念撰寫）同樣都運用了 OCP。</p>
-<h2 id="Related-Posts"><a href="#Related-Posts" class="headerlink" title="Related Posts"></a>Related Posts</h2><ul>
-<li><a href="/encapsulate-change">封裝會改變的東西</a></li>
-<li><a href="/liskov-substitution-principle">Liskov Substitution Principle（LSP）</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1175,7 +1170,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
