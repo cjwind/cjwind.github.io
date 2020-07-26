@@ -196,6 +196,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Stub-in-test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Stub-in-test/" class="post-title-link" itemprop="url">Stub</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-02 23:32:31" itemprop="dateCreated datePublished" datetime="2018-12-02T23:32:31+08:00">2018-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Stub-in-test/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Stub-in-test/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>External Dependency 是系統中與被測試程式互動但你無法掌控的物件。互動就是有 call 啊、使用回傳值之類的。</p>
+<p>stub 是在系統中產生一個可以控制的替代 object 來取代 external dependency object。</p>
+<p>使用 stub 可以解決直接相依帶來的測試問題：無法控制相依物件的行為及回傳值（例如每次 call third party API 得到的結果不同）或者相依物件不穩定，而難以有穩定的環境（固定的 input 及 output）測試要測試的程式邏輯。</p>
+<p>一種典型的 stub 是回傳假資料，藉由假造不同的回傳值來測試程式在不同情境下的運作，例如假造其他 function 的各種可能的回傳值。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/vscode/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1033,98 +1115,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/performance-of-concurrency/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/performance-of-concurrency/" class="post-title-link" itemprop="url">Performance of Concurrency</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-09-23 17:29:08" itemprop="dateCreated datePublished" datetime="2017-09-23T17:29:08+08:00">2017-09-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/performance-of-concurrency/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="performance-of-concurrency/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用 concurrency 就是為了更快，為了比 sequential 程式快，不然搞得那麼複雜幹嘛呢。</p>
-<p>如何評估 concurrent 程式的效能提升？</p>
-<p><code>speedup = sequential 程式執行時間 / concurrent 程式執行時間</code></p>
-<p>speedup 可能隨著使用的 core 數改變，標示程式在不同 core 數上的 speedup，可以由不同 core 數的 speedup 變化知道程式的 scalability。speedup 的提升隨著使用 core 數增加而增加甚至比例接近 core 增加的數量，表示有好的 scalability。理想狀況是 core 數加倍 speedup 也加倍。</p>
-<p>有時會發生 speedup 的提升超過 core 的增加數量，稱為 superlinear speedup。這通常是有問題，要再確認 concurrent 程式執行結果是否正確、是否使用一般情境下的 dataset 而非只是測試資料。superlinear speedup 常見的原因是資料量太小，sequential 程式因為不斷需要新資料而被清掉的 cache 反而在 concurrent 程式中因為各 core 處理的資料量太小而 cache 住，自然 concurrent 程式在資料讀取上會比較快，造成效能變超好的錯覺。<em>（假的！）</em></p>
-<p>如果已有 sequential 程式、要決定是否 concurrent 化，能事先估算效能提升比較好，畢竟 concurrent 程式複雜也需要投入成本開發，如果效能提升不好就白費工夫了。</p>
-<p>接下來兩個定理皆假設一個 core 上只執行一個 thread，如果一個 core 上執行多個 thread，就要把下面公式中的 core 數換成 thread 的數量。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/performance-of-concurrency/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1194,7 +1184,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

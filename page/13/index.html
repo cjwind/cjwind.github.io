@@ -196,6 +196,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/change-search-for-octopress/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/change-search-for-octopress/" class="post-title-link" itemprop="url">更換 Octopress 的搜尋功能</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-26 20:45:13" itemprop="dateCreated datePublished" datetime="2014-04-26T20:45:13+08:00">2014-04-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2014-04-28 20:45:00" itemprop="dateModified" datetime="2014-04-28T20:45:00+08:00">2014-04-28</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/change-search-for-octopress/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="change-search-for-octopress/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>發現兩個問題：Tapir 不支援中文、換過 permalink 會怪怪的。</p>
+<p><em>2014/4/28 updated</em></p>
+<hr>
+<p>Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 <a href="http://tapirgo.com/" target="_blank" rel="noopener">Tapir</a>，可以在自己站內找。</p>
+<p>Tapir 的原理是它每 15 分鐘會掃一次網站的 RSS，再透過他們的 API 達到以 RSS 為 base 的搜尋功能。要注意的是，沒在 RSS 中的文章是不會被 search 到的。</p>
+<h2 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h2><p>先到 <a href="http://tapirgo.com/" target="_blank" rel="noopener">Tapir</a> 輸入 RSS feed 跟 mail，會得到一組 key，這裡只需要用到 public key。</p>
+<p>到 <a href="https://github.com/blimey85/octopress-tapir" target="_blank" rel="noopener">Octopress Tapir plugin</a> 下載所需檔案並放到對應資料夾。</p>
+<ul>
+<li>source/search.html</li>
+<li>source/javascripts/jquery_tapir.js</li>
+<li>source/images/loading.gif</li>
+</ul>
+<p>修改 <code>_config.yml</code>：</p>
+<ul>
+<li>註解掉 <code>simple_search</code></li>
+<li>加入 <code>tapir_token: [your public key from Tapir]</code></li>
+</ul>
+<p>修改 <code>source/_includes/navigation.html</code>，在 <code>include custom/navigation.html</code> 前面加入：</p>
+
+    {% if site.tapir_token %}
+    <form method="get" action="{{ root_url }}/search.html">
+    <fieldset role="search">
+	  <input class="search" name="query" type="text" placeholder="Search..." x-webkit-speech />
+    </fieldset>
+    </form>
+    {% endif %}
+
+
+<p>修改 <code>source/atom.xml</code>，拿掉 <code>for post in site.posts limit: 20</code> 的 <code>limit: 20</code>，讓所有 post 都會出現在 RSS feed 。另一個可能的做法是複製 <code>source/atom.xml</code> 為 <code>source/atomForSearch.xml</code>，<code>rake generate</code> 後將這個 XML 的 URL 丟給 Tapir 當作 search 的 base。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="http://tapirgo.com/" target="_blank" rel="noopener">http://tapirgo.com/</a></li>
+<li><a href="https://github.com/blimey85/octopress-tapir" target="_blank" rel="noopener">https://github.com/blimey85/octopress-tapir</a></li>
+<li><a href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/" target="_blank" rel="noopener">http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-google-code-jam-round-1a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1044,89 +1156,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/move-posts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/move-posts/" class="post-title-link" itemprop="url">搬筆記到 Octopress</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 13:32:05" itemprop="dateCreated datePublished" datetime="2014-04-05T13:32:05+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/move-posts/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="move-posts/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>用想放空的假期把寫在 Dokuwiki 上的筆記搬到 Octopress 來。原本因為可以自己任意編排，加上寫給自己看的筆記是用 Dokuwiki，就繼續沿用 Dokuwiki。漸漸發現要找資料的時候都直接用搜尋功能，沒怎麼在用原本的分類頁。越來越覺得那樣編排可能沒有必要，似乎有搜尋跟標籤就可以了。</p>
-<p>好一陣子前 survey 過 Octopress，當時好像因為不習慣網頁上沒有管理的功能，暫且不用。可能最近有點轉性，覺得網頁上沒管理功能好像也還好。本來就喜歡用 Notepad++ 寫東西，配合 Git Bash 讓我覺得在 Windows 上用 command line 沒那麼卡，再加上有 Github 可以放，乾脆搬來了。</p>
-<p>目前讓我比較困擾的是這 blog 的 repos 只有在我的桌機上，所以只能從桌機寫，之後要看怎麼在另一台電腦上建立同樣的環境。這是網頁不直接提供管理功能的缺點，可是我在用的電腦就那幾台，也不太可能用手機寫這類的文章，只要幾個環境架起來之後應該還好。</p>
-<p>這 blog 主要拿來放 Computer Science 的筆記，之後慢慢寫些小程式應該也會把相關的東西放上來吧。</p>
-<p><em>一邊搬筆記一邊稍微看一下，真心覺得我有些用句很怪，看起來有點像英文文法的中文。XD</em></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1196,7 +1225,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

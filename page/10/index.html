@@ -196,6 +196,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pull-up-and-pull-down-resistor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/pull-up-and-pull-down-resistor/" class="post-title-link" itemprop="url">Pull-up & Pull-down resistor（上拉 & 下拉電阻）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-04-16 00:04:14" itemprop="dateCreated datePublished" datetime="2015-04-16T00:04:14+08:00">2015-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/pull-up-and-pull-down-resistor/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="pull-up-and-pull-down-resistor/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>接 button、switch 時會用到。<del>（看到 button 這字想到的是 GUI 上的…）</del></p>
+<p>電路中希望維持一個電位基準值，好判斷某個電壓值是 0 還是 1。pull-up 跟 pull-down 電阻就是用來維持基準電位的，如果電路沒有接個東西，程式會讀到雜訊（亂數值）。</p>
+<p><img src="/images/Pullup_Resistor.png" alt="Pull-up resistor"></p>
+<p>switch 斷開時上半部的電路是通的，logic gate 會讀到較高的電位。switch 接上後，logic gate 的電位會變低（從電流來看是下半部電路會接通，以至於電位會改變）。如果認定 switch 接上是邏輯的 1 則 logic gate 是低電位時表示邏輯的 1，高電位表示邏輯的 0。</p>
+<p><img src="/images/Pulldown_Resistor.png" alt="Pull-down resistor"></p>
+<p>pull-down 電阻是反過來，switch 斷開時 logic gate 會讀到低電位，接上後是高電位。所以高電位表示邏輯 1，低電位表示邏輯 0。</p>
+<p>接 Raspberry Pi 時，上面說的 logic gate 就是 Raspberry Pi 的 GPIO pin。</p>
+<p><em>murmur：被高低電位搞得頭有點暈，不太確定那個電流的理解對不對？沒搞得很懂 logic gate 在乎的是電位還是電位差……我的電路學只有高中程度啊……Orz</em></p>
+<p>圖片來源及 Ref：</p>
+<ul>
+<li><a href="http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB" target="_blank" rel="noopener">http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB</a></li>
+<li><a href="http://playground.arduino.cc/CommonTopics/PullUpDownResistor" target="_blank" rel="noopener">http://playground.arduino.cc/CommonTopics/PullUpDownResistor</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/murmur-about-structure/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1030,131 +1121,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Pack-gem-and-publish-to-RubyGems/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Pack-gem-and-publish-to-RubyGems/" class="post-title-link" itemprop="url">Pack gem and publish to RubyGems</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-01-22 21:47:28" itemprop="dateCreated datePublished" datetime="2015-01-22T21:47:28+08:00">2015-01-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-01-25 21:38:00" itemprop="dateModified" datetime="2015-01-25T21:38:00+08:00">2015-01-25</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Pack-gem-and-publish-to-RubyGems/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Pack-gem-and-publish-to-RubyGems/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>這篇記錄寫完 Ruby 程式後如何包成 gem 並丟到 RubyGems 上分享。</p>
-<p>基本流程：</p>
-<ol>
-<li>source code 放到 <code>lib/</code><br><code>lib/</code> 底下通常有 <code>&lt;gem_name&gt;.rb</code> 及 <code>&lt;gem_name&gt;/</code>。<br><code>&lt;gem_name&gt;.rb</code> 放此 gem 最主要的 class 及 <code>require</code>，其餘 source code 放在 <code>&lt;gem_name&gt;/</code>。</li>
-<li>test 放到 <code>test/</code></li>
-<li>在根目錄新增 <code>&lt;gem_name&gt;.gemspec</code></li>
-<li><code>gem build xxx.gemspec</code> 生出 <code>xxx-x.x.x.gem</code></li>
-<li><code>gem push xxx-x.x.x.gem</code> publish 到 RubyGems</li>
-</ol>
-<p>以下以玩具 <code>booksr</code> 為例。</p>
-<p>檔案結構：</p>
-<figure class="highlight crystal"><table><tr><td class="code"><pre><span class="line">│  booksr.gemspec</span><br><span class="line">│  Gemfile</span><br><span class="line">│</span><br><span class="line">├─<span class="class"><span class="keyword">lib</span>/</span></span><br><span class="line">│  │  booksr.rb</span><br><span class="line">│  │</span><br><span class="line">│  └─booksr/</span><br><span class="line">│          api_handler.rb</span><br><span class="line">│          book.rb</span><br><span class="line">│          parser.rb</span><br><span class="line">│</span><br><span class="line">└─test/</span><br><span class="line">        tc_search_isbn.rb</span><br><span class="line">        tc_search_title.rb</span><br><span class="line">        ts_google_api.rb</span><br></pre></td></tr></table></figure>
-
-<p><code>booksr.rb</code> 的內容：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'json'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'rest-client'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require</span> <span class="string">'booksr/api_handler'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'booksr/parser'</span></span><br><span class="line"><span class="keyword">require</span> <span class="string">'booksr/book'</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Booksr</span></span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p><code>booksr.gemspec</code> 內容：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">Gem::Specification.new <span class="keyword">do</span> <span class="params">|s|</span></span><br><span class="line">    s.name = <span class="string">'booksr'</span></span><br><span class="line">    s.version = <span class="string">'0.1.0'</span></span><br><span class="line">    s.date = <span class="string">'2015-01-21'</span></span><br><span class="line">    s.summary = <span class="string">'A simple book searcher'</span></span><br><span class="line">    s.description = <span class="string">'Search book with title, author, isbn or keyword by Google Book API.'</span></span><br><span class="line">    s.authors = [<span class="string">'cjwind'</span>]</span><br><span class="line">    s.email = <span class="string">'cwentsai@gmail.com'</span></span><br><span class="line">    s.files = Dir[<span class="string">'lib/*.rb'</span>, <span class="string">'lib/booksr/*.rb'</span>, <span class="string">'Gemfile'</span>, <span class="string">'README.md'</span>, <span class="string">'Rakefile'</span>, <span class="string">'*.gemspec'</span>, <span class="string">'test/*.rb'</span>]    <span class="comment"># 此 gem 包含的 source file</span></span><br><span class="line">    s.homepage = <span class="string">'https://github.com/cjwind/booksr'</span></span><br><span class="line">    s.license = <span class="string">'MIT'</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># depend 的 gem</span></span><br><span class="line">    s.add_runtime_dependency <span class="string">'bundler'</span></span><br><span class="line">    s.add_runtime_dependency <span class="string">'rest-client'</span></span><br><span class="line"></span><br><span class="line">    s.add_development_dependency <span class="string">'rake'</span></span><br><span class="line">    s.add_development_dependency <span class="string">'test-unit'</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>runtime dependency 跟 development dependency 的差別是預設上不會安裝 development dependency 的 gem。</p>
-<p>如果有 <code>Gemfile</code>，要改寫成吃 <code>.gemspec</code>：</p>
-<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line">source <span class="string">'https://rubygems.org'</span></span><br><span class="line">gemspec</span><br></pre></td></tr></table></figure>
-
-<p>它會將 runtime dependency 當作基本的 dependency，development dependency 則會開個 development group。</p>
-<p>生 gem：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gem build booksr.gemspec`</span><br><span class="line">  Successfully built RubyGem</span><br><span class="line">  Name: booksr</span><br><span class="line">  Version: 0.1.0</span><br><span class="line">  File: booksr-0.1.0.gem</span><br></pre></td></tr></table></figure>
-
-
-<p>要 publish 到 <a href="https://rubygems.org" target="_blank" rel="noopener">RubyGems.org</a> 前要先註冊帳號，publish 時需要輸入 Email 跟密碼驗證。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gem push booksr-0.1.0.gem</span><br><span class="line">Enter your RubyGems.org credentials.</span><br><span class="line">Don<span class="string">'t have an account yet? Create one at https://rubygems.org/sign_up</span></span><br><span class="line"><span class="string">   Email:</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><p>在 win7 底下 publish 遇到以下錯誤：</p>
-<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ERROR:  </span>While executing gem ... (Gem::RemoteFetcher::FetchError)</span><br><span class="line">    SSL_connect returned=1 errno=0 state=SSLv3 read server certificate B: certif</span><br><span class="line">icate verify failed (https://rubygems.org/api/v1/api_key)</span><br></pre></td></tr></table></figure>
-
-<p>Solution：抓 <a href="http://curl.haxx.se/ca/cacert.pem" target="_blank" rel="noopener">cacert.pem</a> 放到 <code>C:\Users\&lt;username&gt;</code> 底下，並且增加檔案 <code>.gemrc</code>，內容為：</p>
-<figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line"><span class="meta">:ssl_ca_cert:</span> c:\users\xxx\cacert.pem</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="碎念時間"><a href="#碎念時間" class="headerlink" title="碎念時間"></a>碎念時間</h2><p>我是先寫好 code 才開始調這些檔案結構<del>（真相是寫 code 的時候根本不知道這些結構）</del>，跟 require 啊、bundler 啊、gem 啊不熟到爆炸，中間 unit test 還亂入，混亂了好一陣子。弄完稍微多懂一點，希望這篇沒有漏掉什麼，漏掉就再補囉！</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://guides.rubygems.org/make-your-own-gem/" target="_blank" rel="noopener">http://guides.rubygems.org/make-your-own-gem/</a></li>
-<li><a href="http://guides.rubygems.org/specification-reference" target="_blank" rel="noopener">http://guides.rubygems.org/specification-reference</a></li>
-<li><a href="http://guides.rubygems.org/name-your-gem/" target="_blank" rel="noopener">http://guides.rubygems.org/name-your-gem/</a></li>
-<li><a href="http://guides.rubygems.org/publishing/" target="_blank" rel="noopener">http://guides.rubygems.org/publishing/</a></li>
-<li><a href="http://bundler.io/rubygems.html" target="_blank" rel="noopener">http://bundler.io/rubygems.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1224,7 +1190,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">145</span>
+          <span class="site-state-item-count">146</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
