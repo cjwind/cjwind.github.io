@@ -196,6 +196,500 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Story-of-linking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Story-of-linking/" class="post-title-link" itemprop="url">Linking 的故事(?)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-05-07 23:55:55" itemprop="dateCreated datePublished" datetime="2015-05-07T23:55:55+08:00">2015-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Story-of-linking/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Story-of-linking/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>很久很久以前（大概是還在用紙帶打洞的時代），會在 code 裡直接寫 variable 跟 function 所在的 address（我猜一開始說不定只有「要在哪裡取得資料」跟「要跳到哪裡繼續執行」的概念）。增加指令、修改程式後，會有很多 variable 及 function 的 address 被改變，像是中間多塞個指令就會讓後面東西 address 全改了，所以程式中所有 address 都需要重新調整（relocate）。</p>
+<p>這種 relocate 工作太令人崩潰，於是有人想出 symbol 的概念──以符號代表某個 variable 或 function（其實就是取名字）。code 裡改用 symbol，不再直接寫 address。等程式要執行的時候再把 symbol 換成真正的 address。這就是最開始 linking 主要做的事。</p>
+<p>隨著時代演進(?)，程式規模越來越大，人們開始在一個程式中分許多 module 並且分別 compile。有多個 module 後 linking 就要處理跨 module 的 variable 及 function 引用，也就是將在其他 module 中的 variable 跟 function 的 address 填入 reference 到它們的地方。例如在 A module 裡 call B module 的 function foo()，就要在 A module 中填入 foo() 真正的 address。</p>
+<p>如此一來，compile 階段可以不用知道 symbol 的 address，而且 module 也可以獨立 compile，等到 link 階段再由 linker 處理 symbol 及 address 的轉換。linker 就像是將多個 compile 好的 module 黏起來。</p>
+<p>linking 主要過程：</p>
+<ul>
+<li>Address and storage allocation</li>
+<li>Symbol resolution</li>
+<li>Relocation</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Object-File-Overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Object-File-Overview/" class="post-title-link" itemprop="url">Object File Overview</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-05-07 22:53:09" itemprop="dateCreated datePublished" datetime="2015-05-07T22:53:09+08:00">2015-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2015-06-07 21:09:00" itemprop="dateModified" datetime="2015-06-07T21:09:00+08:00">2015-06-07</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Object-File-Overview/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Object-File-Overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>object file 是 source code compile 後但尚未 link 的 binary 中間檔，通常跟<a href="/Executable-Format">可執行檔</a>使用相同格式。object file 包含 compile 後的 machine code、data、symbol table、debug 資訊及字串等等。</p>
+<p>object file 以不同 section 儲存不同資訊。</p>
+<p><img src="/images/ObjectFileOverview.png" alt="Object File Overview"></p>
+<ul>
+<li>File Header 描述檔案屬性、section table</li>
+<li><code>.text</code>（<code>.code</code>）section 裡放 code</li>
+<li><code>.data</code> section 放已經 initialize 的 global varible 及 static local variable</li>
+<li><code>.bss</code> section 記錄沒有 initialize 的 variable，先記著「有這個 variable」跟它的 size。但是因為 variable 還沒有 value，所以在 object file 裡不需要浪費空間去記錄 value。</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="http://en.wikipedia.org/wiki/Object_file" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Object_file</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Executable-Format/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Executable-Format/" class="post-title-link" itemprop="url">Executable Format（可執行檔格式）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-04-23 23:26:31" itemprop="dateCreated datePublished" datetime="2015-04-23T23:26:31+08:00">2015-04-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2016-04-10 18:00:00" itemprop="dateModified" datetime="2016-04-10T18:00:00+08:00">2016-04-10</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Executable-Format/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Executable-Format/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Executable Format 主要有：</p>
+<ul>
+<li>Windows 下的 PE（Portable Executable）</li>
+<li>Linux 下的 ELF（Executable Linkable Format）</li>
+</ul>
+<p>其他還有 Intel/Microsoft 的 OMF（Object Module Format）、Unix 的 a.out 以及 MS-DOS COM 格式等等。</p>
+<p>除了可執行檔外，Dynamic Linking Library 跟 Static Linking Library 都是以 Executable Format 儲存。</p>
+<p>ELF 標準中將使用 ELF 格式的檔案分成：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ELF file type</th>
+<th align="center">Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Relocatable File</td>
+<td align="center">Linux 的 .o、Windows 的 .obj</td>
+</tr>
+<tr>
+<td align="center">Executable File</td>
+<td align="center">/bin/bash、Windows 的 .exe</td>
+</tr>
+<tr>
+<td align="center">Shared Object File</td>
+<td align="center">Linux 的 .so、Windows 的 .dll</td>
+</tr>
+<tr>
+<td align="center">Core Dump File</td>
+<td align="center">Linux 的 core dump</td>
+</tr>
+</tbody></table>
+<h2 id="ELF-file-structure"><a href="#ELF-file-structure" class="headerlink" title="ELF file structure"></a>ELF file structure</h2><p>ELF 檔是由 header、一堆 section 及一堆 table 組成的，各 table 也是 section。</p>
+<p><img src="/images/elf_structure.png" alt="ELF structure"></p>
+<h3 id="ELF-Header"><a href="#ELF-Header" class="headerlink" title="ELF Header"></a>ELF Header</h3><p>描述整個 ELF 檔的屬性，可用 <code>readelf -h xxx</code> 查看。</p>
+<p>struct 定義在 <code>/usr/inclue/elf.h</code>，<code>Elf32_Ehdr</code> or <code>Elf64_Ehdr</code>。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> e_ident[EI_NIDENT]; <span class="comment">/* Magic number and other info */</span></span><br><span class="line">  Elf32_Half    e_type;         <span class="comment">/* Object file type */</span></span><br><span class="line">  Elf32_Half    e_machine;      <span class="comment">/* Architecture */</span></span><br><span class="line">  Elf32_Word    e_version;      <span class="comment">/* Object file version */</span></span><br><span class="line">  Elf32_Addr    e_entry;        <span class="comment">/* Entry point virtual address */</span></span><br><span class="line">  Elf32_Off e_phoff;        <span class="comment">/* Program header table file offset */</span></span><br><span class="line">  Elf32_Off e_shoff;        <span class="comment">/* Section header table file offset */</span></span><br><span class="line">  Elf32_Word    e_flags;        <span class="comment">/* Processor-specific flags */</span></span><br><span class="line">  Elf32_Half    e_ehsize;       <span class="comment">/* ELF header size in bytes */</span></span><br><span class="line">  Elf32_Half    e_phentsize;        <span class="comment">/* Program header table entry size */</span></span><br><span class="line">  Elf32_Half    e_phnum;        <span class="comment">/* Program header table entry count */</span></span><br><span class="line">  Elf32_Half    e_shentsize;        <span class="comment">/* Section header table entry size */</span></span><br><span class="line">  Elf32_Half    e_shnum;        <span class="comment">/* Section header table entry count */</span></span><br><span class="line">  Elf32_Half    e_shstrndx;     <span class="comment">/* Section header string table index */</span></span><br><span class="line">&#125; Elf32_Ehdr;</span><br></pre></td></tr></table></figure>
+
+<p><code>e_ident</code> 是 magic number 標示這是個 ELF 檔，前 4 個 byte 依序是 0x7f、0x45、0x4c、0x446，接著 3 個 byte 是 “ELF” 三個字母的 ASCII code。所有 ELF 檔前幾個 byte 都是這個內容。除此之外，幾乎所有可執行檔最開始幾個 byte 都是 magic number，供 OS 識別是哪種可執行檔。</p>
+<p><code>e_phoff</code> 表示程式執行時的入口位置，executable file 會填入 address，relocatable file 因為還會進行 relocate 所以值是 0。</p>
+<p>從 section header table file offset <code>e_shoff</code> 可以知道 section table 所在位置，由 <code>e_shentsize</code> 及 <code>e_shnum</code> 可以知道 section header table 的 element size 以及總共有多少 element。從 ELF header 可以找到 section header table，由於其他 table 也都是 section，可以再從 section header table 取得所有其他 section 及 table 的資訊。</p>
+<h3 id="Section-Header-Table"><a href="#Section-Header-Table" class="headerlink" title="Section Header Table"></a>Section Header Table</h3><p>描述各 section 的屬性，可用 <code>readelf -S xxx</code> 查看。</p>
+<p>一個以 struct <code>Elf32_Shdr</code>（又稱 section descriptor）為 element 的 array，array 的第一個 element 是 NULL，struct 定義在 <code>/usr/include/elf.h</code>。因為 section header table 是個 array，所以 ELF 檔有些地方會以 section 在 section table 中的 index 來 access 或表示該 section。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word    sh_name;        <span class="comment">/* Section name (string tbl index) */</span></span><br><span class="line">  Elf32_Word    sh_type;        <span class="comment">/* Section type */</span></span><br><span class="line">  Elf32_Word    sh_flags;       <span class="comment">/* Section flags */</span></span><br><span class="line">  Elf32_Addr    sh_addr;        <span class="comment">/* Section virtual addr at execution */</span></span><br><span class="line">  Elf32_Off sh_offset;      <span class="comment">/* Section file offset */</span></span><br><span class="line">  Elf32_Word    sh_size;        <span class="comment">/* Section size in bytes */</span></span><br><span class="line">  Elf32_Word    sh_link;        <span class="comment">/* Link to another section */</span></span><br><span class="line">  Elf32_Word    sh_info;        <span class="comment">/* Additional section information */</span></span><br><span class="line">  Elf32_Word    sh_addralign;       <span class="comment">/* Section alignment */</span></span><br><span class="line">  Elf32_Word    sh_entsize;     <span class="comment">/* Entry size if section holds table */</span></span><br><span class="line">&#125; Elf32_Shdr;</span><br></pre></td></tr></table></figure>
+
+<p>如果一個 section 存在 ELF 檔中，由 <code>sh_offset</code> 及 <code>sh_size</code> 可以知道其所在位置及大小。section 屬性主要由 section type <code>sh_type</code> 及 section flags <code>sh_flags</code> 決定。</p>
+<h3 id="String-Table"><a href="#String-Table" class="headerlink" title="String Table"></a>String Table</h3><p><code>.strtab</code> 以及 <code>.shstrtab</code> section。</p>
+<p>將 ELF 檔裡所用的字串，如 variable name、function name、section name 等存在一個 array 中，以 <code>&#39;\0&#39;</code> 隔開，並以字串在 array 中的 offset 表示該字串。</p>
+<h3 id="Symbol-Table"><a href="#Symbol-Table" class="headerlink" title="Symbol Table"></a>Symbol Table</h3><p><code>.symtab</code> section，可用 <code>readelf -s xxx</code> 查看。</p>
+<p>記錄 object file 所用到的 symbol。每個 symbol 有其對應的 symbol value，variable 及 function 的 symbol value 是它們的 address。</p>
+<p>symbol table 是以 struct <code>Elf32_Sym</code> 為 element 的 array，<code>Elf32_Sym</code> 一樣定義在 <code>/usr/include/elf.h</code>。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  Elf32_Word    st_name;        <span class="comment">/* Symbol name (string tbl index) */</span></span><br><span class="line">  Elf32_Addr    st_value;       <span class="comment">/* Symbol value */</span></span><br><span class="line">  Elf32_Word    st_size;        <span class="comment">/* Symbol size */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> st_info;        <span class="comment">/* Symbol type and binding */</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">char</span> st_other;       <span class="comment">/* Symbol visibility */</span></span><br><span class="line">  Elf32_Section st_shndx;       <span class="comment">/* Section index */</span></span><br><span class="line">&#125; Elf32_Sym;</span><br></pre></td></tr></table></figure>
+
+<p>對 linking 較重要的兩種 symbol：global symbol 及 external symbol。global symbol 是定義在此 object file 中並且會讓其他 object file 使用到的 symbol，external symbol 則是此 object file reference 到的其他 object file 中的 symbol。簡單講就是給別人用跟用別人的 symbol，有點繞舌。</p>
+<h3 id="Relocation-tables"><a href="#Relocation-tables" class="headerlink" title="Relocation tables"></a>Relocation tables</h3><p>存 relocation 的資訊，<code>.rel.text</code> section。每個需要 relocate 的 section 都會有一個 relocation table。</p>
+<p>relocation 可參考 <a href="/Static-Link">Static Link</a>。</p>
+<h2 id="Linking-View-and-Execuion-View"><a href="#Linking-View-and-Execuion-View" class="headerlink" title="Linking View and Execuion View"></a>Linking View and Execuion View</h2><p>上述以 <strong>section</strong> 來劃分 ELF 內容的角度是 <strong>Linking View</strong>。</p>
+<p>ELF 在 mapping 到 virtual address space 時是以 page 為單位，如果 section 的大小不是 page 大小的整數倍又以 section 為單位進行 mapping，會浪費許多 memory。load ELF 時 OS 只在乎 section 的屬性如可讀、可寫、可執行，OS 不在乎 section 的內容，為了節省記憶體空間延伸出<strong>「將屬性相同的 section 合併成一個 segment，再對應到 virtual address space」</strong>的方式。linker 在 link object file 時會盡量將相同屬性的 section 放在一起。</p>
+<p>segment 是以 load 的角度劃分 ELF，也就是 <strong>Execution View</strong>。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="http://refspecs.linuxbase.org/elf/elf.pdf" target="_blank" rel="noopener">http://refspecs.linuxbase.org/elf/elf.pdf</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></li>
+<li>《程式設計師的自我修養》ch 3, 6</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Strategy-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Strategy-Pattern/" class="post-title-link" itemprop="url">Strategy Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-04-20 21:28:26" itemprop="dateCreated datePublished" datetime="2015-04-20T21:28:26+08:00">2015-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2015-06-29 22:01:22" itemprop="dateModified" datetime="2015-06-29T22:01:22+08:00">2015-06-29</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Strategy-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Strategy-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>定義演算法家族，將個別演算法封裝起來，讓它們可以互相替換。</p>
+<p>此 pattern 讓演算法的變動不會影響到使用演算法的部分。</p>
+<p>例子：最短路徑搜尋</p>
+<p><img src="/images/StrategyPatternEx.png" alt="Strategy Pattern 最短路徑搜尋 class diagram"></p>
+<p>將 shortest path algorithm 封裝起來，讓 RouteFinder 使用。RouteFinder 使用 ShortestPathStrategy 找 shortest path（RouteFinder 將找路徑的工作 delegate 給 ShortestPathStrategy），ShortestPathStrategy 的 instance 則依據使用哪種 algorithm 決定。</p>
+<p>有新的 algorithm 或 strategy 時只要 implement ShortestPathStrategy 並換掉 RouteFinder 使用的 instance 即可。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《深入淺出設計模式》</li>
+<li><a href="http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html" target="_blank" rel="noopener">http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html</a></li>
+<li><a href="http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx" target="_blank" rel="noopener">http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/bounce-of-switch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/bounce-of-switch/" class="post-title-link" itemprop="url">開關訊號的 bounce</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-04-16 00:04:25" itemprop="dateCreated datePublished" datetime="2015-04-16T00:04:25+08:00">2015-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/bounce-of-switch/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bounce-of-switch/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>機械式開關切換時訊號會有 bounce（彈跳）現象。</p>
+<p><img src="/images/switch_bounce.gif" alt="switch bounce"></p>
+<p>上圖為理想狀況，下圖為實際上有 bounce 的狀況。bounce 持續時間約為 10~20 ms。</p>
+<p>程式在 bounce 期間會讀取到 bounce 的訊號造成判斷錯誤。例如按一下按鈕開關我們期望程式只讀到一次 on 的訊號，bounce 會造成程式讀到很多次 on 的訊號。</p>
+<p>解決方式軟體及硬體皆有，硬體的我看不懂所以這裡只說軟體。(欸)</p>
+<p>軟體解決方式：不處理 bounce 時間內的訊號。「不處理」的實際做法可以自己硬寫也可以在 <code>add_event_detect()</code> 裡設定。</p>
+<p>圖片來源：<a href="http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml" target="_blank" rel="noopener">http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pull-up-and-pull-down-resistor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +721,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -318,7 +812,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -489,7 +983,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -575,7 +1069,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -636,495 +1130,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/feature-driven-and-use-case-driven-development/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/feature-driven-and-use-case-driven-development/" class="post-title-link" itemprop="url">Feature driven and Use case driven development</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-03-13 23:32:06" itemprop="dateCreated datePublished" datetime="2015-03-13T23:32:06+08:00">2015-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-05-13 21:10:00" itemprop="dateModified" datetime="2015-05-13T21:10:00+08:00">2015-05-13</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/feature-driven-and-use-case-driven-development/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="feature-driven-and-use-case-driven-development/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>設計軟體事先處理整體系統輪廓，將大系統切成多個較小的問題，再逐一反覆處理每個小問題直到完成整個系統。</p>
-<p>Feature Driven Development 及 Use Case Driven Development 是「將系統切成小問題再逐一反覆處理」的方式。</p>
-<h2 id="Feature-Driven-Development"><a href="#Feature-Driven-Development" class="headerlink" title="Feature Driven Development"></a>Feature Driven Development</h2><p>以 feature 為主軸，以功能為切入角度。</p>
-<p>挑出特定功能，規劃、分析及開發該功能直到完成。</p>
-<p>看系統的角度比較 granular。</p>
-<p>適合功能較個別獨立、未密切相連的系統。</p>
-<h2 id="Use-Case-Driven-Development"><a href="#Use-Case-Driven-Development" class="headerlink" title="Use Case Driven Development"></a>Use Case Driven Development</h2><p>以 use case diagram 為主軸，以 scenario（使用情境）及流程為切入角度。從 use diagram 拿出一個個 use case 做，挑出 use case 的 scenraio，寫 code 支援該 scenario，直到完成 use case 的所有 scenario 以及完成所有 use case。</p>
-<p>看系統的角度比較整體。</p>
-<p>適合由一堆流程構成的系統，例如差勤請假系統。</p>
-<h2 id="碎念時間"><a href="#碎念時間" class="headerlink" title="碎念時間"></a>碎念時間</h2><p>實際上開發軟體會混合多種方式，例如從 use case driven 開始，接著在 use case 挑出小功能進行設計（這是 feature driven），最後在實作階段用 test driven 來思考如何 implement。</p>
-<p>開發軟體的方式很多，各有其適用之所在，重點不在於哪個方法最好，而是哪些方法的搭配使用能較好的解決所面對的問題。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-about-note/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Murmur-about-note/" class="post-title-link" itemprop="url">筆記這回事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-02-25 20:48:54" itemprop="dateCreated datePublished" datetime="2015-02-25T20:48:54+08:00">2015-02-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Murmur-about-note/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Murmur-about-note/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>很久很久以前，在那個網路只有撥接還常常撥不上去、撥上去也不能用太久的年代，我開始學寫網頁。那時候網路上的資源沒有現在豐富，搜尋引擎還在用蕃薯藤跟奇摩。當時覺得對初心者的教學好重要，所以一直想著如果之後能夠寫些跟技術有關的東西，要寫寫教學文章。後來高中在社團當教學，寫過社課的教學講義，不過沒放上網路，至於主題是什麼就別問了。</p>
-<p>就這樣，我對寫技術相關的文章或 blog，一直想以寫教學的角度撰寫。但是隨著年歲增長，學的東西越多，越發覺自己會的很少，要寫出好教學沒那麼簡單，小時候的豪氣干雲(?)也漸漸弱了下來。唉，還是小時候比較天不怕地不怕。</p>
-<p>開這個 blog 以前，我早就有個放<del>只有自己看得懂的</del>筆記的 wiki，但總覺得只有自己看得懂的東西 po 出來像在丟人現眼，也就一直放著自己看。後來慢慢弄了這個 blog，還是很想寫教學（這到底是什麼制約…），但是越這樣想我寫出來的語法就越奇怪，跟寫論文的狀況有點像（咦？）。就像把書上看不懂在寫什麼鬼的文字，再轉成另一種我自己也還是看不懂的句子，這樣寫筆記的意義到底是……？Orz</p>
-<p>到這幾天覺得其實沒必要那麼嚴肅，反正就是把從各種地方學來的知識技術，消化吸收後再用自己的話寫出來就好了。</p>
-<p>總之就是一個將知識與技術咀嚼消化後再吐出來(?)的過程。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OOAD-Architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/OOAD-Architecture/" class="post-title-link" itemprop="url">設計架構</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-02-01 22:24:09" itemprop="dateCreated datePublished" datetime="2015-02-01T22:24:09+08:00">2015-02-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/OOAD-Architecture/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="OOAD-Architecture/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>Architecture is your <strong>design structure</strong>, and highlights the <strong>most important</strong> parts of your application, and the <strong>relationships</strong> between those parts.</p>
-</blockquote>
-<blockquote>
-<p>架構是系統的組織結構，包含分解開的各個元件、元件間的關係、互動機制，以及系統設計中使用的原則及決策。</p>
-</blockquote>
-<p>這次英文比中文好懂一點。</p>
-<p>就我的理解，architecture 是整個軟體的結構，有點像骨架。其他那些 requirement、class diagram、design pattern、use case 等等東西就像軟體的，呃，肉(?)，有骨架後就能把這些內容填進去。<del>（寫到這裡開始懷疑我到底是怎麼理解這些概念的…）</del></p>
-<p>設計 architecture 的階段會整理出那些 component 是重要的、建立處理順序，以及減少風險。</p>
-<h2 id="如何找出重要的事情？"><a href="#如何找出重要的事情？" class="headerlink" title="如何找出重要的事情？"></a>如何找出重要的事情？</h2><p>可以問幾個問題：</p>
-<ol>
-<li>它是系統本質的一部份嗎？<br>可以用「如果沒有這個功能，這系統還會是它應該是的東西嗎？」來思考。</li>
-<li>某個功能究竟是什麼意思？<br>理解功能真正的意思，不懂就問客戶，或者任何要你做這玩意的人。盡量避免你以為你知道那是什麼但其實你不知道的狀況（繞口令時間）。</li>
-<li>如何實作某個功能？<br>挑出最困難的部分。不過一項實作困難程度會因人而異。</li>
-</ol>
-<h2 id="從誰開始？"><a href="#從誰開始？" class="headerlink" title="從誰開始？"></a>從誰開始？</h2><p>找到最重要的幾件事情後，要決定從哪個部分開始。</p>
-<p>這裡的重點是「減少風險」。只要能減少風險，從誰開始都可以。所謂風險，諸如 schedule 來不及、做出不是客戶要的東西等等。</p>
-<p>在設計架構的階段要做可以減少風險的事，延後不能減少風險的事情。</p>
-<h3 id="如何減少風險？"><a href="#如何減少風險？" class="headerlink" title="如何減少風險？"></a>如何減少風險？</h3><ul>
-<li>用 scenario 找出大部分的重要 requirement<br>scenario 是穿過 use case 裡的一個路徑，也就是一段系統如何被使用的敘述。</li>
-<li>延後進入細節的時間，因為在架構階段進入細節無法減少風險。<ul>
-<li>不要在架構階段寫詳細的 use case。</li>
-<li>延後細節的 coding<br>可以先有個框，但不要開始寫邏輯細節。</li>
-</ul>
-</li>
-<li>有好的 design<ul>
-<li>一開始就把事情做對</li>
-<li>利用 commonality analysis（共通性分析）設計具有彈性的軟體</li>
-</ul>
-</li>
-<li>搞不清楚意思或軟體要幹嘛時去問客戶，以降低做出不是客戶要的東西的風險。</li>
-</ul>
-<p>寫好軟體的方式是先做好了解需求、規劃、組織、架構以及減少風險，盡可能延後 coding、避免在前期一頭栽進細節。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/use-case/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/use-case/" class="post-title-link" itemprop="url">Use case</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-01-31 16:52:27" itemprop="dateCreated datePublished" datetime="2015-01-31T16:52:27+08:00">2015-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-05-13 21:10:00" itemprop="dateModified" datetime="2015-05-13T21:10:00+08:00">2015-05-13</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/use-case/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="use-case/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>首先，來點文言文…</p>
-<blockquote>
-<p>A use case describes <strong>what</strong> your system does to accomplish a particular customer goal.</p>
-</blockquote>
-<blockquote>
-<p>use case 是捕捉新系統或軟體變更的潛在需求之技術。每個 use case 提供一或多個 scenario，傳達系統如何與 end user 或其他系統互動，完成特定目標。</p>
-</blockquote>
-<p>以上文言文看完我也不知道自己是不是知道它在寫什麼。(喂)</p>
-<p>白話文來說，use case 會寫出一堆使用這軟體的情境跟過程，藉由這些情境跟流程來描述軟體要做些什麼好達到客戶的目標。<del>（這樣有白話文一點嗎？）</del></p>
-<p>use case 描述軟體要<strong>「做什麼」（what）</strong>，而非描述「如何做」（how）。</p>
-<h2 id="組成-Use-case-的三部分"><a href="#組成-Use-case-的三部分" class="headerlink" title="組成 Use case 的三部分"></a>組成 Use case 的三部分</h2><ol>
-<li>clear value<br>軟體要幫客戶做的事，也是客戶的目標。</li>
-<li>starting and stoping point<br>use case 的開始及結束點<del>，總不會一直繞圈圈沒完沒了吧</del>。</li>
-<li>external initialtor<br>既然是軟體的使用流程，總有個開始「使用軟體」的人或其他系統。</li>
-</ol>
-<h2 id="Main-amp-Alternative-path"><a href="#Main-amp-Alternative-path" class="headerlink" title="Main &amp; Alternative path"></a>Main &amp; Alternative path</h2><p>main path 是當世界一片美好、沒有任何事情出錯時，使用者會遵循的使用流程。但通常世界不是那麼美好的，工程師的工作之一就是要找出這些不美好(?)，讓軟體也能妥妥善善的處理它。alternative path 即是在 use case 中負責描述及處理這些「出錯狀況」的使用流程。</p>
-<p>alternative path 可以是…</p>
-<ol>
-<li>完全替代原本的部分 path。遇到某個選擇時可以選 main path 繼續下去，也可以選 alternative path 做。<br>例如可以選吃飯或吃麵完成吃晚餐這件事。</li>
-<li>optional 的，用來處理額外、例外以及出錯的狀況。<br>例如想吃牛肉麵但沒開的時候該怎麼辦。</li>
-</ol>
-<h2 id="關於-Use-case"><a href="#關於-Use-case" class="headerlink" title="關於 Use case"></a>關於 Use case</h2><p>形式上沒有固定的限制，我通常會寫成流程步驟，不管形式如何，重點只有一個──看得懂、能正確表達意思。</p>
-<p>寫 use case 的時候會進到幾乎可以將 use case 裡的 logic 變成 code 的細節部分。</p>
-<p>use case 也要包含檢驗步驟，例如檢驗輸入是否合法、某個物件是否存在等等。</p>
-<h2 id="Textual-Analysis"><a href="#Textual-Analysis" class="headerlink" title="Textual Analysis"></a>Textual Analysis</h2><p>寫好 use case，然後咧？跟程式有什麼關係？這時候就是 textual analysis 上場的時候啦！</p>
-<p>分析 use case 裡的名詞及動詞，整理出 class 及 method 即為 texttual analysis。</p>
-<p>use case 中的名詞有可能是系統中的 class，動詞通常是 class 的 method。當然不是 use case 裡所有的名詞跟動詞都是 class 跟 method，所以需要經過分析，好決定要為那些名詞及動詞建立 class 跟 method。</p>
-<p>做完 textual analysis 決定要有哪些 class 跟 method 後，就可以進入設計物件跟物件間關係的階段了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Toy-booksr/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Toy-booksr/" class="post-title-link" itemprop="url">[做玩具] booksr - Simple book searcher in Ruby</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-01-31 15:08:48" itemprop="dateCreated datePublished" datetime="2015-01-31T15:08:48+08:00">2015-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Toy-booksr/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Toy-booksr/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><del>做玩具的碎念心得。</del></p>
-<p>用 Google Book API 找書的 Ruby 小程式。</p>
-<p>一開始因為 anobii  改版後變得超級難用，一氣之下不用了，又找不到好用的，就想自己寫一個網路書櫃。但是網路書櫃有點大，而且暫時不想架需要維護的平台，索性簡化，結果簡化成這個小玩具<del>（也簡化太多）</del>。</p>
-<p>目標是學寫 Ruby 程式、包 gem 跟丟上 RubyGems。</p>
-<p>程式邏輯本身很簡單，而且 Ruby 有很多現成的套件可以用，節省不少時間。不過沒用過這套 test framework，bundler 跟 gem 的熟悉度只有 <code>bundle install</code>，所以花比較多時間在 test 跟包 gem。</p>
-<h2 id="關於功能"><a href="#關於功能" class="headerlink" title="關於功能"></a>關於功能</h2><p>原本功能縮小到只想寫 book wrapper，把書籍資料包成 class，寫完覺得實在太陽春才變成找書。擴大功能後卻開始不只想用 Google Book API，還想加上 search Amazon 跟 ISBNDB。但以原本作為練習的目的來說，這些功能有點多餘。</p>
-<p>我有時候會因為某個功能看起來好酷就想加上去，有時候是覺得東西很陽春、太簡單，想加更複雜的能力進去。如果這些事情不斷發生，程式會越長越大、越長越大，<strong>卻永遠沒有完成的一天</strong>。這裡說的完成是指階段性完成──什麼時候要喊「夠了，可以了」然後把東西丟出去。</p>
-<p>這些讓我在中途思考要以「看起來很厲害」為優先，還是以「完成核心功能及達到最初目的」為優先。最後決定縮小範圍，以後者為優先。</p>
-<p><del>雖然弄完覺得像寫了個垃圾就是了…</del></p>
-<h2 id="關於搜尋結果"><a href="#關於搜尋結果" class="headerlink" title="關於搜尋結果"></a>關於搜尋結果</h2><p>有想過搜尋結果的筆數會不會太多？考慮過用其他方式當 output，例如一開始可以設最多只找幾筆之類的。但是試了一下，書籍的搜尋結果似乎不會多到太誇張，又懶得把介面搞得太複雜，就變成很簡單的全部 search 完一次傳回結果。</p>
-<h2 id="關於測試"><a href="#關於測試" class="headerlink" title="關於測試"></a>關於測試</h2><p>我糾結了一陣子到底要怎麼測，中間 test case 一直換一直換。測試有用 Google API 抓資料，不能太多，太多會被 403 擋掉…XD 搜尋結果不是固定的，做太詳細的資料檢驗沒什麼意義，所以最後只有兩種 test case：</p>
-<ol>
-<li>用找 isbn 測 class Book 是好的</li>
-<li>用找 title 測當搜尋結果超過 40 筆時回傳的結果筆數大於 40。<br>這是因為 API 限制一次的 search 結果最多只能有 40 筆，可以用起始 index 決定要顯示哪些 search 結果。</li>
-</ol>
-<h2 id="關於-Ruby"><a href="#關於-Ruby" class="headerlink" title="關於 Ruby"></a>關於 Ruby</h2><p>為什麼選 Ruby？</p>
-<p>沒為什麼……只是它有點名氣，然後我想寫點高階的東西，不然一天到晚在用 C++ 做輪子有點煩……</p>
-<p>越方便的技術代表它抽象化的程度越高，寫起來通常比較快，像在把現成的積木拼起來。但也代表它隱藏更多細節，我有時候會覺得不知道這些細節很沒有安全感(?)。到目前為止，Ruby 寫起來有很多方便的地方，可是我隱約覺得真要用得好還是要了解背後的原理，但那些原理可就不像一開始學的這種方便性那麼容易了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1190,20 +1199,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

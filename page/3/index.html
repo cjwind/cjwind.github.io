@@ -196,6 +196,462 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/test-event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/test-event/" class="post-title-link" itemprop="url">如何測試 event</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-07 16:01:04" itemprop="dateCreated datePublished" datetime="2019-04-07T16:01:04+08:00">2019-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/test-event/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="test-event/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>測試 event 分成兩邊：</p>
+<ul>
+<li>測試 event listener：有沒有在 event 發生後做該做的事。</li>
+<li>測試 trigger event：有沒有正確 trigger event。</li>
+</ul>
+<p>基本概念是驗證一方時假造另一方。</p>
+<h2 id="測試-event-listener"><a href="#測試-event-listener" class="headerlink" title="測試 event listener"></a>測試 event listener</h2><p>檢查 event 有沒有註冊到 event listener。用「event 發生後 event listener 有沒有做該做的事」來驗證，而不是試圖 access class 的內部 event 資訊來看是否有註冊成功。例如發生 event 後系統某些狀態會改變，測試方式是在測試裡 trigger event（假造 trigger event），驗證系統狀態是否有正確改變。</p>
+<p>如果發生 event 後會 call 某些 third party function，測試方式是先做個 mock object、inject mock object 到被測試 class，接著 trigger event，最後驗證 mock object 是否有被 call 到該 call 的 function。</p>
+<h2 id="測試是否有-trigger-event"><a href="#測試是否有-trigger-event" class="headerlink" title="測試是否有 trigger event"></a>測試是否有 trigger event</h2><p>在測試中給要測試的 event 註冊一個假的 event listener，接著讓被測試 class 做應該要 trigger event 的事情，最後驗證假 event listener 有沒有被 call 到。</p>
+<p>驗證假 event listener 有沒有被 call 到不一定要用 mock object，也可以是假 event listener 在被 call 到時修改 test 裡的變數，最後直接驗證該變數，這跟語言支援有關。</p>
+<h3 id="test-framework-支援"><a href="#test-framework-支援" class="headerlink" title="test framework 支援"></a>test framework 支援</h3><p>有些 test framework 的支援「某個 event 是否有被 trigger 或 emit 的驗證」。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Add-system-call-to-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Add-system-call-to-linux/" class="post-title-link" itemprop="url">Linux kernel 5.0 增加 System Call</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-02-05 22:08:57" itemprop="dateCreated datePublished" datetime="2019-02-05T22:08:57+08:00">2019-02-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Add-system-call-to-linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Add-system-call-to-linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Download-kernel-source-code"><a href="#Download-kernel-source-code" class="headerlink" title="Download kernel source code"></a>Download kernel source code</h2><p>我用的 kernel source code 是從 <code>https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</code> clone 的，寫這篇的版本是 <code>5.0.0-rc3</code>。</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/git.kernel.org/pub</span><span class="regexp">/scm/linux</span><span class="regexp">/kernel/git</span><span class="regexp">/stable/linux</span>.git linux-stable</span><br></pre></td></tr></table></figure>
+
+<h2 id="Add-system-call"><a href="#Add-system-call" class="headerlink" title="Add system call"></a>Add system call</h2><p>首先在 kernel source code root 建立一個資料夾 <code>mysyscall/</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> linux-stable</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir mysyscall</span></span><br></pre></td></tr></table></figure>
+
+<p>新增 <code>mysyscall/hello.c</code>、加入新的 system call <code>sys_hello()</code>（不可免俗的來 hello world 一下）：</p>
+<figure class="highlight c"><figcaption><span>mysyscall/hello.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_hello</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">"Hello Kernel World!\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Add-system-call-to-linux/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-and-Override/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Dependency-Injection-Extract-and-Override/" class="post-title-link" itemprop="url">Dependency Injection - Extract and Override</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-30 17:15:05" itemprop="dateCreated datePublished" datetime="2018-12-30T17:15:05+08:00">2018-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dependency-Injection-Extract-and-Override/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-and-Override/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Extract and Override 是另一種 injection 方式，它幾乎不會改變程式的語意（增加 constructor 的參數或者其他 public 介面等等），寫起來乾淨漂亮。它適合用於模擬回傳值或回傳 stub 或 mock object，不適合用在確認被測試程式與 dependency object 的互動。</p>
+<h2 id="Override-factory-method-to-inject-stub"><a href="#Override-factory-method-to-inject-stub" class="headerlink" title="Override factory method to inject stub"></a>Override factory method to inject stub</h2><ol>
+<li>在被測試 class 加入可被繼承並 override 的 factory method 來取得 dependency object。</li>
+<li>在測試裡新增一個 class 繼承被測試 class，override 該 factory method 回傳 stub object，接著使用測試 class 進行測試。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Dependency-Injection-Extract-and-Override/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Constructor-and-Setter-Injection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Dependency-Injection-Constructor-and-Setter-Injection/" class="post-title-link" itemprop="url">Dependency Injection - Constructor and Setter Injection</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-23 16:51:52" itemprop="dateCreated datePublished" datetime="2018-12-23T16:51:52+08:00">2018-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dependency-Injection-Constructor-and-Setter-Injection/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Constructor-and-Setter-Injection/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>接下來要 inject dependency object 啦～</p>
+<h2 id="Constructor-amp-Setter-Injection"><a href="#Constructor-amp-Setter-Injection" class="headerlink" title="Constructor &amp; Setter Injection"></a>Constructor &amp; Setter Injection</h2><h3 id="Constructor-Injection"><a href="#Constructor-Injection" class="headerlink" title="Constructor Injection"></a>Constructor Injection</h3><p>在被測試 class 加新的 constructor 或在原本的 constructor 加新參數，傳進剛抽出來的 interface 的 object，將它存在被測試 class 的 member，被測試 class 裡的程式邏輯使用這個 member 做事。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Dependency-Injection-Constructor-and-Setter-Injection/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-Dependency-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Dependency-Injection-Extract-Dependency-Object/" class="post-title-link" itemprop="url">Dependency Injection - Extract Dependency Object</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-17 21:20:10" itemprop="dateCreated datePublished" datetime="2018-12-17T21:20:10+08:00">2018-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dependency-Injection-Extract-Dependency-Object/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-Dependency-Object/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>External Dependency 是系統中與被測試程式互動但你無法控制的物件。被測試程式受到 external dependency 行為影響可能有不同結果，為了保持 unit test 穩定，不會一下結果該是 A、一下結果該是 B，我們希望能掌控 external dependency──藉由 <a href="/Stub-in-test/">stub object</a> 模擬 external dependency 的行為並將其 inject 到被測試程式中，基本步驟如下：</p>
+<ol>
+<li>抽出 external dependency object 的 interface</li>
+<li>stub implement 該 interface 並實作 function</li>
+<li>inject stub 到被測試程式<ul>
+<li>Constructor Injection</li>
+<li>Setter Injection</li>
+<li>Extract and Override</li>
+</ul>
+</li>
+</ol>
+<p>本篇用例子說明步驟 1 跟 2：<code>MyClass</code> 是被測試程式，<code>Foo</code> 是 external dependency。（為了讓 code 短一點直接在 header 實作）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Dependency-Injection-Extract-Dependency-Object/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Stub-in-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +683,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -309,7 +765,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -412,7 +868,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -509,7 +965,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -615,7 +1071,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -662,463 +1118,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/review-of-Clean-Code/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/review-of-Clean-Code/" class="post-title-link" itemprop="url">Clean Code</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-10-07 20:27:19" itemprop="dateCreated datePublished" datetime="2018-10-07T20:27:19+08:00">2018-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/review-of-Clean-Code/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="review-of-Clean-Code/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>忙了半年左右，我回來了(?)，來寫點早該看完的《Clean Code》小心得。</p>
-<p>整本書講 clean code 的原則，最後以一個大例子運用原則跟示範 refactor。寫那些原則像在抄書，只針對比較有感的原則跟 code smell 寫點心得。</p>
-<h3 id="最少驚奇（嚇）原則"><a href="#最少驚奇（嚇）原則" class="headerlink" title="最少驚奇（嚇）原則"></a>最少驚奇（嚇）原則</h3><p>讓看你的 code 的人（很可能就是你自己）對那段 code 的預期符合實際結果，儘量符合 common sense 以減少驚奇、驚嚇與驚恐。code 愈能符合預期，愈能減少進去實作看細節的時間。反之，如果常常不符預期，不用多久大家就會戒慎恐懼的每次都進去看實作，不然天知道它會發生什麼事，對吧？</p>
-<p>不過我承認，似乎不是所有人的 commen sense 都一樣。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/review-of-Clean-Code/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/win10-and-linux-dual-system-note/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/win10-and-linux-dual-system-note/" class="post-title-link" itemprop="url">win10 與 linux 多重開機的糾葛(?)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-06-24 16:00:24" itemprop="dateCreated datePublished" datetime="2018-06-24T16:00:24+08:00">2018-06-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/win10-and-linux-dual-system-note/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="win10-and-linux-dual-system-note/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>原本電腦有用 UEFI 裝的 win7 跟 debian，用 grub2 開機。</p>
-<h2 id="多灌-win10"><a href="#多灌-win10" class="headerlink" title="多灌 win10"></a>多灌 win10</h2><p><del>其實從來沒搞懂 UEFI 在幹嘛，只知道比古早時代的 BIOS 新，然後常常造成我灌系統的困擾（喂）。</del></p>
-<p>這次用新硬碟裝 win10，原本用 legacy mode 裝起來，但 <code>update-grub</code> 抓不到，在 <code>/etc/grub.d/40_custom</code> 寫 google 來的各種 menuentry 也不行。改用 UEFI mode 裝 win10，它一下說找不到磁碟分割表（明明看起來就有），一下又說無法設定重開機所以不能裝，但明明我 BIOS 裡的 boot priority 已經選那顆新硬碟了（不過事後懷疑說不定應該要選 win7 的那顆才對）。在 BIOS 裡東調西調，從相容 legacy mode 換成 windows 8/10 又換成 windows 8/10 的另一種模式總算裝起來（裝完還把我 linux 那顆硬碟的 SATA port 關掉不知道是怎樣= =）。</p>
-<p>看起來 win10 把自己的開機區裝到原本 win7 的 UEFI 系統，所以不動原本 grub 設定的情況下，從原本開 win7 的 partition 進去，就可以再選 win10 或 win7 開機。只是如果要開 win7，它會再重開一次……= =a…..（後來懷疑說不定是因為 win10 預設不會「真關機」，所以某些情況下開 win7 會需要重開，不過只是猜測，沒試過）</p>
-<p>grub2 要加開機選項一般只要 <code>update-grub</code>。如果有自訂需求，到 <code>/etc/grub.d/</code> 底下手動加再 <code>update-grub</code>。</p>
-<h2 id="在-Linux-mount-成-read-only-的-NTFS"><a href="#在-Linux-mount-成-read-only-的-NTFS" class="headerlink" title="在 Linux mount 成 read-only 的 NTFS"></a>在 Linux mount 成 read-only 的 NTFS</h2><p>裝 win10 後的某天，我在 linux 裡要存檔案到原本 windows 下放資料的硬碟（理所當然的是 NTFS）。</p>
-<p>嗯？為什麼寫不進去？ro？為什麼變 ro 了？之前都可以 rw 啊。</p>
-<p><code>umount</code> 又 <code>mount</code> 了一陣，ro 就是 ro，錯誤訊息看起來是說 windows 休眠中，所以不給 mount rw 免得壞掉。</p>
-<p>蛤？？？windows 休眠中？？？可是我現在是開機成 linux 啊？？？哪來的 windows？？？感覺就是 win10 的錯（喂）。重開機進 win10，再重開進 linux，嗯？又好了？從 win10 關機，開機進 linux，又 ro。</p>
-<p><a href="https://www.howtogeek.com/236807/how-to-mount-your-windows-10-or-8-system-drive-on-linux/" target="_blank" rel="noopener">這篇</a> 給了我答案。簡單來說，win10 的 shut down 不是真的 shut down，reboot 才會真的 shut down<del>（講人話）</del>。好吧，把那個快速啟動關掉，我也不差那幾秒。win10 關機，開機進 linux，耶，世界一片美好。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Exception-Handling/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Exception-Handling/" class="post-title-link" itemprop="url">Exception Handling</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-05 22:04:26" itemprop="dateCreated datePublished" datetime="2018-04-05T22:04:26+08:00">2018-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Exception-Handling/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Exception-Handling/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>前陣子寫 code 遇到 exception 或程式執行錯誤該丟出 exception 的情況，雖然知道 try catch 跟 throw exception，但「什麼時候」要「如何使用」exception 卻沒個概念然後搞得一團亂。只好來念念《例外處理設計的逆襲》，順便整理下嗑完書的簡略筆記。</p>
-<h2 id="區分-Fault、Error、Failure、Exception"><a href="#區分-Fault、Error、Failure、Exception" class="headerlink" title="區分 Fault、Error、Failure、Exception"></a>區分 Fault、Error、Failure、Exception</h2><p>首先區分幾個名詞的概念，不然這些東西都很像，不分清楚講到後來都不知道在講些什麼了。</p>
-<ul>
-<li>（從外部看）一個 <strong>component 沒有提供正確服務稱為 service failure</strong>，簡稱 failure。</li>
-<li><strong>error 是種「狀態」</strong>，表示 component 內部處於錯誤狀態。這種狀態可能導致 component 執行失敗，造成 failure。</li>
-<li><strong>fault 則是導致 error 發生的「原因」</strong>。</li>
-<li>程式語言以 exception 表達 error 與 failure 的概念。<ul>
-<li>從不同角度來看（如 caller 跟 callee），exception 可以代表 error 也可以代表 failure。</li>
-<li>遇到某種情況要不要丟出 exception，決定方式之一是看在該 function 的語意及功能下，該狀況是不是屬於「目前可能處在不正確的狀態」或「被 call 的 function 沒做好該做的事」。如果是，當然就丟出 exception。</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Exception-Handling/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/prefix-scan/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/prefix-scan/" class="post-title-link" itemprop="url">Prefix Scan</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-11-19 15:32:16" itemprop="dateCreated datePublished" datetime="2017-11-19T15:32:16+08:00">2017-11-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/prefix-scan/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="prefix-scan/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>prefix scan 是計算一個數值 vector 所有的部份和，每個結果 element 是原始 vector 對應位置之前數值的和，包含自己的稱為 inclusive prefix scan，不包含稱為 exclusive prefix scan。例如 <code>[3, 5, 4, 10, 8]</code> 的 inclusive prefix scan 是 <code>[3, 8, 12, 22, 30]</code>，exclusive 是 <code>[0, 3, 8, 12, 22]</code>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/prefix-scan/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/the-clean-coder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/the-clean-coder/" class="post-title-link" itemprop="url">The Clean Coder</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-10-30 20:00:18" itemprop="dateCreated datePublished" datetime="2017-10-30T20:00:18+08:00">2017-10-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/the-clean-coder/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="the-clean-coder/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Bob 大叔的書之一《The Clean Coder》，算是《Clean Code》的續集吧。</p>
-<p>《Clean Code》講怎麼寫 code，《The Clean Coder》講怎麼當 clean coder。記錄些心有戚戚焉的片段跟感想。</p>
-<h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><blockquote>
-<p>設計「易於測試的程式碼」(p.48)</p>
-</blockquote>
-<p>我想設計良好的程式應該也會好測試？從設計還是從測試出發，最後目標是一樣的，偏好哪種我覺得沒什麼差。</p>
-<p>到目前為止，我大多從設計出發。先想概略設計、class 的責任、class 之間的關係等等，接著實作會邊寫功能邊寫測試，但不是 TDD。通常是實作一小塊、寫那一小塊的測試，而不是先寫測試才實作。即使從設計出發還是需要測試的，因為可以確保程式是對的，之後也不怕修改。</p>
-<p>沒有實際用 TDD 寫 code，只在 dojo 小小玩過，所以說不上從測試出發是不是會導向好設計，能想像的只有因為要測試所以功能切分上應該不會太糟。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/the-clean-coder/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1184,20 +1187,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

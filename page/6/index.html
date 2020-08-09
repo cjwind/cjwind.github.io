@@ -196,6 +196,576 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-software-flexibility/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Murmur-software-flexibility/" class="post-title-link" itemprop="url">軟體擴充性</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-22 22:37:11" itemprop="dateCreated datePublished" datetime="2017-02-22T22:37:11+08:00">2017-02-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Murmur-software-flexibility/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Murmur-software-flexibility/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><del>這個人又來胡言亂語了，不是什麼正經筆記</del></p>
+<p>最近寫某個邏輯或定義常常不清楚或者 ambiguous 的東西（因為資料來源是給人看而且也沒整理過），但程式需要清楚的邏輯，感覺在試圖把模糊不清的東西轉成邏輯清晰的程式。似乎，在原本是人工作業而且沒有特別統一或整理過邏輯或步驟的事情上可能就有這種現象。</p>
+<p>工程師很喜歡「找 general 的方法」跟「確認出清楚的邏輯」，畢竟這樣程式比較好寫。但是這東西不只原本的邏輯可能不清楚，還「一定會變動但無法預期會如何變動」，以至於後來我放棄找 general 的方法，而是把問題切得更細再組起來，其實就是 divide and conquer。 甚至稍微放寬對清晰邏輯的要求，改用擴充性比較好的做法。只要變動的時候可以用比較低風險──不會影響到其他部分──的方式因應就好，如此，無論是現在邏輯可能再修正或者之後增加目前沒有的東西都能處理。</p>
+<p>這讓我更能體會為什麼很多設計都希望增加程式擴充性跟降低修改風險，這讓工程師在面對模糊或高度變動的狀況可以好過一點<del>，不然會改到崩潰</del>。</p>
+<p>至於，不能邏輯清楚了再寫嗎？不是不行，但有時候等回應實在太慢，要搞清楚完整邏輯需要花很多時間，而且仍然無法避免「找不到 general 方法」，那就弄個可以微調的辦法之後再慢慢調就好啦！</p>
+<p>另外，最近看了一篇文章讓我覺得相對於機器世界的邏輯分明，人類世界本來就沒有那麼清晰跟確定，而工程師剛好是兩者的翻譯官。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cargo-project-basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Cargo-project-basic/" class="post-title-link" itemprop="url">Cargo project basic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-21 23:01:10" itemprop="dateCreated datePublished" datetime="2017-02-21T23:01:10+08:00">2017-02-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Cargo-project-basic/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cargo-project-basic/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Cargo-basic"><a href="#Cargo-basic" class="headerlink" title="Cargo basic"></a>Cargo basic</h2><p>Cargo 是 <a href="https://www.rust-lang.org/en-US/index.html" target="_blank" rel="noopener">Rust</a> 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。<a href="https://www.rust-lang.org/en-US/install.html" target="_blank" rel="noopener">安裝 Rust</a> 會一起裝 Cargo。</p>
+<p>這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package management 還有 build system。package manager 是為了解決各種 library 或 package dependency 的問題，例如像 C/C++ 得自己處理如何 build 跟 link library（還會有只剩 binary 檔不知道 source code 從哪來的 library）、維持 library 版本以及升級 library 等問題。</p>
+<p>Cargo 裡稱 package 或 library 為 crate。</p>
+<p>Cargo 基本指令：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>cargo build</span><br><span class="line"><span class="variable">$ </span>cargo run</span><br><span class="line"><span class="variable">$ </span>cargo clean</span><br><span class="line"><span class="variable">$ </span>cargo update  <span class="comment"># 升級 crate</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Start-new-project"><a href="#Start-new-project" class="headerlink" title="Start new project"></a>Start new project</h2><p><code>$ cargo new &lt;project name&gt; --bin</code></p>
+<p>產生基本 project 的 directory，內含 <code>src/</code> 跟 <code>Cargo.toml</code> 並且建立 git repository。加 <code>--bin</code> 是為了 build 出可執行檔，不加會是 library。建立 project 後修改 <code>Cargo.toml</code> 即可，<code>Cargo.toml</code> sample：</p>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"rust-hello-cargo"</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">"0.1.0"</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">"cjwind &lt;cwentsai@gmail.com&gt;"</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Directory-structure"><a href="#Directory-structure" class="headerlink" title="Directory structure"></a>Directory structure</h2><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">src/    # source code directory</span><br><span class="line">    xxx.rs</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>toml    # Cargo configuration</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock    # Cargo uses the <span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock file <span class="keyword">to</span> keep track <span class="keyword">of</span> dependencies</span><br></pre></td></tr></table></figure>
+
+<p>Cargo 會自己維護 <code>Cargo.lock</code>，不須手動修改。</p>
+<h3 id="Cargo-toml"><a href="#Cargo-toml" class="headerlink" title="Cargo.toml"></a>Cargo.toml</h3><p>Cargo 用 <code>Cargo.toml</code> 來 maintain dependency──需要什麼 crate 以及 crate 版本。這跟 nodejs、PHP 之類的 package management 差不多，只是各自用不同格式而已。</p>
+<p>修改 <code>Cargo.toml</code> 之後再 build，Cargo 會去抓需要的 crate 跟處理 dependency──如果 crate 還有 depend 是 project 沒有的也會去抓──然後 compile 它們。</p>
+<h3 id="Cargo-lock"><a href="#Cargo-lock" class="headerlink" title="Cargo.lock"></a>Cargo.lock</h3><p>假設 project 依賴 crate A 1.0.12，crate A 有新版本 1.0.13 時會怎樣？</p>
+<p>如果 Cargo 自動更新 crate 版本，萬一新版 crate A 反而讓我們的程式爛掉怎麼辦？畢竟總是可能有 bug 的，又或者某些介面或功能被修改了、行為跟原本不一樣也可能造成問題。</p>
+<p>Cargo 對此的解決方式跟其他 package manager 差不多──使用 <code>Cargo.lock</code>。</p>
+<p>第一次 build project 的時候（應該是 dependency 改動過後的第一次），Cargo 會在 <code>Cargo.lock</code> 記下當下 crate 的版本並且認定這些版本是 ok 的。之後即使 crate 有新版本，Cargo 也不會主動去更新而是以 <code>Cargo.lock</code> 記錄的為準，直到我們要求升級 crate。</p>
+<p><code>cargo update</code> 預設只會升最後一碼版號，比較大版本的升級要手動改 <code>Cargo.toml</code>。因為大版本的更新可能會有 interface 的改動，需要我們確認相應修改沒問題才能更新。</p>
+<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
+<li><a href="http://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Explicit-Runtime-Linking/" class="post-title-link" itemprop="url">Explicit Runtime Linking</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-19 23:21:48" itemprop="dateCreated datePublished" datetime="2017-02-19T23:21:48+08:00">2017-02-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-04-14 23:04:00" itemprop="dateModified" datetime="2017-04-14T23:04:00+08:00">2017-04-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Explicit-Runtime-Linking/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Explicit-Runtime-Linking/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。</p>
+<p>在程式碼裡指定了什麼時候要 load 哪個模組，對程式來說它就「知道」要有載入模組的動作。如果是以 dynamic linker 來 load 跟 link，模組跟 library 對程式是透明的，它不知道它用了什麼。兩者的差別即在手動或自動 load shared library，以及load 的時機。</p>
+<p>另一方面，如果需要知道一個程式依賴哪些模組，例如移植時要將所有相關模組移植到其他平台以確保所有功能正常。這時以 explicit runtime linking 載入的模組可能增加檢查 dependency 的難度，因為無法用 <code>ldd</code> 得知依賴的模組，可能要等到用到某個功能時才當掉或無法使用。當然這問題並不是太大的缺點，可以透過適當管理 dependency library 以及以一致的方式撰寫 explicit linking 程式碼來避免。</p>
+<p>linux 以四個 function 來達到 explicit runtime linking，分別是 <code>dlopen()</code>、<code>dlsym()</code>、<code>dlerror()</code> 以及 <code>dlclose()</code>，它們宣告在 <code>&lt;dlfcn.h&gt;</code>，link 時須 <code>-ldl</code>。</p>
+<h2 id="dlopen"><a href="#dlopen" class="headerlink" title="dlopen()"></a>dlopen()</h2><p><code>dlopen()</code> 開啟一個 dynamic library，將其 load 到 process 的 adddress space，並完成初始化。</p>
+<p><code>void *dlopen(const char *filename, int flag);</code></p>
+<p>第一個參數 <code>filename</code> 很簡單，就是 dynamic library 的路徑。如果是絕對路徑就能直接打開 dynamic library，如果是相對路徑則會依照某個順序尋找 library，詳細的順序可參考 <code>man dlopen</code>。</p>
+<p><code>flag</code> 必須指定 <code>RTLD_LAZY</code> 或 <code>RTLD_NOW</code> 之一，<code>RTLD_LAZY</code> 表示 lazy binding，也就是 symbol 在第一次被用到的時候才 resolve。lazy binding 只用於 function，variable 會在 library load 時就 bind 好。<code>RTLD_NOW</code> 當然就是在 load library 的時候就會把所有 symbol 都 resolve。除了 <code>RTLD_LAZY</code> 跟 <code>RTLD_NOW</code> 之外，還有 <code>RTLD_GLOBAL</code> 可以跟他們一起使用，表示之後載入的 library 都可以使用這個 library 的 symbol。其他更多 flag 就參考 manual 囉。</p>
+<p><code>dlopen()</code> return 一個 handle，之後的操作要傳這個 handle 給其他 function。如果 load 失敗，會 return NULL。如果要 load 的 library 之前已經 load 過，會 return 跟之前相同的 handle。</p>
+<p>如果 load 進來的 library 依賴其他 shared library（link 時指定，非 explicit runtime linking），<code>dlopen()</code> 會自動 load 那些 shared library。</p>
+<h2 id="dlsym"><a href="#dlsym" class="headerlink" title="dlsym()"></a>dlsym()</h2><p>讓我們可以找到 library 的 symbol。</p>
+<p><code>void *dlsym(void *handle, const char *symbol);</code></p>
+<p><code>handle</code> 是剛剛 <code>dlopen()</code> return 的 handle。</p>
+<p><code>symbol</code> 是要找的 symbol 的名字，如果找不到 symbol 會 return NULL。找到 symbol 會 return 該 symbol 的 address。根據 manual，return 值是 NULL 無法當作找不到 symbol 的判斷，因為 return 值有可能真的是 NULL<em>（不過我想不到這種狀況的例子…）</em>，須配合 <code>dlerror()</code> 才能確認是不是有找到 symbol：首先 call <code>dlerror()</code> 清掉前面的 error，接著 call <code>dlsym()</code> 找 symbol，再 call <code>dlerror()</code> 看是否有 error 來判斷是否找到 symbol。</p>
+<p>如果多個 library 有相同的 symbol 會用哪個？<code>dlsym()</code> 會以 BFS 找 library 的 dependency tree，直到找到 symbol 或完全找不到為止。也就是說 load 順序會決定 symbol 同名時使用到誰，先 load 會先用。</p>
+<h2 id="dlerror"><a href="#dlerror" class="headerlink" title="dlerror()"></a>dlerror()</h2><p>call <code>dlopen()</code>、<code>dlsym()</code> 跟 <code>dlclose()</code> 之後可以 call <code>dlerror()</code> 看上次呼叫有沒有成功。如果成功 <code>dlerror()</code> 會 return NULL，反之則 return error 相關資訊。</p>
+<p><code>char *dlerror(void);</code></p>
+<h2 id="dlclose"><a href="#dlclose" class="headerlink" title="dlclose()"></a>dlclose()</h2><p>用來 unload library。</p>
+<p><code>int dlclose(void *handle);</code></p>
+<p>系統會用 counter 紀錄一個 library load 的次數，也就是 <code>dlopen()</code> 時加一，<code>dlclose()</code> 則減一，當 counter 變成 0 時 library 才會真的被 unload 掉。unload 的順序跟 load 相反，會先執行 <code>.finit</code> section 的程式碼，接著從 symbol table 中移除相關 symbol，取消 process address space 跟 library 的 memory mapping，最後關閉 library 檔案。</p>
+<p>成功 return 0，失敗 return 非 0 值。</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>簡單用個例子實作跟驗證。以下共有 <code>libfoo.so</code>、<code>libbar.so</code> 跟 <code>libkar.so</code> 三個 library，主程式 <code>main.c</code> 以 explicit runtime linking load <code>libfoo.so</code>，而 <code>libfoo.so</code> 依賴 <code>libbar.so</code> 以及 <code>libkar.so</code>，後兩者有相同名稱的 function。</p>
+<figure class="highlight c"><figcaption><span>bar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">"bar() in bar.c\n"</span>); &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>kar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">"bar() in kar.c\n"</span>); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>compile with </p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gcc -g -fPIC -<span class="keyword">shared </span>-o libbar.so <span class="keyword">bar.c</span></span><br><span class="line"><span class="keyword">$ </span>gcc -g -fPIC -<span class="keyword">shared </span>-o libkar.so kar.c</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> zoo = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> coo = <span class="number">5566</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"foo = %x, &amp;zoo = %x, &amp;coo = %x\n"</span>, foo, &amp;zoo, &amp;coo);</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">koo</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n + coo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>compile with <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libbar.so ./libkar.so</code></p>
+<figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* handle = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(<span class="string">"./libfoo.so"</span>, RTLD_LAZY);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (handle == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Load library failed. error: %s\n"</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> (*fn)(<span class="keyword">int</span>, <span class="keyword">int</span>) = <span class="literal">NULL</span>;</span><br><span class="line">    dlerror();  <span class="comment">// clear error condition</span></span><br><span class="line">    fn = dlsym(handle, <span class="string">"foo"</span>);</span><br><span class="line"><span class="comment">//    fn = dlsym(handle, "koo");    // fail</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>* error = dlerror();</span><br><span class="line">    <span class="keyword">if</span> (error != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Load symbol failed. error: %s\n"</span>, error);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"fn = %x\n"</span>, fn);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = fn(<span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"ret = %d\n"</span>, ret);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// doesn't check error</span></span><br><span class="line">    <span class="keyword">int</span>* p = <span class="literal">NULL</span>;</span><br><span class="line">    p = dlsym(handle, <span class="string">"zoo"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"p = %x\n"</span>, p);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>* c = <span class="literal">NULL</span>;</span><br><span class="line">    c = dlsym(handle, <span class="string">"coo"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"c = %x, *c = %d\n"</span>, c, *c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> (*bar)() = <span class="literal">NULL</span>;</span><br><span class="line">    bar = dlsym(handle, <span class="string">"bar"</span>);</span><br><span class="line">    bar();</span><br><span class="line"></span><br><span class="line">    getchar();  <span class="comment">// just pause process</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dlclose(handle) != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Close library fail. error: %s\n"</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>compile with <code>gcc -g -o main main.c -ldl</code></p>
+<p>執行結果顯示拿到主程式 <code>libfoo.so</code> 裡 symbol 的 address，以及 load 到 <code>libbar.so</code> 裡的 <code>bar()</code>：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">$ ./main </span><br><span class="line"><span class="attr">fn</span> = ef40f740</span><br><span class="line"><span class="attr">foo</span> = ef40f740, &amp;<span class="attr">zoo</span> = ef60faf0, &amp;<span class="attr">coo</span> = ef40f7a8</span><br><span class="line"><span class="attr">ret</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">p</span> = ef60faf0</span><br><span class="line"><span class="attr">c</span> = ef40f7a8, *<span class="attr">c</span> = <span class="number">5566</span></span><br><span class="line">bar() <span class="keyword">in</span> bar.c</span><br></pre></td></tr></table></figure>
+
+<p>process 的 address space：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="number">00400000</span><span class="number">-00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/<span class="keyword">explicit</span>-load/main</span><br><span class="line"><span class="number">00600000</span><span class="number">-00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/<span class="keyword">explicit</span>-load/main</span><br><span class="line"><span class="number">02552000</span><span class="number">-02573000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                  [heap]</span><br><span class="line"><span class="number">7fe9</span>bee48000<span class="number">-7fe9</span>bee49000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libkar.so</span><br><span class="line"><span class="number">7fe9</span>bee49000<span class="number">-7fe9</span>bf048000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libkar.so</span><br><span class="line"><span class="number">7fe9</span>bf048000<span class="number">-7fe9</span>bf049000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libkar.so</span><br><span class="line"><span class="number">7fe9</span>bf049000<span class="number">-7fe9</span>bf04a000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libbar.so</span><br><span class="line"><span class="number">7fe9</span>bf04a000<span class="number">-7fe9</span>bf249000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libbar.so</span><br><span class="line"><span class="number">7fe9</span>bf249000<span class="number">-7fe9</span>bf24a000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libbar.so</span><br><span class="line"><span class="number">7fe9</span>bf24a000<span class="number">-7fe9</span>bf24b000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libfoo.so</span><br><span class="line"><span class="number">7fe9</span>bf24b000<span class="number">-7fe9</span>bf44a000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libfoo.so</span><br><span class="line"><span class="number">7fe9</span>bf44a000<span class="number">-7fe9</span>bf44b000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/<span class="keyword">explicit</span>-load/libfoo.so</span><br><span class="line"><span class="number">7fe9</span>bf44b000<span class="number">-7fe9</span>bf5ec000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf5ec000<span class="number">-7fe9</span>bf7ec000 ---p <span class="number">001</span>a1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7ec000<span class="number">-7fe9</span>bf7f0000 r--p <span class="number">001</span>a1000 <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7f0000<span class="number">-7fe9</span>bf7f2000 rw-p <span class="number">001</span>a5000 <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x86_64-linux-gnu/libc<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7f2000<span class="number">-7fe9</span>bf7f6000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7fe9</span>bf7f6000<span class="number">-7fe9</span>bf7f9000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf7f9000<span class="number">-7fe9</span>bf9f8000 ---p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf9f8000<span class="number">-7fe9</span>bf9f9000 r--p <span class="number">00002000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf9f9000<span class="number">-7fe9</span>bf9fa000 rw-p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x86_64-linux-gnu/libdl<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bf9fa000<span class="number">-7fe9</span>bfa1a000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x86_64-linux-gnu/ld<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bfbf9000<span class="number">-7fe9</span>bfbfc000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7fe9</span>bfc16000<span class="number">-7fe9</span>bfc1a000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7fe9</span>bfc1a000<span class="number">-7fe9</span>bfc1b000 r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x86_64-linux-gnu/ld<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bfc1b000<span class="number">-7fe9</span>bfc1c000 rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x86_64-linux-gnu/ld<span class="number">-2.19</span>.so</span><br><span class="line"><span class="number">7fe9</span>bfc1c000<span class="number">-7fe9</span>bfc1d000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="number">7f</span>fdd05ea000<span class="number">-7f</span>fdd060b000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [stack]</span><br><span class="line"><span class="number">7f</span>fdd0755000<span class="number">-7f</span>fdd0757000 r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [vdso]</span><br><span class="line"><span class="number">7f</span>fdd0757000<span class="number">-7f</span>fdd0759000 r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [vvar]</span><br><span class="line">ffffffffff600000-ffffffffff601000 r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                  [vsyscall]</span><br></pre></td></tr></table></figure>
+
+<p>三個 library 都 load 進來啦～</p>
+<p>用 gdb 在 <code>_init</code> 跟 <code>_fini</code> 設 break point 可以看到在 <code>dlopen()</code> 跟 <code>dlclose()</code> 時會分別執行 <code>libfoo.so</code> 及其他 library 的 <code>_init</code> 及 <code>_fini</code>。同樣適用 GCC 提供的 shared library constructor 及 destructor，<a href="/Dynamic-Linking-Relocation/">Ref</a>。</p>
+<p>可以用 <code>ldd</code> 看 <code>libfoo.so</code> 的 dependency：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.so </span><br><span class="line">        linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fffde785000</span>)</span><br><span class="line">        ./libbar.so (<span class="number">0x00007fdf77158000</span>)</span><br><span class="line">        ./libkar.so (<span class="number">0x00007fdf76f57000</span>)</span><br><span class="line">        libc.so<span class="number">.6</span> =&gt; /lib/x86_64-linux-gnu/libc.so<span class="number">.6</span> (<span class="number">0x00007fdf76bac000</span>)</span><br><span class="line">        /lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span> (<span class="number">0x00007fdf7755a000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果 compile <code>libfoo.so</code> 時改變 link 的 shared library 順序，變成 <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libkar.so ./libbar.so</code>，load 到的 <code>bar()</code> 會變成是 <code>libkar.so</code> 的。</p>
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ ./main</span><br><span class="line">fn = a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span></span><br><span class="line">foo = a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span>, &amp;zoo = a<span class="number">279</span>caf<span class="number">0</span>, &amp;coo = a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span></span><br><span class="line"><span class="keyword">ret</span> = <span class="number">8</span></span><br><span class="line">p = a<span class="number">279</span>caf<span class="number">0</span></span><br><span class="line"><span class="keyword">c</span> = a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span>, *<span class="keyword">c</span> = <span class="number">5566</span></span><br><span class="line">bar() in kar.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
+
+<p><code>ldd</code> 看到的順序也會變：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.so </span><br><span class="line">        linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fff4db40000</span>)</span><br><span class="line">        ./libkar.so (<span class="number">0x00007f5b4ddb5000</span>)</span><br><span class="line">        ./libbar.so (<span class="number">0x00007f5b4dbb4000</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Related-posts"><a href="#Related-posts" class="headerlink" title="Related posts"></a>Related posts</h2><ul>
+<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
+<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
+<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
+<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/solve-servo-blank/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/solve-servo-blank/" class="post-title-link" itemprop="url">解決執行 Servo 只有白畫面問題</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-02-05 21:04:39" itemprop="dateCreated datePublished" datetime="2017-02-05T21:04:39+08:00">2017-02-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/solve-servo-blank/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="solve-servo-blank/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>build 好 servo 之後執行 <code>./mach run -d tests/html/about-mozilla.html</code> 視窗只出現白白的畫面。這怎麼看都不正常啊……ˊ（´;ω;｀)</p>
+<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><ul>
+<li>LMDE 2 Cinnamon 64 bits</li>
+<li>NVIDIA GeForce GTS 250</li>
+<li>kernel 3.16.0-4-amd64</li>
+</ul>
+<h2 id="各種測試"><a href="#各種測試" class="headerlink" title="各種測試"></a>各種測試</h2><p>build release 版後 <code>./mach run -r tests/html/about-mozilla.html</code> 跟從 <a href="https://download.servo.org/" target="_blank" rel="noopener">https://download.servo.org/</a> 抓 pre-built 版都白白的。</p>
+<p>用 gdb 跑跑看</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">./mcah <span class="builtin-name">run</span> -d --debug</span><br><span class="line">gdb&gt; r tests/html/about-mozilla.html</span><br><span class="line"><span class="built_in">..</span>.blahblah</span><br></pre></td></tr></table></figure>
+
+<p>所以有在動啊……</p>
+<p><code>./mach run -d tests/html/about-mozilla.html -o output.png</code> 輸出圖檔，圖片也是一片白。</p>
+<p>update 系統再 try 也不行。</p>
+<p>用 VM LMDE 跑 pre-built 出現其他 error <code>0:1(10): error: GLSL 1.50 is not supported. Supported versions are 1.10, 1.20, 1.30, 1.00 ES, and 3.00 ES</code>，<a href="https://github.com/servo/servo/issues/11124" target="_blank" rel="noopener">可能跟 VM 沒 support OpenGL 有關</a>，有點岔題所以不管。</p>
+<p>另一台電腦 Ubuntu 跑 pre-built，正常。</p>
+<h2 id="猜猜樂"><a href="#猜猜樂" class="headerlink" title="猜猜樂"></a>猜猜樂</h2><p>pre-built 不會動表示不是我 build 的有問題。猜是 render 有問題，測輸出圖檔也不行，應該八九不離十是 render 問題。google 看不出所以然，Ubuntu 是好的但應該不至於 Ubuntu 可以 LMDE 卻不能用。</p>
+<p>畫不出來，不然更新看看 driver。</p>
+<p>先說結果，猜中了。(′‧ω‧‵)</p>
+<h2 id="檢查顯卡型號-amp-driver"><a href="#檢查顯卡型號-amp-driver" class="headerlink" title="檢查顯卡型號 &amp; driver"></a>檢查顯卡型號 &amp; driver</h2><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ lspci | grep VGA</span><br><span class="line"><span class="number">01</span>:<span class="number">00.0</span> VGA compatible controller: NVIDIA Corporation G92 [GeForce GTS <span class="number">250</span>] (rev a2)</span><br></pre></td></tr></table></figure>
+<p>看顯卡型號。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ glxinfo | OpenGL</span><br><span class="line">OpenGL vendor string: NVIDIA Corporation</span><br><span class="line">OpenGL renderer string: GeForce GTS 250/PCIe/SSE2</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>version string: 3.3.0 NVIDIA 340.101</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>shading language version string: 3.30 NVIDIA via Cg compiler</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>context flags: (none)</span><br><span class="line">OpenGL core<span class="built_in"> profile profile </span>mask: core profile</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>extensions:</span><br><span class="line">OpenGL version string: 3.3.0 NVIDIA 340.101</span><br><span class="line">OpenGL shading language version string: 3.30 NVIDIA via Cg compiler</span><br><span class="line">OpenGL context flags: (none)</span><br><span class="line">OpenGL<span class="built_in"> profile </span>mask: (none)</span><br><span class="line">OpenGL extensions:</span><br><span class="line">OpenGL ES<span class="built_in"> profile </span>version string: OpenGL ES 2.0 NVIDIA 340.101 340.101</span><br><span class="line">OpenGL ES<span class="built_in"> profile </span>shading language version string: OpenGL ES GLSL ES 1.00</span><br><span class="line">OpenGL ES<span class="built_in"> profile </span>extensions:</span><br></pre></td></tr></table></figure>
+
+<p>看顯卡 driver，這是已經換成 NVIDIA driver 的結果。如果 <code>OpenGL renderer string</code> 出現 Mesa 之類的表示不是用 NVIDIA 的 driver。</p>
+<h2 id="更新顯卡-driver"><a href="#更新顯卡-driver" class="headerlink" title="更新顯卡 driver"></a>更新顯卡 driver</h2><p>為了更新顯卡搞了半天……總結如下。</p>
+<p><a href="http://www.nvidia.com/Download/index.aspx?lang=en-us" target="_blank" rel="noopener">抓 NVIDIA driver</a>。</p>
+<p>修改 <code>/etc/default/grub</code>：<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;nouveau.blacklist=1 quiet splash text&quot;</code>，之後</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> sudo <span class="built_in">update-grub</span></span><br><span class="line"><span class="variable">$</span> sudo <span class="built_in">update-initramfs</span></span><br><span class="line"><span class="variable">$</span> sudo reboot</span><br></pre></td></tr></table></figure>
+
+<p><code>nouveau.blacklist=1</code> 是 disable nouveau，nouveau 是 open source 社群做的 NVIDIA 顯卡的 driver。</p>
+<p><code>text</code> 則是開機不進 GUI，因為得關掉 X server 才能裝 driver，乾脆直接進文字模式裝。我以為是改 run level，但是 google 到一堆都這樣搞就這樣了。有人說用 recovery mode 也可以裝 driver，不過我沒試。</p>
+<p>從 NVIDIA 抓下 <code>NVIDIA-Linux-x86_64-340.101.run</code>，是個 script，要用 root 權限跑。</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># export CC=gcc-4.8</span></span><br><span class="line"><span class="meta"># sh NVIDIA-Linux-x86_64-340.101.run</span></span><br></pre></td></tr></table></figure>
+
+<p>需要設 <code>CC</code> 是因為我 gcc 預設版本是 4.9，但是 compile driver 需要 4.8。</p>
+<p>安裝過程是 console 的互動介面（忘記這叫什麼了啦）就不細寫了。中間有問要不要 build 成什麼 module 之類的，選 yes 會 fail，懶得研究那是什麼東西，用 no 就安裝成功了。</p>
+<p>最後，修改 <code>/etc/default/grub</code> 以 GUI 開機：<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;nouveau.blacklist=1 quiet splash&quot;</code> 再 update grub 跟 reboot。</p>
+<p>開 servo 終於正常了…\T_T/</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html" target="_blank" rel="noopener">http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Design-Pattern-Overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Design-Pattern-Overview/" class="post-title-link" itemprop="url">Design Pattern Overview</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-12-24 13:34:04" itemprop="dateCreated datePublished" datetime="2016-12-24T13:34:04+08:00">2016-12-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Design-Pattern-Overview/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Design-Pattern-Overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Design Pattern <strong>提供某個情境下針對某問題的某種解決方法</strong>。這些解法通常是前人整理出來、經過驗證的。</p>
+<ul>
+<li>「情境」是某種不斷出現的狀況。</li>
+<li>「問題」是在某個情境下希望達到的目標，也可能是情境下的限制。</li>
+<li>「解決方法」希望是個 general 的設計，用來解決限制、達到目標。</li>
+</ul>
+<p>常用來描述 design pattern 的方式是 GoF 書裡使用的格式。</p>
+<h2 id="使用-Design-Pattern"><a href="#使用-Design-Pattern" class="headerlink" title="使用 Design Pattern"></a>使用 Design Pattern</h2><p><strong>能用簡單方法解決問題就用簡單方法。</strong>pattern 會為系統增加額外複雜度，只有需要的時候才使用。</p>
+<p>使用 pattern 要注意是否有意義以及是否對系統其他部分造成影響，不要為了用而用。如果預期系統在未來會有實際的改變，也可以用 pattern 預先加上彈性。不過要注意，必須是實際的改變，而不是假定的改變。自己覺得可能會改變就用一堆 pattern 也不對，至於什麼叫做「未來實際會有的改變」又是另一個故事了……(喂</p>
+<p>熟悉大部分 pattern 後，需要時大概會知道需要什麼 pattern，接著可以參考 pattern 的 motivation 確認想法對不對，再來要考量會不會對系統造成不良影響。設計上確認後，實作可以參考 UML 跟範例了解實作上的眉眉角角。</p>
+<p>GoF 把 design pattern 分成三大類：creational、structural、behavioral patterns。有時候不知道確切需要哪個 pattern，可以先對問題分類再從類別中找適合的 pattern。</p>
+<h2 id="Design-Pattern-分類"><a href="#Design-Pattern-分類" class="headerlink" title="Design Pattern 分類"></a>Design Pattern 分類</h2><h3 id="Creational-pattern"><a href="#Creational-pattern" class="headerlink" title="Creational pattern"></a>Creational pattern</h3><p>處理「產生 object」。主要的目的有二，一是希望封裝 concrete class，二是想封裝「如何產生並結合 concrete class 的 instance」的過程。</p>
+<ul>
+<li>Abstract Factory</li>
+<li>Builder</li>
+<li>Factory Method</li>
+<li>Prototype</li>
+<li><a href="/singleton">Singleton</a></li>
+</ul>
+<h3 id="Structural-pattern"><a href="#Structural-pattern" class="headerlink" title="Structural pattern"></a>Structural pattern</h3><p>可以合成 class 跟 object 到更大的結構中。</p>
+<ul>
+<li><a href="/Adapter-Pattern">Adapter</a></li>
+<li>Bridge</li>
+<li><a href="/Composite-Pattern">Composite</a></li>
+<li>Decorator</li>
+<li><a href="/Facade-Pattern">Facade</a></li>
+<li>Flyweight</li>
+<li><a href="/Proxy-Pattern">Proxy</a></li>
+</ul>
+<h3 id="Behavior-pattern"><a href="#Behavior-pattern" class="headerlink" title="Behavior pattern"></a>Behavior pattern</h3><p>重點在 class 與 object 間的互動，以及各自的責任。</p>
+<ul>
+<li>Chain of Responsibility</li>
+<li>Command</li>
+<li>Interpreter</li>
+<li><a href="/Iterator-Pattern">Iterator</a></li>
+<li>Mediator</li>
+<li>Memento</li>
+<li><a href="/Observer-Pattern">Observer</a></li>
+<li><a href="/State-Pattern">State</a></li>
+<li><a href="/Strategy-Pattern">Strategy</a></li>
+<li><a href="/Template-Method-Pattern">Template Method</a></li>
+<li>Visitor</li>
+</ul>
+<h2 id="Anti-pattern"><a href="#Anti-pattern" class="headerlink" title="Anti-pattern"></a>Anti-pattern</h2><p>anti-pattern 就是不好的 pattern，告訴大家什麼叫用不好的解決方式解決一個問題，好避免用到這些方法。一個好的 anti-pattern 除了說明不好的方法之外，會建議改用其他 pattern。<del>不然就沒建設性啦</del></p>
+<h2 id="pattern-世界"><a href="#pattern-世界" class="headerlink" title="pattern 世界"></a>pattern 世界</h2><p>除了 design pattern 之外，還有像特定領域如 concurrent 系統的 pattern、組織溝通上的 pattern、UI/UX 的 pattern 等等。pattern 是蠻 general 的概念，在蠻多領域都會出現的，共通的概念是「在面對某種重複出現的情境、狀況或問題時的應對方式」。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Design Patterns: Elements of Reusable Object-Oriented Software》</li>
+<li>《Head First Design Patterns》</li>
+<li><a href="https://en.wikipedia.org/wiki/Software_design_pattern" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Software_design_pattern</a></li>
+<li><a href="http://hillside.net/" target="_blank" rel="noopener">http://hillside.net/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/MVC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +797,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -319,7 +889,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -516,7 +1086,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -608,7 +1178,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -679,464 +1249,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Composite-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Composite-Pattern/" class="post-title-link" itemprop="url">Composite Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-25 00:04:15" itemprop="dateCreated datePublished" datetime="2016-10-25T00:04:15+08:00">2016-10-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Composite-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Composite-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>讓使用者將物件合成為樹狀結構，呈現「部分/整體」的階層關係。如此可讓使用的程式以相同的方式處理單獨或合成的物件。</strong><del>這句話沒解釋的話根本看不懂吧……</del></p>
-<p>讓樹狀結構的 node 都是同樣的 interface，因而可以用相同的方式（相同的 interface）操作 subtree root node（合成物件）以及操作 leaf node（單獨物件）。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/composite_pattern.png" alt="Composite Pattern"></p>
-<p><code>Composite</code> 就是 tree 中非 leaf 的 node。<code>Client</code> 可以透過 <code>Component</code> interface 同時操作 leaf node 及 subtree node。</p>
-<p>這做法會讓 <code>Leaf</code> 繼承一些它不需要的 function 如 <code>getChild()</code>。實作上可以在 <code>Component</code> class 將 function 們的 default 行為 implement 成「不 support 此操作」，由 <code>Composite</code> 跟 <code>Leaf</code> override 對其有意義的 function。至於「不 support 此操作」的實作方式可以是丟出 exception、印 log、return false 等等……</p>
-<h2 id="設計取捨"><a href="#設計取捨" class="headerlink" title="設計取捨"></a>設計取捨</h2><p><code>Component</code> interface 包含對 leaf node 沒意義、對 subtree root node 才有意義的操作，就這個 interface 來看包含了兩種責任，操作 leaf node 與操作 subtree root node，不符合 class 單一責任的設計原則。不過呢，這就是設計上的取捨，以單一責任交換能統一操作 tree 中的 node，實際使用上就是要看情境決定哪一個比較重要。</p>
-<h2 id="似曾相識的-fu"><a href="#似曾相識的-fu" class="headerlink" title="似曾相識的 fu (?)"></a>似曾相識的 fu (?)</h2><p>範例程式生一堆 Component 又 add 來 add 去，看著看著總覺得跟 Qt 的 QStandardItem 寫法很像。看了下 Qt 的 code，<code>QStandardItem</code> 不像是用 composite pattern，應該是打從一開始就定義 item 是個可以有 child 的東西了。</p>
-<p><del>這也是為什麼上一篇是用 QStandardItem 當例子…</del></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Qt-d-pointer-and-q-pointer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Qt-d-pointer-and-q-pointer/" class="post-title-link" itemprop="url">Qt d-pointer & q-pointer</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-23 23:45:00" itemprop="dateCreated datePublished" datetime="2016-10-23T23:45:00+08:00">2016-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Qt-d-pointer-and-q-pointer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Qt-d-pointer-and-q-pointer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>每次看 Qt source code 都不知道 <code>d-&gt;</code> 跟 <code>q-&gt;</code> 到底在幹嘛，翻到 <a href="https://wiki.qt.io/D-Pointer" target="_blank" rel="noopener">D-Pointer</a> 這篇解釋就來看一下。<del>但是我原本不是要追究這個的ㄚㄚㄚ……</del></p>
-<h2 id="d-pointer-pattern"><a href="#d-pointer-pattern" class="headerlink" title="d-pointer pattern"></a>d-pointer pattern</h2><p>d-pointer 是個 design pattern，也叫 Opaque pointer 或 Pimpl idiom。它分開給外面看的公開 class interface 跟實作的 class。做法是在公開 class 放個實作 class 的 pointer，公開 class 各 function 只是 call implementation class 的 function。公開 class 中跟實作相關的 member 只有那個 pointer，所以 size 會固定是 pointer 的 size。<del>老覺得在哪看過類似的東西……</del></p>
-<p>Qt 用 d-pointer 主要是為了保持 binary compatibility。</p>
-<h2 id="Binary-Compatibility"><a href="#Binary-Compatibility" class="headerlink" title="Binary Compatibility"></a>Binary Compatibility</h2><p>有 binary compatibility 表示 application 在以舊版 library compile 後，新版 library binary 可以直接取代舊版 library 而不需要重新 compile application。要達到 binary compatibility 就不能改變已經公開出去的 C++ class 的 size 或 memory  layout，即不能增加 member 或者更改 function 跟 member 的順序。如果改了，application 認定的 library class size 或 memory layout 跟新版 library 不同，會把 memory 踩爛掉。</p>
-<p>Qt 使用 d-pointer 達到不修改既有公開 class 還能增加 feature 或修改實作細節。</p>
-<h2 id="Qt-的實作"><a href="#Qt-的實作" class="headerlink" title="Qt 的實作"></a>Qt 的實作</h2><p>基於保持 binary compatibility，Qt 幾乎所有 class 都用 d-pointer 指向真正實作的 class。實作 class 叫 <code>QXXXPrivate</code>，例如 <code>QWidget</code> 就有 <code>QWidgetPrivate</code>，通常定義在 <code>xxx_p.h</code>，例如 <code>qwidget_p.h</code>。<code>QXXX</code> 以及 <code>QXXXPrivate</code> 的實作會寫在 <code>qxxx.cpp</code>。</p>
-<p>為了減少 memory allocation 的次數，<code>QXXXPrivate</code> 的 class 也會有繼承關係。其繼承關係會依循一般 class 的繼承關係，例如 <code>QLabel</code> 繼承 <code>QFrame</code>，<code>QLabelPrivate</code> 就會繼承 <code>QFramePrivate</code>。<code>QXXXPrivate</code> 大多繼承自 <code>QObjectPrivate</code>。</p>
-<p>以下 code 擷取自 Qt 5.7.0。</p>
-<h3 id="d-pointer-amp-q-pointer"><a href="#d-pointer-amp-q-pointer" class="headerlink" title="d-pointer &amp; q-pointer"></a>d-pointer &amp; q-pointer</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObject</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    QScopedPointer&lt;QObjectData&gt; d_ptr;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObjectData</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    QObject *q_ptr;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObjectPrivate</span> :</span> <span class="keyword">public</span> QObjectData &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>好啦～上面是 d-pointer，<code>QObjectPrivate</code> 繼承 <code>QObjectData</code>，而 <code>QObject</code> 有 <code>d_ptr</code> 指向 <code>QObjectData</code>。</p>
-<p>有時候實作 class 需要使用公開 class，因此實作 class 會存公開 class 的 pointer，稱為 q-pointer。如上，<code>QObjectData</code> 有 <code>QObject</code> 的 pointer <code>q_ptr</code>。</p>
-<p>在 Qt 裡 d-pointer 跟 q-pointer 基本上是繼承自 base class，不過也有例外。</p>
-<h3 id="Q-D-amp-Q-Q-macro"><a href="#Q-D-amp-Q-Q-macro" class="headerlink" title="Q_D() &amp; Q_Q () macro"></a>Q_D() &amp; Q_Q () macro</h3><p><code>qtbase/src/corelib/global/qglobal.h</code> 定義了這些 function 跟 macro：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> T *<span class="title">qGetPtrHelper</span><span class="params">(T *ptr)</span> </span>&#123; <span class="keyword">return</span> ptr; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_DECLARE_PRIVATE(Class) \</span></span><br><span class="line">    <span class="keyword">inline</span> Class##<span class="function">Private* <span class="title">d_func</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;Class##Private *&gt;(qGetPtrHelper(d_ptr)); &#125; \</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">const</span> Class##<span class="function">Private* <span class="title">d_func</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">const</span> Class##Private *&gt;(qGetPtrHelper(d_ptr)); &#125; \</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>##<span class="title">Private</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_DECLARE_PUBLIC(Class)                                    \</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> Class* <span class="title">q_func</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;Class *&gt;(q_ptr); &#125; \</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">const</span> Class* <span class="title">q_func</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">const</span> Class *&gt;(q_ptr); &#125; \</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_D(Class) Class##Private * const d = d_func()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_Q(Class) Class * const q = q_func()</span></span><br></pre></td></tr></table></figure>
-
-<p>在 class 內會用 <code>Q_DECLARE_PRIVATE()</code>，以 <code>QStandardItem</code> 為例：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_GUI_EXPORT</span> <span class="title">QStandardItem</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    QScopedPointer&lt;QStandardItemPrivate&gt; d_ptr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Q_DECLARE_PRIVATE(QStandardItem)</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">QStandardItem::QStandardItem() : d_ptr(<span class="keyword">new</span> QStandardItemPrivate)</span><br><span class="line">&#123;</span><br><span class="line">    Q_D(QStandardItem);</span><br><span class="line">    d-&gt;q_ptr = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QStandardItem::setChild</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> column, QStandardItem *item)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Q_D(QStandardItem);</span><br><span class="line">    d-&gt;setChild(row, column, item, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>QStandardItem</code> 裡有兩個 inline 的 private function 分別為 <code>QStandardItemPrivate* d_func()</code> 以及 <code>const QStandardItemPrivate* d_fun() const</code>，並且 <code>QStandardItemPrivate</code> 是 <code>QStandardItem</code> 的 friend class，可以 access <code>QStandardItem</code> 的 private member。constructor 生了 <code>QStandardItemPrivate</code> 並將 <code>d_ptr</code> 指過去。</p>
-<p>依據 macro 的定義，<code>d</code> 是 <code>QStandardItemPrivate*</code>，<code>d_func()</code> 將 <code>qGetPtrHelper(d_ptr)</code> 轉型成 <code>QStandardItemPrivate*</code> 丟出來。<code>d_ptr</code> 是個 <code>QScopedPointer&lt;QStandardItemPrivate&gt;</code>，<code>qGetPtrHelper()</code> 將 smart pointer 轉成單純的 pointer（參考<a href="http://stackoverflow.com/questions/8015718/what-is-the-use-of-qgetptrhelper-in-this-example" target="_blank" rel="noopener">這篇</a>）。<del>還沒有看得很懂怎麼轉的，不過先這樣理解吧…</del> 總之 <code>d</code> 是指向 construct 時塞進來的 <code>QStandardItemPrivate</code> 的 pointer。所以最後 <code>QStandardItem::setChild()</code> 是用 <code>QStandardItemPrivate::setChild()</code> 實際做事。</p>
-<p>反過來的 <code>Q_Q()</code> 比較簡單。<del>這 macro 的名字真好笑(離題</del></p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QStandardItemPrivate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Q_DECLARE_PUBLIC(QStandardItem)</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ...</span><br><span class="line">    QStandardItem *q_ptr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QStandardItemPrivate::setChild</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> column, QStandardItem *item,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">bool</span> emitChanged)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Q_Q(QStandardItem);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (rows &lt;= row)</span><br><span class="line">        q-&gt;setRowCount(row + <span class="number">1</span>);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>透過 <code>q_func()</code> 拿到的 <code>q</code> 是轉型成 <code>QStandardItem*</code> 的 pointer。</p>
-<p>這個例子裡，因為 <code>QStandardItem</code> 跟 <code>QStandardItemPrivate</code> 沒有繼承別人，它們自己分別記錄了 <code>d_ptr</code> 跟 <code>q_ptr</code>，所以 <code>d_func()</code> 跟 <code>q_func()</code> 有沒有轉型根本沒差。但其他繼承 <code>QObjectPrivate</code> 的 class，<code>q_ptr</code> 是從 <code>QObjectData</code> 來的，type 是 <code>QObject*</code>，如果要直接使用 sub class 的 member 就得轉型，<code>d_ptr</code> 同理。除非用 virtual function 做多型，不過這個狀況用 virtual function 很怪，因為這樣 base class <code>QObject</code> 得有所有 sub class 會用到的 interface，這邊顯然不是這個意思，用 virtual function 不合理。</p>
-<p>這樣看過之後，對 Qt source code 的結構比較理解了，才不會每次看到 <code>Q_D()</code> 啊 <code>Q_Q()</code> 啊都想 Q_Q 了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS1-04/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/STS1-04/" class="post-title-link" itemprop="url">科技物有政治性嗎？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-23 00:31:39" itemprop="dateCreated datePublished" datetime="2016-10-23T00:31:39+08:00">2016-10-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/STS1-04/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS1-04/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>《科技渴望社會》第四篇。這篇在說「技術物」如何對人及其生活方式產生影響，「技術物」指的是各種各樣具體的技術或系統，例如核能電廠、鐵路、各種通訊方式、公路網、飛機等等，將「技術」這個較為廣義的詞定義得比較狹義但具體。整篇常常提到政治性、權威、權力、社會組織，我理解為在試圖說明技術物對人的生活以及社會產生的影響。</p>
-<blockquote>
-<p>最偉大的權力不在於君臨天下的帝國威望，而在於權力內化成人們的「生活方式」而無法察覺，更因是生活方式而成為價值觀而為其辯護與效命，從而促成了權力的再生產。而權力的社會運作在於使人們無法思考「另類生活方式」的可能性。</p>
-</blockquote>
-<blockquote>
-<p>技術作為一種對內的控制性力量，就在於讓我們覺得「只有」一種生活方式。</p>
-</blockquote>
-<p>導讀以汽車作為一種生活方式、一種「必須」舉例。因為認為汽車是必須，所以道路規劃等等就以汽車為主，人們出門以考量汽車可及性與停車便利為主。汽車作為生活方式的一部分，於是很難想像以其他交通方式生活，例如芬蘭的單車與大眾運輸。即使有所想像，甚至會受限於當前硬體設施而較難實現其他交通方式。</p>
-<p>引入一個技術的原因不見得是表面上的原因，如引入新技術帶動進步，而可能是達到其他政治或操弄的目的……例如本篇文章提到的低架橋設計，高度故意不足以讓公車通過，使得較依靠公車作為交通手段的族群變得較難前往某些區域，達到了某個程度的隔離目的。</p>
-<p>以低架橋這個例子來說，我會認為這是人「刻意」將技術用於較壞的方向。我的想法偏向技術本身是中立的，可以用在好的方向，也可以用到壞的方向，技術本身並不帶有其原生的影響，是好是壞端看人如何使用。</p>
-<p>文章後面提到，有時候技術的影響並不見得是當事人的本意與意圖。當事人可能並無將技術用於好或壞的動機，但技術本身仍然帶來某些影響，或好或壞。例如早期公共設施較沒有無障礙設施，這不見得是誰特意為之，但結果讓身心障礙者較難以前往某些地方，而在某個程度上遭到排除。這觀點稍微改變了我認為技術是中立的想法。</p>
-<p>技術物甚至會影響圍繞其的社會組織結構與運作方式，例如有了自動化生產系統，原本員工做的事是生產、製造某個東西，但有自動化生產系統後，員工變成是去維護這個系統的運作，而可能為了配合機器而在工作上得要更制式、更機械化。講難聽點，人從做重複性的生產作業，變成機器系統的活零件。</p>
-<p>要維持一個龐大的系統順暢運作，組織上就變得需要有階層與管理，需要管理階層去確定每個部分都有人確實的做好維護與運作。但接著要問的是，維持一個系統，是否必然要使用中央集權式的方式予以管理才能有效率並安全的運作？又如，在這個資訊科技講究創新的時代，由上而下、中央集權式的階層管理是否還適用？看到這我有點訝異，雖然有淺淺的想過一項技術會帶來些影響，可是沒有想那麼深。</p>
-<p>而當「進步」成為主流，對於技術大多只考慮實用性時，拒絕技術之引進容易被扣上「反進步」的帽子，或許使技術的影響性反而變得不被考量。</p>
-<p>murmur：這其實是拉哩拉紮的整理跟心得，目前來說無法更有條理了。看這書大概有四五成是每個字都看得懂但整個句子看起來其實不懂那些字詞真正想表達的意義……</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Iterator-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Iterator-Pattern/" class="post-title-link" itemprop="url">Iterator Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-10-18 22:19:26" itemprop="dateCreated datePublished" datetime="2016-10-18T22:19:26+08:00">2016-10-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Iterator-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Iterator-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>讓使用者能取得一個 collection 內的每個 element，而不需要暴露此 collection 的 implememtation。</strong></p>
-<p>Iterator Pattern 封裝了「拿出下一個 element」這件事，讓外部可以不需要知道 collection 實際上以什麼方式實作，如 array、list、stack 等等，就能以一致的方式取得 element。iterator 也讓 collection 的責任更簡單，collection 負責管理一群 object，而 iterator 負責 traverse element。</p>
-<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>有多種 collection 一同使用，希望能用同樣方式 traverse element 時。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/iterator_pattern.png" alt="Iterator Pattern"></p>
-<h2 id="library-及語言支援"><a href="#library-及語言支援" class="headerlink" title="library 及語言支援"></a>library 及語言支援</h2><p>C++ STL、Qt、Java 等等的 container 都有支援 iterator。用 iterator 要注意 iterate 過程中能不能更動該 container，因為 iterator 會直接或間接的 access container 內部資料，所以不同實作方式會影響 iterator 的使用。例如 Qt 對 container 用 <a href="http://doc.qt.io/qt-5/containers.html#implicit-sharing-iterator-problem" target="_blank" rel="noopener">implicit sharing</a>，所以使用 iterator 期間 copy container 要注意會不會搞爛 iterator 或 iterator 指向的 container 跟預想不同。</p>
-<p>在某些語言，如 PHP，會提供 foreach 的語法，這進一步將 iterator 變成 syntax 了。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS1-01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/STS1-01/" class="post-title-link" itemprop="url">美國的電氣化過程：系統建構者</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-09-21 23:44:46" itemprop="dateCreated datePublished" datetime="2016-09-21T23:44:46+08:00">2016-09-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/STS1-01/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS1-01/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>《科技渴望社會》的第一篇。這本書集結了科技與社會有關的文章與演講稿等等的翻譯，是 STS (Science, Technology and Society) 領域的讀本。</p>
-<p>這篇描述三個在美國電氣化過程中十分活耀的人：愛迪生、英瑟爾、密契爾，分別在電氣化不同階段扮演不同角色。愛迪生主要技術但跨越了管理以及財務等等，讓電氣化得以開始推展。英瑟爾有技術知識也是財務專家，但長處在於管理，透過管理將電力事業的規模擴大。而密契爾則是以金融策略使電力事業進一步擴大為區域系統。三位都對多個領域有所涉獵與了解，綜合各種因素以不同所長推展美國的電力發展。</p>
-<p>其中愛迪生的篇幅是我看得最能理解在幹嘛的部分……</p>
-<p>從這篇文章的研究中，可以看到愛迪生的思考脈絡以及因果邏輯。因目的是取代煤氣燈，所以先考量經濟效益，才結合科學上的靈感，繼而搜尋與試驗特定目標，而非如給小朋友看的故事所述──只是不斷地嘗試。姑且不論從眾多文獻中回推因果是否真是當年愛迪生所想，但看到回推出有邏輯的思考脈絡，才能認為這是合理、可行可能的，而非如神話般的不可思議。</p>
-<p>科學歷史應該要呈現這樣的部份，呈現科學發展的交錯跟曲折性，呈現當時人們的思考脈絡，而非講得科學猶如直升飛機筆直上升，各個有所成果的科學家不是天才就是堅忍不拔云云。像是《科學發現幕後的黑色喜劇》跟《電的旅程》就有這種交(ㄨㄞ)錯(ㄑ一)曲(ㄋ一ㄡˇ)折(ㄅㄚ)但比較真實的科學史。</p>
-<p>至於英瑟爾跟密契爾因為又是管理又是金融的，我實在看不太懂到底在寫什麼……Orz</p>
-<p>總之，可以說是三個人都有跨領域的能力，一步步推展電力發展。從一間公司需要技術的不斷改良以突破擴大的障礙，接著公司開始變大、變多而需要管理才能繼續擴大，之後需要用金融方式讓系統進一步擴張到區域等級，每個時期有不同的關鍵知識跟能力。</p>
-<p>要說有 fu 的感想……應該是「只會技術很難完整建立或推展一個事業系統」。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1202,20 +1318,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

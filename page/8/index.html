@@ -196,6 +196,436 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Facade-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Facade-Pattern/" class="post-title-link" itemprop="url">Facade Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-03 14:26:12" itemprop="dateCreated datePublished" datetime="2016-04-03T14:26:12+08:00">2016-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2018-10-26 23:47:00" itemprop="dateModified" datetime="2018-10-26T23:47:00+08:00">2018-10-26</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Facade-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Facade-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Facade 定義較簡單（抽象程度更高）的 interface 來讓 client 更容易使用複雜的 sub system。</p>
+<p>目的在簡化 sub system 的使用方式。</p>
+<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>sub system 提供很多功能與 interface 但太複雜，希望有簡單的方式使用 sub system。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/facade_pattern.png" alt="Facade Pattern"></p>
+<p>Facade 沒有封裝 sub system，只是提供簡化的 interface 方便使用。</p>
+<p>client 可以用 Facade 的簡單 interface，也可以使用原本 sub system 提供的 interface。就像有些軟體在設定頁只放一般常用設定，需要調整細部設定的使用者再按「進階」鈕進入設定。</p>
+<h2 id="相關-pattern"><a href="#相關-pattern" class="headerlink" title="相關 pattern"></a>相關 pattern</h2><ul>
+<li><a href="/Adapter-Pattern/">Adapater</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Adapter-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Adapter-Pattern/" class="post-title-link" itemprop="url">Adapter Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-02 22:55:44" itemprop="dateCreated datePublished" datetime="2016-04-02T22:55:44+08:00">2016-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Adapter-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Adapter-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>將一個 class 的 interface 轉換成另一個 interface 供其他人使用，讓原本不相容的 interface 可以相容。</strong></p>
+<p>一個轉接頭的概念。</p>
+<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>不想改其他使用 class A 的 code 卻想用 class B 達成相同功能時，以 Adapter 將 class B 的 interface 轉成 class A。</p>
+<p>Adapter 因為受限 Adaptee 的能力，不一定能完美 implement interface 所提供的功能，這種時候通常用文件（就大家講好）或 exception 等等方式處理。之前一直以為 Adpater 要完全 implement interface 提供的功能，遇到受限的狀況就有點 confuse 這樣是不是 adpater…</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/adapter_pattern.png" alt="Adapter Pattern (合成)"></p>
+<p>Client 只知道 Target 的 interface，不知道 Adaptee 的 interface，Class 跟 Adaptee 之間是鬆綁的。如果需要同時使用兩種 interface，Adapater 也可以 implement 多個 Target interface，例如有 Target1 及 Target2 兩個 interface，有些地方原本使用 Target1，後來新寫的 code 使用 Target2，Adapter 同時支援兩者就可以不改動到原有的 code。</p>
+<p>我比較習慣用合成讓 Adapter 使用 Adaptee，有另一種做法是用繼承，沒很懂這樣用的好處跟時機，先記著有這種方式：</p>
+<p><img src="/images/adapter_pattern2.png" alt="Adapter Pattern (繼承)"></p>
+<h2 id="跟其他-pattern-比較"><a href="#跟其他-pattern-比較" class="headerlink" title="跟其他 pattern 比較"></a>跟其他 pattern 比較</h2><ul>
+<li>Adapter 是做 interface 轉換。</li>
+<li>Facade 是為了提供簡單的 interface 讓其他人易於操作 sub system，Adapter 跟 Facade 的差別在「目的」。</li>
+<li>Decorator 是加功能。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/select/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/select/" class="post-title-link" itemprop="url">select()</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-03-27 15:16:20" itemprop="dateCreated datePublished" datetime="2016-03-27T15:16:20+08:00">2016-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/select/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="select/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>由 kernel 注意某些 fd 是否 active（readable、writable 及有 error），有則 return 讓 application process 對 active 的 fd 做相應的處理。用 <code>select()</code> 可避免 application process 去 polling 看各個 socket 是否 active、浪費 CPU 資源。如果沒有 fd active、沒設 timeout、沒有 signal 打斷，<code>select()</code> 是 blocking。</p>
+<p>正常狀況下 <code>select()</code> return 三個 fdset 共有多少 fd active。timeout 時 return 0。收到 signal return -1 且 errno 設為 <code>EINTR</code>，不會測試 fd 也不會修改 fd_set，所以不能用 fd 判斷是否 active。<code>select()</code> 之所以在被 signal 打斷時不修改 fd_set，是為了避免 <code>select()</code> 跟 signal handler 不斷修改同一個 flag 造成 infinite loop。例如 <code>select()</code> 發現某 flag 是 0 會將 flag 設為 1，而某個 signal handler 遇到 flag 是 1 又把 flag 設為 0，沒完沒了。</p>
+<p><code>pselect()</code> 可設定擋住哪些 signal，讓這些 signal 不打斷 <code>pselect()</code>。</p>
+<h2 id="Sample-Code"><a href="#Sample-Code" class="headerlink" title="Sample Code"></a>Sample Code</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXBUF 1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreateListenSock</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">run</span>(<span class="number">8899</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fd_set afdset, rfdset, wfdset, efdset;</span><br><span class="line">    <span class="keyword">int</span> listenfd = CreateListenSock(listenPort, qlen);</span><br><span class="line">    <span class="keyword">int</span> maxfd = listenfd;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; fds;</span><br><span class="line">    <span class="keyword">bool</span> bNeedWrite = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    FD_ZERO(&amp;afdset); FD_ZERO(&amp;rfdset); FD_ZERO(&amp;wfdset); FD_ZERO(&amp;efdset);</span><br><span class="line">    FD_SET(listenfd, &amp;afdset);</span><br><span class="line"></span><br><span class="line">    fds.insert(listenfd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> iActive = <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">        rfdset = afdset;</span><br><span class="line">        efdset = afdset;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (bNeedWrite)</span><br><span class="line">        &#123;</span><br><span class="line">            wfdset = afdset;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            FD_ZERO(&amp;wfdset);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        timeout.tv_sec = <span class="number">3</span>;</span><br><span class="line">        timeout.tv_usec = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ((iActive = select(maxfd + <span class="number">1</span>, &amp;rfdset, &amp;wfdset, &amp;efdset, &amp;timeout)) == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// handle error</span></span><br><span class="line">            <span class="keyword">if</span> (errno == EINTR)</span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> iHandled = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator fdIter = fds.<span class="built_in">begin</span>();</span><br><span class="line">            <span class="keyword">for</span> (; fdIter != fds.<span class="built_in">end</span>() &amp;&amp; iHandled &lt; iActive; ++fdIter)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> fd = *fdIter;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;rfdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (fd == listenfd)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// handle new connection</span></span><br><span class="line">                        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cliaddr</span>;</span></span><br><span class="line">                        <span class="keyword">socklen_t</span> cliaddrlen = <span class="keyword">sizeof</span>(cliaddr);</span><br><span class="line"></span><br><span class="line">                        bzero((<span class="keyword">char</span> *)&amp;cliaddr, <span class="keyword">sizeof</span>(cliaddr));</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">int</span> connfd = accept(listenfd, (struct sockaddr *)&amp;cliaddr, &amp;cliaddrlen);</span><br><span class="line"></span><br><span class="line">                        fds.insert(connfd);</span><br><span class="line">                        FD_SET(connfd, &amp;afdset);</span><br><span class="line">                        <span class="keyword">if</span> (connfd &gt; maxfd)</span><br><span class="line">                        &#123;</span><br><span class="line">                            maxfd = connfd;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// handle read</span></span><br><span class="line">                        <span class="keyword">char</span> readBuf[MAXBUF];</span><br><span class="line">                        <span class="keyword">int</span> iRead = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                        bzero(readBuf, MAXBUF);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> ((iRead = <span class="built_in">read</span>(fd, &amp;readBuf, MAXBUF - <span class="number">1</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            readBuf[iRead] = <span class="number">0</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> (iRead == <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">close</span>(fd);</span><br><span class="line">                            FD_CLR(fd, &amp;afdset);</span><br><span class="line">                            fds.erase(fd);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="comment">// handle read error</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;wfdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle write</span></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;efdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle error</span></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreateListenSock</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servAddr</span>;</span></span><br><span class="line">    <span class="keyword">int</span> listenfd = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">"Create socket failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bzero((<span class="keyword">char</span> *)&amp;servAddr, <span class="keyword">sizeof</span>(servAddr));</span><br><span class="line">    servAddr.sin_family = AF_INET;</span><br><span class="line">    servAddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    servAddr.sin_port = htons(listenPort);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bind(listenfd, (struct sockaddr *)&amp;servAddr, <span class="keyword">sizeof</span>(servAddr)) &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">"Bind socket failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">listen</span>(listenfd, qlen);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listenfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Toolchain-on-windows-and-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Toolchain-on-windows-and-linux/" class="post-title-link" itemprop="url">C++ toolchain on windows and linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-03-06 22:14:03" itemprop="dateCreated datePublished" datetime="2016-03-06T22:14:03+08:00">2016-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Toolchain-on-windows-and-linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Toolchain-on-windows-and-linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <img src="../images/toolchain.png" width="800">
+
+<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">cl /I &lt;include path&gt;</span><br><span class="line">link /LIBPATH:&lt;library path&gt; /OUT:&lt;output file&gt;</span><br><span class="line"></span><br><span class="line">cl /I "C:<span class="symbol">\P</span>rogram Files (x86)<span class="symbol">\M</span>icrosoft Visual Studio 12.0<span class="symbol">\V</span>C<span class="symbol">\i</span>nclude" /c hello.cpp</span><br><span class="line">link /LIBPATH:"C:<span class="symbol">\P</span>rogram Files (x86)<span class="symbol">\M</span>icrosoft Visual Studio 12.0<span class="symbol">\V</span>C<span class="symbol">\l</span>ib" /LIBPATH:"C:<span class="symbol">\P</span>rogram Files (x86)<span class="symbol">\M</span>icrosoft SDKs<span class="symbol">\W</span>indows<span class="symbol">\v</span>7.1A<span class="symbol">\L</span>ib" /OUT:hello.exe hello.obj</span><br></pre></td></tr></table></figure>
+
+<p>library path 加 <code>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib</code> 主要為了 <code>kernel32.lib</code>。</p>
+<p>不過很少直接用 <code>cl</code>，通常都是用 Visual Studio 整套 IDE。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/cpp-handle-self-assignment-in-operator-assignment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/cpp-handle-self-assignment-in-operator-assignment/" class="post-title-link" itemprop="url">C++ 在 operator=() 處理 self assignment</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-13 16:24:56" itemprop="dateCreated datePublished" datetime="2015-12-13T16:24:56+08:00">2015-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/cpp-handle-self-assignment-in-operator-assignment/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cpp-handle-self-assignment-in-operator-assignment/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>self assignment：object 被 assign 給自己。</p>
+<p>class member 有 pointer 時寫 <code>operator=()</code> 要小心處理 self assignment。如果先把自己原本的 member delete 掉，等同把 rhs 的 member 也 delete 掉，assign 後會得到爛掉的 pointer。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Foo&amp; Foo::<span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">    Bitmap* pOrig = pb;    <span class="comment">// pb is member pointer in Widget</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (rhs.pb != <span class="literal">NULL</span>)</span><br><span class="line">        pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        pb = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> pOrig;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這做法可以處理 member pointer 但會讓 member pointer 指的位置經過 self assignment 後變得不同，另一種做法是檢查 <code>this</code> 是否跟 <code>&amp;rhs</code> 相同，不同時才真的做 copy。 </p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Strong-Symbol-and-Weak-Symbol/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +657,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -329,7 +759,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -457,7 +887,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -576,7 +1006,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -683,7 +1113,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -743,520 +1173,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch2-note/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/API-Design-for-Cpp-ch2-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch2 Qualities</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-08-08 16:40:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:40:55+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/API-Design-for-Cpp-ch2-note/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="API-Design-for-Cpp-ch2-note/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><em>盡量不要讓看過的書像船過水無痕，嘗試用自己的話做小結。</em></p>
-<p>這章的重點在：What are the basic qualities of a good API?</p>
-<h2 id="Model-the-problem-domain"><a href="#Model-the-problem-domain" class="headerlink" title="Model the problem domain"></a>Model the problem domain</h2><p>API 是用來解決某個問題的，問題可大可小。</p>
-<p><strong>API 要能對問題提供抽象化的概念，並且能夠將這抽象概念以 interface 表達出來。</strong>以 C++ 來說，我的理解是用 class name 以及 function name 表達抽象概念，也就是使用 API 的人應該要能從 class 及 function 看出抽象概念及使用邏輯。</p>
-<p><strong>一個問題沒有絕對正確的抽象化方式，重點是 API 要保有某種一致性及邏輯。</strong></p>
-<p>如果用物件導向來做 modeling 就會用 object modeling，也就是會定出 object、每個 object 做什麼、object 之間的關係與互動。一個 class 應該要定義為「做什麼」（what）而不是「怎麼做」（how）。</p>
-<h2 id="Hide-implementation-details"><a href="#Hide-implementation-details" class="headerlink" title="Hide implementation details"></a>Hide implementation details</h2><p>隱藏所有實作細節。如果沒藏好，以後要改實作，使用者可能跟著改到崩潰然後就不想用你的 API 了。(無誤)</p>
-<p>interface 訂得好，底下怎麼搞都沒關係，改 interface 比較會影響到使用者。</p>
-<p>隱藏實作細節的方法：</p>
-<ul>
-<li>Declaration &amp; Definition<br>盡量在 header 只寫 declaration，implementation 放在 cpp。</li>
-<li>Encapsulation<ul>
-<li>請把 member 藏起來，外面需要它們的話使用 getter &amp; setter。</li>
-<li>隱藏 class 內部才使用的 implementation method 們，API 使用者不需要知道 API 實際上如何實作出功能的。</li>
-<li>隱藏 class 內部才使用的 implementation class 們。</li>
-<li>所謂隱藏就是設成 private。</li>
-</ul>
-</li>
-</ul>
-<p>PS：這裡說的使用者是指使用 API 的人，通常是其他 programmer 或自己，不是使用軟體的一般使用者。</p>
-<h2 id="Minimally-complete"><a href="#Minimally-complete" class="headerlink" title="Minimally complete"></a>Minimally complete</h2><p>API 功能要完整，可以滿足使用者需要的所有功能，要盡可能小但無法再更小了。</p>
-<p>要小心 virtual function 可能會公開過多 function 給使用者。<em>不過我還沒很懂這意思…</em></p>
-<h2 id="Easy-to-use"><a href="#Easy-to-use" class="headerlink" title="Easy to use"></a>Easy to use</h2><p>看到這裡總覺得在軟體設計上到處都有這句話，只是層次不太一樣。在 application 層級上，easy to use 希望的是一般使用者的好用。而在 API 層級上則是針對 API 使用者──通常是 programmer。</p>
-<ul>
-<li>Discoverable<br>使用者光看 API 就能自己心領神會、找出如何使用。</li>
-<li>Difficult to misuse<br>難以誤用，舉例：傳三個 enum Year、Month、Day 當參數比傳三個 int 不容易誤用。<em>《Effective C++》好像說過同樣的話…</em></li>
-<li>Consistent<br><a href="/Consistent-API-Design/">API 設計的一致性</a></li>
-<li>Orthogonal<ul>
-<li>method 之間沒 side effect，例如 call 改變某屬性的 method 不會動到其他屬性。</li>
-<li>修改 API 的部分實作也不會影響到其他部分。</li>
-<li>做法：保持一種資訊只有一個地方有，不要到處 copy-paste code。盡量封裝，避免一個變數到處都可以 access 以致改了 A 可能就動到 B 的行為。</li>
-</ul>
-</li>
-<li>Resource allocation<ul>
-<li>用 smart pointer 管理 memory。</li>
-<li>其他種類的 resource 也可以用 class 加以管理，object 的 construct 是 allocate resource，destruct 則是 release resource，通常稱為 RAII（Resource Acquisition Is Initialization）。舉例：Qt 的 QMutexLocker。</li>
-</ul>
-</li>
-<li>Platform independent<br>避免在公開的 header 用針對特定平台的 <code>#if</code> 跟 <code>#ifdef</code>，例如 <code>#ifdef _WIN32</code>。</li>
-</ul>
-<h2 id="鬆散耦合"><a href="#鬆散耦合" class="headerlink" title="鬆散耦合"></a>鬆散耦合</h2><p>跟 OO 的原則一樣，class 之間、module 之間不要黏太緊。</p>
-<p>簡單看兩個 component A 跟 B 黏得緊不緊的方式是看改了 A 後 B 會不會改很多、A 看得到 B 多少東西（如只看得到 public function 還是也看得到 private member 等等）。</p>
-<p>要避免兩個 component 互相依賴變成 dependency cycle，不然想用 A 就一定要有 B，但邏輯上可能根本不需要 B，看起來就很怪。</p>
-<p>這邊提兩種鬆散耦合的方法：Manager class 跟事件通知。</p>
-<h3 id="Manager-class"><a href="#Manager-class" class="headerlink" title="Manager class"></a>Manager class</h3><p>Manager class 會擁有並管理某些 class，例如與 output 有關的 class。</p>
-<p>如果有一個 Manager class 管理 N 個 output class，其他 M 個 需要使用 output class 的 class 可以不需要跟所有 output class 都有關係（這樣會有 N * M 個關聯），大家可以只跟 Manager class 有關係（只剩 N + M 個關聯），從而降低 outpu class 與其他 class 間的耦合。</p>
-<p><em>原來 Manager class 還有這種功能…</em></p>
-<h3 id="事件通知"><a href="#事件通知" class="headerlink" title="事件通知"></a>事件通知</h3><p>在「某件事發生時需要通知其他人」的情境下，有以下幾種方式可以降低通知者與被通知者的耦合：</p>
-<ul>
-<li>callback<br>C 寫法，使用 function pointer，也可以有很多 callback。</li>
-<li>observer<br><a href="/Observer-Pattern/">Observer Pattern</a></li>
-<li>notification<br>不針對特定事件，比較像整個系統的機制，例如 signal-slot。</li>
-</ul>
-<p>這些方法可以讓通知方與被通知方彼此不需要知道對方是誰，否則雙方得知道對方是誰才能通知，而當兩邊各有很多 class 的時候，那根本是場災難……</p>
-<h2 id="相關-note"><a href="#相關-note" class="headerlink" title="相關 note"></a>相關 note</h2><ul>
-<li><a href="/Core-API-and-convenient-API/">API 的基本功能性及便利性</a></li>
-</ul>
-<h2 id="Murmur"><a href="#Murmur" class="headerlink" title="Murmur"></a>Murmur</h2><p>老覺得跟 OO 的原則很類似，很多概念都有在其他地方看過。不過現在再看，似乎更能配合實際經驗加以理解。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Consistent-API-Design/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Consistent-API-Design/" class="post-title-link" itemprop="url">API 設計的一致性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-08-08 16:38:37" itemprop="dateCreated datePublished" datetime="2015-08-08T16:38:37+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Consistent-API-Design/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Consistent-API-Design/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>像 naming、argument 順序、standard pattern 的使用、memory model、exception 的使用、error handling 等等，如果設計上有一致性，使用者較容易使用。保有一致性時，使用者可以輕易透過原本的理解認知推測新功能或其他部分如何使用。</p>
-<p>在設計 C++ API 上，如果跟 standard library 保有相同的模式與規則也會讓 API 易於使用，畢竟大家都會用 standard library 啊！</p>
-<p>雖然這篇標題是說 API 的設計，但小至 class 跟 function 也是有類似的觀念啊～</p>
-<p>舉個 argument 不一致的例子：<code>fscanf()</code> 跟 <code>fgets()</code>，它們分別長這樣：</p>
-<p><code>int fscanf(FILE* stream, const char* format, ...);</code><br><code>char* fgets(char* str, int num, FILE* stream);</code></p>
-<p>兩個類似的 function，<code>FILE* stream</code> 參數卻是一個在第一個、一個在最後一個，讓我太久沒用就得回頭瞄一下文件……</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Core-API-and-convenient-API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Core-API-and-convenient-API/" class="post-title-link" itemprop="url">API 的基本功能性及便利性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-08-08 16:37:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:37:55+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Core-API-and-convenient-API/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Core-API-and-convenient-API/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>API 的功能可以是比較 atomic、比較基本的，讓外部使用這些基本功能組合出它想要的東西。也可以是 API 本身即組合一些基本功能、提供較方便的功能給外部使用。這兩種特性雖然互相衝突，但都是作為 API 希望滿足的。</p>
-<p>滿足這兩種特性的方式是將僅提供基本功能的 core API 及較方便的 API 分開。可能是以 class 或檔案區隔，甚至直接拆成不同 library。重點是較方便的 API 是使用 core API 的 public interface，就像在 core API 外再包一層，而不會 access 到 core API 的內部結構。</p>
-<p>如此使用者就能有方便使用的 API 也能在想自行組合功能的時候使用進階的 core API。這概念類似於 UI 設計上常有的「進階」按鈕──平常設定頁只會有基本設定，按進階按鈕後才會顯示更細部的設定。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/vim/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vim/" class="post-title-link" itemprop="url">vim 常用功能</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-14 21:01:27" itemprop="dateCreated datePublished" datetime="2015-07-14T21:01:27+08:00">2015-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2016-06-05 18:00:11" itemprop="dateModified" datetime="2016-06-05T18:00:11+08:00">2016-06-05</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/vim/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vim/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>常用功能的 plugin 及快捷鍵：</p>
-<ul>
-<li>游標停在字上的時候會自動 highlight 同樣的字<br>開啟 vim 後輸入 <code>z/</code>，目前還沒找到怎麼一開 vim 就啟動自動 highlight。</li>
-<li>跳到游標所在 variable 或 function 的宣告</li>
-<li>在 .cpp 跟 .h 之間切換<br>a.vim (<code>:A</code>)</li>
-<li>跳到游標所在的 function 的定義<br>cscope (<code>ctrl+\ g</code>)<br>ctags (<code>g]</code> or <code>ctrl+]</code>)</li>
-<li>跳到游標所在的 variable local 宣告<br>ctags (<code>gd</code>)</li>
-<li>跳到游標所在的 variable global 宣告<br>ctags (<code>gD</code>)</li>
-<li>全 project search<br>cscope (<code>ctrl+\ t</code>)</li>
-<li>列出 file 中有哪些 function<br>taglist (<code>F8</code>)</li>
-<li>自動補齊<br>於 insert mode <code>ctrl + n</code></li>
-<li>自動補括號</li>
-<li>hex mode<br><code>:%! xxd</code></li>
-<li>切換 history<br><code>ctrl + i</code> &amp; <code>ctrl + o</code></li>
-<li>多行註解<br><code>ESC</code>、<code>ctrl + V</code> 選範圍、大寫 <code>I</code>、輸入註解符號、<code>ESC</code></li>
-<li>多行取消註解<br><code>ESC</code>、<code>ctrl + V</code> 選範圍、delete</li>
-</ul>
-<p>My <code>.vimrc</code>：<a href="https://github.com/cjwind/dotfiles/blob/master/vimrc" target="_blank" rel="noopener">https://github.com/cjwind/dotfiles/blob/master/vimrc</a></p>
-<h2 id="ctags-taglist"><a href="#ctags-taglist" class="headerlink" title="ctags taglist"></a>ctags taglist</h2><p><code>$ sudo apt-get install ctags</code></p>
-<p>切到 project 資料夾產生 tag 資訊：</p>
-<p><code>$ ctags --extra=+f -R *</code></p>
-<p>加上 <code>--extra=+f</code> 可以在 vim 中使用 <code>:tag &lt;filename&gt;</code> 跳到該檔案，<code>:tag &lt;filename&gt;</code> 後再 <code>ctrl + t</code> 可回原本檔案。</p>
-<p>到 <a href="http://www.vim.org/scripts/script.php?script_id=273" target="_blank" rel="noopener">http://www.vim.org/scripts/script.php?script_id=273</a> 抓 <code>taglist_45.zip</code>，解開後將 <code>taglist.vim</code> 放到 <code>~/vim/plugin</code>。</p>
-<p><code>~/.vimrc</code> 加入相關設定：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Tlist_Ctags_Cmd = <span class="string">'/usr/bin/ctags'</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Auto_Open = <span class="number">1</span>     <span class="comment">" 讓 Tlist 自動開啟</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Show_One_File = <span class="number">1</span>             <span class="comment">" 不同時顯示多個文件的tag，只顯示當前文件的</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Exit_OnlyWindow = <span class="number">1</span>           <span class="comment">" 如果taglist窗口是最後一個窗口，則退出vim</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Use_Right_Window = <span class="number">1</span>          <span class="comment">" 在右側窗口中顯示taglist窗口</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;silent&gt;</span> <span class="symbol">&lt;F8&gt;</span> :TlistToggle<span class="symbol">&lt;CR&gt;</span> <span class="comment">" F8 為開啟/關閉 Tlist 的快速鍵</span></span><br></pre></td></tr></table></figure>
-
-<p><code>ctrl + w</code> 再加方向鍵可以切換 window，例如加右鍵就是跳到右邊的 window。</p>
-<h3 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h3><p>有時候切換 tab 會出現 error <code>Taglist error: Error detected while processing function &lt;SNR&gt;29_Tlist_Refresh_Folds</code>，可用 <a href="http://vim.1045645.n5.nabble.com/attachment/3321902/0/taglist.diff" target="_blank" rel="noopener">patch</a> 解決：<code>$ patch -p0 ~/.vim/plugin/taglist.vim taglist.diff</code></p>
-<h2 id="cscope"><a href="#cscope" class="headerlink" title="cscope"></a>cscope</h2><p><code>$ sudo apt-get install cscope</code></p>
-<p>切到 project 的資料夾產生 cscope 資料庫：</p>
-<p><code>$ cscope -RC</code></p>
-<p>之後用 vim 開啟 source code，可用 <code>:cs</code> 指令使用 cscope 的功能。也可以在 <code>~/.vim/plugin</code> 中放 <a href="http://cscope.sourceforge.net/cscope_maps.vim" target="_blank" rel="noopener">cscope_map.vim</a> 加快捷鍵：</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">ctrl+<span class="string">\</span> s <span class="string">"s表Symbol，列出所有參考到游標所在字串的地方，包含定義和呼叫。</span></span><br><span class="line"><span class="string">ctrl+\ g "</span>Find <span class="keyword">this</span> definition</span><br><span class="line">ctrl+<span class="string">\</span> c <span class="string">"c表Call，列出所有以游標所在字串當函數名的地方。</span></span><br><span class="line"><span class="string">ctrl+\ t "</span>t表Text，列出專案中所有出現游標所在字串的地方。</span><br><span class="line">ctrl+<span class="string">\</span> f <span class="string">"f表File，以游標所在字串當檔名，開啟之。</span></span><br><span class="line"><span class="string">ctrl+\ i "</span>i表Include，以游標所在字串當檔名，列出所有include此檔的檔案。</span><br><span class="line">ctrl+<span class="string">\</span> d <span class="string">"d表calleD，以游標所在字串當函式名，列出所有此函式呼叫的函式。</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="自動-highlight"><a href="#自動-highlight" class="headerlink" title="自動 highlight"></a>自動 highlight</h2><p>在 <code>.vim/plugin</code> 加入 <code>autohighlight.vim</code>：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="comment">" Highlight all instances of word under cursor, when idle.</span></span><br><span class="line"><span class="comment">" Useful when studying strange source code.</span></span><br><span class="line"><span class="comment">" Type z/ to toggle highlighting on/off.</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="keyword">z</span>/ :<span class="keyword">if</span> AutoHighlightToggle()<span class="symbol">&lt;Bar&gt;</span><span class="keyword">set</span> hls<span class="symbol">&lt;Bar&gt;</span><span class="keyword">endif</span><span class="symbol">&lt;CR&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">AutoHighlightToggle</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">let</span> @/ = <span class="string">''</span></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">exists</span>(<span class="string">'#auto_highlight'</span>)</span><br><span class="line">    au! auto_highlight</span><br><span class="line">    augroup! auto_highlight</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">4000</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'Highlight current word: off'</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">augroup</span> auto_highlight</span><br><span class="line">      au!</span><br><span class="line">      <span class="keyword">au</span> CursorHold * <span class="keyword">let</span> @/ = <span class="string">'\V\&lt;'</span>.<span class="built_in">escape</span>(<span class="built_in">expand</span>(<span class="string">'&lt;cword&gt;'</span>), <span class="string">'\'</span>).<span class="string">'\&gt;'</span></span><br><span class="line">    <span class="keyword">augroup</span> end</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">500</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'Highlight current word: ON'</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">endif</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
-
-<p>輸入 <code>z/</code> 可開關自動 highlight 的功能。</p>
-<p><a href="http://vim.wikia.com/wiki/Auto_highlight_current_word_when_idle" target="_blank" rel="noopener">reference here</a></p>
-<h2 id="a-vim"><a href="#a-vim" class="headerlink" title="a.vim"></a>a.vim</h2><p>在 header 及 source 之間切換。<a href="http://www.vim.org/scripts/script.php?script_id=31" target="_blank" rel="noopener">script</a></p>
-<p>切換指令為 <code>:A</code>。</p>
-<h2 id="自動補括號"><a href="#自動補括號" class="headerlink" title="自動補括號"></a>自動補括號</h2><p><a href="http://www.vim.org/scripts/script.php?script_id=3599" target="_blank" rel="noopener">Auto Pairs</a></p>
-<p>將 script 放到 <code>~/.vim/plugin/</code> 底下。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://vim.wikia.com/wiki/Go_to_definition_using_g" target="_blank" rel="noopener">http://vim.wikia.com/wiki/Go_to_definition_using_g</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-Agile-concept/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Murmur-Agile-concept/" class="post-title-link" itemprop="url">對 agile 精神的理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-13 23:45:17" itemprop="dateCreated datePublished" datetime="2015-07-13T23:45:17+08:00">2015-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Murmur-Agile-concept/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Murmur-Agile-concept/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>大學時因為很任性的理由沒有修軟體工程，所以 agile 是一直到開始工作才聽到。之前是聽過 XP 跟 pair programming，不過沒有很清楚在幹嘛。話說 pair programming 實在要看狀況用，像我這種基本上屬於內向害羞的類型，用 pair programming 大多數狀況下根本直接腦殘化…= =</p>
-<p>之前<del>被拐</del>去上 scrum 的課，說不定是因為講師一直強調 agile 本身精神很重要云云，有個想法一直在腦袋徘徊不去(?)，只好來 murmur 一下看能不能清爽些。阿不過這篇只講對 agile 精神的想法，scrum 方法我不會(欸)。</p>
-<p>我將 agile 精神類比為適應，因為根本上概念是共通的。適應就是因應改變，無論那改變來自外在環境抑或是自身變化。差別只在於生物上各種生物有不同的適應方式，人對於環境以及種種變化所做出的調整也是適應，而 agile 則是將這樣的想法套用於組織性的軟體開發。</p>
-<p>需求改變（外在環境）、內部人員的不同（內在改變）等等都是變化，有了基本精神後當然是以各種工具與方法達成。而現在有許多經過不少人<del>血淚斑斑的</del>試驗過、覺得還不錯的方法可以使用，但是最後依然要找出適合組織與情境的方式。</p>
-<p>我是從個人的角度出發去看「因應變化」這件事。因應變化常常帶著不確定性，所以有時候不太討喜，但是近年我喜歡這種會因應變化的觀念，因為這代表彈性、可能性以及選擇。我喜歡用「成長」的角度去看待改變，改變不見得是成長，但是沒有改變幾乎難以有所成長。有改變代表有新東西，有新東西代表有新選項，有新選項代表有不同未來的可能性。倘若不滿意現況，如果希冀有所不同，又怎麼能夠期望同樣的方式能帶來不同的結果？</p>
-<p>至於結果是更好還是更壞，如果以從個人角度出發來看，我是不太在意。因為覺得不好，再改就是了，這不正是彈性的好處？我傾向相信，終究會慢慢摸索出適合的方式。而那方式，也可能只適用於某一陣子，那只是一個暫時的答案，不是絕對。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1322,20 +1242,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

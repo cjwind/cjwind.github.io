@@ -196,6 +196,460 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Composite-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Composite-Pattern/" class="post-title-link" itemprop="url">Composite Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-25 00:04:15" itemprop="dateCreated datePublished" datetime="2016-10-25T00:04:15+08:00">2016-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Composite-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Composite-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>讓使用者將物件合成為樹狀結構，呈現「部分/整體」的階層關係。如此可讓使用的程式以相同的方式處理單獨或合成的物件。</strong><del>這句話沒解釋的話根本看不懂吧……</del></p>
+<p>讓樹狀結構的 node 都是同樣的 interface，因而可以用相同的方式（相同的 interface）操作 subtree root node（合成物件）以及操作 leaf node（單獨物件）。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/composite_pattern.png" alt="Composite Pattern"></p>
+<p><code>Composite</code> 就是 tree 中非 leaf 的 node。<code>Client</code> 可以透過 <code>Component</code> interface 同時操作 leaf node 及 subtree node。</p>
+<p>這做法會讓 <code>Leaf</code> 繼承一些它不需要的 function 如 <code>getChild()</code>。實作上可以在 <code>Component</code> class 將 function 們的 default 行為 implement 成「不 support 此操作」，由 <code>Composite</code> 跟 <code>Leaf</code> override 對其有意義的 function。至於「不 support 此操作」的實作方式可以是丟出 exception、印 log、return false 等等……</p>
+<h2 id="設計取捨"><a href="#設計取捨" class="headerlink" title="設計取捨"></a>設計取捨</h2><p><code>Component</code> interface 包含對 leaf node 沒意義、對 subtree root node 才有意義的操作，就這個 interface 來看包含了兩種責任，操作 leaf node 與操作 subtree root node，不符合 class 單一責任的設計原則。不過呢，這就是設計上的取捨，以單一責任交換能統一操作 tree 中的 node，實際使用上就是要看情境決定哪一個比較重要。</p>
+<h2 id="似曾相識的-fu"><a href="#似曾相識的-fu" class="headerlink" title="似曾相識的 fu (?)"></a>似曾相識的 fu (?)</h2><p>範例程式生一堆 Component 又 add 來 add 去，看著看著總覺得跟 Qt 的 QStandardItem 寫法很像。看了下 Qt 的 code，<code>QStandardItem</code> 不像是用 composite pattern，應該是打從一開始就定義 item 是個可以有 child 的東西了。</p>
+<p><del>這也是為什麼上一篇是用 QStandardItem 當例子…</del></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Qt-d-pointer-and-q-pointer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Qt-d-pointer-and-q-pointer/" class="post-title-link" itemprop="url">Qt d-pointer & q-pointer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-23 23:45:00" itemprop="dateCreated datePublished" datetime="2016-10-23T23:45:00+08:00">2016-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Qt-d-pointer-and-q-pointer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Qt-d-pointer-and-q-pointer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>每次看 Qt source code 都不知道 <code>d-&gt;</code> 跟 <code>q-&gt;</code> 到底在幹嘛，翻到 <a href="https://wiki.qt.io/D-Pointer" target="_blank" rel="noopener">D-Pointer</a> 這篇解釋就來看一下。<del>但是我原本不是要追究這個的ㄚㄚㄚ……</del></p>
+<h2 id="d-pointer-pattern"><a href="#d-pointer-pattern" class="headerlink" title="d-pointer pattern"></a>d-pointer pattern</h2><p>d-pointer 是個 design pattern，也叫 Opaque pointer 或 Pimpl idiom。它分開給外面看的公開 class interface 跟實作的 class。做法是在公開 class 放個實作 class 的 pointer，公開 class 各 function 只是 call implementation class 的 function。公開 class 中跟實作相關的 member 只有那個 pointer，所以 size 會固定是 pointer 的 size。<del>老覺得在哪看過類似的東西……</del></p>
+<p>Qt 用 d-pointer 主要是為了保持 binary compatibility。</p>
+<h2 id="Binary-Compatibility"><a href="#Binary-Compatibility" class="headerlink" title="Binary Compatibility"></a>Binary Compatibility</h2><p>有 binary compatibility 表示 application 在以舊版 library compile 後，新版 library binary 可以直接取代舊版 library 而不需要重新 compile application。要達到 binary compatibility 就不能改變已經公開出去的 C++ class 的 size 或 memory  layout，即不能增加 member 或者更改 function 跟 member 的順序。如果改了，application 認定的 library class size 或 memory layout 跟新版 library 不同，會把 memory 踩爛掉。</p>
+<p>Qt 使用 d-pointer 達到不修改既有公開 class 還能增加 feature 或修改實作細節。</p>
+<h2 id="Qt-的實作"><a href="#Qt-的實作" class="headerlink" title="Qt 的實作"></a>Qt 的實作</h2><p>基於保持 binary compatibility，Qt 幾乎所有 class 都用 d-pointer 指向真正實作的 class。實作 class 叫 <code>QXXXPrivate</code>，例如 <code>QWidget</code> 就有 <code>QWidgetPrivate</code>，通常定義在 <code>xxx_p.h</code>，例如 <code>qwidget_p.h</code>。<code>QXXX</code> 以及 <code>QXXXPrivate</code> 的實作會寫在 <code>qxxx.cpp</code>。</p>
+<p>為了減少 memory allocation 的次數，<code>QXXXPrivate</code> 的 class 也會有繼承關係。其繼承關係會依循一般 class 的繼承關係，例如 <code>QLabel</code> 繼承 <code>QFrame</code>，<code>QLabelPrivate</code> 就會繼承 <code>QFramePrivate</code>。<code>QXXXPrivate</code> 大多繼承自 <code>QObjectPrivate</code>。</p>
+<p>以下 code 擷取自 Qt 5.7.0。</p>
+<h3 id="d-pointer-amp-q-pointer"><a href="#d-pointer-amp-q-pointer" class="headerlink" title="d-pointer &amp; q-pointer"></a>d-pointer &amp; q-pointer</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObject</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    QScopedPointer&lt;QObjectData&gt; d_ptr;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObjectData</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    QObject *q_ptr;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObjectPrivate</span> :</span> <span class="keyword">public</span> QObjectData &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>好啦～上面是 d-pointer，<code>QObjectPrivate</code> 繼承 <code>QObjectData</code>，而 <code>QObject</code> 有 <code>d_ptr</code> 指向 <code>QObjectData</code>。</p>
+<p>有時候實作 class 需要使用公開 class，因此實作 class 會存公開 class 的 pointer，稱為 q-pointer。如上，<code>QObjectData</code> 有 <code>QObject</code> 的 pointer <code>q_ptr</code>。</p>
+<p>在 Qt 裡 d-pointer 跟 q-pointer 基本上是繼承自 base class，不過也有例外。</p>
+<h3 id="Q-D-amp-Q-Q-macro"><a href="#Q-D-amp-Q-Q-macro" class="headerlink" title="Q_D() &amp; Q_Q () macro"></a>Q_D() &amp; Q_Q () macro</h3><p><code>qtbase/src/corelib/global/qglobal.h</code> 定義了這些 function 跟 macro：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> T *<span class="title">qGetPtrHelper</span><span class="params">(T *ptr)</span> </span>&#123; <span class="keyword">return</span> ptr; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_DECLARE_PRIVATE(Class) \</span></span><br><span class="line">    <span class="keyword">inline</span> Class##<span class="function">Private* <span class="title">d_func</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;Class##Private *&gt;(qGetPtrHelper(d_ptr)); &#125; \</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">const</span> Class##<span class="function">Private* <span class="title">d_func</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">const</span> Class##Private *&gt;(qGetPtrHelper(d_ptr)); &#125; \</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>##<span class="title">Private</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_DECLARE_PUBLIC(Class)                                    \</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> Class* <span class="title">q_func</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;Class *&gt;(q_ptr); &#125; \</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">const</span> Class* <span class="title">q_func</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">const</span> Class *&gt;(q_ptr); &#125; \</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_D(Class) Class##Private * const d = d_func()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_Q(Class) Class * const q = q_func()</span></span><br></pre></td></tr></table></figure>
+
+<p>在 class 內會用 <code>Q_DECLARE_PRIVATE()</code>，以 <code>QStandardItem</code> 為例：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_GUI_EXPORT</span> <span class="title">QStandardItem</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    QScopedPointer&lt;QStandardItemPrivate&gt; d_ptr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Q_DECLARE_PRIVATE(QStandardItem)</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">QStandardItem::QStandardItem() : d_ptr(<span class="keyword">new</span> QStandardItemPrivate)</span><br><span class="line">&#123;</span><br><span class="line">    Q_D(QStandardItem);</span><br><span class="line">    d-&gt;q_ptr = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QStandardItem::setChild</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> column, QStandardItem *item)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Q_D(QStandardItem);</span><br><span class="line">    d-&gt;setChild(row, column, item, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>QStandardItem</code> 裡有兩個 inline 的 private function 分別為 <code>QStandardItemPrivate* d_func()</code> 以及 <code>const QStandardItemPrivate* d_fun() const</code>，並且 <code>QStandardItemPrivate</code> 是 <code>QStandardItem</code> 的 friend class，可以 access <code>QStandardItem</code> 的 private member。constructor 生了 <code>QStandardItemPrivate</code> 並將 <code>d_ptr</code> 指過去。</p>
+<p>依據 macro 的定義，<code>d</code> 是 <code>QStandardItemPrivate*</code>，<code>d_func()</code> 將 <code>qGetPtrHelper(d_ptr)</code> 轉型成 <code>QStandardItemPrivate*</code> 丟出來。<code>d_ptr</code> 是個 <code>QScopedPointer&lt;QStandardItemPrivate&gt;</code>，<code>qGetPtrHelper()</code> 將 smart pointer 轉成單純的 pointer（參考<a href="http://stackoverflow.com/questions/8015718/what-is-the-use-of-qgetptrhelper-in-this-example" target="_blank" rel="noopener">這篇</a>）。<del>還沒有看得很懂怎麼轉的，不過先這樣理解吧…</del> 總之 <code>d</code> 是指向 construct 時塞進來的 <code>QStandardItemPrivate</code> 的 pointer。所以最後 <code>QStandardItem::setChild()</code> 是用 <code>QStandardItemPrivate::setChild()</code> 實際做事。</p>
+<p>反過來的 <code>Q_Q()</code> 比較簡單。<del>這 macro 的名字真好笑(離題</del></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QStandardItemPrivate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Q_DECLARE_PUBLIC(QStandardItem)</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ...</span><br><span class="line">    QStandardItem *q_ptr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QStandardItemPrivate::setChild</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> column, QStandardItem *item,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">bool</span> emitChanged)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Q_Q(QStandardItem);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (rows &lt;= row)</span><br><span class="line">        q-&gt;setRowCount(row + <span class="number">1</span>);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>透過 <code>q_func()</code> 拿到的 <code>q</code> 是轉型成 <code>QStandardItem*</code> 的 pointer。</p>
+<p>這個例子裡，因為 <code>QStandardItem</code> 跟 <code>QStandardItemPrivate</code> 沒有繼承別人，它們自己分別記錄了 <code>d_ptr</code> 跟 <code>q_ptr</code>，所以 <code>d_func()</code> 跟 <code>q_func()</code> 有沒有轉型根本沒差。但其他繼承 <code>QObjectPrivate</code> 的 class，<code>q_ptr</code> 是從 <code>QObjectData</code> 來的，type 是 <code>QObject*</code>，如果要直接使用 sub class 的 member 就得轉型，<code>d_ptr</code> 同理。除非用 virtual function 做多型，不過這個狀況用 virtual function 很怪，因為這樣 base class <code>QObject</code> 得有所有 sub class 會用到的 interface，這邊顯然不是這個意思，用 virtual function 不合理。</p>
+<p>這樣看過之後，對 Qt source code 的結構比較理解了，才不會每次看到 <code>Q_D()</code> 啊 <code>Q_Q()</code> 啊都想 Q_Q 了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS1-04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/STS1-04/" class="post-title-link" itemprop="url">科技物有政治性嗎？</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-23 00:31:39" itemprop="dateCreated datePublished" datetime="2016-10-23T00:31:39+08:00">2016-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/STS1-04/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS1-04/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>《科技渴望社會》第四篇。這篇在說「技術物」如何對人及其生活方式產生影響，「技術物」指的是各種各樣具體的技術或系統，例如核能電廠、鐵路、各種通訊方式、公路網、飛機等等，將「技術」這個較為廣義的詞定義得比較狹義但具體。整篇常常提到政治性、權威、權力、社會組織，我理解為在試圖說明技術物對人的生活以及社會產生的影響。</p>
+<blockquote>
+<p>最偉大的權力不在於君臨天下的帝國威望，而在於權力內化成人們的「生活方式」而無法察覺，更因是生活方式而成為價值觀而為其辯護與效命，從而促成了權力的再生產。而權力的社會運作在於使人們無法思考「另類生活方式」的可能性。</p>
+</blockquote>
+<blockquote>
+<p>技術作為一種對內的控制性力量，就在於讓我們覺得「只有」一種生活方式。</p>
+</blockquote>
+<p>導讀以汽車作為一種生活方式、一種「必須」舉例。因為認為汽車是必須，所以道路規劃等等就以汽車為主，人們出門以考量汽車可及性與停車便利為主。汽車作為生活方式的一部分，於是很難想像以其他交通方式生活，例如芬蘭的單車與大眾運輸。即使有所想像，甚至會受限於當前硬體設施而較難實現其他交通方式。</p>
+<p>引入一個技術的原因不見得是表面上的原因，如引入新技術帶動進步，而可能是達到其他政治或操弄的目的……例如本篇文章提到的低架橋設計，高度故意不足以讓公車通過，使得較依靠公車作為交通手段的族群變得較難前往某些區域，達到了某個程度的隔離目的。</p>
+<p>以低架橋這個例子來說，我會認為這是人「刻意」將技術用於較壞的方向。我的想法偏向技術本身是中立的，可以用在好的方向，也可以用到壞的方向，技術本身並不帶有其原生的影響，是好是壞端看人如何使用。</p>
+<p>文章後面提到，有時候技術的影響並不見得是當事人的本意與意圖。當事人可能並無將技術用於好或壞的動機，但技術本身仍然帶來某些影響，或好或壞。例如早期公共設施較沒有無障礙設施，這不見得是誰特意為之，但結果讓身心障礙者較難以前往某些地方，而在某個程度上遭到排除。這觀點稍微改變了我認為技術是中立的想法。</p>
+<p>技術物甚至會影響圍繞其的社會組織結構與運作方式，例如有了自動化生產系統，原本員工做的事是生產、製造某個東西，但有自動化生產系統後，員工變成是去維護這個系統的運作，而可能為了配合機器而在工作上得要更制式、更機械化。講難聽點，人從做重複性的生產作業，變成機器系統的活零件。</p>
+<p>要維持一個龐大的系統順暢運作，組織上就變得需要有階層與管理，需要管理階層去確定每個部分都有人確實的做好維護與運作。但接著要問的是，維持一個系統，是否必然要使用中央集權式的方式予以管理才能有效率並安全的運作？又如，在這個資訊科技講究創新的時代，由上而下、中央集權式的階層管理是否還適用？看到這我有點訝異，雖然有淺淺的想過一項技術會帶來些影響，可是沒有想那麼深。</p>
+<p>而當「進步」成為主流，對於技術大多只考慮實用性時，拒絕技術之引進容易被扣上「反進步」的帽子，或許使技術的影響性反而變得不被考量。</p>
+<p>murmur：這其實是拉哩拉紮的整理跟心得，目前來說無法更有條理了。看這書大概有四五成是每個字都看得懂但整個句子看起來其實不懂那些字詞真正想表達的意義……</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Iterator-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Iterator-Pattern/" class="post-title-link" itemprop="url">Iterator Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-18 22:19:26" itemprop="dateCreated datePublished" datetime="2016-10-18T22:19:26+08:00">2016-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Iterator-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Iterator-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>讓使用者能取得一個 collection 內的每個 element，而不需要暴露此 collection 的 implememtation。</strong></p>
+<p>Iterator Pattern 封裝了「拿出下一個 element」這件事，讓外部可以不需要知道 collection 實際上以什麼方式實作，如 array、list、stack 等等，就能以一致的方式取得 element。iterator 也讓 collection 的責任更簡單，collection 負責管理一群 object，而 iterator 負責 traverse element。</p>
+<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>有多種 collection 一同使用，希望能用同樣方式 traverse element 時。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/iterator_pattern.png" alt="Iterator Pattern"></p>
+<h2 id="library-及語言支援"><a href="#library-及語言支援" class="headerlink" title="library 及語言支援"></a>library 及語言支援</h2><p>C++ STL、Qt、Java 等等的 container 都有支援 iterator。用 iterator 要注意 iterate 過程中能不能更動該 container，因為 iterator 會直接或間接的 access container 內部資料，所以不同實作方式會影響 iterator 的使用。例如 Qt 對 container 用 <a href="http://doc.qt.io/qt-5/containers.html#implicit-sharing-iterator-problem" target="_blank" rel="noopener">implicit sharing</a>，所以使用 iterator 期間 copy container 要注意會不會搞爛 iterator 或 iterator 指向的 container 跟預想不同。</p>
+<p>在某些語言，如 PHP，會提供 foreach 的語法，這進一步將 iterator 變成 syntax 了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS1-01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/STS1-01/" class="post-title-link" itemprop="url">美國的電氣化過程：系統建構者</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-09-21 23:44:46" itemprop="dateCreated datePublished" datetime="2016-09-21T23:44:46+08:00">2016-09-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/STS1-01/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS1-01/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>《科技渴望社會》的第一篇。這本書集結了科技與社會有關的文章與演講稿等等的翻譯，是 STS (Science, Technology and Society) 領域的讀本。</p>
+<p>這篇描述三個在美國電氣化過程中十分活耀的人：愛迪生、英瑟爾、密契爾，分別在電氣化不同階段扮演不同角色。愛迪生主要技術但跨越了管理以及財務等等，讓電氣化得以開始推展。英瑟爾有技術知識也是財務專家，但長處在於管理，透過管理將電力事業的規模擴大。而密契爾則是以金融策略使電力事業進一步擴大為區域系統。三位都對多個領域有所涉獵與了解，綜合各種因素以不同所長推展美國的電力發展。</p>
+<p>其中愛迪生的篇幅是我看得最能理解在幹嘛的部分……</p>
+<p>從這篇文章的研究中，可以看到愛迪生的思考脈絡以及因果邏輯。因目的是取代煤氣燈，所以先考量經濟效益，才結合科學上的靈感，繼而搜尋與試驗特定目標，而非如給小朋友看的故事所述──只是不斷地嘗試。姑且不論從眾多文獻中回推因果是否真是當年愛迪生所想，但看到回推出有邏輯的思考脈絡，才能認為這是合理、可行可能的，而非如神話般的不可思議。</p>
+<p>科學歷史應該要呈現這樣的部份，呈現科學發展的交錯跟曲折性，呈現當時人們的思考脈絡，而非講得科學猶如直升飛機筆直上升，各個有所成果的科學家不是天才就是堅忍不拔云云。像是《科學發現幕後的黑色喜劇》跟《電的旅程》就有這種交(ㄨㄞ)錯(ㄑ一)曲(ㄋ一ㄡˇ)折(ㄅㄚ)但比較真實的科學史。</p>
+<p>至於英瑟爾跟密契爾因為又是管理又是金融的，我實在看不太懂到底在寫什麼……Orz</p>
+<p>總之，可以說是三個人都有跨領域的能力，一步步推展電力發展。從一間公司需要技術的不斷改良以突破擴大的障礙，接著公司開始變大、變多而需要管理才能繼續擴大，之後需要用金融方式讓系統進一步擴張到區域等級，每個時期有不同的關鍵知識跟能力。</p>
+<p>要說有 fu 的感想……應該是「只會技術很難完整建立或推展一個事業系統」。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/How-Google-Works/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +681,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -441,7 +895,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -695,7 +1149,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -745,440 +1199,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Facade-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Facade-Pattern/" class="post-title-link" itemprop="url">Facade Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-04-03 14:26:12" itemprop="dateCreated datePublished" datetime="2016-04-03T14:26:12+08:00">2016-04-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2018-10-26 23:47:00" itemprop="dateModified" datetime="2018-10-26T23:47:00+08:00">2018-10-26</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Facade-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Facade-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Facade 定義較簡單（抽象程度更高）的 interface 來讓 client 更容易使用複雜的 sub system。</p>
-<p>目的在簡化 sub system 的使用方式。</p>
-<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>sub system 提供很多功能與 interface 但太複雜，希望有簡單的方式使用 sub system。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/facade_pattern.png" alt="Facade Pattern"></p>
-<p>Facade 沒有封裝 sub system，只是提供簡化的 interface 方便使用。</p>
-<p>client 可以用 Facade 的簡單 interface，也可以使用原本 sub system 提供的 interface。就像有些軟體在設定頁只放一般常用設定，需要調整細部設定的使用者再按「進階」鈕進入設定。</p>
-<h2 id="相關-pattern"><a href="#相關-pattern" class="headerlink" title="相關 pattern"></a>相關 pattern</h2><ul>
-<li><a href="/Adapter-Pattern/">Adapater</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Adapter-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Adapter-Pattern/" class="post-title-link" itemprop="url">Adapter Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-04-02 22:55:44" itemprop="dateCreated datePublished" datetime="2016-04-02T22:55:44+08:00">2016-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Adapter-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Adapter-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>將一個 class 的 interface 轉換成另一個 interface 供其他人使用，讓原本不相容的 interface 可以相容。</strong></p>
-<p>一個轉接頭的概念。</p>
-<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>不想改其他使用 class A 的 code 卻想用 class B 達成相同功能時，以 Adapter 將 class B 的 interface 轉成 class A。</p>
-<p>Adapter 因為受限 Adaptee 的能力，不一定能完美 implement interface 所提供的功能，這種時候通常用文件（就大家講好）或 exception 等等方式處理。之前一直以為 Adpater 要完全 implement interface 提供的功能，遇到受限的狀況就有點 confuse 這樣是不是 adpater…</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/adapter_pattern.png" alt="Adapter Pattern (合成)"></p>
-<p>Client 只知道 Target 的 interface，不知道 Adaptee 的 interface，Class 跟 Adaptee 之間是鬆綁的。如果需要同時使用兩種 interface，Adapater 也可以 implement 多個 Target interface，例如有 Target1 及 Target2 兩個 interface，有些地方原本使用 Target1，後來新寫的 code 使用 Target2，Adapter 同時支援兩者就可以不改動到原有的 code。</p>
-<p>我比較習慣用合成讓 Adapter 使用 Adaptee，有另一種做法是用繼承，沒很懂這樣用的好處跟時機，先記著有這種方式：</p>
-<p><img src="/images/adapter_pattern2.png" alt="Adapter Pattern (繼承)"></p>
-<h2 id="跟其他-pattern-比較"><a href="#跟其他-pattern-比較" class="headerlink" title="跟其他 pattern 比較"></a>跟其他 pattern 比較</h2><ul>
-<li>Adapter 是做 interface 轉換。</li>
-<li>Facade 是為了提供簡單的 interface 讓其他人易於操作 sub system，Adapter 跟 Facade 的差別在「目的」。</li>
-<li>Decorator 是加功能。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/select/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/select/" class="post-title-link" itemprop="url">select()</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-03-27 15:16:20" itemprop="dateCreated datePublished" datetime="2016-03-27T15:16:20+08:00">2016-03-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/select/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="select/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>由 kernel 注意某些 fd 是否 active（readable、writable 及有 error），有則 return 讓 application process 對 active 的 fd 做相應的處理。用 <code>select()</code> 可避免 application process 去 polling 看各個 socket 是否 active、浪費 CPU 資源。如果沒有 fd active、沒設 timeout、沒有 signal 打斷，<code>select()</code> 是 blocking。</p>
-<p>正常狀況下 <code>select()</code> return 三個 fdset 共有多少 fd active。timeout 時 return 0。收到 signal return -1 且 errno 設為 <code>EINTR</code>，不會測試 fd 也不會修改 fd_set，所以不能用 fd 判斷是否 active。<code>select()</code> 之所以在被 signal 打斷時不修改 fd_set，是為了避免 <code>select()</code> 跟 signal handler 不斷修改同一個 flag 造成 infinite loop。例如 <code>select()</code> 發現某 flag 是 0 會將 flag 設為 1，而某個 signal handler 遇到 flag 是 1 又把 flag 設為 0，沒完沒了。</p>
-<p><code>pselect()</code> 可設定擋住哪些 signal，讓這些 signal 不打斷 <code>pselect()</code>。</p>
-<h2 id="Sample-Code"><a href="#Sample-Code" class="headerlink" title="Sample Code"></a>Sample Code</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXBUF 1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreateListenSock</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">run</span>(<span class="number">8899</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fd_set afdset, rfdset, wfdset, efdset;</span><br><span class="line">    <span class="keyword">int</span> listenfd = CreateListenSock(listenPort, qlen);</span><br><span class="line">    <span class="keyword">int</span> maxfd = listenfd;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; fds;</span><br><span class="line">    <span class="keyword">bool</span> bNeedWrite = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    FD_ZERO(&amp;afdset); FD_ZERO(&amp;rfdset); FD_ZERO(&amp;wfdset); FD_ZERO(&amp;efdset);</span><br><span class="line">    FD_SET(listenfd, &amp;afdset);</span><br><span class="line"></span><br><span class="line">    fds.insert(listenfd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> iActive = <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">        rfdset = afdset;</span><br><span class="line">        efdset = afdset;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (bNeedWrite)</span><br><span class="line">        &#123;</span><br><span class="line">            wfdset = afdset;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            FD_ZERO(&amp;wfdset);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        timeout.tv_sec = <span class="number">3</span>;</span><br><span class="line">        timeout.tv_usec = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ((iActive = select(maxfd + <span class="number">1</span>, &amp;rfdset, &amp;wfdset, &amp;efdset, &amp;timeout)) == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// handle error</span></span><br><span class="line">            <span class="keyword">if</span> (errno == EINTR)</span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> iHandled = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator fdIter = fds.<span class="built_in">begin</span>();</span><br><span class="line">            <span class="keyword">for</span> (; fdIter != fds.<span class="built_in">end</span>() &amp;&amp; iHandled &lt; iActive; ++fdIter)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> fd = *fdIter;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;rfdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (fd == listenfd)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// handle new connection</span></span><br><span class="line">                        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cliaddr</span>;</span></span><br><span class="line">                        <span class="keyword">socklen_t</span> cliaddrlen = <span class="keyword">sizeof</span>(cliaddr);</span><br><span class="line"></span><br><span class="line">                        bzero((<span class="keyword">char</span> *)&amp;cliaddr, <span class="keyword">sizeof</span>(cliaddr));</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">int</span> connfd = accept(listenfd, (struct sockaddr *)&amp;cliaddr, &amp;cliaddrlen);</span><br><span class="line"></span><br><span class="line">                        fds.insert(connfd);</span><br><span class="line">                        FD_SET(connfd, &amp;afdset);</span><br><span class="line">                        <span class="keyword">if</span> (connfd &gt; maxfd)</span><br><span class="line">                        &#123;</span><br><span class="line">                            maxfd = connfd;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// handle read</span></span><br><span class="line">                        <span class="keyword">char</span> readBuf[MAXBUF];</span><br><span class="line">                        <span class="keyword">int</span> iRead = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                        bzero(readBuf, MAXBUF);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> ((iRead = <span class="built_in">read</span>(fd, &amp;readBuf, MAXBUF - <span class="number">1</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            readBuf[iRead] = <span class="number">0</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> (iRead == <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">close</span>(fd);</span><br><span class="line">                            FD_CLR(fd, &amp;afdset);</span><br><span class="line">                            fds.erase(fd);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="comment">// handle read error</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;wfdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle write</span></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;efdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle error</span></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreateListenSock</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servAddr</span>;</span></span><br><span class="line">    <span class="keyword">int</span> listenfd = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">"Create socket failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bzero((<span class="keyword">char</span> *)&amp;servAddr, <span class="keyword">sizeof</span>(servAddr));</span><br><span class="line">    servAddr.sin_family = AF_INET;</span><br><span class="line">    servAddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    servAddr.sin_port = htons(listenPort);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bind(listenfd, (struct sockaddr *)&amp;servAddr, <span class="keyword">sizeof</span>(servAddr)) &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">"Bind socket failed"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">listen</span>(listenfd, qlen);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listenfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Toolchain-on-windows-and-linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Toolchain-on-windows-and-linux/" class="post-title-link" itemprop="url">C++ toolchain on windows and linux</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-03-06 22:14:03" itemprop="dateCreated datePublished" datetime="2016-03-06T22:14:03+08:00">2016-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Toolchain-on-windows-and-linux/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Toolchain-on-windows-and-linux/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <img src="../images/toolchain.png" width="800">
-
-<figure class="highlight taggerscript"><table><tr><td class="code"><pre><span class="line">cl /I &lt;include path&gt;</span><br><span class="line">link /LIBPATH:&lt;library path&gt; /OUT:&lt;output file&gt;</span><br><span class="line"></span><br><span class="line">cl /I "C:<span class="symbol">\P</span>rogram Files (x86)<span class="symbol">\M</span>icrosoft Visual Studio 12.0<span class="symbol">\V</span>C<span class="symbol">\i</span>nclude" /c hello.cpp</span><br><span class="line">link /LIBPATH:"C:<span class="symbol">\P</span>rogram Files (x86)<span class="symbol">\M</span>icrosoft Visual Studio 12.0<span class="symbol">\V</span>C<span class="symbol">\l</span>ib" /LIBPATH:"C:<span class="symbol">\P</span>rogram Files (x86)<span class="symbol">\M</span>icrosoft SDKs<span class="symbol">\W</span>indows<span class="symbol">\v</span>7.1A<span class="symbol">\L</span>ib" /OUT:hello.exe hello.obj</span><br></pre></td></tr></table></figure>
-
-<p>library path 加 <code>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib</code> 主要為了 <code>kernel32.lib</code>。</p>
-<p>不過很少直接用 <code>cl</code>，通常都是用 Visual Studio 整套 IDE。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/cpp-handle-self-assignment-in-operator-assignment/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/cpp-handle-self-assignment-in-operator-assignment/" class="post-title-link" itemprop="url">C++ 在 operator=() 處理 self assignment</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-12-13 16:24:56" itemprop="dateCreated datePublished" datetime="2015-12-13T16:24:56+08:00">2015-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/cpp-handle-self-assignment-in-operator-assignment/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cpp-handle-self-assignment-in-operator-assignment/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>self assignment：object 被 assign 給自己。</p>
-<p>class member 有 pointer 時寫 <code>operator=()</code> 要小心處理 self assignment。如果先把自己原本的 member delete 掉，等同把 rhs 的 member 也 delete 掉，assign 後會得到爛掉的 pointer。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Foo&amp; Foo::<span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">    Bitmap* pOrig = pb;    <span class="comment">// pb is member pointer in Widget</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (rhs.pb != <span class="literal">NULL</span>)</span><br><span class="line">        pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        pb = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> pOrig;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這做法可以處理 member pointer 但會讓 member pointer 指的位置經過 self assignment 後變得不同，另一種做法是檢查 <code>this</code> 是否跟 <code>&amp;rhs</code> 相同，不同時才真的做 copy。 </p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1244,20 +1268,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

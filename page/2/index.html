@@ -196,6 +196,544 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OpenAPI-PSR-7-Message-Validator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OpenAPI-PSR-7-Message-Validator/" class="post-title-link" itemprop="url">OpenAPI PSR-7 Message Validator required field</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-25 22:28:10" itemprop="dateCreated datePublished" datetime="2019-10-25T22:28:10+08:00">2019-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/OpenAPI-PSR-7-Message-Validator/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="OpenAPI-PSR-7-Message-Validator/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li><a href="https://github.com/thephpleague/openapi-psr7-validator" target="_blank" rel="noopener">https://github.com/thephpleague/openapi-psr7-validator</a></li>
+</ul>
+<p>如果要驗證 response「要有某個欄位」，在 api 定義（yaml 或 json 檔）裡該欄位要設 <code>required</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">                <span class="attr">properties:</span></span><br><span class="line">                  <span class="attr">id:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">                  <span class="attr">username:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                <span class="attr">required:</span>    <span class="comment"># 沒有這個的話, response 有或沒有這些欄位都會過</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
+
+<p>用 component 的版本：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="string">\$ref:</span> <span class="string">'#/components/schemas/User'</span></span><br><span class="line"><span class="attr">components:</span></span><br><span class="line">  <span class="attr">schemas:</span></span><br><span class="line">    <span class="attr">User:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">      <span class="attr">properties:</span></span><br><span class="line">        <span class="attr">id:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">        <span class="attr">username:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">required:</span> <span class="comment"># 這裡</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/PhpStorm-input-chinese-in-Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/PhpStorm-input-chinese-in-Linux/" class="post-title-link" itemprop="url">Linux 下 PhpStorm 輸入中文</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-09-09 23:43:04" itemprop="dateCreated datePublished" datetime="2019-09-09T23:43:04+08:00">2019-09-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/PhpStorm-input-chinese-in-Linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PhpStorm-input-chinese-in-Linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>問題：Linux 下的 PhpStorm 無法切換輸入法輸入中文。</p>
+<p>在 PhpStorm 啟動 script <code>bin/phpstorm.sh</code> 的 <code>Run the IDE</code> 前加入：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="attribute">XMODIFIERS</span>=<span class="string">"@im=fcitx"</span></span><br><span class="line"><span class="builtin-name">export</span> XMODIFIERS</span><br></pre></td></tr></table></figure>
+
+<p>這樣用 shell 啟動 PhpStorm 就能切到中文輸入法（前提當然是已經有裝好了），不過從 launcher 啟動 PhpStorm 還是不行。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-5-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/get-started-with-docker/part-5-6/" class="post-title-link" itemprop="url">Get started with Docker Part 5 & 6</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-09 15:43:54" itemprop="dateCreated datePublished" datetime="2019-08-09T15:43:54+08:00">2019-08-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/get-started-with-docker/part-5-6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="get-started-with-docker/part-5-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-5-Stacks"><a href="#Part-5-Stacks" class="headerlink" title="Part 5: Stacks"></a><a href="https://docs.docker.com/get-started/part5/" target="_blank" rel="noopener">Part 5: Stacks</a></h2><blockquote>
+<p>A stack is a group of interrelated services that share dependencies, and can be orchestrated and scaled together. A single stack is capable of defining and coordinating the functionality of an entire application (though very complex applications may want to use multiple stacks).</p>
+</blockquote>
+<p>stack 定義了一堆互相有關的 service，把 service 放在一個 stack 裡就可以一起操作、scale 等等。可以用一個 stack 來定義一個 application 的功能，比較複雜的 application 可能有多個 stack。</p>
+<p>也就是可以把 application 拆分成多個 service 來運作，這些 service 可以只跑在一台機器上，也可以在 swarm 中跑在不同機器上。原本要做到這件事，要嘛要在一台機器上裝各種 server，要分散就得在多台機器上裝各自需要的 server，再不然就得裝 VM 起來做這些事，而且也沒有個統一的地方記錄各 service 的版本等等資訊（工人智慧…）。Docker 把 setup 開發及 production 環境跟 scale up 變得簡單很多。</p>
+<h3 id="More-docker-compose-yml"><a href="#More-docker-compose-yml" class="headerlink" title="More docker-compose.yml"></a>More <code>docker-compose.yml</code></h3><p><a href="/Get-started-with-Docker-Part-3/">part 3</a> 寫的 <code>docker-compose.yml</code> 是定義只有一個 service 的 stack。下面是有兩個 service 分別為 <code>visualizer</code> 跟 <code>redis</code> 的 stack：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span>    <span class="comment"># compose file format version</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">visualizer:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">dockersamples/visualizer:stable</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"8080:8080"</span></span><br><span class="line">    <span class="comment"># mapping host 的 file 到 container 裡</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"/var/run/docker.sock:/var/run/docker.sock"</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># 指定 service 要 run 在哪個 node</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> <span class="string">[node.role</span> <span class="string">==</span> <span class="string">manager]</span>    <span class="comment"># 只能 run 在 swarm manager</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"6379:6379"</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># mapping host 的 /home/docker/data 到 container 的 /data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"/home/docker/data:/data"</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> <span class="string">[node.role</span> <span class="string">==</span> <span class="string">manager]</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--appendonly</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
+
+<p>如果沒有做 volume mapping，container 的 disk 的 file 在 container 重開後會不見。</p>
+<p>其他 compose file 設定可參考：<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">Compose file reference</a>。</p>
+<p>修改 <code>docker-compose.yml</code> 後重新 deploy 只需 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code>。</p>
+<p>要結束整個 stack 的 service 則 <code>docker stack rm &lt;stack_name&gt;</code>。</p>
+<h2 id="Part-6-Deploy-your-app"><a href="#Part-6-Deploy-your-app" class="headerlink" title="Part 6: Deploy your app"></a><a href="https://docs.docker.com/get-started/part6/" target="_blank" rel="noopener">Part 6: Deploy your app</a></h2><p>這篇是看你要用 Docker Enterprise 還是自己裝 <a href="https://docs.docker.com/install/" target="_blank" rel="noopener">Docker Engine - Community</a> 進行開發及 deploy production。</p>
+<p>開發環境跟 production 環境的 Docker 操作都一樣（只是執行的地方不一樣。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/get-started-with-docker/part-4/" class="post-title-link" itemprop="url">Get started with Docker Part 4: Swarms</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-06 09:24:50" itemprop="dateCreated datePublished" datetime="2019-08-06T09:24:50+08:00">2019-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/get-started-with-docker/part-4/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="get-started-with-docker/part-4/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-4-Swarms"><a href="#Part-4-Swarms" class="headerlink" title="Part 4: Swarms"></a><a href="https://docs.docker.com/get-started/part4/" target="_blank" rel="noopener">Part 4: Swarms</a></h2><p>這個 part 會 deploy app 到 cluster 並執行在多個 machine 上。</p>
+<p>Linux 要先<a href="https://docs.docker.com/machine/install-machine/#installing-machine-directly" target="_blank" rel="noopener">安裝 Docker Machine</a>。</p>
+<h3 id="Swarm"><a href="#Swarm" class="headerlink" title="Swarm"></a>Swarm</h3><blockquote>
+<p>A swarm is a group of machines that are running Docker and joined into a cluster.</p>
+</blockquote>
+<p>swarm 是一群 cluster 中跑著 Docker 的機器。機器加入 cluster 後，在上面執行的 Docker command 由 swarm manager 在 cluster 中執行。</p>
+<blockquote>
+<p>The machines in a swarm can be physical or virtual. After joining a swarm, they are referred to as <strong>nodes</strong>.</p>
+</blockquote>
+<p>一台加入 swarm 的機器稱為 node。</p>
+<p>swarm 中只有 swarm manager 可以執行 command、讓其他機器加入 swarm 當 <strong>worker</strong>。worker 就只是執行，不能叫其他人做事或讓其他機器加入 swarm。swarm manager 可以用多種策略來執行 container。</p>
+<p>平常 Docker 是在 single-host mode 執行，轉成 swarm mode 才能使用 swarm 相關功能。讓一台機器變成 swarm manager 後，Docker 會將 command 執行在它管理的 swarm 上，而非只在目前的機器。</p>
+<h3 id="Set-up-swarm"><a href="#Set-up-swarm" class="headerlink" title="Set up swarm"></a>Set up swarm</h3><p>用 <code>docker swarm init</code> 把一台機器變成 swarm manager，再到其他要當 worker 的機器上執行 <code>docker swarm join</code>。</p>
+<p>接下來用 VM 建個 cluster。</p>
+<p>因為用 VM，Linux 上要先裝 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox</a>。</p>
+<p>使用 <code>docker-machine</code> 產生兩台 VM：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ docker-machine <span class="built_in">create</span> <span class="comment">--driver virtualbox myvm1</span></span><br><span class="line">$ docker-machine <span class="built_in">create</span> <span class="comment">--driver virtualbox myvm2</span></span><br></pre></td></tr></table></figure>
+
+<p>列出 VM：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   -        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.100:2376           v19.03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.101:2376           v19.03.1</span></span><br></pre></td></tr></table></figure>
+
+<p>接下來讓 <code>myvm1</code> 當 swarm manager、<code>myvm2</code> 當 worker。</p>
+<p>透過 <code>docker-machine ssh &lt;vm&gt; &quot;&lt;command&gt;&quot;</code> 可以在 VM 上執行指令：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">"docker swarm init --advertise-addr &lt;myvm1 ip&gt;"</span></span><br></pre></td></tr></table></figure>
+
+<p>上面指令會得到將 worker 加入此 swarm 的 command，到 <code>myvm2</code> 上執行：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker-machine ssh myvm2 "docker swarm join --token <span class="tag">&lt;<span class="name">token</span>&gt;</span> <span class="tag">&lt;<span class="name">swarm</span> <span class="attr">manager</span> <span class="attr">ip</span>&gt;</span>:<span class="tag">&lt;<span class="name">port</span>&gt;</span>"</span><br></pre></td></tr></table></figure>
+
+<p>port 預設是 2377。</p>
+<p>從 <code>myvm1</code> 看 node：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">"docker node ls"</span></span><br></pre></td></tr></table></figure>
+
+<p>最後 node 離開 swarm：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm2 <span class="string">"docker swarm leave"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-machine-shell"><a href="#docker-machine-shell" class="headerlink" title="docker-machine shell"></a><code>docker-machine</code> shell</h3><p><code>docker-machine ssh</code> 打起來很長，VM 也無法 access VM host 的檔案。用 <code>docker-machine env &lt;machine&gt;</code> 設定可以讓 shell 直接跟 VM 溝通：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker-machine env myvm1</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_TLS_VERIFY</span>=<span class="string">"1"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_HOST</span>=<span class="string">"tcp://192.168.99.100:2376"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_CERT_PATH</span>=<span class="string">"/home/cjw/.docker/machine/machines/myvm1"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_MACHINE_NAME</span>=<span class="string">"myvm1"</span></span><br><span class="line"><span class="comment"># Run this command to configure your shell:</span></span><br><span class="line"><span class="comment"># eval $(docker-machine env myvm1)</span></span><br></pre></td></tr></table></figure>
+
+<p>執行 <code>eval $(docker-machine env myvm1)</code>，接著用 <code>docker-machine ls</code> 確認目前 shell active 的 machine（<code>ACTIVE</code> column）：</p>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   *        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.100:2376           v19.03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.101:2376           v19.03.1</span></span><br></pre></td></tr></table></figure>
+
+<p>之後執行 docker 指令都是在 <code>myvm1</code> 上執行囉！比較方便而且可以 access 到 VM host 的檔案。要換到別的 machine 就再執行一次 <code>docker-machine env &lt;machine&gt;</code> 把 <code>&lt;machine&gt;</code> 換掉即可。</p>
+<h3 id="在-swarm-manager-上-deploy-app"><a href="#在-swarm-manager-上-deploy-app" class="headerlink" title="在 swarm manager 上 deploy app"></a>在 swarm manager 上 deploy app</h3><p>跟 part 3 一樣，只是 part 3 是把本機直接變成 swarm manager，現在 swarm manager 是 <code>myvm1</code>（把它當作遠端）。</p>
+<p>一樣用 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code> 來 deploy app。跟 part 3 不同的是現在 service 會分別開在 <code>myvm1</code> 跟 <code>myvm2</code> 上：</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line">$ <span class="string">docker </span><span class="string">service </span><span class="string">ps </span><span class="string">getstartedlab_web</span></span><br><span class="line"><span class="string">ID </span>                 <span class="string">NAME </span>                 <span class="string">IMAGE </span>                     <span class="string">NODE </span>               <span class="string">DESIRED </span><span class="string">STATE </span>      <span class="string">CURRENT </span><span class="string">STATE </span>           <span class="string">ERROR </span>              <span class="string">PORTS</span></span><br><span class="line"><span class="string">hprga9r6s5se </span>       <span class="string">getstartedlab_web.</span>1   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm2 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">n1bc2c2xosal </span>       <span class="string">getstartedlab_web.</span>2   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm1 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">rbkv7bctikfq </span>       <span class="string">getstartedlab_web.</span>3   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm2 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">mr1o60i52f6u </span>       <span class="string">getstartedlab_web.</span>4   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm2 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">4k7ehhz2nzl3 </span>       <span class="string">getstartedlab_web.</span>5   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm1 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br></pre></td></tr></table></figure>
+
+<p>到這裡完成了將 app deploy 到 cluster 上，並且 service 有 load-balanced！</p>
+<h3 id="access-swarm-上的-app"><a href="#access-swarm-上的-app" class="headerlink" title="access swarm 上的 app"></a>access swarm 上的 app</h3><p>可以透過 swarm 中任何一個 node 的 IP 去 access app。這是藉由讓 node 在 ingress routing mesh 裡達到。</p>
+<img src="https://i.imgur.com/UPiyTkX.png" width="800">
+
+<p>[<a href="https://docs.docker.com/get-started/part4/" target="_blank" rel="noopener">source</a>]</p>
+<p>在 swarm mode 打開前，swarm node 間的 port 7946 TCP/UDP 以及 port 4789 UDP 要開啟，ingress network 才能運作，所以要注意 app 不能佔用這些 port。</p>
+<h3 id="scale-up-in-cluster"><a href="#scale-up-in-cluster" class="headerlink" title="scale up in cluster"></a>scale up in cluster</h3><p>要讓 service 使用更多 node，只要先用 <code>docker swarm join</code> 增加 node，再 <code>docker stack deploy</code>，service 就能使用增加的 node。</p>
+<h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="Cleanup"></a>Cleanup</h3><p>清掉 <code>docker-machine</code> 的環境變數：</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">$ eval <span class="constructor">$(<span class="params">docker</span>-<span class="params">machine</span> <span class="params">env</span> -<span class="params">u</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>結束 stack 的所有 service、刪掉 stack：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">stack</span> <span class="keyword">rm</span> &lt;stack_name&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/get-started-with-docker/part-3/" class="post-title-link" itemprop="url">Get started with Docker Part 3: Services</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-04 21:56:10" itemprop="dateCreated datePublished" datetime="2019-08-04T21:56:10+08:00">2019-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/get-started-with-docker/part-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="get-started-with-docker/part-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-3-Services"><a href="#Part-3-Services" class="headerlink" title="Part 3: Services"></a><a href="https://docs.docker.com/get-started/part3/" target="_blank" rel="noopener">Part 3: Services</a></h2><p>Linux 要先<a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">安裝 Docker Compose</a>，Windows 的 Docker Desktop 已經包含 Docker Compose。</p>
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>分散式系統中各 app 都可稱為一個 “service”，儲存資料到 DB、處理 video transcoding 等等都可以是個 “service”。</p>
+<p>Docker 的 services 是一堆在 production 的 containers。一個 service run 一個 image，service 會指定這個 image 要怎麼執行──使用哪些 port、會跑多少 container 等等。只要改變執行的 container instance 數量就能 scale service。透過 <code>docker-compose.yml</code> 定義、執行跟 scale services。</p>
+<h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a><code>docker-compose.yml</code></h3><p><code>docker-compose.yml</code> 定義 container 在 production 該有什麼行為。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># 這個 service 叫作 web</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="comment"># 從 registry pull image</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">cjwind/get-started:part2</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># run 5 instances</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">limits:</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能使用一個 single core CPU 10% 的 CPU time</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">"0.1"</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能用 50MB memory</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">50M</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="comment"># container fail 會立刻 restart</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="comment"># map host port 4000 到 service web 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"4000:80"</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="comment"># 讓 containers 透過 webnet 這個 load-balanced network 共用 host 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="comment"># 以預設值（load-balanced overlay network）定義 webnet</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="執行-service"><a href="#執行-service" class="headerlink" title="執行 service"></a>執行 service</h3><p>跑 service 前要先：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker swarm init</span><br></pre></td></tr></table></figure>
+
+<p>接著執行：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">$ docker <span class="built_in">stack</span> deploy -c docker-compose.yml &lt;stack_name&gt;</span><br><span class="line">$ docker <span class="built_in">stack</span> deploy -c docker-compose.yml getstartedlab</span><br></pre></td></tr></table></figure>
+
+<p>可以用以下兩個 command 看執行的 service：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker<span class="built_in"> service </span>ls</span><br><span class="line">$ docker stack services &lt;stack_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>兩個 command 的結果都是：</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">ID </span>                 <span class="string">NAME </span>               <span class="string">MODE </span>               <span class="string">REPLICAS </span>           <span class="string">IMAGE </span>                     <span class="string">PORTS</span></span><br><span class="line"><span class="string">ylewu1idwhp0 </span>       <span class="string">getstartedlab_web </span>  <span class="string">replicated </span>         5/5                 <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   *:<span class="string">4000-</span>&gt;<span class="string">80/</span><span class="string">tcp</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>A single container running in a service is called a <strong>task</strong>.</p>
+</blockquote>
+<p>列出 service 的 task：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker<span class="built_in"> service </span>ps &lt;service_name&gt;</span><br><span class="line">$ docker<span class="built_in"> service </span>ps getstartedlab_web</span><br></pre></td></tr></table></figure>
+
+<p>當然也可以用 <code>docker container ls</code> 看 service 的 running container。</p>
+<p>列出 stack 所有 task：</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ docker stack <span class="keyword">ps</span> <span class="symbol">&lt;stack_name&gt;</span></span><br><span class="line">$ docker stack <span class="keyword">ps</span> getstartedlab</span><br></pre></td></tr></table></figure>
+
+<p>service 執行時如果想修改 task 數量，只要修改 <code>docker-compose.yml</code> 的 <code>replicas</code> 設定，再執行一次 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code> 就可以了！</p>
+<p>要結束 service，首先關掉 app：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">stack</span> <span class="keyword">rm</span> getstartedlab</span><br></pre></td></tr></table></figure>
+
+<p>離開 swarm：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker swarm leave <span class="operator">-f</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-1-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +765,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -398,7 +936,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -493,7 +1031,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -596,7 +1134,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -678,7 +1216,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -734,466 +1272,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/test-event/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/test-event/" class="post-title-link" itemprop="url">如何測試 event</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-07 16:01:04" itemprop="dateCreated datePublished" datetime="2019-04-07T16:01:04+08:00">2019-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/test-event/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="test-event/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>測試 event 分成兩邊：</p>
-<ul>
-<li>測試 event listener：有沒有在 event 發生後做該做的事。</li>
-<li>測試 trigger event：有沒有正確 trigger event。</li>
-</ul>
-<p>基本概念是驗證一方時假造另一方。</p>
-<h2 id="測試-event-listener"><a href="#測試-event-listener" class="headerlink" title="測試 event listener"></a>測試 event listener</h2><p>檢查 event 有沒有註冊到 event listener。用「event 發生後 event listener 有沒有做該做的事」來驗證，而不是試圖 access class 的內部 event 資訊來看是否有註冊成功。例如發生 event 後系統某些狀態會改變，測試方式是在測試裡 trigger event（假造 trigger event），驗證系統狀態是否有正確改變。</p>
-<p>如果發生 event 後會 call 某些 third party function，測試方式是先做個 mock object、inject mock object 到被測試 class，接著 trigger event，最後驗證 mock object 是否有被 call 到該 call 的 function。</p>
-<h2 id="測試是否有-trigger-event"><a href="#測試是否有-trigger-event" class="headerlink" title="測試是否有 trigger event"></a>測試是否有 trigger event</h2><p>在測試中給要測試的 event 註冊一個假的 event listener，接著讓被測試 class 做應該要 trigger event 的事情，最後驗證假 event listener 有沒有被 call 到。</p>
-<p>驗證假 event listener 有沒有被 call 到不一定要用 mock object，也可以是假 event listener 在被 call 到時修改 test 裡的變數，最後直接驗證該變數，這跟語言支援有關。</p>
-<h3 id="test-framework-支援"><a href="#test-framework-支援" class="headerlink" title="test framework 支援"></a>test framework 支援</h3><p>有些 test framework 的支援「某個 event 是否有被 trigger 或 emit 的驗證」。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Add-system-call-to-linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Add-system-call-to-linux/" class="post-title-link" itemprop="url">Linux kernel 5.0 增加 System Call</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-02-05 22:08:57" itemprop="dateCreated datePublished" datetime="2019-02-05T22:08:57+08:00">2019-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Add-system-call-to-linux/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Add-system-call-to-linux/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Download-kernel-source-code"><a href="#Download-kernel-source-code" class="headerlink" title="Download kernel source code"></a>Download kernel source code</h2><p>我用的 kernel source code 是從 <code>https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</code> clone 的，寫這篇的版本是 <code>5.0.0-rc3</code>。</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>git clone <span class="symbol">https:</span>/<span class="regexp">/git.kernel.org/pub</span><span class="regexp">/scm/linux</span><span class="regexp">/kernel/git</span><span class="regexp">/stable/linux</span>.git linux-stable</span><br></pre></td></tr></table></figure>
-
-<h2 id="Add-system-call"><a href="#Add-system-call" class="headerlink" title="Add system call"></a>Add system call</h2><p>首先在 kernel source code root 建立一個資料夾 <code>mysyscall/</code>：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> linux-stable</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> mkdir mysyscall</span></span><br></pre></td></tr></table></figure>
-
-<p>新增 <code>mysyscall/hello.c</code>、加入新的 system call <code>sys_hello()</code>（不可免俗的來 hello world 一下）：</p>
-<figure class="highlight c"><figcaption><span>mysyscall/hello.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_hello</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">"Hello Kernel World!\n"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Add-system-call-to-linux/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-and-Override/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Extract-and-Override/" class="post-title-link" itemprop="url">Dependency Injection - Extract and Override</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-30 17:15:05" itemprop="dateCreated datePublished" datetime="2018-12-30T17:15:05+08:00">2018-12-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Dependency-Injection-Extract-and-Override/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-and-Override/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Extract and Override 是另一種 injection 方式，它幾乎不會改變程式的語意（增加 constructor 的參數或者其他 public 介面等等），寫起來乾淨漂亮。它適合用於模擬回傳值或回傳 stub 或 mock object，不適合用在確認被測試程式與 dependency object 的互動。</p>
-<h2 id="Override-factory-method-to-inject-stub"><a href="#Override-factory-method-to-inject-stub" class="headerlink" title="Override factory method to inject stub"></a>Override factory method to inject stub</h2><ol>
-<li>在被測試 class 加入可被繼承並 override 的 factory method 來取得 dependency object。</li>
-<li>在測試裡新增一個 class 繼承被測試 class，override 該 factory method 回傳 stub object，接著使用測試 class 進行測試。</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Dependency-Injection-Extract-and-Override/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Constructor-and-Setter-Injection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Constructor-and-Setter-Injection/" class="post-title-link" itemprop="url">Dependency Injection - Constructor and Setter Injection</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-23 16:51:52" itemprop="dateCreated datePublished" datetime="2018-12-23T16:51:52+08:00">2018-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Dependency-Injection-Constructor-and-Setter-Injection/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Constructor-and-Setter-Injection/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>接下來要 inject dependency object 啦～</p>
-<h2 id="Constructor-amp-Setter-Injection"><a href="#Constructor-amp-Setter-Injection" class="headerlink" title="Constructor &amp; Setter Injection"></a>Constructor &amp; Setter Injection</h2><h3 id="Constructor-Injection"><a href="#Constructor-Injection" class="headerlink" title="Constructor Injection"></a>Constructor Injection</h3><p>在被測試 class 加新的 constructor 或在原本的 constructor 加新參數，傳進剛抽出來的 interface 的 object，將它存在被測試 class 的 member，被測試 class 裡的程式邏輯使用這個 member 做事。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Dependency-Injection-Constructor-and-Setter-Injection/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-Dependency-Object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Extract-Dependency-Object/" class="post-title-link" itemprop="url">Dependency Injection - Extract Dependency Object</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-17 21:20:10" itemprop="dateCreated datePublished" datetime="2018-12-17T21:20:10+08:00">2018-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Dependency-Injection-Extract-Dependency-Object/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-Dependency-Object/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>External Dependency 是系統中與被測試程式互動但你無法控制的物件。被測試程式受到 external dependency 行為影響可能有不同結果，為了保持 unit test 穩定，不會一下結果該是 A、一下結果該是 B，我們希望能掌控 external dependency──藉由 <a href="/Stub-in-test/">stub object</a> 模擬 external dependency 的行為並將其 inject 到被測試程式中，基本步驟如下：</p>
-<ol>
-<li>抽出 external dependency object 的 interface</li>
-<li>stub implement 該 interface 並實作 function</li>
-<li>inject stub 到被測試程式<ul>
-<li>Constructor Injection</li>
-<li>Setter Injection</li>
-<li>Extract and Override</li>
-</ul>
-</li>
-</ol>
-<p>本篇用例子說明步驟 1 跟 2：<code>MyClass</code> 是被測試程式，<code>Foo</code> 是 external dependency。（為了讓 code 短一點直接在 header 實作）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Dependency-Injection-Extract-Dependency-Object/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1259,20 +1341,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

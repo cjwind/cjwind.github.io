@@ -196,6 +196,491 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/phpexcel/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/phpexcel/" class="post-title-link" itemprop="url">PHPExcel</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-16 13:16:10" itemprop="dateCreated datePublished" datetime="2014-04-16T13:16:10+08:00">2014-04-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/phpexcel/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="phpexcel/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>官方網站：<a href="http://phpexcel.codeplex.com/" target="_blank" rel="noopener">http://phpexcel.codeplex.com/</a></p>
+<p>用來讀取、產生 Excel 的 PHP class。</p>
+<p>下載回來後解壓縮 Classes，在要使用的 PHP 檔案中 include。</p>
+<h2 id="產生-Excel"><a href="#產生-Excel" class="headerlink" title="產生 Excel"></a>產生 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// include PHPExcel 相關檔案</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">"includes/PHPExcel.php"</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">"includes/PHPExcel/Writer/Excel2007.php"</span>);    <span class="comment">// Excel 2007 格式</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">"includes/PHPExcel/IOFactory.php"</span>);           <span class="comment">// 放置圖片</span></span><br><span class="line"></span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line">$objPHPExcel = <span class="keyword">new</span> PHPExcel(); </span><br><span class="line">$objPHPExcel-&gt;setActiveSheetIndex(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定儲存格的內容，中文要用 iconv() 轉換，不然會顯示不出來</span></span><br><span class="line">$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">'A1'</span>, iconv(<span class="string">"big5"</span>, <span class="string">"utf-8"</span>, <span class="string">"測試"</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以用指定 column 跟 row 的方式設定內容，column 是從 0 開始編號，row 是從 1 開始編號</span></span><br><span class="line">$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(<span class="number">0</span>, <span class="number">1</span>, iconv(<span class="string">'big5'</span>, <span class="string">'utf-8'</span>, <span class="string">'哈囉'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自動設定欄寬</span></span><br><span class="line">$objPHPExcel-&gt;getActiveSheet()-&gt;getColumnDimension(<span class="string">'A'</span>)-&gt;setAutoSize(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Excel 中放圖片</span></span><br><span class="line">$objDrawing = <span class="keyword">new</span> PHPExcel_Worksheet_Drawing();</span><br><span class="line">$objDrawing-&gt;setName(<span class="string">'cat'</span>);                        <span class="comment">// 圖片名稱</span></span><br><span class="line">$objDrawing-&gt;setDescription(<span class="string">'cat'</span>);                 <span class="comment">// 圖片描述</span></span><br><span class="line">$objDrawing-&gt;setPath(<span class="string">'cat.jpg'</span>);                    <span class="comment">// 圖片檔案路徑，支援JPG及PNG格式</span></span><br><span class="line">$objDrawing-&gt;setWidth(<span class="number">1000</span>);                        <span class="comment">// 圖片寬</span></span><br><span class="line">$objDrawing-&gt;setCoordinates(<span class="string">"A2"</span>);                  <span class="comment">// 圖片放置的儲存格位置</span></span><br><span class="line">$objDrawing-&gt;setOffsetX(<span class="number">30</span>);                        <span class="comment">// X偏移量</span></span><br><span class="line">$objDrawing-&gt;setWorksheet($objPHPExcel-&gt;getActiveSheet());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 儲存 Excel 檔，這裡會存成 .xlsx 格式</span></span><br><span class="line">$objWriter = <span class="keyword">new</span> PHPExcel_Writer_Excel2007($objPHPExcel);</span><br><span class="line">$objWriter-&gt;save(str_replace(<span class="string">'.php'</span>, <span class="string">'.xlsx'</span>, <span class="keyword">__FILE__</span>));    <span class="comment">// Excel 檔案路徑</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="讀取-Excel"><a href="#讀取-Excel" class="headerlink" title="讀取 Excel"></a>讀取 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span>(<span class="string">'includes/PHPExcel/IOFactory.php'</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// read excel</span></span><br><span class="line">$filename = <span class="string">"test.xlsx"</span>;</span><br><span class="line">$objPHPExcel = PHPExcel_IOFactory::createReader(<span class="string">'Excel5'</span>);	<span class="comment">// 與舊版相容</span></span><br><span class="line">$objPHPExcel = PHPExcel_IOFactory::load($filename);</span><br><span class="line">$objWorksheet = $objPHPExcel-&gt;getSheet(<span class="number">0</span>);                  <span class="comment">// 讀取第一個工作表</span></span><br><span class="line">$data = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 iterator 依序讀取 rows, columns, 並將資料存到 $data</span></span><br><span class="line"><span class="keyword">foreach</span> ( $objWorksheet-&gt;getRowIterator() <span class="keyword">as</span> $rowidx =&gt; $row ) &#123;</span><br><span class="line">    $cellIterator = $row-&gt;getCellIterator();     </span><br><span class="line">    $cellIterator-&gt;setIterateOnlyExistingCells(<span class="keyword">false</span>);      <span class="comment">// 讀入整行, 若為空回傳 null</span></span><br><span class="line">    <span class="keyword">foreach</span> ( $cellIterator <span class="keyword">as</span> $cellidx =&gt; $cell ) &#123;  </span><br><span class="line">        $data[$rowidx][$cellidx] = $cell-&gt;getValue(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/design-a-new-c-plus-plus-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/design-a-new-c-plus-plus-class/" class="post-title-link" itemprop="url">設計 C++ class</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-13 15:40:02" itemprop="dateCreated datePublished" datetime="2014-04-13T15:40:02+08:00">2014-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/design-a-new-c-plus-plus-class/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design-a-new-c-plus-plus-class/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>列出設計一新 class 時需要注意的問題跟與其相關的東西：</p>
+<ul>
+<li><p>真的需要一個新 class 嗎？<em>（我覺得這最重要）</em></p>
+<p>使用既有 class 是否能達成需求？</p>
+</li>
+<li><p>如何產生及銷毀新 class 的 object？</p>
+<p>與 constructor、destructor、new、new[]、delete、delete[] 有關</p>
+</li>
+<li><p>物件的 initialization 跟 assignment 有何區別？</p>
+<p>與 constructor、assignment operator 的行為有關</p>
+</li>
+<li><p>如果以 pass by value 的方式傳遞新 class 的 object 時是什麼意思？</p>
+<p>與 copy constructor 有關</p>
+</li>
+<li><p>新 class 的合法值為何？</p>
+<p>需維護的條件、member function（如 constructor、assignment operator、setter）所做的錯誤檢查、exception、exception specification</p>
+</li>
+<li><p>新 class 是否繼承某個繼承架構？</p>
+<p>base class 的 non-virtual 及 virtual function</p>
+<p>virtual distructor</p>
+</li>
+<li><p>新 class 需要那些轉型？</p>
+<p>轉型 function</p>
+</li>
+<li><p>那些 operator、function 對此 class 來說是合法的？</p>
+<p>牽涉到要宣告那些 function？是否為 member？</p>
+</li>
+<li><p>不想使用哪些 compiler 會自動生成的 function（如 constructor）？</p>
+<p>如果不使用，將它宣告成 private。</p>
+</li>
+<li><p>誰可以使用新 class 的 memeber？</p>
+<p>public、protected、private、friend</p>
+</li>
+<li><p>新 class 的 undeclared interface 是？</p>
+</li>
+<li><p>這個 class 需要多 general？</p>
+<p>class template</p>
+</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》item 19</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/mysql-plus-plus/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/mysql-plus-plus/" class="post-title-link" itemprop="url">MySQL++</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-13 12:40:51" itemprop="dateCreated datePublished" datetime="2014-04-13T12:40:51+08:00">2014-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/mysql-plus-plus/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="mysql-plus-plus/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>供 C++ 使用的 MySQL library。</p>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>in Fedora</p>
+<figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">$</span> <span class="comment">sudo</span> <span class="comment">yum</span> <span class="comment">install</span> <span class="comment">mysql</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">devel</span> <span class="comment">mysql</span>++<span class="literal">-</span><span class="comment">devel</span></span><br></pre></td></tr></table></figure>
+
+<p>in Ubuntu</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install libmysql++-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h2><p>include file and namespace</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mysql++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> mysqlpp;</span><br></pre></td></tr></table></figure>
+
+<p>compile</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">g++ -o &lt;obj <span class="keyword">file</span>&gt; &lt;<span class="keyword">source</span> <span class="keyword">file</span>&gt; -I<span class="regexp">/usr/i</span>nclude<span class="regexp">/mysql++ -I/u</span>sr<span class="regexp">/include/my</span>sql -lmysqlpp -lmysqlclient</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/mysql-plus-plus/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-google-code-jam-qualification-round/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2014-google-code-jam-qualification-round/" class="post-title-link" itemprop="url">2014 Google Code Jam Qualification Round</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-13 12:05:07" itemprop="dateCreated datePublished" datetime="2014-04-13T12:05:07+08:00">2014-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2014-google-code-jam-qualification-round/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014-google-code-jam-qualification-round/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>昨天晚上在慵懶的狀態下寫今年 Google Code Jam 資格賽。</p>
+<p>A 跟 B 很簡單，A 就照著算一下，B 簡單 Greedy，看到過 C 的比例比較低先跳過，看 D 覺得要想一下，可是已經在想睡覺……丟了一次很爛的 algo 上去果然 WA，放棄收工了，只要 B 的 large input 有對也是會過，阿要是沒對就 GG 了！XD</p>
+<p>遙想我每次玩 Code Jam 都只有過資格賽……Orz……看今年會不會有鬥志一點，至少兩次時間可以參加的 Round 1 都去玩一下。</p>
+<script src="//gist.github.com/596ddacefe38b6f97eea.js?file=2014GCJ_QR_A.cpp"></script>
+
+<script src="//gist.github.com/6aaa4b0c9bc8ea7e05c9.js?file=2014GCJ_QR_B.cpp"></script>
+
+<p><del>貼這種 code 出來好像在丟人現眼</del></p>
+<p>簡單針對 code 檢討一下好了，algo 沒什麼好檢討的，因為寫的兩題太簡單。</p>
+<ol>
+<li>跟 C++ IO 不熟，才會出現很明顯的 copy。還為了 output 七位小數而混雜 printf()，因為我不會調 C++ 的 output format。<del>比賽的時候懶得查直接用最熟的比較快</del></li>
+<li>變數名稱亂取，<del>不過算了比賽程式不要計較太多</del> XD</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/set-up-existing-octopress-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/set-up-existing-octopress-blog/" class="post-title-link" itemprop="url">Clone 已有 Octopress blog</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-05 23:57:35" itemprop="dateCreated datePublished" datetime="2014-04-05T23:57:35+08:00">2014-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/set-up-existing-octopress-blog/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="set-up-existing-octopress-blog/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Octopress 的後端就是自己的電腦，有多台電腦時需要在其他電腦再建立 Octopress 的撰寫環境，並且拿 Github 上面的 repos 下來繼續寫。</p>
+<h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>基本環境：<a href="http://msysgit.github.io/" target="_blank" rel="noopener">Git for Windows</a>、<a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">RubyInstaller 1.9.3</a>、<a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">Ruby Development kit</a>。如果用到 code highlight，要裝 <a href="https://www.python.org/" target="_blank" rel="noopener">Python 2</a>，否則 <code>rake generate</code> 會生出空白頁。安裝完 Ruby 跟 Python 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑以及 Python 的安裝路徑，如 <code>C:\Ruby193\bin</code> 及 <code>C:\Python27</code>。</p>
+<h2 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h2><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone -b source <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io octopress</span><br><span class="line"></span><br><span class="line">$ cd octopress</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io <span class="emphasis">_deploy</span></span><br></pre></td></tr></table></figure>
+
+<p>Octopress 將 master branch 放在 <code>_deploy/</code>。</p>
+<h2 id="Rake-installation-and-configuration"><a href="#Rake-installation-and-configuration" class="headerlink" title="Rake installation and configuration"></a>Rake installation and configuration</h2><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gem <span class="keyword">install </span><span class="keyword">bundler</span></span><br><span class="line"><span class="keyword">$ </span><span class="keyword">bundle </span><span class="keyword">install</span></span><br><span class="line"><span class="keyword">$ </span>rake setup_github_pages</span><br></pre></td></tr></table></figure>
+
+<p>最後一個指令會要求輸入 Github 的 repository URL。</p>
+<h2 id="Pull-repository"><a href="#Pull-repository" class="headerlink" title="Pull repository"></a>Pull repository</h2><p>有多台電腦編輯時，開始前要記得將 local repository 更新到最新。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin <span class="built_in">source</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> _deploy</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull origin master</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/" target="_blank" rel="noopener">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/move-posts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -227,7 +712,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -310,7 +795,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -401,7 +886,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -485,7 +970,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
               </span>
 
           
@@ -655,492 +1140,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/" class="post-title-link" itemprop="url">C++ 應避免在 constructor 及 destructor 中 call virtual function</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 12:42:21" itemprop="dateCreated datePublished" datetime="2014-04-05T12:42:21+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>應避免在 constructor 跟 destructor 中 call virtual function，否則容易造成跟預期不符的行為（誤以為可以 call 到 derived class 的 virtual function）。</p>
-<p>construct 到 base class 時，C++ 視該 object 為 base class object，derived class 的 virtual function 跟 member 都還沒建出來，所以 call 不到 derived class 的 virtual function。</p>
-<p>反過來的 destruct 則是在 derived class destructor 跑完後，derived class 的東西都刪光光了，該 object 就被當作 base class object，所以在 base class destructor 裡 call virtual function 不會 call 到 derived class 的 virtual function。</p>
-<p>除了要避免 constructor 跟 destructor call 到 virtual function，也要避免它們 call 的 function 再間接 call 到 virtual function。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》item 9</li>
-<li><a href="http://www.artima.com/cppsource/nevercall.html" target="_blank" rel="noopener">http://www.artima.com/cppsource/nevercall.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-const-member-function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-const-member-function/" class="post-title-link" itemprop="url">C++ const member function</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 12:37:19" itemprop="dateCreated datePublished" datetime="2014-04-05T12:37:19+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c-plus-plus-const-member-function/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-const-member-function/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>不能修改 class non-static member data 也不能 call 其他非 const member function 的 member function。</p>
-<p>宣告 function 時在最後面加個 const 的 function，ex：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetIndex</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Declaring a member function with the const keyword specifies that the function is a “read-only” function that does not modify the object for which it is called. A constant member function cannot modify any non-static data members or call any member functions that aren’t constant.</p>
-</blockquote>
-<p>compiler 會檢查 const member function 是否有改到 member data、return value 是否為 pointer 或 reference，如果改到 member data 或傳回可以讓外界修改 member data 時 compiler 會 error。可以透過這個特性反向檢查一個原本非 const 的 member function 是否有修改到 member data。</p>
-<p>如果要在 const member function 中修改特定 member data，可以在該 member data 的宣告前面加上 mutable。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》</li>
-<li><a href="http://msdn.microsoft.com/zh-tw/library/6ke686zh.aspx" target="_blank" rel="noopener">http://msdn.microsoft.com/zh-tw/library/6ke686zh.aspx</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/read-write-lock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/read-write-lock/" class="post-title-link" itemprop="url">Read-Write Lock</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 12:34:17" itemprop="dateCreated datePublished" datetime="2014-04-05T12:34:17+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/read-write-lock/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="read-write-lock/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Read-Write lock 分成用於 read 跟 write 兩種 lock。使用 read lock 表示只會對 resource 做 read-only 的 access，使用 write lock 表示會修改 resource。</p>
-<p>當一個 thread 要做 write 時，其他 read-only thread 會被 block 直到 write 做完。</p>
-<p>Read-Write lock 適合有較多 read，write 較少但 priority 比較高的時候。</p>
-<p>Qt 跟 Read-Write lock 相關的 class：QReadWriteLock、QReadLocker、QWriteLocker</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/linux-process-exit-status/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/linux-process-exit-status/" class="post-title-link" itemprop="url">Linux Process Exit Status</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 12:05:16" itemprop="dateCreated datePublished" datetime="2014-04-05T12:05:16+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/linux-process-exit-status/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="linux-process-exit-status/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Process-Termination"><a href="#Process-Termination" class="headerlink" title="Process Termination"></a>Process Termination</h2><p>Linux 中 process 結束時系統會回收該 process 使用的大部分 resource，僅留下結束資訊供它的 parent 取得。parent 回收 child process、取得這些資訊後，剩餘的 resource 才會被釋放。如果 parent 沒有回收結束的 child process，child 會變殭屍（zombie），即執行結束了但沒有把 resource 釋放乾淨，會佔用 PID 及一些記憶體空間放 exit status。</p>
-<p>parent process 透過 call <code>wait()</code> 回收 child process 並取得 child process 的 exit status。</p>
-<p>process 結束分成正常結束（terminate normally）跟不正常結束（terminate abnormally or crash）。</p>
-<p>以系統的角度來看，process call <code>exit()</code> 或從 <code>main()</code> return 算 terminate normally。（實際上從 <code>main()</code> return 後就會 call <code>exit()</code> 系列 function。）process crash、被 signal 結束或其他狀況算 terminate abnormally。</p>
-<p>以程式或 programmer 的角度來看，<code>exit()</code> 的參數為非 0 通常代表有些檢查沒有通過，程式無法繼續完成工作才會在中間 call <code>exit()</code>。這個狀況是<strong>「程式正常結束，但沒有完成該有的運作」</strong>，屬於程式執行邏輯上的錯誤，跟 crash 不同。</p>
-<h2 id="Process-Exit-Status"><a href="#Process-Exit-Status" class="headerlink" title="Process Exit Status"></a>Process Exit Status</h2><p>Linux 中以 exit status code 表示 process 結束時的狀態（它怎麼結束的）。</p>
-<h3 id="System"><a href="#System" class="headerlink" title="System"></a>System</h3><p>系統 exit status code 的範圍為 0 至 255。若程式設置超過 255 的 code，會以 mod 256 作為 exit code。</p>
-<p>有些 code 已保留給系統使用、有固定意義。一般不建議 programmer 再對這些 code 定義其他意義。系統已保留的 exit code 為：0、1、2、126 ~ 165、255。</p>
-<h3 id="C-C-program"><a href="#C-C-program" class="headerlink" title="C/C++ program"></a>C/C++ program</h3><p>在 C/C++ program 中 <code>exit()</code> 的參數值是在 process <strong>正常結束</strong>下，讓 programmer 得知「程式階層上」的 exit status，跟系統所使用的 exit status code <strong>相關但不相等</strong>。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/linux-process-exit-status/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/phpunit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/phpunit/" class="post-title-link" itemprop="url">PHPUnit</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 00:21:54" itemprop="dateCreated datePublished" datetime="2014-04-05T00:21:54+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-16 22:51:34" itemprop="dateModified" datetime="2020-06-16T22:51:34+08:00">2020-06-16</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/phpunit/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="phpunit/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>PHP 的 Unit Test Framework。</p>
-<blockquote>
-<p>Whenever you are tempted to type something into a print statement or a debugger expression, write it as a test instead.<br>~ Martin Fowler</p>
-</blockquote>
-<p>test 要是 independent。一個 test 的 result 不能 depend 其他 test 的 result。</p>
-<h2 id="Install-on-Ubuntu-12-04"><a href="#Install-on-Ubuntu-12-04" class="headerlink" title="Install on Ubuntu 12.04"></a>Install on Ubuntu 12.04</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> sudo apt-get remove phpunit    <span class="comment">// 應該是前面有先用 apt-get install 裝了才需要</span></span><br><span class="line"><span class="symbol">$</span> sudo pear upgrade pear         <span class="comment">// pear 只要裝了 php 就有</span></span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover pear.phpunit.de</span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover pear.symfony-project.com</span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover components.ez.<span class="keyword">no</span></span><br><span class="line"><span class="symbol">$</span> sudo pear update-channels</span><br><span class="line"><span class="symbol">$</span> sudo pear upgrade-<span class="keyword">all</span></span><br><span class="line"><span class="symbol">$</span> sudo pear install -alldeps phpunit/PHPUnit</span><br><span class="line"><span class="symbol">$</span> sudo pear uninstall phpunit/PHPUnit</span><br><span class="line"><span class="symbol">$</span> sudo pear install phpunit/PHPUnit</span><br></pre></td></tr></table></figure>
-
-<p>最後兩個指令看起來很好笑，好像是 pear 的 script 有問題。用倒數第三行裝完之後，又會說找不到 <code>PHP_CodeCoverage_Filter::getInstance()</code>，後來做這兩行就動了。</p>
-<h3 id="失敗的安裝"><a href="#失敗的安裝" class="headerlink" title="失敗的安裝"></a>失敗的安裝</h3><p>不能直接用</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install phpunit</span><br></pre></td></tr></table></figure>
-
-<p>不然 run 的時候會該找不到 PHP Code Coverage。</p>
-<h2 id="Run-test"><a href="#Run-test" class="headerlink" title="Run test"></a>Run test</h2><p>run all tests</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>phpunit</span><br><span class="line"><span class="variable">$ </span>phpunit --stderr</span><br></pre></td></tr></table></figure>
-
-<p>PHPUnit 在一些系統上會有 header already sent 的錯誤，加 <code>--stderr</code> 可以避免 PHPUnit 把這視為測試錯誤。</p>
-<p>執行單一測試，指定某測試檔做測試。</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ phpunit --stderr &lt;<span class="keyword">test</span> <span class="keyword">file</span> path&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Basic-conventions"><a href="#Basic-conventions" class="headerlink" title="Basic conventions"></a>Basic conventions</h2><ol>
-<li>class “Class” 的 test 放在 class “ClassTest”</li>
-<li>ClassTest 要繼承 PHPUnit_Framework_TestCase</li>
-<li>test 為 public method，method name 為 test*</li>
-<li>在 test 中，用 assert*() function check value 是否符合預期</li>
-</ol>
-<h2 id="failure-vs-error"><a href="#failure-vs-error" class="headerlink" title="failure vs error"></a>failure vs error</h2><p>failure 是 assertion function fail（要測試的 function 的 output 不符合預期）。以 F 代表。</p>
-<p>error 是出現 unexpected exception 或 PHP error。以 E 代表。</p>
-<h2 id="setUp-amp-tearDown"><a href="#setUp-amp-tearDown" class="headerlink" title="setUp() &amp; tearDown()"></a>setUp() &amp; tearDown()</h2><p>為了讓測試是正確且獨立的，要保持執行 test 時環境是乾淨的。在每次執行一個 test method 前會 call <code>setUp()</code> 建立 test 所需要的 object、變數等等。run 完 test method 後會 call <code>tearDown()</code> 清東西。</p>
-<p>通常只需 implement <code>tearDown()</code>，用來 close file、socket 等。</p>
-<h2 id="用-file-system-組合-test-suite"><a href="#用-file-system-組合-test-suite" class="headerlink" title="用 file system 組合 test suite"></a>用 file system 組合 test suite</h2><p>可以用 file system 的 directory structure 達到組合出一個 test suite 的目的。這也是最簡單的方式。:)</p>
-<p>建立一 test dir 並建立跟 project dir 中一樣的 directory structure。把 test case source file（就是 test method 的 source code）以相應 project source file 的位置放進去。PHPUnit 會自動 traverse test dir 做 test。</p>
-<p>舉例說明：</p>
-<p>這是 project directory：</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">object/</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">MyStack</span>.</span></span>php</span><br></pre></td></tr></table></figure>
-
-<p>這是 test directory：</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">tests/</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">MyStackTest</span>.</span></span>php</span><br></pre></td></tr></table></figure>
-
-<p>PHPUnit 會在 test dir（上例的 tests/）底下找 *Test.php 來做測試。</p>
-<h3 id="執行-test-suite"><a href="#執行-test-suite" class="headerlink" title="執行 test suite"></a>執行 test suite</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">$ phpunit --stderr &lt;test <span class="built_in">dir</span> <span class="built_in">path</span>&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="寫-test-就是…"><a href="#寫-test-就是…" class="headerlink" title="寫 test 就是…"></a>寫 test 就是…</h2><ol>
-<li>生一些 testcase（input 及預期的 output）</li>
-<li>在 test method 裡 call 要測的 function，把 test case 的 input 當作 arg 丟進去。</li>
-<li>用 asseert function 判斷 function 的 output 是否符合預期。</li>
-</ol>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://www.phpunit.de/manual/3.6/en/index.html" target="_blank" rel="noopener">PHPUnit manual</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1206,20 +1209,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">146</span>
+          <span class="site-state-item-count">151</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">48</span>
+        <span class="site-state-item-count">50</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
