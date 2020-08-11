@@ -196,6 +196,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/libcurl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/libcurl/" class="post-title-link" itemprop="url">libcurl - HTTP usage</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-17 22:31:25" itemprop="dateCreated datePublished" datetime="2014-04-17T22:31:25+08:00">2014-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2014-10-15 20:52:00" itemprop="dateModified" datetime="2014-10-15T20:52:00+08:00">2014-10-15</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/libcurl/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="libcurl/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>libcurl 是處理收送網路 request、response 的 library，可用來收送 HTTP 的 request 及 response。</p>
+<p>libcurl 收到 response 時會 call callback function，由 callback function 處理收到的資料。callback function 可自行撰寫，其 prototype 如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">func</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> <span class="built_in">size</span>, <span class="keyword">size_t</span> nmemb, <span class="keyword">void</span> *userdata)</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>ptr 指向收到的資料</li>
+<li>nmemb 為收到資料的大小</li>
+<li>userdata 可自己定義，我拿它當 return value。</li>
+</ul>
+<p>libcurl 的 callback function 分成處理 header 跟 data，用 <code>curl_easy_setopt()</code> 指定處理的 callback function。如果沒有指定 callback function，預設上 data 會被印出來，header 則不處理。</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>1. Initialize</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;curl/curl.h&gt;</span></span></span><br><span class="line">        </span><br><span class="line">CURL* curl = curl_easy_init();</span><br></pre></td></tr></table></figure>
+
+<p>2.  Set HTTP header data</p>
+<p>設 HTTP header，如指定 Content-type：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span>* <span class="title">headers</span>;</span></span><br><span class="line"><span class="built_in">memset</span>(header, <span class="number">0</span>, <span class="keyword">sizeof</span>(headers));</span><br><span class="line">headers = curl_slist_append(headers, <span class="string">"Content-type: application/json"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>call <code>curl_slist_append()</code> 會不斷加資訊到 headers 這個資料結構中。</p>
+<p>3. Set options</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);                <span class="comment">// 以 POST 傳送資料</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);    <span class="comment">// 指定 header</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_URL, url.c_str());       <span class="comment">// 指定 url</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);   <span class="comment">// 指定 data，將 postdata 當作 POST data 傳給 server</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);    <span class="comment">// 指定處理 HTTP header 的 callback function 為 parseHeader</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;rescode);          <span class="comment">// 指定 parseHeader 的 userdata</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponse);     <span class="comment">// 指定處理 data 的 callback function 為 getResponse</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEDATA, &amp;response);           <span class="comment">// 指定 getResponse 的 userdata</span></span><br></pre></td></tr></table></figure>
+
+<p>4. 傳送 request</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_perform(curl);</span><br></pre></td></tr></table></figure>
+
+<p>以 blocking 的方式傳送 request。</p>
+<p>5. clean up</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_slist_free_all(headers);	<span class="comment">// 清掉 headers 裡的東西</span></span><br><span class="line">curl_easy_cleanup(curl);</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/libcurl/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/phpexcel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1044,102 +1156,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-interface-inheritance-and-implement-inheritance/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-interface-inheritance-and-implement-inheritance/" class="post-title-link" itemprop="url">C++ Interface inheritance and Implement inheritance</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 12:44:46" itemprop="dateCreated datePublished" datetime="2014-04-05T12:44:46+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2014-07-05 17:14:00" itemprop="dateModified" datetime="2014-07-05T17:14:00+08:00">2014-07-05</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c-plus-plus-interface-inheritance-and-implement-inheritance/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-interface-inheritance-and-implement-inheritance/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>繼承分為 interface 繼承與 implement 繼承。interface 繼承僅繼承 interface，implementation 部分則由繼承者決定。implement 繼承則連同實作一同繼承。</p>
-<p>C++ 語意上用 virtual 區分 base class 希望 derived class 自己定義與不希望 derived class 修改的 function，virtual 為希望 derived class 自行定義，non-virtual 則不希望 derived class 修改。</p>
-<p>C++ 在區分 interface 及 implement 繼承上有：</p>
-<ul>
-<li>pure virtual function</li>
-<li>impure virtual function</li>
-<li>non-virtual function</li>
-</ul>
-<p><img src="/images/C++_virtual_and_inheritance.png" alt="C++ virtual and inheritance"></p>
-<h2 id="pure-virtual-function"><a href="#pure-virtual-function" class="headerlink" title="pure virtual function"></a>pure virtual function</h2><p>pure virtual function 是為了讓 derived class 繼承 base class 的 interface，而 implementation 則由 derived class 全權處理。當一 class 宣告 pure virtual function 時，代表要求 derived class 必須 implement 這些 pure virtual function（沒寫會 compile error），通常是這個繼承體系所需要的共同性質。</p>
-<h2 id="impure-virtual-function"><a href="#impure-virtual-function" class="headerlink" title="impure virtual function"></a>impure virtual function</h2><p>impure virtual function 是為了讓 derived class 繼承 interface 及預設的 implementation。也就是說，derived class 可以自己實作，也可以直接用 base class 的實作。</p>
-<p>這有個風險是，因為在 derived class 中並不強迫要寫出 base class 的 impure virtual function，導致在 derived class 應該有自己實作的狀況下，programmer 可能忘記在 derived class 實作。</p>
-<h2 id="non-virtual-function"><a href="#non-virtual-function" class="headerlink" title="non-virtual function"></a>non-virtual function</h2><p>non-virtual function 主要是為了讓 derived class 繼承 base class 的實作。</p>
-<p>雖然語法上 derived class 可 override base class 的 non-virtual function，但語意上的設計不建議 derived class override base class 的 non-virtual function。另外，override virtual function 跟 override non-virtual function 在實際執行上會有不同行為。</p>
-<p>non-virtua function 是 static binding。在一個繼承體系中 call non-virtual function 時會直接 call 宣告 type 的 class function。如果 derived class 沒有 override function，則因繼承關係 call 到 base class 的 function。如果 dervied class override function，則會 call 到 derived class 的。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》Differentiate between inheritance of interface and inheritance of implementation.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1209,7 +1225,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">151</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

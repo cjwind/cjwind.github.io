@@ -196,6 +196,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Template-Method-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Template-Method-Pattern/" class="post-title-link" itemprop="url">Template Method Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-04 17:01:55" itemprop="dateCreated datePublished" datetime="2016-04-04T17:01:55+08:00">2016-04-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Template-Method-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Template-Method-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>這個 pattern 是用來建立一個 algorithm 的 template。在一個 method 中定義 algorithm 的骨架，其中的小步驟定義在 derived class。可以在不改變 algorithm 架構的狀況下改變其中某些步驟的做法。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/template_method_pattern.png" alt="Template Method"></p>
+<p>template method 定義了 algorithm 的骨架，derived class 藉由 override 其中的步驟 function 改變 algorithm 的行為。</p>
+<p>在 base class 中可以定義共用的 operation。有些 operation 在 algorithm 概念上是 derived class 一定要 implement 的，C++ 裡可用 pure virtual function。通常 base class 會有一份 hook 的 implement，derived class 可以選擇性 override hook，依據 hook 在 template method 裡的使用，override hook 可能影響 algorithm 的行為，例如做或不做某些步驟。</p>
+<h2 id="相關-pattern"><a href="#相關-pattern" class="headerlink" title="相關 pattern"></a>相關 pattern</h2><p>Factory Method pattern 是 Template Method 的特殊版，用來生 object。</p>
+<p><a href="/Strategy-Pattern/">Strategy</a> 跟 Template Method 都用來封裝 algorithm，不過不太一樣。Strategy 是各個 derived class 自己完整 implement algorithm，Template Method 則是先訂好一個 “template”，其中的步驟是可以被改變的。</p>
+<h2 id="應用"><a href="#應用" class="headerlink" title="應用"></a>應用</h2><p>很多 UI framework，例如 Java 的 UI framework 跟 Qt，都有 <code>paint()</code> 之類的 painting function 以及 event handling function（例如處理 mouse event）就是使用 Template Method pattern。framework 已經決定何時會 call 這些 function，而 user 寫的 UI component 則依據需要 override 這些 function 決定實際上要做什麼事，如畫什麼東西、按滑鼠時要做什麼等等。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Facade-Pattern/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1078,101 +1163,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cpp-uses-C-library-example/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Cpp-uses-C-library-example/" class="post-title-link" itemprop="url">C++ uses C library example</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-08-09 17:50:01" itemprop="dateCreated datePublished" datetime="2015-08-09T17:50:01+08:00">2015-08-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Cpp-uses-C-library-example/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cpp-uses-C-library-example/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>C compiler 編出來的 object file 可以跟 C++ compiler 編出來的 object file link 在一起。</p>
-<p>假設 Linux 環境下有一個 object file <code>foo.o</code> 是 C compiler 編出來的，可以將 <code>foo.o</code> 看作一 C library，而 <code>main.cpp</code> 是由 C++ 實作並且使用 <code>foo.o</code> 裡的 function，因此 <code>main.cpp</code> 會 include 內含 function declaration 的 <code>foo.h</code>。C++ compiler 在一般狀況下會將 <code>foo.h</code> 內的 function 當作 C++ function 以 C++ 的規則處理。</p>
-<p>由於 <code>foo.o</code> 是 C compiler 編出來的，其對 function 的處理方式不像 C++ 會額外加修飾，使得 link 時 <code>main.o</code> 及 <code>foo.o</code> 中 symbol 對不起來而產生 <code>undefined reference</code> 錯誤。在 <code>foo.h</code> 中加上 <code>extern &quot;C&quot;</code> 是告訴 C++ compiler 要把這段 function declaration 當作 C function 處理，也就是不做 <strong>name decoration</strong>，之後 link symbol 才對得起來。實例如下：</p>
-<figure class="highlight c"><figcaption><span>foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// foo.h</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// foo.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"foo.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"C foo()!\n"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight cpp"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"foo.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"C++ main"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    foo();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>foo.o</code> 的 symbol：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&gt; gcc -c foo.c</span><br><span class="line">&gt; readelf -s foo.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">'.symtab'</span> contains 11 entries:</span><br><span class="line">   Num:    Value  Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 00000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS foo.c</span><br><span class="line">     2: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1</span><br><span class="line">     3: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3</span><br><span class="line">     4: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4</span><br><span class="line">     5: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5</span><br><span class="line">     6: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   7</span><br><span class="line">     7: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8</span><br><span class="line">     8: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6</span><br><span class="line">     9: 00000000    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 foo</span><br><span class="line">    10: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND puts</span><br></pre></td></tr></table></figure>
-
-<p>一般狀況的 <code>main.o</code> symbol（重點在 18）：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&gt; g++ -c main.cpp</span><br><span class="line">&gt; readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">'.symtab'</span> contains 23 entries:</span><br><span class="line">   Num:    Value  Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 00000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS main.cpp</span><br><span class="line">     2: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1</span><br><span class="line">     3: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3</span><br><span class="line">     4: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4</span><br><span class="line">     5: 00000000     1 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   4 _ZStL8__ioinit</span><br><span class="line">     6: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5</span><br><span class="line">     7: 00000039    64 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _Z41__static_initializati</span><br><span class="line">     8: 00000079    28 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _GLOBAL__sub_I_main</span><br><span class="line">     9: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6</span><br><span class="line">    10: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   9</span><br><span class="line">    11: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10</span><br><span class="line">    12: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8</span><br><span class="line">    13: 00000000    57 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 main</span><br><span class="line">    14: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4cout</span><br><span class="line">    15: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZStlsISt11char_traitsIcE</span><br><span class="line">    16: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4endlIcSt11char_trait</span><br><span class="line">    17: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSolsEPFRSoS_E</span><br><span class="line">    18: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _Z3foov</span><br><span class="line">    19: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitC1Ev</span><br><span class="line">    20: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitD1Ev</span><br><span class="line">    21: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __dso_handle</span><br><span class="line">    22: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __cxa_atexit</span><br></pre></td></tr></table></figure>
-
-<p><code>foo.h</code> 有 <code>extern &quot;C&quot;</code> 的 <code>main.o</code> symbol：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&gt;readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">'.symtab'</span> contains 23 entries:</span><br><span class="line">   Num:    Value  Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 00000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS main.cpp</span><br><span class="line">     2: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1</span><br><span class="line">     3: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3</span><br><span class="line">     4: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4</span><br><span class="line">     5: 00000000     1 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   4 _ZStL8__ioinit</span><br><span class="line">     6: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5</span><br><span class="line">     7: 00000039    64 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _Z41__static_initializati</span><br><span class="line">     8: 00000079    28 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _GLOBAL__sub_I_main</span><br><span class="line">     9: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6</span><br><span class="line">    10: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   9</span><br><span class="line">    11: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10</span><br><span class="line">    12: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8</span><br><span class="line">    13: 00000000    57 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 main</span><br><span class="line">    14: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4cout</span><br><span class="line">    15: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZStlsISt11char_traitsIcE</span><br><span class="line">    16: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4endlIcSt11char_trait</span><br><span class="line">    17: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSolsEPFRSoS_E</span><br><span class="line">    18: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br><span class="line">    19: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitC1Ev</span><br><span class="line">    20: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitD1Ev</span><br><span class="line">    21: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __dso_handle</span><br><span class="line">    22: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __cxa_atexit</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1242,7 +1232,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">151</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

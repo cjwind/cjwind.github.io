@@ -196,6 +196,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Go-multi-dimention-array-and-slice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Go-multi-dimention-array-and-slice/" class="post-title-link" itemprop="url">Go 多維 array 與 slice</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-11-09 22:25:56" itemprop="dateCreated datePublished" datetime="2019-11-09T22:25:56+08:00">2019-11-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 14:39:59" itemprop="dateModified" datetime="2020-08-09T14:39:59+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Go-multi-dimention-array-and-slice/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Go-multi-dimention-array-and-slice/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>Array types are always one-dimensional but may be composed to form multi-dimensional types.</p>
+</blockquote>
+<p>from <a href="https://golang.org/ref/spec#Array_types" target="_blank" rel="noopener">spec Array types</a></p>
+<blockquote>
+<p>A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array.<br>…<br>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects.</p>
+</blockquote>
+<p>from <a href="https://golang.org/ref/spec#Slice_types" target="_blank" rel="noopener">spec Slice types</a></p>
+<h1 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h1><h2 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h2><p>在多維的情況下，inner slice 只能一個個初始化，像這樣：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面例子沒有迴圈直接去 access <code>x[0][0]</code> 的話會 <code>index out of range</code>。</p>
+<p>或者用 literal 直接寫：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">a := [][]<span class="keyword">uint8</span>&#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;,</span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>初始化成零值比較簡單：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">c := [<span class="number">5</span>][<span class="number">5</span>]<span class="keyword">uint8</span>&#123;&#125;</span><br><span class="line"><span class="comment">// [[0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0]]</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Memory-Size"><a href="#Memory-Size" class="headerlink" title="Memory Size"></a>Memory Size</h1><p>多維 array 的 size 是 <code>type size * element 數量</code> 。</p>
+<p>多維 slice 的 size 則要看多維 slice 是怎麼組成的。slice 由指向 underlying array 的 pointer、length、capacity 組成，多維 slice 不同的組合方式會造成有不同數量的 slice header 而有不同的 size，來個例子：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// x 是 2 x 1000 的 slice</span></span><br><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(x), <span class="built_in">len</span>(x)*<span class="built_in">len</span>(x[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment">// y 是 1000 x 2 的 slice</span></span><br><span class="line">y := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> y &#123;</span><br><span class="line">    y[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(y), <span class="built_in">len</span>(y)*<span class="built_in">len</span>(y[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
+
+<p>output 是：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> <span class="number">2000</span></span><br><span class="line"><span class="number">1000</span> <span class="number">2000</span></span><br></pre></td></tr></table></figure>
+
+<p>x 跟 y 都是多維 slice 而且都有 2000 個 element。x 只有兩個 slice、每個 slice 有 1000 個 element byte，y 有 1000 個 slice、每個 slice 只有兩個 element。</p>
+<p>slice header 長這樣：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="keyword">uintptr</span></span><br><span class="line">    Len  <span class="keyword">int</span></span><br><span class="line">    Cap  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>from <a href="https://golang.org/pkg/reflect/#SliceHeader" target="_blank" rel="noopener">SliceHeader</a></p>
+<p>在 64-bit 平台上，一個 slice header 的 size 是 24 bytes。那麼 x 的總 size 是 2000 + 2 * 24 = 2048 bytes。而 y 的總 size 則是 2000 + 1000 * 24 = 26000 bytes。</p>
+<p>所以啦，考量 memory 使用的時候，需要注意多維 slice 是怎麼組的，像上面的 y，slice header 的 size 遠超過全部 element 的 size。</p>
+<h1 id="Inner-array-slice-length"><a href="#Inner-array-slice-length" class="headerlink" title="Inner array/slice length"></a>Inner array/slice length</h1><blockquote>
+<p>With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.</p>
+</blockquote>
+<p>多維 array 的 inner array 都是相同 length 的。</p>
+<p>多維 slice 的 inner slice 可以是不同 length。另外，inner slice 必須要各自 initialize。</p>
+<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
+<li><a href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go" target="_blank" rel="noopener">What is a concise way to create a 2D slice in Go?</a></li>
+<li><a href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation" target="_blank" rel="noopener">How is two dimensional array’s memory representation</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OpenAPI-PSR-7-Message-Validator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1181,97 +1300,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/config-travis-and-github-with-composer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/config-travis-and-github-with-composer/" class="post-title-link" itemprop="url">Travis 設定 Github Access Token</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-15 22:27:51" itemprop="dateCreated datePublished" datetime="2019-04-15T22:27:51+08:00">2019-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/config-travis-and-github-with-composer/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="config-travis-and-github-with-composer/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>Travis 在 run <code>composer install</code> 會出現類似以下錯誤：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Failed <span class="built_in">to</span> clone <span class="keyword">the</span> git@github.com:jquery/jquery-dist.git repository, <span class="keyword">try</span> running <span class="keyword">in</span> interactive mode so that you can enter your GitHub credentials</span><br><span class="line"></span><br><span class="line">  [Composer\Repository\InvalidRepositoryException]</span><br><span class="line">  No valid bower.json was found <span class="keyword">in</span> <span class="keyword">any</span> branch <span class="keyword">or</span> tag <span class="keyword">of</span> <span class="keyword">https</span>://github.com/jq</span><br><span class="line">  uery/jquery-dist.git, could <span class="keyword">not</span> <span class="built_in">load</span> <span class="keyword">a</span> package <span class="built_in">from</span> <span class="keyword">it</span>.</span><br></pre></td></tr></table></figure>
-
-<p>失敗的 repository 不一定，可能這次 jquery 下次別的。</p>
-<p>找了一陣，說是踩到 Github 的 <a href="https://developer.github.com/v3/#rate-limiting" target="_blank" rel="noopener">rate limit</a>（我理解是 <code>composer install</code> 會一直從 github 抓東西所以容易踩到），但又有文章說這個問題已經被修正。<del>我還是踩到了啊</del></p>
-<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ol>
-<li>在 Github 產生 <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Personal access token</a>。</li>
-<li>在 Travis 設定有使用 Travis 的 project 的環境變數（environment variable），指定變數名稱，值是剛剛在 Github 產生的 access token。</li>
-<li>修改 <code>.travis.yml</code>，在 <code>composer install</code> 前加入 <code>composer config github-oauth.github.com ${環境變數名稱}</code></li>
-</ol>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://blog.wyrihaximus.net/2015/09/github-auth-token-on-travis/" target="_blank" rel="noopener">Github auth token on TravisCI</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1341,7 +1369,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">151</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

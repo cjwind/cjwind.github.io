@@ -196,6 +196,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Amdahl-s-law/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Amdahl-s-law/" class="post-title-link" itemprop="url">Amdahl's law</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-10-23 23:34:48" itemprop="dateCreated datePublished" datetime="2018-10-23T23:34:48+08:00">2018-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Amdahl-s-law/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Amdahl-s-law/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>提升系統某部份效能（減少執行時間）時，對系統整體的影響取決於該部份佔系統的比重以及其效能提升的程度。</p>
+<p>某個程式原本的執行時間是 <code>T</code>，效能提升後執行時間為 <code>T&#39;</code>。其中某部份程式的執行時間為 <code>t</code>、其佔全部執行時間的比例為 <code>a = t / T</code>。假設此部份提升效能後的執行時間為 <code>t&#39;</code>，即該部份效能提升為 <code>k = t / t&#39;</code>，則整個程式的效能提升為：</p>
+<p><code>S = T / T&#39; = 1 / ((1 - a) + a / k)</code></p>
+<p>是個蠻直覺的定理。在 <a href="/performance-of-concurrency/">Performance of Concurrency</a> 有寫過，這篇是比較 general 的版本。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/review-of-Clean-Code/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1010,114 +1092,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Reentrancy-and-Thread-safety/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Reentrancy-and-Thread-safety/" class="post-title-link" itemprop="url">Reentrancy and Thread-safety</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-07-22 00:05:57" itemprop="dateCreated datePublished" datetime="2017-07-22T00:05:57+08:00">2017-07-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Reentrancy-and-Thread-safety/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Reentrancy-and-Thread-safety/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>常常聽到看到 reentrancy 但老是跟 thread-safety 搞得不是太清楚。</p>
-<h2 id="Reentrancy"><a href="#Reentrancy" class="headerlink" title="Reentrancy"></a>Reentrancy</h2><p>reentrancy 是 function 可以在執行過程中被中斷，在上一次執行還沒完成前可以再次進入這個 function 執行而不會有問題，也就是第二次進入 function 執行結束後，第一次的執行仍能正確完成。中斷可以是 jump 或 call，也可以是系統的 interrupt 或 signal。</p>
-<p>reentrancy 是 single thread 環境下就有的概念。像是被系統 interrupt 中斷時 interrupt handler 是不是能夠再 call 剛剛執行到一半的 function？反過來說，interrupt handler 能 call 的只有 reentrant function。另外，recursive function 一般會是 reentrancy，但如果它使用了 global 變數就不一定。</p>
-<p>reentrancy function 可以是 thread-safe 但不一定是 thread-safe。thread-safe function 可以是 reentrancy 也可以不是（繞口令時間）。function 是 thread-safe 但不是 reentrancy 的例子：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">function <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    mutex_lock();</span><br><span class="line">    <span class="comment">//blah...</span></span><br><span class="line">    mutex_unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 single thread 的環境下，如果 <code>foo()</code> 執行到一半被 interrupt 打斷，interrupt handler 又 call <code>foo()</code> 會永遠等不到 mutex unlock，整個卡在那。</p>
-<p>達成 reentrancy 的基本原則：</p>
-<ul>
-<li>不使用 global（或 static）的變數<br>但如果執行過程確保 global 變數或 state 能在執行前後保持一致，是可以用的。</li>
-<li>不修改自身的 code</li>
-<li>不 call non-reentrant function</li>
-</ul>
-<h2 id="Thread-safety"><a href="#Thread-safety" class="headerlink" title="Thread-safety"></a>Thread-safety</h2><p>thread-safety 是在 multiple thread 的環境下，thread 間的 shared data 可以在任意執行順序下依然保持正確。</p>
-<p>達到 thread-safety 的方式分兩大類，一是避免 race condition，二是 synchronization。</p>
-<ol>
-<li>避免 race condition<ul>
-<li>寫成不使用 global 變數的 reentrancy code<br>這種 reentrancy code 的寫法可以達成 thread-safety，但不是所有 reentrancy code 都是 thread-safety。反之，因為有很多達成 thread-safety 的方式，不是所有 thread-safety 都是 reentrancy。</li>
-<li>使用 thread-local storage（TLS）<br>存在 TLS 裡的 data 是屬於某個 thread 的，不會在 thread 間共享。</li>
-<li>shared data 使用 immutable object<br>data 不會變當然就沒有 race condition 的問題啦！XD</li>
-</ul>
-</li>
-<li>synchronization<ul>
-<li>mutual exclusion 以及其變形們<br>要注意 dead-lock 或 resource starvation 等等問題</li>
-<li>atomic operation<br>確保 operation 不會被打斷的，通常有賴 instruction 層級的支援。高階 mutual exclusion 也是需要靠 atomic operation 實作的。</li>
-</ul>
-</li>
-</ol>
-<h2 id="不同的-terminology"><a href="#不同的-terminology" class="headerlink" title="不同的 terminology"></a>不同的 terminology</h2><p>不同的 library、系統或語言可能自己定義 thread-safe 跟 reentrant。</p>
-<p>例如 <a href="http://doc.qt.io/qt-5/threads-reentrancy.html" target="_blank" rel="noopener">Qt</a> 將 reentrant 以及 thread-safe 都定義在 multiple thread 的環境下。針對 class 來說，Qt 的 thread-safe class 是 multiple thread 可以 call 同一個 class instance 的 member function，而 reentrant class 則是 multiple thread 只要使用不同的 class instance 就能同時 call member function。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1187,7 +1161,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">151</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
