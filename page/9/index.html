@@ -197,6 +197,125 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-trace-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Murmur-trace-code/" class="post-title-link" itemprop="url">trace code</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-08-30 17:07:57" itemprop="dateCreated datePublished" datetime="2015-08-30T17:07:57+08:00">2015-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Murmur-trace-code/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Murmur-trace-code/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近看了些 code，發現不同情況下有不同 trace code 的方式，來 murmur 一下。</p>
+<p>通常拿到一份 code 會先看它主要 component 的結構。如果有 UI 會先大概了解有哪些 component、分別叫什麼、彼此階層關係是什麼，例如哪個 container 裡放著什麼之類的。如果是網頁會先看資料夾結構是一般自己寫的還是用 framework。之後依照要做的事情不同而有不同的 trace 方式。</p>
+<p>第一種，debug 或者找特定功能。</p>
+<p>意識到這種 trace code 方式應該是大學在計中打工的時候，那時候想將 Wordpress 跟一個系統做簡單的整合連結，所以要找 Wordpress 裡相對應的功能。工作後 debug 也常常是用這種方式在看 code。</p>
+<ul>
+<li>如果有 UI 操作，從 UI 操作 trigger 的地方開始一路往下看。</li>
+<li>簡單的東西可能只需要找到特定 function，改一改或加一加功能就好。</li>
+<li>稍微複雜一點就得看懂整條路在幹嘛。</li>
+</ul>
+<p>這方式是單看程式裡某一條路徑、某一段特定邏輯，除非發現是架構上的 bug 才會再往外擴。要是對那份 code 很熟，是也不用從最開始往下找啦……</p>
+<p>第二種，想知道程式整體結構或運作之類的。</p>
+<p>想全面但不深入細節的了解結構跟 high level 的邏輯概念。著重架構及概念，會看大致的流程邏輯，但不會細看每個 function 怎麼實作。這是最近演化(?)出來的方式。</p>
+<ul>
+<li>找最主要的 component 當起點，通常那 project 叫什麼主要 component 就叫什麼，找不到就從 <code>main()</code> 開始。</li>
+<li>看 class name 猜用途<del>猜猜樂</del><ul>
+<li>看名字看不出來的就看 public function 來了解這 class 提供什麼功能</li>
+<li>function name 還是看不出來，找其他地方如何使用或者快速掃一下實作</li>
+<li>有時候會遇到「這個 class 就是這堆功能的集合，我也看不出來這名字跟這堆功能有啥關係」的狀況就是……</li>
+</ul>
+</li>
+<li>需要知道某些流程的時候<ul>
+<li>以類似第一種做法順著流程邏輯看，但只看概略，不細看實作。</li>
+<li>偶爾會看點實作，但比較像用大筆刷過去……第一種方式看實作比較像要刻字那樣精雕細琢…….<del>我到底在寫什麼…Orz…</del></li>
+</ul>
+</li>
+<li>了解各 object 的關係，通常看 member。<ul>
+<li>如果是 pointer 要注意是自己生的還是別人傳進來的。</li>
+</ul>
+</li>
+<li>遇到某些關鍵字，例如 XXXFactory、XXXObserver，直接套用已知概念。<ul>
+<li>只注意誰跟誰有這類的關係，不細看如何實作這些關係。當然也有人家有關鍵字但我不會那概念就沒東西套的狀況……XD</li>
+</ul>
+</li>
+<li>遇見某些常見寫法，直接套用那種寫法的概念。<ul>
+<li>例如 <code>select()</code> 常常就是一個 while loop、塞一塞 <code>fdset</code>、call <code>select()</code>、後面依照 <code>fdset</code> 做事。某些 event loop 做法也有相似性。</li>
+</ul>
+</li>
+</ul>
+<p>我覺得如果遇到關鍵字跟常見做法可以直接套用已知觀念，相對來說就會快很多，因為不需要特別再看實作去理解這部分在做什麼。有時候需要看實作是因為拼湊其他線索後還是不知道那段在幹嘛，只好透過實作細節重新抽象化成概念。</p>
+<p>至於如何找 code？find all 與 <code>grep --color -nr *</code> 萬歲！(欸)</p>
+<p>PS：寫這個是想知道自己怎麼 trace code 的，但怎麼寫一寫好像還是有點像要心領神會的難以言喻……Orz……</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch5-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1108,97 +1227,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cpp-Virtual-destructor-in-interface/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Cpp-Virtual-destructor-in-interface/" class="post-title-link" itemprop="url">C++ Virtual destructor in interface</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-06-19 22:51:40" itemprop="dateCreated datePublished" datetime="2015-06-19T22:51:40+08:00">2015-06-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Cpp-Virtual-destructor-in-interface/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cpp-Virtual-destructor-in-interface/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>C++ 不像 Java 有 interface，這邊說的 interface 是所有 function 皆為 pure virtual function 的 abstract class。</p>
-<p>interface 依然要有 virtual destructor，否則用 interface pointer 去砍 object 的時候會變成 undefined behavior。如果希望 interface 中的 virtual destructor 仍是 pure virtual，可以這樣寫：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Interface</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~Interface() = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Interface::~Interface() &#123; &#125;</span><br></pre></td></tr></table></figure>
-
-<p>由於只要有 class 繼承 Interface，Interface 的 destructor 就會被 derived class call 到，所以必須要有 definition 才不會 link error。</p>
-<p>virtual destructor 另一個使用場合──希望訂一個 interface 但不想訂定其中要有什麼 function──不想訂 function 但又需要該 class 是 abstract class 時就可用 virtual destructor 達到目的。聽起來有點怪，我遇到這種狀況是希望有個 interface 可以代表某種類的 object，但是在 interface 的階段卻又無法確定 derived class 會有那些 function，最後因為覺得結構上不需要而沒有真的使用，不曉得有沒有其他更好的方法？</p>
-<p>2018-12：現在看看覺得「希望訂一個 interface 但不想訂定其中要有什麼 function」的情況有點怪……又想不起來之前遇到什麼了……要訂 interface 至少要有基本 function，否則是否先不訂 interface、先做 class，等漸漸看到有共通的 function 時再訂定 interface？</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="/c-plus-plus-virtual-destructor">C++ Virtual Destructor</a></li>
-<li><a href="http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c</a></li>
-<li><a href="http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c</a></li>
-<li><a href="http://www.gotw.ca/gotw/031.htm" target="_blank" rel="noopener">http://www.gotw.ca/gotw/031.htm</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1268,7 +1296,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1281,7 +1309,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

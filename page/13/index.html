@@ -197,6 +197,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Eclipse-and-Qt-Creator-uses-Visual-C++-compiler-and-Windows-SDK/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Eclipse-and-Qt-Creator-uses-Visual-C++-compiler-and-Windows-SDK/" class="post-title-link" itemprop="url">Eclipse and Qt Creator uses Visual C++ compiler and Windows SDK</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-08-25 00:10:22" itemprop="dateCreated datePublished" datetime="2014-08-25T00:10:22+08:00">2014-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2014-11-18 22:20:00" itemprop="dateModified" datetime="2014-11-18T22:20:00+08:00">2014-11-18</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Eclipse-and-Qt-Creator-uses-Visual-C++-compiler-and-Windows-SDK/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Eclipse-and-Qt-Creator-uses-Visual-C++-compiler-and-Windows-SDK/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原本想說既然在 Windows 上開發，用 Visual Studio 好了，但打開網站看到價格，呃，我還是繼續用 Eclipse 跟 Qt Creator  吧！<em>謎版？找謎版的時間我都可以處理好了…</em></p>
+<h2 id="Install-Windows-SDK"><a href="#Install-Windows-SDK" class="headerlink" title="Install Windows SDK"></a>Install Windows SDK</h2><p>安裝 Windows 7 的。</p>
+<p><a href="http://www.microsoft.com/en-us/download/details.aspx?id=8279" target="_blank" rel="noopener">Microsoft Windows SDK for Windows 7 and .NET Framework 4</a></p>
+<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>裝 Windows SDK 失敗，像<a href="http://www.mathworks.com/matlabcentral/answers/95039-why-does-the-sdk-7-1-installation-fail-with-an-installation-failed-message-on-my-windows-system" target="_blank" rel="noopener">這篇</a>的狀況。移掉 Microsoft Visual C++ 2010 redistributable packages 後再裝 Windows SDK 就可以了。</p>
+<p>compile 時遇到 <code>error C2059: syntax error : &#39;constant&#39;</code>，<a href="https://github.com/cjwind/patch/tree/master/WindowsSDK71" target="_blank" rel="noopener">patch</a>。</p>
+<h2 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h2><h3 id="Install-CDT-Visual-C-Support"><a href="#Install-CDT-Visual-C-Support" class="headerlink" title="Install CDT Visual C++ Support"></a>Install CDT Visual C++ Support</h3><p>在 Eclipse 裝 CDT Visual C++ Support，才有 Visual C++ tool chain。我的 Eclipse 是 Juno。</p>
+<p>CDT site：<a href="http://download.eclipse.org/tools/cdt/releases/juno" target="_blank" rel="noopener">http://download.eclipse.org/tools/cdt/releases/juno</a></p>
+<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p><strong>Project property</strong></p>
+<p>C/C++ Build -&gt; Tool Chain Editor 的 toolchain 設為 Microsoft Visual C++。</p>
+<p>C/C++ Build -&gt; Environment 增加 PATH C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin，這樣才找得到 Visual C++ compiler。</p>
+<p>C/C++ General -&gt; Paths and Symbols -&gt; Includes -&gt; GNU C++</p>
+<p><img src="/images/Eclipse_vc_config1.png" alt="Eclipse Configuration"></p>
+<h2 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator"></a>Qt Creator</h2><p>因為想到要有 GUI 介面，所以需要 Qt + Windows SDK，但現在 Eclipse 跟 Qt 的整合不太好，改用 Qt Creator + Windows SDK。</p>
+<p>直接裝 <a href="http://download.qt-project.org/official_releases/qt/5.3/5.3.1/qt-opensource-windows-x86-msvc2010_opengl-5.3.1.exe" target="_blank" rel="noopener">Qt 5.3.1 for Windows 32-bit (VS 2010, OpenGL, 537 MB)</a></p>
+<h3 id="Kits"><a href="#Kits" class="headerlink" title="Kits"></a>Kits</h3><p>如果已經先裝其他版本的 Qt，應該可以在選項裡加 Kit：</p>
+<p><img src="/images/QtCreator_WinSDK_kit.png" alt="Qt Creator Windows SDK Kits"></p>
+<h3 id="pro-setting"><a href="#pro-setting" class="headerlink" title="pro setting"></a>pro setting</h3><p><code>INCLUDEPATH</code> 要加 Windows SDK 的路徑，如 Eclipse Configuration 圖中的路徑。</p>
+<h3 id="Troubleshooting-1"><a href="#Troubleshooting-1" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>compile 時遇到 <code>LINK : fatal error LNK1123: failure during conversion to COFF: file invalid or corrupt</code> 的錯誤。</p>
+<p>Solution：<a href="http://qt-project.org/wiki/Category:Tools::msvc" target="_blank" rel="noopener">http://qt-project.org/wiki/Category:Tools::msvc</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/C++-declare-data-members-private/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1009,93 +1106,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/toy-gpxconcat/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/toy-gpxconcat/" class="post-title-link" itemprop="url">[Toy] GpxConcat</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-25 23:21:50" itemprop="dateCreated datePublished" datetime="2014-04-25T23:21:50+08:00">2014-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/toy-gpxconcat/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="toy-gpxconcat/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>把多個 .gpx 檔案接成一個檔的小工具，目前只支援從 <a href="http://www.endomondo.com/" target="_blank" rel="noopener">Endomondo</a> 抓來的 gpx 檔，不確定這是不是 gpx 的固定格式。<del>UI 很醜我真的知道，拜託不要要求工程師的美感。</del></p>
-<p>使用方式：Add 新增要合併的 gpx 檔案，Del 刪掉。Up 跟 Down 排列 gpx 檔案的順序，結果檔中的內容會以檔案列表的順序排列。</p>
-<p>記錄一下寫這小玩具學到的東西：</p>
-<ul>
-<li>Parse XML by C++ with Pugixml</li>
-<li>Setup Qt develop environment with Qt Creator in Windows</li>
-<li>Usage of release in Github</li>
-<li>Deploy Qt application in Windows</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1165,7 +1175,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1178,7 +1188,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

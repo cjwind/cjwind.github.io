@@ -197,6 +197,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cpp-Virtual-destructor-in-interface/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Cpp-Virtual-destructor-in-interface/" class="post-title-link" itemprop="url">C++ Virtual destructor in interface</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-06-19 22:51:40" itemprop="dateCreated datePublished" datetime="2015-06-19T22:51:40+08:00">2015-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Cpp-Virtual-destructor-in-interface/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cpp-Virtual-destructor-in-interface/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>C++ 不像 Java 有 interface，這邊說的 interface 是所有 function 皆為 pure virtual function 的 abstract class。</p>
+<p>interface 依然要有 virtual destructor，否則用 interface pointer 去砍 object 的時候會變成 undefined behavior。如果希望 interface 中的 virtual destructor 仍是 pure virtual，可以這樣寫：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Interface</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~Interface() = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> Interface::~Interface() &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>由於只要有 class 繼承 Interface，Interface 的 destructor 就會被 derived class call 到，所以必須要有 definition 才不會 link error。</p>
+<p>virtual destructor 另一個使用場合──希望訂一個 interface 但不想訂定其中要有什麼 function──不想訂 function 但又需要該 class 是 abstract class 時就可用 virtual destructor 達到目的。聽起來有點怪，我遇到這種狀況是希望有個 interface 可以代表某種類的 object，但是在 interface 的階段卻又無法確定 derived class 會有那些 function，最後因為覺得結構上不需要而沒有真的使用，不曉得有沒有其他更好的方法？</p>
+<p>2018-12：現在看看覺得「希望訂一個 interface 但不想訂定其中要有什麼 function」的情況有點怪……又想不起來之前遇到什麼了……要訂 interface 至少要有基本 function，否則是否先不訂 interface、先做 class，等漸漸看到有共通的 function 時再訂定 interface？</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a href="/c-plus-plus-virtual-destructor">C++ Virtual Destructor</a></li>
+<li><a href="http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c</a></li>
+<li><a href="http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c</a></li>
+<li><a href="http://www.gotw.ca/gotw/031.htm" target="_blank" rel="noopener">http://www.gotw.ca/gotw/031.htm</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OOAD-software-develop-cycle/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1073,93 +1164,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/encapsulate-change/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/encapsulate-change/" class="post-title-link" itemprop="url">封裝會改變的東西</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-03-14 17:46:53" itemprop="dateCreated datePublished" datetime="2015-03-14T17:46:53+08:00">2015-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2016-11-14 22:09:11" itemprop="dateModified" datetime="2016-11-14T22:09:11+08:00">2016-11-14</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/encapsulate-change/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="encapsulate-change/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>封裝會改變的東西，減少改動一個部分會影響到其他部分的狀況。</p>
-<p>將 class 中容易改變的部分封裝到另一個 class 有助於保護原本 class 有不必要的改變。</p>
-<p>程式改變可能改動到相關功能，如果一個 class 中常修改的地方並非該 class 負責的事情，修改它是不必要的，而且可能引入其他功能受到影響的風險。如果能將常修改的地方封裝，就可以保護原本 class 的其他功能不受影響。</p>
-<p>「封裝」不單指將東西包成 class，把一堆 property 放到 map 之類的 container 也是封裝。</p>
-<h2 id="Related-Posts"><a href="#Related-Posts" class="headerlink" title="Related Posts"></a>Related Posts</h2><ul>
-<li><a href="/Open-Closed-Principle">Open Closed Principle（OCP）</a></li>
-<li><a href="/Single-Responsibility-Principle">Single Responsibility Principle（SRP）</a></li>
-<li><a href="/Dont-Repeat-Yourself">Don’t Repeat Yourself（DRY）</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1229,7 +1233,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1242,7 +1246,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

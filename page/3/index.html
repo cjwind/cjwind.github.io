@@ -197,6 +197,109 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/C-stringify/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/C-stringify/" class="post-title-link" itemprop="url">C 語言 stringify 技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-06-29 23:19:12" itemprop="dateCreated datePublished" datetime="2019-06-29T23:19:12+08:00">2019-06-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/C-stringify/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="C-stringify/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一般 <code>#define</code> macro 不會將 parameter 展開成字串，只會把 parameter 放到對應位置，例如：</p>
+<figure class="highlight xml"><figcaption><span>php</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> <span class="string">"Hello world"</span>;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ECHO(str) printf(<span class="meta-string">"%s\n"</span>, str)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    ECHO(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>經過 preprocess：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">$ cpp stringify.c</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果在 parameter 前加 <code>#</code>，preprocessor 會把 actual argument 變成字串，稱為 <a href="https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html" target="_blank" rel="noopener">Stringizing</a>。用個例子說明：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ECHO(str) printf(<span class="meta-string">"%s\n"</span>, #str)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    ECHO(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>經過 preprocess（只是例子，code 本身不太 make sense）：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, <span class="string">"s"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Linux kernel 使用這個技巧將 macro 展開成字串。</p>
+<p><code>__stringify</code> 定義在 <a href="https://elixir.bootlin.com/linux/v4.19/source/include/linux/stringify.h" target="_blank" rel="noopener"><code>include/linux/stringify.h</code></a>：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...)	#x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)	__stringify_1(x)</span></span><br></pre></td></tr></table></figure>
+
+<p>為什麼 <code>__stringify</code> 要 define 兩次呢？</p>
+<p>在 <a href="https://gcc.gnu.org/onlinedocs/cpp/Argument-Prescan.html" target="_blank" rel="noopener">Argument Prescan</a> 提到 macro 的參數如果也是 macro，一般在被替換進 macro body 前就會被展開，但如果是 stringized 則不會被展開。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...) #x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)   __stringify_1(x)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOO bar</span></span><br><span class="line"></span><br><span class="line">__stringify_1(FOO)        <span class="comment">// become "FOO"</span></span><br><span class="line">__stringify(FOO)          <span class="comment">// become "bar"</span></span><br></pre></td></tr></table></figure>
+
+<p>這例子裡 <code>__stringify_1(FOO)</code> 因為是 stringized 的 macro 參數，所以 <code>FOO</code> 不會被展開，macro 替換後最後變成 <code>&quot;FOO&quot;</code>。而 <code>__stringify(FOO)</code> 會先展開 <code>FOO</code> 並替換，變成 <code>__stringify_1(bar)</code>，接著再 scan 一次將 macro 展開為 <code>&quot;bar&quot;</code>。</p>
+<p><code>__stringify</code> define 兩次是為了讓參數可以使用 macro。像上面的例子，通常期望 <code>__stringify(FOO)</code> 得到 <code>&quot;bar&quot;</code> 而非 <code>&quot;FOO&quot;</code>。</p>
+<p><code>...</code> 是跟 function 一樣的不定參數，可參考 <a href="https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html" target="_blank" rel="noopener">Variadic Macros</a>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Codeception-module-yii2-event-tester/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1007,103 +1110,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Visual-Studio-2017-NUnit-Usage/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Visual-Studio-2017-NUnit-Usage/" class="post-title-link" itemprop="url">Visual Studio 2017 NUnit Usage</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-03 23:58:41" itemprop="dateCreated datePublished" datetime="2018-11-03T23:58:41+08:00">2018-11-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Visual-Studio-2017-NUnit-Usage/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Visual-Studio-2017-NUnit-Usage/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>NUnit 是 .NET 的 unit test framework</p>
-<h1 id="建立專案"><a href="#建立專案" class="headerlink" title="建立專案"></a>建立專案</h1><ol>
-<li>新增「Visual Studio C# 類別庫 (.Net Framework)」專案</li>
-<li>在 solution 裡加入 unit test 新專案，一樣是 Visual Studio C# 類別庫 (.Net Framework)</li>
-</ol>
-<p>unit test project 可命名為 <code>[Project].UnitTests</code>。</p>
-<h1 id="安裝-NUnit-套件"><a href="#安裝-NUnit-套件" class="headerlink" title="安裝 NUnit 套件"></a>安裝 NUnit 套件</h1><p>在 unit test project 右鍵 → 管理 NuGet 套件 → 搜尋 → 安裝。</p>
-<p>安裝 <code>NUnit</code>、<code>NUnit3TestAdapter</code> 套件，NUnit 裝完可以在參考看到 <code>nunit.framework</code>。</p>
-<p>安裝的 NUnit 版本是 3.11.0。</p>
-<h1 id="寫-amp-跑測試"><a href="#寫-amp-跑測試" class="headerlink" title="寫 &amp; 跑測試"></a>寫 &amp; 跑測試</h1><p>在 unit test project 加入要測試的 project 的參考。</p>
-<p>在 class 前標註 <code>[TestFixture]</code> 表示 NUnit 測試的類別，在 function 前標註 <code>[Test]</code> 表示測試。</p>
-<p>選單→測試→執行→所有測試，就會出現「測試總管」顯示測試結果啦～</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Visual-Studio-2017-NUnit-Usage/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1173,7 +1179,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">154</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1186,7 +1192,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">50</span>
+        <span class="site-state-item-count">51</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

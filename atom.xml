@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2020-08-14T00:58:52.808Z</updated>
+  <updated>2020-08-16T10:00:18.394Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安裝 mariadb 並設定 root password</title>
+    <link href="http://www.cjwind.idv.tw/Install-mariadb-and-setup-root-password/"/>
+    <id>http://www.cjwind.idv.tw/Install-mariadb-and-setup-root-password/</id>
+    <published>2020-08-16T09:57:52.000Z</published>
+    <updated>2020-08-16T10:00:18.394Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Debian，先安裝：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt install mariadb-server</span></span><br></pre></td></tr></table></figure><p>裝完做些跟安全有關的設定跟 root password：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo mysql_secure_installation</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在 Debian，先安裝：&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;$&lt;/span&gt;&lt;span cl</summary>
+      
+    
+    
+    
+    
+    <category term="DB" scheme="http://www.cjwind.idv.tw/tags/DB/"/>
+    
+  </entry>
   
   <entry>
     <title>ch5 Tools</title>
@@ -484,34 +507,9 @@
     
     
     
-    <category term="PhpStorm" scheme="http://www.cjwind.idv.tw/tags/PhpStorm/"/>
-    
     <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
     
-  </entry>
-  
-  <entry>
-    <title>C 語言 stringify 技巧</title>
-    <link href="http://www.cjwind.idv.tw/C-stringify/"/>
-    <id>http://www.cjwind.idv.tw/C-stringify/</id>
-    <published>2019-06-29T15:19:12.000Z</published>
-    <updated>2020-08-09T03:17:09.236Z</updated>
-    
-    <content type="html"><![CDATA[<p>一般 <code>#define</code> macro 不會將 parameter 展開成字串，只會把 parameter 放到對應位置，例如：</p><figure class="highlight xml"><figcaption><span>php</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="php"><span class="meta">&lt;?php</span></span></span><br><span class="line"><span class="php"><span class="keyword">echo</span> <span class="string">"Hello world"</span>;</span></span><br></pre></td></tr></table></figure><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ECHO(str) printf(<span class="meta-string">"%s\n"</span>, str)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    ECHO(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>經過 preprocess：</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">$ cpp stringify.c</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如果在 parameter 前加 <code>#</code>，preprocessor 會把 actual argument 變成字串，稱為 <a href="https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html" target="_blank" rel="noopener">Stringizing</a>。用個例子說明：</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ECHO(str) printf(<span class="meta-string">"%s\n"</span>, #str)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    ECHO(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>經過 preprocess（只是例子，code 本身不太 make sense）：</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">"hello"</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s\n"</span>, <span class="string">"s"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Linux kernel 使用這個技巧將 macro 展開成字串。</p><p><code>__stringify</code> 定義在 <a href="https://elixir.bootlin.com/linux/v4.19/source/include/linux/stringify.h" target="_blank" rel="noopener"><code>include/linux/stringify.h</code></a>：</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...)#x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)__stringify_1(x)</span></span><br></pre></td></tr></table></figure><p>為什麼 <code>__stringify</code> 要 define 兩次呢？</p><p>在 <a href="https://gcc.gnu.org/onlinedocs/cpp/Argument-Prescan.html" target="_blank" rel="noopener">Argument Prescan</a> 提到 macro 的參數如果也是 macro，一般在被替換進 macro body 前就會被展開，但如果是 stringized 則不會被展開。</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...) #x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)   __stringify_1(x)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOO bar</span></span><br><span class="line"></span><br><span class="line">__stringify_1(FOO)        <span class="comment">// become "FOO"</span></span><br><span class="line">__stringify(FOO)          <span class="comment">// become "bar"</span></span><br></pre></td></tr></table></figure><p>這例子裡 <code>__stringify_1(FOO)</code> 因為是 stringized 的 macro 參數，所以 <code>FOO</code> 不會被展開，macro 替換後最後變成 <code>&quot;FOO&quot;</code>。而 <code>__stringify(FOO)</code> 會先展開 <code>FOO</code> 並替換，變成 <code>__stringify_1(bar)</code>，接著再 scan 一次將 macro 展開為 <code>&quot;bar&quot;</code>。</p><p><code>__stringify</code> define 兩次是為了讓參數可以使用 macro。像上面的例子，通常期望 <code>__stringify(FOO)</code> 得到 <code>&quot;bar&quot;</code> 而非 <code>&quot;FOO&quot;</code>。</p><p><code>...</code> 是跟 function 一樣的不定參數，可參考 <a href="https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html" target="_blank" rel="noopener">Variadic Macros</a>。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;一般 &lt;code&gt;#define&lt;/code&gt; macro 不會將 parameter 展開成字串，只會把 parameter 放到對應位置，例如：&lt;/p&gt;
-&lt;figure class=&quot;highlight xml&quot;&gt;&lt;figcaption&gt;&lt;span&gt;php&lt;/span&gt;</summary>
-      
-    
-    
-    
-    
-    <category term="Linux" scheme="http://www.cjwind.idv.tw/tags/Linux/"/>
-    
-    <category term="C" scheme="http://www.cjwind.idv.tw/tags/C/"/>
+    <category term="PhpStorm" scheme="http://www.cjwind.idv.tw/tags/PhpStorm/"/>
     
   </entry>
   
