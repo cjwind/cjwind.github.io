@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
   </script>
 
-  <meta name="description" content="《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。 Chapter Summary 要用 unit test 保護修改 才知道新修改有沒有改對，以及有沒有改壞原本的東西 跑測試的速度：需要 0.1s 才能跑完的 unit test 就算慢了">
+  <meta name="description" content="《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。 改 code 的兩種方法：edit and pray 以及 cover and modify XD Summary 要用 unit test 保護修改 才知道新修改有沒有改對，以及有沒有改壞">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ch2 Working with Feedback">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch2-Working-with-Feedback/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
-<meta property="og:description" content="《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。 Chapter Summary 要用 unit test 保護修改 才知道新修改有沒有改對，以及有沒有改壞原本的東西 跑測試的速度：需要 0.1s 才能跑完的 unit test 就算慢了">
+<meta property="og:description" content="《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。 改 code 的兩種方法：edit and pray 以及 cover and modify XD Summary 要用 unit test 保護修改 才知道新修改有沒有改對，以及有沒有改壞">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-28T14:40:55.000Z">
-<meta property="article:modified_time" content="2020-08-09T06:39:59.427Z">
+<meta property="article:modified_time" content="2020-08-18T15:15:39.070Z">
 <meta property="article:author" content="cjwind">
 <meta property="article:tag" content="Refactor">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 14:39:59" itemprop="dateModified" datetime="2020-08-09T14:39:59+08:00">2020-08-09</time>
+                <time title="Modified: 2020-08-18 23:15:39" itemprop="dateModified" datetime="2020-08-18T23:15:39+08:00">2020-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +271,8 @@
 
       
         <p>《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。</p>
-<h1 id="Chapter-Summary"><a href="#Chapter-Summary" class="headerlink" title="Chapter Summary"></a>Chapter Summary</h1><ul>
+<p>改 code 的兩種方法：edit and pray 以及 cover and modify XD</p>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
 <li>要用 unit test 保護修改<ul>
 <li>才知道新修改有沒有改對，以及有沒有改壞原本的東西</li>
 <li>跑測試的速度：需要 0.1s 才能跑完的 unit test 就算慢了</li>
@@ -280,9 +281,19 @@
 <li>修改 legacy code 步驟 overview<ol>
 <li>確定變動點：ch 16、17</li>
 <li>找出測試點：ch 11、12</li>
-<li>解依賴：ch 23</li>
+<li>解依賴的技術<ul>
+<li>將 code 放進測試時，讓下手的第一刀更安全：ch 23</li>
+<li>解決一般的依賴問題：ch 9、10</li>
+<li>無法寫測試是因為沒解決大型 method 中的依賴：ch 22</li>
+<li>build code 時間太長：ch 7</li>
+</ul>
+</li>
 <li>編寫測試：ch 13</li>
-<li>修改、refactor：ch 20 ~ 22</li>
+<li>修改及 refactor<ul>
+<li>如何增加 feature：ch 8</li>
+<li>將 legacy code 變得結構更好：ch 20 ~ 22</li>
+</ul>
+</li>
 </ol>
 </li>
 </ul>
@@ -376,7 +387,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Chapter-Summary"><span class="nav-number">1.</span> <span class="nav-text">Chapter Summary</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary"><span class="nav-number">1.</span> <span class="nav-text">Summary</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
