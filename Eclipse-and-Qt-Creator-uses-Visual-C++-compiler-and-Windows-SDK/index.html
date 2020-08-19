@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="原本想說既然在 Windows 上開發，用 Visual Studio 好了，但打開網站看到價格，呃，我還是繼續用 Eclipse 跟 Qt Creator  吧！謎版？找謎版的時間我都可以處理好了… Install Windows SDK安裝 Windows 7 的。 Microsoft Windows SDK for Windows 7 and .NET Framework 4 Trouble">
@@ -268,23 +268,23 @@
       
         <p>原本想說既然在 Windows 上開發，用 Visual Studio 好了，但打開網站看到價格，呃，我還是繼續用 Eclipse 跟 Qt Creator  吧！<em>謎版？找謎版的時間我都可以處理好了…</em></p>
 <h2 id="Install-Windows-SDK"><a href="#Install-Windows-SDK" class="headerlink" title="Install Windows SDK"></a>Install Windows SDK</h2><p>安裝 Windows 7 的。</p>
-<p><a href="http://www.microsoft.com/en-us/download/details.aspx?id=8279" target="_blank" rel="noopener">Microsoft Windows SDK for Windows 7 and .NET Framework 4</a></p>
-<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>裝 Windows SDK 失敗，像<a href="http://www.mathworks.com/matlabcentral/answers/95039-why-does-the-sdk-7-1-installation-fail-with-an-installation-failed-message-on-my-windows-system" target="_blank" rel="noopener">這篇</a>的狀況。移掉 Microsoft Visual C++ 2010 redistributable packages 後再裝 Windows SDK 就可以了。</p>
-<p>compile 時遇到 <code>error C2059: syntax error : &#39;constant&#39;</code>，<a href="https://github.com/cjwind/patch/tree/master/WindowsSDK71" target="_blank" rel="noopener">patch</a>。</p>
+<p><a target="_blank" rel="noopener" href="http://www.microsoft.com/en-us/download/details.aspx?id=8279">Microsoft Windows SDK for Windows 7 and .NET Framework 4</a></p>
+<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>裝 Windows SDK 失敗，像<a target="_blank" rel="noopener" href="http://www.mathworks.com/matlabcentral/answers/95039-why-does-the-sdk-7-1-installation-fail-with-an-installation-failed-message-on-my-windows-system">這篇</a>的狀況。移掉 Microsoft Visual C++ 2010 redistributable packages 後再裝 Windows SDK 就可以了。</p>
+<p>compile 時遇到 <code>error C2059: syntax error : &#39;constant&#39;</code>，<a target="_blank" rel="noopener" href="https://github.com/cjwind/patch/tree/master/WindowsSDK71">patch</a>。</p>
 <h2 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h2><h3 id="Install-CDT-Visual-C-Support"><a href="#Install-CDT-Visual-C-Support" class="headerlink" title="Install CDT Visual C++ Support"></a>Install CDT Visual C++ Support</h3><p>在 Eclipse 裝 CDT Visual C++ Support，才有 Visual C++ tool chain。我的 Eclipse 是 Juno。</p>
-<p>CDT site：<a href="http://download.eclipse.org/tools/cdt/releases/juno" target="_blank" rel="noopener">http://download.eclipse.org/tools/cdt/releases/juno</a></p>
+<p>CDT site：<a target="_blank" rel="noopener" href="http://download.eclipse.org/tools/cdt/releases/juno">http://download.eclipse.org/tools/cdt/releases/juno</a></p>
 <h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p><strong>Project property</strong></p>
 <p>C/C++ Build -&gt; Tool Chain Editor 的 toolchain 設為 Microsoft Visual C++。</p>
 <p>C/C++ Build -&gt; Environment 增加 PATH C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin，這樣才找得到 Visual C++ compiler。</p>
 <p>C/C++ General -&gt; Paths and Symbols -&gt; Includes -&gt; GNU C++</p>
 <p><img src="/images/Eclipse_vc_config1.png" alt="Eclipse Configuration"></p>
 <h2 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator"></a>Qt Creator</h2><p>因為想到要有 GUI 介面，所以需要 Qt + Windows SDK，但現在 Eclipse 跟 Qt 的整合不太好，改用 Qt Creator + Windows SDK。</p>
-<p>直接裝 <a href="http://download.qt-project.org/official_releases/qt/5.3/5.3.1/qt-opensource-windows-x86-msvc2010_opengl-5.3.1.exe" target="_blank" rel="noopener">Qt 5.3.1 for Windows 32-bit (VS 2010, OpenGL, 537 MB)</a></p>
+<p>直接裝 <a target="_blank" rel="noopener" href="http://download.qt-project.org/official_releases/qt/5.3/5.3.1/qt-opensource-windows-x86-msvc2010_opengl-5.3.1.exe">Qt 5.3.1 for Windows 32-bit (VS 2010, OpenGL, 537 MB)</a></p>
 <h3 id="Kits"><a href="#Kits" class="headerlink" title="Kits"></a>Kits</h3><p>如果已經先裝其他版本的 Qt，應該可以在選項裡加 Kit：</p>
 <p><img src="/images/QtCreator_WinSDK_kit.png" alt="Qt Creator Windows SDK Kits"></p>
 <h3 id="pro-setting"><a href="#pro-setting" class="headerlink" title="pro setting"></a>pro setting</h3><p><code>INCLUDEPATH</code> 要加 Windows SDK 的路徑，如 Eclipse Configuration 圖中的路徑。</p>
 <h3 id="Troubleshooting-1"><a href="#Troubleshooting-1" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>compile 時遇到 <code>LINK : fatal error LNK1123: failure during conversion to COFF: file invalid or corrupt</code> 的錯誤。</p>
-<p>Solution：<a href="http://qt-project.org/wiki/Category:Tools::msvc" target="_blank" rel="noopener">http://qt-project.org/wiki/Category:Tools::msvc</a></p>
+<p>Solution：<a target="_blank" rel="noopener" href="http://qt-project.org/wiki/Category:Tools::msvc">http://qt-project.org/wiki/Category:Tools::msvc</a></p>
 
     </div>
 

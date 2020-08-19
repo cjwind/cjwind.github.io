@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="Octopress 的後端就是自己的電腦，有多台電腦時需要在其他電腦再建立 Octopress 的撰寫環境，並且拿 Github 上面的 repos 下來繼續寫。 安裝環境基本環境：Git for Windows、RubyInstaller 1.9.3、Ruby Development kit。如果用到 code highlight，要裝 Python 2，否則 rake generate 會生出">
@@ -263,7 +263,7 @@
 
       
         <p>Octopress 的後端就是自己的電腦，有多台電腦時需要在其他電腦再建立 Octopress 的撰寫環境，並且拿 Github 上面的 repos 下來繼續寫。</p>
-<h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>基本環境：<a href="http://msysgit.github.io/" target="_blank" rel="noopener">Git for Windows</a>、<a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">RubyInstaller 1.9.3</a>、<a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">Ruby Development kit</a>。如果用到 code highlight，要裝 <a href="https://www.python.org/" target="_blank" rel="noopener">Python 2</a>，否則 <code>rake generate</code> 會生出空白頁。安裝完 Ruby 跟 Python 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑以及 Python 的安裝路徑，如 <code>C:\Ruby193\bin</code> 及 <code>C:\Python27</code>。</p>
+<h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>基本環境：<a target="_blank" rel="noopener" href="http://msysgit.github.io/">Git for Windows</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">RubyInstaller 1.9.3</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">Ruby Development kit</a>。如果用到 code highlight，要裝 <a target="_blank" rel="noopener" href="https://www.python.org/">Python 2</a>，否則 <code>rake generate</code> 會生出空白頁。安裝完 Ruby 跟 Python 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑以及 Python 的安裝路徑，如 <code>C:\Ruby193\bin</code> 及 <code>C:\Python27</code>。</p>
 <h2 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h2><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone -b source <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io octopress</span><br><span class="line"></span><br><span class="line">$ cd octopress</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io <span class="emphasis">_deploy</span></span><br></pre></td></tr></table></figure>
 
 <p>Octopress 將 master branch 放在 <code>_deploy/</code>。</p>
@@ -274,7 +274,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin <span class="built_in">source</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> _deploy</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull origin master</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/" target="_blank" rel="noopener">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
+<li><a target="_blank" rel="noopener" href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
 </ul>
 
     </div>
@@ -367,7 +367,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安裝環境"><span class="nav-number">1.</span> <span class="nav-text">安裝環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clone-repository"><span class="nav-number">2.</span> <span class="nav-text">Clone repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rake-installation-and-configuration"><span class="nav-number">3.</span> <span class="nav-text">Rake installation and configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pull-repository"><span class="nav-number">4.</span> <span class="nav-text">Pull repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D%E7%92%B0%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">安裝環境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Clone-repository"><span class="nav-number">2.</span> <span class="nav-text">Clone repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rake-installation-and-configuration"><span class="nav-number">3.</span> <span class="nav-text">Rake installation and configuration</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pull-repository"><span class="nav-number">4.</span> <span class="nav-text">Pull repository</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

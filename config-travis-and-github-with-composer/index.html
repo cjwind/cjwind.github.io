@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="ProblemTravis 在 run composer install 會出現類似以下錯誤： Failed to clone the git@github.com:jquery&#x2F;jquery-dist.git repository, try running in interactive mode so that you can enter your GitHub credentials  [Co">
@@ -267,14 +267,14 @@
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Failed <span class="built_in">to</span> clone <span class="keyword">the</span> git@github.com:jquery/jquery-dist.git repository, <span class="keyword">try</span> running <span class="keyword">in</span> interactive mode so that you can enter your GitHub credentials</span><br><span class="line"></span><br><span class="line">  [Composer\Repository\InvalidRepositoryException]</span><br><span class="line">  No valid bower.json was found <span class="keyword">in</span> <span class="keyword">any</span> branch <span class="keyword">or</span> tag <span class="keyword">of</span> <span class="keyword">https</span>://github.com/jq</span><br><span class="line">  uery/jquery-dist.git, could <span class="keyword">not</span> <span class="built_in">load</span> <span class="keyword">a</span> package <span class="built_in">from</span> <span class="keyword">it</span>.</span><br></pre></td></tr></table></figure>
 
 <p>失敗的 repository 不一定，可能這次 jquery 下次別的。</p>
-<p>找了一陣，說是踩到 Github 的 <a href="https://developer.github.com/v3/#rate-limiting" target="_blank" rel="noopener">rate limit</a>（我理解是 <code>composer install</code> 會一直從 github 抓東西所以容易踩到），但又有文章說這個問題已經被修正。<del>我還是踩到了啊</del></p>
+<p>找了一陣，說是踩到 Github 的 <a target="_blank" rel="noopener" href="https://developer.github.com/v3/#rate-limiting">rate limit</a>（我理解是 <code>composer install</code> 會一直從 github 抓東西所以容易踩到），但又有文章說這個問題已經被修正。<del>我還是踩到了啊</del></p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ol>
-<li>在 Github 產生 <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">Personal access token</a>。</li>
+<li>在 Github 產生 <a target="_blank" rel="noopener" href="https://github.com/settings/tokens">Personal access token</a>。</li>
 <li>在 Travis 設定有使用 Travis 的 project 的環境變數（environment variable），指定變數名稱，值是剛剛在 Github 產生的 access token。</li>
-<li>修改 <code>.travis.yml</code>，在 <code>composer install</code> 前加入 <code>composer config github-oauth.github.com ${環境變數名稱}</code></li>
+<li>修改 <code>.travis.yml</code>，在 <code>composer install</code> 前加入 <code>composer config github-oauth.github.com $&#123;環境變數名稱&#125;</code></li>
 </ol>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://blog.wyrihaximus.net/2015/09/github-auth-token-on-travis/" target="_blank" rel="noopener">Github auth token on TravisCI</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.wyrihaximus.net/2015/09/github-auth-token-on-travis/">Github auth token on TravisCI</a></li>
 </ul>
 
     </div>

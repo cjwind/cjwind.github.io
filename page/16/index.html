@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta property="og:type" content="website">
@@ -361,7 +361,7 @@
 <p>強制轉型，就像舊式轉型，如將 non-const 轉為 const、int 轉為 double 等。也可以用來將 base class pointer 轉成 derived class pointer，但比較不安全。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li>《Effective C++》</li>
-<li><a href="http://openhome.cc/Gossip/CppGossip/dynamicCast.html" target="_blank" rel="noopener">http://openhome.cc/Gossip/CppGossip/dynamicCast.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://openhome.cc/Gossip/CppGossip/dynamicCast.html">http://openhome.cc/Gossip/CppGossip/dynamicCast.html</a></li>
 </ul>
 
       
@@ -535,9 +535,9 @@
       
           <p>不可免俗的，Octopress 第一篇文章是 say hello。</p>
 <p>在 Windows 上玩 Octopress + Github。</p>
-<h2 id="Prepare"><a href="#Prepare" class="headerlink" title="Prepare"></a>Prepare</h2><p>要先裝好 Git 跟 Ruby 環境。Git 是用 <a href="http://msysgit.github.io/" target="_blank" rel="noopener">Git for Windows</a>，Ruby 環境則從從 <a href="http://rubyinstaller.org/downloads" target="_blank" rel="noopener">http://rubyinstaller.org/downloads</a> 下載 RubyInstaller 1.9.3 跟 Development kit 來安裝。</p>
+<h2 id="Prepare"><a href="#Prepare" class="headerlink" title="Prepare"></a>Prepare</h2><p>要先裝好 Git 跟 Ruby 環境。Git 是用 <a target="_blank" rel="noopener" href="http://msysgit.github.io/">Git for Windows</a>，Ruby 環境則從從 <a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">http://rubyinstaller.org/downloads</a> 下載 RubyInstaller 1.9.3 跟 Development kit 來安裝。</p>
 <p>Development kit 下載後先解壓縮，用以下指令安裝：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;DEVKIT_INSTALL_DIR&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ruby dk.rb init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ruby dk.rb install</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">cd</span> &lt;DEVKIT_INSTALL_DIR&gt;</span><br><span class="line"><span class="variable">$</span> ruby dk.rb init</span><br><span class="line"><span class="variable">$</span> ruby dk.rb install</span><br></pre></td></tr></table></figure>
 
 <p>安裝完 Ruby 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑，如 <code>C:\Ruby193\bin</code>。</p>
 <h2 id="Install-Octopress"><a href="#Install-Octopress" class="headerlink" title="Install Octopress"></a>Install Octopress</h2><p>我直接用 Git Bash 下指令。</p>

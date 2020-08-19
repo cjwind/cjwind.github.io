@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="在如何測試 event 裡提到 event 的測試有兩個方面，其中之一是測試 event 是否有被正確 trigger，有些 test framework 有檢驗 event 是否 trigger（或稱 emit）的驗證。（我應該是在某個 js test framework 看到的） 現在工作是用 Yii 這套 PHP framework，配合的 test framework 是 Codecept">
@@ -265,8 +265,8 @@
 
       
         <p>在<a href="/test-event/">如何測試 event</a> 裡提到 event 的測試有兩個方面，其中之一是測試 event 是否有被正確 trigger，有些 test framework 有檢驗 event 是否 trigger（或稱 emit）的驗證。（我應該是在某個 js test framework 看到的）</p>
-<p>現在工作是用 <a href="https://www.yiiframework.com/" target="_blank" rel="noopener">Yii</a> 這套 PHP framework，配合的 test framework 是 Codeception。</p>
-<p>Yii2 有它的 <a href="https://www.yiiframework.com/doc/guide/2.0/en/concept-events" target="_blank" rel="noopener">Event</a> 機制，看了下 <a href="https://codeception.com/" target="_blank" rel="noopener">Codeception</a> 的 Yii2 module 沒有提供 event trigger 的驗證，上星期無聊就自己寫了個 <a href="https://github.com/cjwind/codeception-yii2-event-tester" target="_blank" rel="noopener">codeception-yii2-event-tester</a> 啦。 </p>
+<p>現在工作是用 <a target="_blank" rel="noopener" href="https://www.yiiframework.com/">Yii</a> 這套 PHP framework，配合的 test framework 是 Codeception。</p>
+<p>Yii2 有它的 <a target="_blank" rel="noopener" href="https://www.yiiframework.com/doc/guide/2.0/en/concept-events">Event</a> 機制，看了下 <a target="_blank" rel="noopener" href="https://codeception.com/">Codeception</a> 的 Yii2 module 沒有提供 event trigger 的驗證，上星期無聊就自己寫了個 <a target="_blank" rel="noopener" href="https://github.com/cjwind/codeception-yii2-event-tester">codeception-yii2-event-tester</a> 啦。 </p>
 <p>實作方面沒什麼困難，都在搞怎麼包 composer package 跟搞定 Travis。</p>
 
     </div>

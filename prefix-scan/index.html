@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="prefix scan 是計算一個數值 vector 所有的部份和，每個結果 element 是原始 vector 對應位置之前數值的和，包含自己的稱為 inclusive prefix scan，不包含稱為 exclusive prefix scan。例如 [3, 5, 4, 10, 8] 的 inclusive prefix scan 是 [3, 8, 12, 22, 30]，exclusiv">
@@ -309,10 +309,10 @@
 <p>除了計算本身，都花了些時間在亂數產生 input 以及 page fault 上。<code>perf record</code> 產生的報告是 binary 檔，用 <code>perf report</code> 看。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li>《The Art of Concurrency》</li>
-<li><a href="http://wiki.csie.ncku.edu.tw/embedded/perf-tutorial" target="_blank" rel="noopener">Linux 效能分析工具: Perf</a></li>
-<li><a href="https://perf.wiki.kernel.org/index.php/Tutorial" target="_blank" rel="noopener">perf Tutorial</a></li>
-<li><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-perf1/" target="_blank" rel="noopener">Perf – Linux下的系統性能調優工具</a></li>
-<li><a href="https://hackmd.io/s/Skwp-alOg" target="_blank" rel="noopener">gnuplot 語法解說和示範</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.csie.ncku.edu.tw/embedded/perf-tutorial">Linux 效能分析工具: Perf</a></li>
+<li><a target="_blank" rel="noopener" href="https://perf.wiki.kernel.org/index.php/Tutorial">perf Tutorial</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ibm.com/developerworks/cn/linux/l-cn-perf1/">Perf – Linux下的系統性能調優工具</a></li>
+<li><a target="_blank" rel="noopener" href="https://hackmd.io/s/Skwp-alOg">gnuplot 語法解說和示範</a></li>
 </ul>
 
     </div>
@@ -404,7 +404,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Concurrent-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Concurrent Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-比較"><span class="nav-number">2.</span> <span class="nav-text">Performance 比較</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#測試環境"><span class="nav-number">2.1.</span> <span class="nav-text">測試環境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#測量-amp-比較"><span class="nav-number">2.2.</span> <span class="nav-text">測量 &amp; 比較</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Concurrent-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Concurrent Algorithm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Performance-%E6%AF%94%E8%BC%83"><span class="nav-number">2.</span> <span class="nav-text">Performance 比較</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%AC%E8%A9%A6%E7%92%B0%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">測試環境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%AC%E9%87%8F-amp-%E6%AF%94%E8%BC%83"><span class="nav-number">2.2.</span> <span class="nav-text">測量 &amp; 比較</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

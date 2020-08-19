@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="Cargo basicCargo 是 Rust 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。安裝 Rust 會一起裝 Cargo。 這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package manag">
@@ -261,7 +261,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="Cargo-basic"><a href="#Cargo-basic" class="headerlink" title="Cargo basic"></a>Cargo basic</h2><p>Cargo 是 <a href="https://www.rust-lang.org/en-US/index.html" target="_blank" rel="noopener">Rust</a> 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。<a href="https://www.rust-lang.org/en-US/install.html" target="_blank" rel="noopener">安裝 Rust</a> 會一起裝 Cargo。</p>
+        <h2 id="Cargo-basic"><a href="#Cargo-basic" class="headerlink" title="Cargo basic"></a>Cargo basic</h2><p>Cargo 是 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/index.html">Rust</a> 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。<a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/install.html">安裝 Rust</a> 會一起裝 Cargo。</p>
 <p>這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package management 還有 build system。package manager 是為了解決各種 library 或 package dependency 的問題，例如像 C/C++ 得自己處理如何 build 跟 link library（還會有只剩 binary 檔不知道 source code 從哪來的 library）、維持 library 版本以及升級 library 等問題。</p>
 <p>Cargo 裡稱 package 或 library 為 crate。</p>
 <p>Cargo 基本指令：</p>
@@ -269,7 +269,7 @@
 
 <h2 id="Start-new-project"><a href="#Start-new-project" class="headerlink" title="Start new project"></a>Start new project</h2><p><code>$ cargo new &lt;project name&gt; --bin</code></p>
 <p>產生基本 project 的 directory，內含 <code>src/</code> 跟 <code>Cargo.toml</code> 並且建立 git repository。加 <code>--bin</code> 是為了 build 出可執行檔，不加會是 library。建立 project 後修改 <code>Cargo.toml</code> 即可，<code>Cargo.toml</code> sample：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">"rust-hello-cargo"</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">"0.1.0"</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">"cjwind &lt;cwentsai@gmail.com&gt;"</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;rust-hello-cargo&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">&quot;cjwind &lt;cwentsai@gmail.com&gt;&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br></pre></td></tr></table></figure>
 
 
 <h2 id="Directory-structure"><a href="#Directory-structure" class="headerlink" title="Directory structure"></a>Directory structure</h2><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">src/    # source code directory</span><br><span class="line">    xxx.rs</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>toml    # Cargo configuration</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock    # Cargo uses the <span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock file <span class="keyword">to</span> keep track <span class="keyword">of</span> dependencies</span><br></pre></td></tr></table></figure>
@@ -283,7 +283,7 @@
 <p>第一次 build project 的時候（應該是 dependency 改動過後的第一次），Cargo 會在 <code>Cargo.lock</code> 記下當下 crate 的版本並且認定這些版本是 ok 的。之後即使 crate 有新版本，Cargo 也不會主動去更新而是以 <code>Cargo.lock</code> 記錄的為準，直到我們要求升級 crate。</p>
 <p><code>cargo update</code> 預設只會升最後一碼版號，比較大版本的升級要手動改 <code>Cargo.toml</code>。因為大版本的更新可能會有 interface 的改動，需要我們確認相應修改沒問題才能更新。</p>
 <h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
-<li><a href="http://semver.org/" target="_blank" rel="noopener">Semantic Versioning</a></li>
+<li><a target="_blank" rel="noopener" href="http://semver.org/">Semantic Versioning</a></li>
 </ul>
 
     </div>
@@ -375,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cargo-basic"><span class="nav-number">1.</span> <span class="nav-text">Cargo basic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-new-project"><span class="nav-number">2.</span> <span class="nav-text">Start new project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Directory-structure"><span class="nav-number">3.</span> <span class="nav-text">Directory structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargo-toml"><span class="nav-number">3.1.</span> <span class="nav-text">Cargo.toml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargo-lock"><span class="nav-number">3.2.</span> <span class="nav-text">Cargo.lock</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸閱讀"><span class="nav-number">4.</span> <span class="nav-text">延伸閱讀</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cargo-basic"><span class="nav-number">1.</span> <span class="nav-text">Cargo basic</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Start-new-project"><span class="nav-number">2.</span> <span class="nav-text">Start new project</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Directory-structure"><span class="nav-number">3.</span> <span class="nav-text">Directory structure</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargo-toml"><span class="nav-number">3.1.</span> <span class="nav-text">Cargo.toml</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cargo-lock"><span class="nav-number">3.2.</span> <span class="nav-text">Cargo.lock</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E4%BC%B8%E9%96%B1%E8%AE%80"><span class="nav-number">4.</span> <span class="nav-text">延伸閱讀</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

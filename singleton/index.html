@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="屬於 Creational pattern。 確保 class 只有一個 instance，並且給它 global 的存取點。 可以做到延後產生 instance，也就是真正使用到時才 create instance。如果用 global variable，依據不同語言及實作的特性可能在程式一開始就產生 instance。 常用來管理 shared resource。 做法 將 construct">
@@ -275,9 +275,9 @@
 <p>有另一種做法是 <code>GetSingleton()</code> 不 return pointer，而 return reference。</p>
 <p>這個實作沒有 thread-safe，有多個 thread 會 call <code>GetSingleton()</code> 就 GG 了。要 thread-safe 可以用 double-checked locking。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html" target="_blank" rel="noopener">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
-<li><a href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern" target="_blank" rel="noopener">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
-<li><a href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods" target="_blank" rel="noopener">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
+<li><a target="_blank" rel="noopener" href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
 </ul>
 
     </div>
@@ -369,7 +369,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#做法"><span class="nav-number">1.</span> <span class="nav-text">做法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-實作"><span class="nav-number">2.</span> <span class="nav-text">C++ 實作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%81%9A%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">做法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E5%AF%A6%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">C++ 實作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">3.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

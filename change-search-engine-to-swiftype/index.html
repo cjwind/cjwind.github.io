@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 Swiftype 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。 註冊、輸入 URL，它處理完後到 INSTALL 頁面 copy source code 到 theme 中相應 call sea">
@@ -262,9 +262,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a href="https://swiftype.com" target="_blank" rel="noopener">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
+        <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a target="_blank" rel="noopener" href="https://swiftype.com">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
 <p>註冊、輸入 URL，它處理完後到 INSTALL 頁面 copy source code 到 theme 中相應 call <code>search_form()</code> 的地方。每個 theme 的位置不太一樣，nut 在 <code>layout/_widget/search.ejs</code>，landscape 在 <code>layout/_partial/header.ejs</code>。</p>
-<p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a href="https://swiftype.com/documentation/widget" target="_blank" rel="noopener">這裡</a>看怎麼改。</p>
+<p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a target="_blank" rel="noopener" href="https://swiftype.com/documentation/widget">這裡</a>看怎麼改。</p>
 
     </div>
 

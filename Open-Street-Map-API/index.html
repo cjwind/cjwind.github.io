@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="記錄開放街圖 Open Street Map（OSM） API 的基本使用跟文件。 Editing APIRESTful API，data 格式為 XML，目前版本為 v0.6。 文件：  http:&#x2F;&#x2F;wiki.openstreetmap.org&#x2F;wiki&#x2F;API http:&#x2F;&#x2F;wiki.openstreetmap.org&#x2F;wiki&#x2F;API_v0.6  程式化編輯資料要注意的事情：  http:">
@@ -266,19 +266,19 @@
 <h2 id="Editing-API"><a href="#Editing-API" class="headerlink" title="Editing API"></a>Editing API</h2><p>RESTful API，data 格式為 XML，目前版本為 v0.6。</p>
 <p>文件：</p>
 <ul>
-<li><a href="http://wiki.openstreetmap.org/wiki/API" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/API</a></li>
-<li><a href="http://wiki.openstreetmap.org/wiki/API_v0.6" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/API_v0.6</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API">http://wiki.openstreetmap.org/wiki/API</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6">http://wiki.openstreetmap.org/wiki/API_v0.6</a></li>
 </ul>
 <p>程式化編輯資料要注意的事情：</p>
 <ul>
-<li><a href="http://wiki.openstreetmap.org/wiki/API#Terms_of_use" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/API#Terms_of_use</a></li>
-<li><a href="http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API#Terms_of_use">http://wiki.openstreetmap.org/wiki/API#Terms_of_use</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct">http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct</a></li>
 </ul>
 <p>OSM 有提供測試用 API，測試站跟正式網站的帳號是分開的。</p>
 <ul>
-<li>測試站：<a href="https://master.apis.dev.openstreetmap.org/" target="_blank" rel="noopener">https://master.apis.dev.openstreetmap.org/</a></li>
-<li>測試用 API：<a href="https://master.apis.dev.openstreetmap.org/" target="_blank" rel="noopener">https://master.apis.dev.openstreetmap.org/</a></li>
-<li>正式 API：<a href="http://api.openstreetmap.org/" target="_blank" rel="noopener">http://api.openstreetmap.org/</a> </li>
+<li>測試站：<a target="_blank" rel="noopener" href="https://master.apis.dev.openstreetmap.org/">https://master.apis.dev.openstreetmap.org/</a></li>
+<li>測試用 API：<a target="_blank" rel="noopener" href="https://master.apis.dev.openstreetmap.org/">https://master.apis.dev.openstreetmap.org/</a></li>
+<li>正式 API：<a target="_blank" rel="noopener" href="http://api.openstreetmap.org/">http://api.openstreetmap.org/</a> </li>
 </ul>
 <p>編輯修改 element 必須 reference 到一個 changeset，可以想成修改 log。changeset 跟 element 一樣有 tag，文件建議包含 <code>comment=*</code> 以及 <code>created_by=*</code> tag，簡述改了什麼以及由誰修改。</p>
 <h3 id="API-使用流程"><a href="#API-使用流程" class="headerlink" title="API 使用流程"></a>API 使用流程</h3><ol>
@@ -286,26 +286,26 @@
 <li>call API 修改 element，會帶 changeset id</li>
 <li>關閉 changeset</li>
 </ol>
-<p>changeset 如果沒有關掉，<a href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2" target="_blank" rel="noopener">OSM 有規則會自動關閉它</a>。</p>
-<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>editing API 需要 authentication，可以用 <a href="https://en.wikipedia.org/wiki/Basic_access_authentication" target="_blank" rel="noopener">HTTP basic authentication</a>，即在 http header 加上 <code>Authorization: Basic xxx</code>，其中 <code>xxx</code> 是 <code>user:password</code> 的 base64 字串。nodejs 下可以用 <code>new Buffer(&quot;Hello World&quot;).toString(&#39;base64&#39;);</code> 得到 base64 字串。</p>
+<p>changeset 如果沒有關掉，<a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM 有規則會自動關閉它</a>。</p>
+<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>editing API 需要 authentication，可以用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>，即在 http header 加上 <code>Authorization: Basic xxx</code>，其中 <code>xxx</code> 是 <code>user:password</code> 的 base64 字串。nodejs 下可以用 <code>new Buffer(&quot;Hello World&quot;).toString(&#39;base64&#39;);</code> 得到 base64 字串。</p>
 <p>以 <code>curl</code> 送 request：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ curl https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span>capabilities</span><br><span class="line">$ curl -H <span class="string">"Authorization: Basic xxx"</span> https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span><span class="number">0.6</span><span class="regexp">/permissions</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ curl https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span>capabilities</span><br><span class="line">$ curl -H <span class="string">&quot;Authorization: Basic xxx&quot;</span> https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span><span class="number">0.6</span>/permissions</span><br></pre></td></tr></table></figure>
 
-<p>除了 HTTP basic authentication 外也可以使用 <a href="http://wiki.openstreetmap.org/wiki/OAuth" target="_blank" rel="noopener">OAuth</a>，這我沒研究。</p>
-<p>剩下 API 使用參考<a href="http://wiki.openstreetmap.org/wiki/API_v0.6#API_calls" target="_blank" rel="noopener">文件定義</a>囉。</p>
+<p>除了 HTTP basic authentication 外也可以使用 <a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/OAuth">OAuth</a>，這我沒研究。</p>
+<p>剩下 API 使用參考<a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6#API_calls">文件定義</a>囉。</p>
 <h2 id="Overpass-API"><a href="#Overpass-API" class="headerlink" title="Overpass API"></a>Overpass API</h2><p>read only API</p>
 <ul>
-<li><a href="http://wiki.openstreetmap.org/wiki/Overpass_API" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/Overpass_API</a></li>
-<li><a href="http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API">http://wiki.openstreetmap.org/wiki/Overpass_API</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer">http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer</a></li>
 </ul>
 <p>Overpass API 有幾種 query 語法，大致分成 XML query format 跟 Overpass QL，相關文件：</p>
 <ul>
-<li><a href="http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide</a></li>
-<li><a href="http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL" target="_blank" rel="noopener">http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide">http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL">http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL</a></li>
 </ul>
 <p>我只用 XAPI Compatibility Layer 做簡單的 map 讀取跟 tag query，沒使用上面比較複雜的 query 功能。</p>
 <p>XAPI Compatibility Layer 基本 HTTP GET：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">http://www.overpass-api.de/api/xapi?map?bbox=left,bottom,right,top</span><br><span class="line">http://www.overpass-api.de/api/xapi?map?bbox=121.53828,25.045,121.540,25.05</span><br><span class="line">http://www.overpass-api.de/api/xapi?node[<span class="string">bbox=121.53828,25.045,121.55,25.06</span>][<span class="symbol">highway=traffic_signals</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=left,bottom,right,top</span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">540</span>,<span class="number">25</span>.<span class="number">05</span></span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?node[bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">55</span>,<span class="number">25</span>.<span class="number">06</span>][highway=traffic_signals]</span><br></pre></td></tr></table></figure>
 
 <p>tag 可以串很多，會被 and 起來，其中 node 也可以改成 way 跟 relation。</p>
 
@@ -399,7 +399,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Editing-API"><span class="nav-number">1.</span> <span class="nav-text">Editing API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API-使用流程"><span class="nav-number">1.1.</span> <span class="nav-text">API 使用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authentication"><span class="nav-number">1.2.</span> <span class="nav-text">Authentication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overpass-API"><span class="nav-number">2.</span> <span class="nav-text">Overpass API</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Editing-API"><span class="nav-number">1.</span> <span class="nav-text">Editing API</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API-%E4%BD%BF%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">API 使用流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authentication"><span class="nav-number">1.2.</span> <span class="nav-text">Authentication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Overpass-API"><span class="nav-number">2.</span> <span class="nav-text">Overpass API</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

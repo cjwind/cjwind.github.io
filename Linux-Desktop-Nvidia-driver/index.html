@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="裝 Linux 桌面系統來用用，為了避免以後可能重灌還要重找一次，記下些安裝過程。 雖然有 open source 版的顯卡 driver，但我還是覺得裝 Nvidia 的比較好，而且不另外裝 driver 根本調不動螢幕解析度…… 原本想裝 LMDE 2 然後用這篇的方法裝 Nvidia 的 driver，但不知道為什麼就是無法進文字模式。設開機進文字模式或不裝桌面開機會卡在半路開不了，直接關掉">
@@ -265,15 +265,15 @@
 <p>雖然有 open source 版的顯卡 driver，但我還是覺得裝 Nvidia 的比較好，而且不另外裝 driver 根本調不動螢幕解析度……</p>
 <p>原本想裝 LMDE 2 然後用<a href="/solve-servo-blank/">這篇</a>的方法裝 Nvidia 的 driver，但不知道為什麼就是無法進文字模式。設開機進文字模式或不裝桌面開機會卡在半路開不了，直接關掉桌面系統還是停在無法操作的狀態。</p>
 <p>後來發現 Debian 蠻好裝 Nvidia driver 的，而且 Mint 不只顯卡需要額外 driver 連 audio 都要<del>搞到我有點崩潰</del>，就乾脆換用 Debian 8 Jessie了。</p>
-<h2 id="Nvidia-driver-installation-under-Debian-8"><a href="#Nvidia-driver-installation-under-Debian-8" class="headerlink" title="Nvidia driver installation under Debian 8"></a>Nvidia driver installation under Debian 8</h2><p>雖然 <a href="https://wiki.debian.org/NvidiaGraphicsDrivers#Version_367.44_.28via_jessie-backports.29" target="_blank" rel="noopener">Debian wiki</a> 上都有，還是記錄一下。</p>
+<h2 id="Nvidia-driver-installation-under-Debian-8"><a href="#Nvidia-driver-installation-under-Debian-8" class="headerlink" title="Nvidia driver installation under Debian 8"></a>Nvidia driver installation under Debian 8</h2><p>雖然 <a target="_blank" rel="noopener" href="https://wiki.debian.org/NvidiaGraphicsDrivers#Version_367.44_.28via_jessie-backports.29">Debian wiki</a> 上都有，還是記錄一下。</p>
 <p>修改 <code>/etc/apt/sources.list</code>，增加：</p>
-<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="comment"># jessie-backports</span></span><br><span class="line"><span class="attribute">deb</span> http://httpredir.debian.org/debian jessie-backports main contrib non-free</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># jessie-backports</span></span><br><span class="line">deb http:<span class="regexp">//</span>httpredir.debian.org/debian jessie-backports main contrib non-free</span><br></pre></td></tr></table></figure>
 
 <p>安裝 linux headers</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"># apt-get install linux-headers-<span class="constructor">$(<span class="params">uname</span> -<span class="params">r</span>|<span class="params">sed</span> '<span class="params">s</span>,[^-]<span class="operator">*</span>-[^-]<span class="operator">*</span>-,,')</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"># apt-get install linux-headers-<span class="constructor">$(<span class="params">uname</span> -<span class="params">r</span>|<span class="params">sed</span> &#x27;<span class="params">s</span>,[^-]<span class="operator">*</span>-[^-]<span class="operator">*</span>-,,&#x27;)</span></span><br></pre></td></tr></table></figure>
 
 <p>安裝 Nvidia drier</p>
-<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># apt-get update</span></span><br><span class="line"><span class="meta"># apt-get install -t jessie-backports nvidia-driver</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># apt-get update</span></span><br><span class="line"><span class="meta"># apt-get install -t jessie-backports nvidia-driver </span></span><br></pre></td></tr></table></figure>
 
 <p>最後重開機，完成！</p>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="Dodkcer Get Started 隨手記。 Part 1: Orientation and setup Docker is a platform for developers and sysadmins to develop, deploy, and run applications with containers.   The use of Linux containers to depl">
@@ -270,8 +270,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
-<h2 id="Part-1-Orientation-and-setup"><a href="#Part-1-Orientation-and-setup" class="headerlink" title="Part 1: Orientation and setup"></a><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Part 1: Orientation and setup</a></h2><blockquote>
+        <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-1-Orientation-and-setup"><a href="#Part-1-Orientation-and-setup" class="headerlink" title="Part 1: Orientation and setup"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Part 1: Orientation and setup</a></h2><blockquote>
 <p>Docker is a platform for developers and sysadmins to <strong>develop, deploy, and run</strong> applications with containers.</p>
 </blockquote>
 <blockquote>
@@ -291,7 +291,7 @@
 <p>a <strong>virtual machine</strong> (VM) runs a full-blown “guest” operating system with <em>virtual access</em> to host resources through a hypervisor. In general, VMs provide an environment with more resources than most applications need.</p>
 </blockquote>
 <p>用 Docker 可以把 application 需要的環境跟 code 等等包在 image 裡，以此 image 來開發跟 deploy，解決 application 的 system dependency 問題。因為整個環境都包在 Docker 裡了，application 可以在任何有 Docker 環境的地方執行（從 local 到 cloud 等等）。相較 VM，container 比較 light-weight 而且只有 application 需要的環境。</p>
-<h2 id="Part-2-Containers"><a href="#Part-2-Containers" class="headerlink" title="Part 2: Containers"></a><a href="https://docs.docker.com/get-started/part2/" target="_blank" rel="noopener">Part 2: Containers</a></h2><p>hierarchy 由高到低：</p>
+<h2 id="Part-2-Containers"><a href="#Part-2-Containers" class="headerlink" title="Part 2: Containers"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part2/">Part 2: Containers</a></h2><p>hierarchy 由高到低：</p>
 <ul>
 <li>Stack：define the interactions of all the services</li>
 <li>Services：defines how containers behave in production</li>
@@ -301,7 +301,7 @@
 <p><strong><code>Dockerfile</code></strong> defines what goes on in the environment inside your container.</p>
 </blockquote>
 <p>container 的網路跟 disk drive 是 virtualized、跟外界隔開的，所以要做 port mapping 以及指定哪些檔案要 copy 進 container。</p>
-<p>Dockerfile 指令 [<a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">Ref</a>]：</p>
+<p>Dockerfile 指令 [<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">Ref</a>]：</p>
 <ul>
 <li><code>FROM</code> 指定 parent image</li>
 <li><code>WORKDIP</code> 指定 container 內的 working dir</li>
@@ -329,14 +329,14 @@
 <li>在 container 裡拿 hostname 會拿到 container ID</li>
 </ul>
 <h3 id="更多-docker-run"><a href="#更多-docker-run" class="headerlink" title="更多 docker run"></a>更多 <code>docker run</code></h3><ul>
-<li><code>-p &lt;host port&gt;:&lt;container port&gt;</code> publish port，做 host port 跟 container port 的 mapping。[<a href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports" target="_blank" rel="noopener">Ref</a>]</li>
+<li><code>-p &lt;host port&gt;:&lt;container port&gt;</code> publish port，做 host port 跟 container port 的 mapping。[<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports">Ref</a>]</li>
 <li><code>-d</code> 以 detach mode 執行 container，就是背景執行啦～</li>
 </ul>
-<p><a href="http://127.0.0.1:4000/PhpStorm-Docker-in-Win10/#Docker-Command-Line-Usage" target="_blank" rel="noopener">基本 docker run 使用 Ref</a></p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1:4000/PhpStorm-Docker-in-Win10/#Docker-Command-Line-Usage">基本 docker run 使用 Ref</a></p>
 <h3 id="Share-image"><a href="#Share-image" class="headerlink" title="Share image"></a>Share image</h3><blockquote>
 <p>A registry is a collection of repositories, and a repository is a collection of images</p>
 </blockquote>
-<p><code>docker</code> 預設使用的 registry 是 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>。</p>
+<p><code>docker</code> 預設使用的 registry 是 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>。</p>
 <p>tag 是用來給 image 版本的方式。</p>
 <ol>
 <li>幫 image 加上 registry 的 repository tag：</li>
@@ -444,7 +444,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-Orientation-and-setup"><span class="nav-number">1.</span> <span class="nav-text">Part 1: Orientation and setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Images-and-containers"><span class="nav-number">1.1.</span> <span class="nav-text">Images and containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-vs-VM"><span class="nav-number">1.2.</span> <span class="nav-text">Container vs VM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-Containers"><span class="nav-number">2.</span> <span class="nav-text">Part 2: Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile"><span class="nav-number">2.1.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips"><span class="nav-number">2.1.1.</span> <span class="nav-text">Tips</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更多-docker-run"><span class="nav-number">2.2.</span> <span class="nav-text">更多 docker run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Share-image"><span class="nav-number">2.3.</span> <span class="nav-text">Share image</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-Orientation-and-setup"><span class="nav-number">1.</span> <span class="nav-text">Part 1: Orientation and setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Images-and-containers"><span class="nav-number">1.1.</span> <span class="nav-text">Images and containers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Container-vs-VM"><span class="nav-number">1.2.</span> <span class="nav-text">Container vs VM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-Containers"><span class="nav-number">2.</span> <span class="nav-text">Part 2: Containers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dockerfile"><span class="nav-number">2.1.</span> <span class="nav-text">Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tips"><span class="nav-number">2.1.1.</span> <span class="nav-text">Tips</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A-docker-run"><span class="nav-number">2.2.</span> <span class="nav-text">更多 docker run</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Share-image"><span class="nav-number">2.3.</span> <span class="nav-text">Share image</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

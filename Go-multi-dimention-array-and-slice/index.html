@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="Array types are always one-dimensional but may be composed to form multi-dimensional types.  from spec Array types  A slice is a descriptor for a contiguous segment of an underlying array and provide">
@@ -264,11 +264,11 @@
         <blockquote>
 <p>Array types are always one-dimensional but may be composed to form multi-dimensional types.</p>
 </blockquote>
-<p>from <a href="https://golang.org/ref/spec#Array_types" target="_blank" rel="noopener">spec Array types</a></p>
+<p>from <a target="_blank" rel="noopener" href="https://golang.org/ref/spec#Array_types">spec Array types</a></p>
 <blockquote>
 <p>A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array.<br>…<br>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects.</p>
 </blockquote>
-<p>from <a href="https://golang.org/ref/spec#Slice_types" target="_blank" rel="noopener">spec Slice types</a></p>
+<p>from <a target="_blank" rel="noopener" href="https://golang.org/ref/spec#Slice_types">spec Slice types</a></p>
 <h1 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h1><h2 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h2><p>在多維的情況下，inner slice 只能一個個初始化，像這樣：</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -290,7 +290,7 @@
 <p>slice header 長這樣：</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="keyword">uintptr</span></span><br><span class="line">    Len  <span class="keyword">int</span></span><br><span class="line">    Cap  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>from <a href="https://golang.org/pkg/reflect/#SliceHeader" target="_blank" rel="noopener">SliceHeader</a></p>
+<p>from <a target="_blank" rel="noopener" href="https://golang.org/pkg/reflect/#SliceHeader">SliceHeader</a></p>
 <p>在 64-bit 平台上，一個 slice header 的 size 是 24 bytes。那麼 x 的總 size 是 2000 + 2 * 24 = 2048 bytes。而 y 的總 size 則是 2000 + 1000 * 24 = 26000 bytes。</p>
 <p>所以啦，考量 memory 使用的時候，需要注意多維 slice 是怎麼組的，像上面的 y，slice header 的 size 遠超過全部 element 的 size。</p>
 <h1 id="Inner-array-slice-length"><a href="#Inner-array-slice-length" class="headerlink" title="Inner array/slice length"></a>Inner array/slice length</h1><blockquote>
@@ -299,8 +299,8 @@
 <p>多維 array 的 inner array 都是相同 length 的。</p>
 <p>多維 slice 的 inner slice 可以是不同 length。另外，inner slice 必須要各自 initialize。</p>
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
-<li><a href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go" target="_blank" rel="noopener">What is a concise way to create a 2D slice in Go?</a></li>
-<li><a href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation" target="_blank" rel="noopener">How is two dimensional array’s memory representation</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go">What is a concise way to create a 2D slice in Go?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation">How is two dimensional array’s memory representation</a></li>
 </ul>
 
     </div>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="API 分很多種 style，各有優缺跟取捨。  C style Object Oriented C++ style Template style Data driven style  這種分類方式是以 C&#x2F;C++ 系列區分，但我覺得在其他語言方面也有類似概念。 C style一般 C function 們，通常會用 struct 跟一些命名規則來區別不同功能跟 component 等等。 類似的">
@@ -278,7 +278,7 @@
 <li>C API 可以用 C++ compiler 編過</li>
 <li>用 <code>extern &quot;C&quot;</code> 處理 C++ 與 C 之間 linkage 的問題<br>同樣的 function 在 C compiler 跟 C++ 的 compiler 產生的 object file 中會以不同方式呈現，例如 C++ 有 <code>name decoration</code>，但 C 沒有。因此 C API 得用 extern “C” 包起來，讓 C++ compiler 知道這段應該要用 C style 的 link 方式。</li>
 </ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C API declaration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C API declaration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 
 <p>實例：<a href="/Cpp-uses-C-library-example">C++ uses C library example</a></p>
 <h2 id="Object-Oriented-C-style"><a href="#Object-Oriented-C-style" class="headerlink" title="Object Oriented C++ style"></a>Object Oriented C++ style</h2><p>以物件導向為基礎的寫法。</p>
@@ -384,7 +384,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-style"><span class="nav-number">1.</span> <span class="nav-text">C style</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#讓-C-可以-call-C-API"><span class="nav-number">1.1.</span> <span class="nav-text">讓 C++ 可以 call C API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-Oriented-C-style"><span class="nav-number">2.</span> <span class="nav-text">Object Oriented C++ style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-style"><span class="nav-number">3.</span> <span class="nav-text">Template style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-driven-style"><span class="nav-number">4.</span> <span class="nav-text">Data driven style</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-style"><span class="nav-number">1.</span> <span class="nav-text">C style</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%93-C-%E5%8F%AF%E4%BB%A5-call-C-API"><span class="nav-number">1.1.</span> <span class="nav-text">讓 C++ 可以 call C API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-Oriented-C-style"><span class="nav-number">2.</span> <span class="nav-text">Object Oriented C++ style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Template-style"><span class="nav-number">3.</span> <span class="nav-text">Template style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Data-driven-style"><span class="nav-number">4.</span> <span class="nav-text">Data driven style</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

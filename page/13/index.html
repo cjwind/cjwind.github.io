@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta property="og:type" content="website">
@@ -258,23 +258,23 @@
       
           <p>原本想說既然在 Windows 上開發，用 Visual Studio 好了，但打開網站看到價格，呃，我還是繼續用 Eclipse 跟 Qt Creator  吧！<em>謎版？找謎版的時間我都可以處理好了…</em></p>
 <h2 id="Install-Windows-SDK"><a href="#Install-Windows-SDK" class="headerlink" title="Install Windows SDK"></a>Install Windows SDK</h2><p>安裝 Windows 7 的。</p>
-<p><a href="http://www.microsoft.com/en-us/download/details.aspx?id=8279" target="_blank" rel="noopener">Microsoft Windows SDK for Windows 7 and .NET Framework 4</a></p>
-<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>裝 Windows SDK 失敗，像<a href="http://www.mathworks.com/matlabcentral/answers/95039-why-does-the-sdk-7-1-installation-fail-with-an-installation-failed-message-on-my-windows-system" target="_blank" rel="noopener">這篇</a>的狀況。移掉 Microsoft Visual C++ 2010 redistributable packages 後再裝 Windows SDK 就可以了。</p>
-<p>compile 時遇到 <code>error C2059: syntax error : &#39;constant&#39;</code>，<a href="https://github.com/cjwind/patch/tree/master/WindowsSDK71" target="_blank" rel="noopener">patch</a>。</p>
+<p><a target="_blank" rel="noopener" href="http://www.microsoft.com/en-us/download/details.aspx?id=8279">Microsoft Windows SDK for Windows 7 and .NET Framework 4</a></p>
+<h3 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>裝 Windows SDK 失敗，像<a target="_blank" rel="noopener" href="http://www.mathworks.com/matlabcentral/answers/95039-why-does-the-sdk-7-1-installation-fail-with-an-installation-failed-message-on-my-windows-system">這篇</a>的狀況。移掉 Microsoft Visual C++ 2010 redistributable packages 後再裝 Windows SDK 就可以了。</p>
+<p>compile 時遇到 <code>error C2059: syntax error : &#39;constant&#39;</code>，<a target="_blank" rel="noopener" href="https://github.com/cjwind/patch/tree/master/WindowsSDK71">patch</a>。</p>
 <h2 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h2><h3 id="Install-CDT-Visual-C-Support"><a href="#Install-CDT-Visual-C-Support" class="headerlink" title="Install CDT Visual C++ Support"></a>Install CDT Visual C++ Support</h3><p>在 Eclipse 裝 CDT Visual C++ Support，才有 Visual C++ tool chain。我的 Eclipse 是 Juno。</p>
-<p>CDT site：<a href="http://download.eclipse.org/tools/cdt/releases/juno" target="_blank" rel="noopener">http://download.eclipse.org/tools/cdt/releases/juno</a></p>
+<p>CDT site：<a target="_blank" rel="noopener" href="http://download.eclipse.org/tools/cdt/releases/juno">http://download.eclipse.org/tools/cdt/releases/juno</a></p>
 <h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p><strong>Project property</strong></p>
 <p>C/C++ Build -&gt; Tool Chain Editor 的 toolchain 設為 Microsoft Visual C++。</p>
 <p>C/C++ Build -&gt; Environment 增加 PATH C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin，這樣才找得到 Visual C++ compiler。</p>
 <p>C/C++ General -&gt; Paths and Symbols -&gt; Includes -&gt; GNU C++</p>
 <p><img src="/images/Eclipse_vc_config1.png" alt="Eclipse Configuration"></p>
 <h2 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator"></a>Qt Creator</h2><p>因為想到要有 GUI 介面，所以需要 Qt + Windows SDK，但現在 Eclipse 跟 Qt 的整合不太好，改用 Qt Creator + Windows SDK。</p>
-<p>直接裝 <a href="http://download.qt-project.org/official_releases/qt/5.3/5.3.1/qt-opensource-windows-x86-msvc2010_opengl-5.3.1.exe" target="_blank" rel="noopener">Qt 5.3.1 for Windows 32-bit (VS 2010, OpenGL, 537 MB)</a></p>
+<p>直接裝 <a target="_blank" rel="noopener" href="http://download.qt-project.org/official_releases/qt/5.3/5.3.1/qt-opensource-windows-x86-msvc2010_opengl-5.3.1.exe">Qt 5.3.1 for Windows 32-bit (VS 2010, OpenGL, 537 MB)</a></p>
 <h3 id="Kits"><a href="#Kits" class="headerlink" title="Kits"></a>Kits</h3><p>如果已經先裝其他版本的 Qt，應該可以在選項裡加 Kit：</p>
 <p><img src="/images/QtCreator_WinSDK_kit.png" alt="Qt Creator Windows SDK Kits"></p>
 <h3 id="pro-setting"><a href="#pro-setting" class="headerlink" title="pro setting"></a>pro setting</h3><p><code>INCLUDEPATH</code> 要加 Windows SDK 的路徑，如 Eclipse Configuration 圖中的路徑。</p>
 <h3 id="Troubleshooting-1"><a href="#Troubleshooting-1" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h3><p>compile 時遇到 <code>LINK : fatal error LNK1123: failure during conversion to COFF: file invalid or corrupt</code> 的錯誤。</p>
-<p>Solution：<a href="http://qt-project.org/wiki/Category:Tools::msvc" target="_blank" rel="noopener">http://qt-project.org/wiki/Category:Tools::msvc</a></p>
+<p>Solution：<a target="_blank" rel="noopener" href="http://qt-project.org/wiki/Category:Tools::msvc">http://qt-project.org/wiki/Category:Tools::msvc</a></p>
 
       
     </div>
@@ -437,17 +437,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>安裝 <a href="http://nodejs.org/" target="_blank" rel="noopener">Node.js</a></p>
+          <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>安裝 <a target="_blank" rel="noopener" href="http://nodejs.org/">Node.js</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/hexojs/hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update --init</span></span><br></pre></td></tr></table></figure>
 
 <p><code>npm install</code> 應該是為了把需要的 node module 裝起來。</p>
 <p>修改後直接 run <code>bin/hexo</code> 即可。</p>
-<h2 id="改以-updated-排序-post"><a href="#改以-updated-排序-post" class="headerlink" title="改以 updated 排序 post"></a>改以 updated 排序 post</h2><p>抄 <a href="http://goo.gl/63S6ui" target="_blank" rel="noopener">http://goo.gl/63S6ui</a> 的，可從 <code>_config.yml</code> 設定 post 以 date 或 updated 排序。如果 post 沒有設 updated，updated 時間會等於 date。</p>
-<p><a href="https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae" target="_blank" rel="noopener">https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae</a><br><a href="https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b" target="_blank" rel="noopener">https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b</a></p>
+<h2 id="改以-updated-排序-post"><a href="#改以-updated-排序-post" class="headerlink" title="改以 updated 排序 post"></a>改以 updated 排序 post</h2><p>抄 <a target="_blank" rel="noopener" href="http://goo.gl/63S6ui">http://goo.gl/63S6ui</a> 的，可從 <code>_config.yml</code> 設定 post 以 date 或 updated 排序。如果 post 沒有設 updated，updated 時間會等於 date。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae">https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae</a><br><a target="_blank" rel="noopener" href="https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b">https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b</a></p>
 <p><em>耍蠢所以變成兩個 commit</em></p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://hexo.io/docs/contributing.html" target="_blank" rel="noopener">http://hexo.io/docs/contributing.html</a></li>
-<li><a href="https://github.com/tommy351/hexo/issues/376" target="_blank" rel="noopener">https://github.com/tommy351/hexo/issues/376</a></li>
+<li><a target="_blank" rel="noopener" href="http://hexo.io/docs/contributing.html">http://hexo.io/docs/contributing.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tommy351/hexo/issues/376">https://github.com/tommy351/hexo/issues/376</a></li>
 </ul>
 
       
@@ -608,9 +608,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a href="https://swiftype.com" target="_blank" rel="noopener">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
+          <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a target="_blank" rel="noopener" href="https://swiftype.com">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
 <p>註冊、輸入 URL，它處理完後到 INSTALL 頁面 copy source code 到 theme 中相應 call <code>search_form()</code> 的地方。每個 theme 的位置不太一樣，nut 在 <code>layout/_widget/search.ejs</code>，landscape 在 <code>layout/_partial/header.ejs</code>。</p>
-<p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a href="https://swiftype.com/documentation/widget" target="_blank" rel="noopener">這裡</a>看怎麼改。</p>
+<p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a target="_blank" rel="noopener" href="https://swiftype.com/documentation/widget">這裡</a>看怎麼改。</p>
 
       
     </div>
@@ -797,9 +797,9 @@
 <p>有另一種做法是 <code>GetSingleton()</code> 不 return pointer，而 return reference。</p>
 <p>這個實作沒有 thread-safe，有多個 thread 會 call <code>GetSingleton()</code> 就 GG 了。要 thread-safe 可以用 double-checked locking。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html" target="_blank" rel="noopener">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
-<li><a href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern" target="_blank" rel="noopener">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
-<li><a href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods" target="_blank" rel="noopener">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
+<li><a target="_blank" rel="noopener" href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
 </ul>
 
       
@@ -882,7 +882,7 @@
           <p><del>簡單來說，我變心了。</del></p>
 <p>Octopress 隨著文章數越多 <code>rake generate</code> 似乎有越來越慢的趨勢，稍微查一下發現雖然有 <code>generate</code> 加速的方法，但遇到 <code>deploy</code> 還是會慢，索性跳到比較快的 Hexo。</p>
 <p>Hexo 也可以配合 Github page 使用。跟 Octopress 的不同的是 Hexo 把 post 跟 draft 分開，還不錯。</p>
-<p>從 Octopress 轉到 Hexo 不難，先安裝好 <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a>，再將原本 <code>_posts/</code> 底下的檔案搬過來便是。Hexo 不像 Octopress 將 source 開成另一個 branch 可以 push 到 repos 上，<del>為了備份跟遠端傳輸 source 檔，我把整個 Hexo 資料夾放在 Dropbox 上。</del>理論上電腦有裝 node.js 跟 Git 的環境就可以直接寫。</p>
+<p>從 Octopress 轉到 Hexo 不難，先安裝好 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a>，再將原本 <code>_posts/</code> 底下的檔案搬過來便是。Hexo 不像 Octopress 將 source 開成另一個 branch 可以 push 到 repos 上，<del>為了備份跟遠端傳輸 source 檔，我把整個 Hexo 資料夾放在 Dropbox 上。</del>理論上電腦有裝 node.js 跟 Git 的環境就可以直接寫。</p>
 <p>偶爾改爛 theme，放在 Dropbox 上就不知道自己改了什麼、改不回去，試驗開另一個 repos 放 source。</p>
 <h2 id="新增頁面"><a href="#新增頁面" class="headerlink" title="新增頁面"></a>新增頁面</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ hexo new<span class="built_in"> page </span>&lt;name&gt;</span><br></pre></td></tr></table></figure>
 
@@ -891,11 +891,11 @@
 
 <p>這個設定因 theme 而異，以上設定是 default theme landscape 的。</p>
 <h2 id="Custom-Domain-Name"><a href="#Custom-Domain-Name" class="headerlink" title="Custom Domain Name"></a>Custom Domain Name</h2><p>在 <code>source/</code> 底下增加一檔案 <code>CNAME</code>，內容為自訂 domain name，如 <code>www.cjwind.idv.tw</code>。</p>
-<h2 id="Theme"><a href="#Theme" class="headerlink" title="Theme"></a>Theme</h2><p><del>改用 <a href="https://github.com/seff/nut" target="_blank" rel="noopener">nut</a></del></p>
+<h2 id="Theme"><a href="#Theme" class="headerlink" title="Theme"></a>Theme</h2><p><del>改用 <a target="_blank" rel="noopener" href="https://github.com/seff/nut">nut</a></del></p>
 <h2 id="修改-Deploy-git-repos"><a href="#修改-Deploy-git-repos" class="headerlink" title="修改 Deploy git repos"></a>修改 Deploy git repos</h2><p>除了修改 <code>_config.yml</code> 裡 <code>deploy</code> 下 <code>repo</code> 的設定外，也要刪除 <code>.deploy/</code>，才會套用新的 repos 設定。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://hexo.io/" target="_blank" rel="noopener">http://hexo.io/</a></li>
-<li><a href="http://lostjs.com/2014/04/22/from-octopress-to-hexo/" target="_blank" rel="noopener">http://lostjs.com/2014/04/22/from-octopress-to-hexo/</a></li>
+<li><a target="_blank" rel="noopener" href="http://hexo.io/">http://hexo.io/</a></li>
+<li><a target="_blank" rel="noopener" href="http://lostjs.com/2014/04/22/from-octopress-to-hexo/">http://lostjs.com/2014/04/22/from-octopress-to-hexo/</a></li>
 </ul>
 
       
@@ -978,10 +978,10 @@
           <p>發現兩個問題：Tapir 不支援中文、換過 permalink 會怪怪的。</p>
 <p><em>2014/4/28 updated</em></p>
 <hr>
-<p>Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 <a href="http://tapirgo.com/" target="_blank" rel="noopener">Tapir</a>，可以在自己站內找。</p>
+<p>Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 <a target="_blank" rel="noopener" href="http://tapirgo.com/">Tapir</a>，可以在自己站內找。</p>
 <p>Tapir 的原理是它每 15 分鐘會掃一次網站的 RSS，再透過他們的 API 達到以 RSS 為 base 的搜尋功能。要注意的是，沒在 RSS 中的文章是不會被 search 到的。</p>
-<h2 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h2><p>先到 <a href="http://tapirgo.com/" target="_blank" rel="noopener">Tapir</a> 輸入 RSS feed 跟 mail，會得到一組 key，這裡只需要用到 public key。</p>
-<p>到 <a href="https://github.com/blimey85/octopress-tapir" target="_blank" rel="noopener">Octopress Tapir plugin</a> 下載所需檔案並放到對應資料夾。</p>
+<h2 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h2><p>先到 <a target="_blank" rel="noopener" href="http://tapirgo.com/">Tapir</a> 輸入 RSS feed 跟 mail，會得到一組 key，這裡只需要用到 public key。</p>
+<p>到 <a target="_blank" rel="noopener" href="https://github.com/blimey85/octopress-tapir">Octopress Tapir plugin</a> 下載所需檔案並放到對應資料夾。</p>
 <ul>
 <li>source/search.html</li>
 <li>source/javascripts/jquery_tapir.js</li>
@@ -1005,9 +1005,9 @@
 
 <p>修改 <code>source/atom.xml</code>，拿掉 <code>for post in site.posts limit: 20</code> 的 <code>limit: 20</code>，讓所有 post 都會出現在 RSS feed 。另一個可能的做法是複製 <code>source/atom.xml</code> 為 <code>source/atomForSearch.xml</code>，<code>rake generate</code> 後將這個 XML 的 URL 丟給 Tapir 當作 search 的 base。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://tapirgo.com/" target="_blank" rel="noopener">http://tapirgo.com/</a></li>
-<li><a href="https://github.com/blimey85/octopress-tapir" target="_blank" rel="noopener">https://github.com/blimey85/octopress-tapir</a></li>
-<li><a href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/" target="_blank" rel="noopener">http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/</a></li>
+<li><a target="_blank" rel="noopener" href="http://tapirgo.com/">http://tapirgo.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blimey85/octopress-tapir">https://github.com/blimey85/octopress-tapir</a></li>
+<li><a target="_blank" rel="noopener" href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/">http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/</a></li>
 </ul>
 
       

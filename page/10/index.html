@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta property="og:type" content="website">
@@ -265,9 +265,9 @@
 <p>2018-12：現在看看覺得「希望訂一個 interface 但不想訂定其中要有什麼 function」的情況有點怪……又想不起來之前遇到什麼了……要訂 interface 至少要有基本 function，否則是否先不訂 interface、先做 class，等漸漸看到有共通的 function 時再訂定 interface？</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a href="/c-plus-plus-virtual-destructor">C++ Virtual Destructor</a></li>
-<li><a href="http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c</a></li>
-<li><a href="http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c" target="_blank" rel="noopener">http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c</a></li>
-<li><a href="http://www.gotw.ca/gotw/031.htm" target="_blank" rel="noopener">http://www.gotw.ca/gotw/031.htm</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c">http://stackoverflow.com/questions/270917/why-should-i-declare-a-virtual-destructor-for-an-abstract-class-in-c</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c">http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.gotw.ca/gotw/031.htm">http://www.gotw.ca/gotw/031.htm</a></li>
 </ul>
 
       
@@ -656,7 +656,7 @@
 <li><code>.bss</code> section 記錄沒有 initialize 的 variable，先記著「有這個 variable」跟它的 size。但是因為 variable 還沒有 value，所以在 object file 裡不需要浪費空間去記錄 value。</li>
 </ul>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://en.wikipedia.org/wiki/Object_file" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Object_file</a></li>
+<li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Object_file">http://en.wikipedia.org/wiki/Object_file</a></li>
 </ul>
 
       
@@ -796,8 +796,8 @@
 <p>ELF 在 mapping 到 virtual address space 時是以 page 為單位，如果 section 的大小不是 page 大小的整數倍又以 section 為單位進行 mapping，會浪費許多 memory。load ELF 時 OS 只在乎 section 的屬性如可讀、可寫、可執行，OS 不在乎 section 的內容，為了節省記憶體空間延伸出<strong>「將屬性相同的 section 合併成一個 segment，再對應到 virtual address space」</strong>的方式。linker 在 link object file 時會盡量將相同屬性的 section 放在一起。</p>
 <p>segment 是以 load 的角度劃分 ELF，也就是 <strong>Execution View</strong>。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://refspecs.linuxbase.org/elf/elf.pdf" target="_blank" rel="noopener">http://refspecs.linuxbase.org/elf/elf.pdf</a></li>
-<li><a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></li>
+<li><a target="_blank" rel="noopener" href="http://refspecs.linuxbase.org/elf/elf.pdf">http://refspecs.linuxbase.org/elf/elf.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></li>
 <li>《程式設計師的自我修養》ch 3, 6</li>
 </ul>
 
@@ -886,8 +886,8 @@
 <p>有新的 algorithm 或 strategy 時只要 implement ShortestPathStrategy 並換掉 RouteFinder 使用的 instance 即可。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li>《深入淺出設計模式》</li>
-<li><a href="http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html" target="_blank" rel="noopener">http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html</a></li>
-<li><a href="http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx" target="_blank" rel="noopener">http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx</a></li>
+<li><a target="_blank" rel="noopener" href="http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html">http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx">http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx</a></li>
 </ul>
 
       
@@ -973,7 +973,7 @@
 <p>程式在 bounce 期間會讀取到 bounce 的訊號造成判斷錯誤。例如按一下按鈕開關我們期望程式只讀到一次 on 的訊號，bounce 會造成程式讀到很多次 on 的訊號。</p>
 <p>解決方式軟體及硬體皆有，硬體的我看不懂所以這裡只說軟體。(欸)</p>
 <p>軟體解決方式：不處理 bounce 時間內的訊號。「不處理」的實際做法可以自己硬寫也可以在 <code>add_event_detect()</code> 裡設定。</p>
-<p>圖片來源：<a href="http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml" target="_blank" rel="noopener">http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml</a></p>
+<p>圖片來源：<a target="_blank" rel="noopener" href="http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml">http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml</a></p>
 
       
     </div>
@@ -1062,8 +1062,8 @@
 <p><em>murmur：被高低電位搞得頭有點暈，不太確定那個電流的理解對不對？沒搞得很懂 logic gate 在乎的是電位還是電位差……我的電路學只有高中程度啊……Orz</em></p>
 <p>圖片來源及 Ref：</p>
 <ul>
-<li><a href="http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB" target="_blank" rel="noopener">http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB</a></li>
-<li><a href="http://playground.arduino.cc/CommonTopics/PullUpDownResistor" target="_blank" rel="noopener">http://playground.arduino.cc/CommonTopics/PullUpDownResistor</a></li>
+<li><a target="_blank" rel="noopener" href="http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB">http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB</a></li>
+<li><a target="_blank" rel="noopener" href="http://playground.arduino.cc/CommonTopics/PullUpDownResistor">http://playground.arduino.cc/CommonTopics/PullUpDownResistor</a></li>
 </ul>
 
       

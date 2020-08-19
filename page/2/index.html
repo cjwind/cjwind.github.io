@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta property="og:type" content="website">
@@ -460,11 +460,11 @@
           <blockquote>
 <p>Array types are always one-dimensional but may be composed to form multi-dimensional types.</p>
 </blockquote>
-<p>from <a href="https://golang.org/ref/spec#Array_types" target="_blank" rel="noopener">spec Array types</a></p>
+<p>from <a target="_blank" rel="noopener" href="https://golang.org/ref/spec#Array_types">spec Array types</a></p>
 <blockquote>
 <p>A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array.<br>…<br>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects.</p>
 </blockquote>
-<p>from <a href="https://golang.org/ref/spec#Slice_types" target="_blank" rel="noopener">spec Slice types</a></p>
+<p>from <a target="_blank" rel="noopener" href="https://golang.org/ref/spec#Slice_types">spec Slice types</a></p>
 <h1 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h1><h2 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h2><p>在多維的情況下，inner slice 只能一個個初始化，像這樣：</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -486,7 +486,7 @@
 <p>slice header 長這樣：</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="keyword">uintptr</span></span><br><span class="line">    Len  <span class="keyword">int</span></span><br><span class="line">    Cap  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>from <a href="https://golang.org/pkg/reflect/#SliceHeader" target="_blank" rel="noopener">SliceHeader</a></p>
+<p>from <a target="_blank" rel="noopener" href="https://golang.org/pkg/reflect/#SliceHeader">SliceHeader</a></p>
 <p>在 64-bit 平台上，一個 slice header 的 size 是 24 bytes。那麼 x 的總 size 是 2000 + 2 * 24 = 2048 bytes。而 y 的總 size 則是 2000 + 1000 * 24 = 26000 bytes。</p>
 <p>所以啦，考量 memory 使用的時候，需要注意多維 slice 是怎麼組的，像上面的 y，slice header 的 size 遠超過全部 element 的 size。</p>
 <h1 id="Inner-array-slice-length"><a href="#Inner-array-slice-length" class="headerlink" title="Inner array/slice length"></a>Inner array/slice length</h1><blockquote>
@@ -495,8 +495,8 @@
 <p>多維 array 的 inner array 都是相同 length 的。</p>
 <p>多維 slice 的 inner slice 可以是不同 length。另外，inner slice 必須要各自 initialize。</p>
 <h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
-<li><a href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go" target="_blank" rel="noopener">What is a concise way to create a 2D slice in Go?</a></li>
-<li><a href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation" target="_blank" rel="noopener">How is two dimensional array’s memory representation</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go">What is a concise way to create a 2D slice in Go?</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation">How is two dimensional array’s memory representation</a></li>
 </ul>
 
       
@@ -577,13 +577,13 @@
 
       
           <ul>
-<li><a href="https://github.com/thephpleague/openapi-psr7-validator" target="_blank" rel="noopener">https://github.com/thephpleague/openapi-psr7-validator</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/thephpleague/openapi-psr7-validator">https://github.com/thephpleague/openapi-psr7-validator</a></li>
 </ul>
 <p>如果要驗證 response「要有某個欄位」，在 api 定義（yaml 或 json 檔）裡該欄位要設 <code>required</code>：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">                <span class="attr">properties:</span></span><br><span class="line">                  <span class="attr">id:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">                  <span class="attr">username:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                <span class="attr">required:</span>    <span class="comment"># 沒有這個的話, response 有或沒有這些欄位都會過</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
 
 <p>用 component 的版本：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="string">\$ref:</span> <span class="string">'#/components/schemas/User'</span></span><br><span class="line"><span class="attr">components:</span></span><br><span class="line">  <span class="attr">schemas:</span></span><br><span class="line">    <span class="attr">User:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">      <span class="attr">properties:</span></span><br><span class="line">        <span class="attr">id:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">        <span class="attr">username:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">required:</span> <span class="comment"># 這裡</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="string">\$ref:</span> <span class="string">&#x27;#/components/schemas/User&#x27;</span></span><br><span class="line"><span class="attr">components:</span></span><br><span class="line">  <span class="attr">schemas:</span></span><br><span class="line">    <span class="attr">User:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">      <span class="attr">properties:</span></span><br><span class="line">        <span class="attr">id:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">        <span class="attr">username:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">required:</span> <span class="comment"># 這裡</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -663,7 +663,7 @@
       
           <p>問題：Linux 下的 PhpStorm 無法切換輸入法輸入中文。</p>
 <p>在 PhpStorm 啟動 script <code>bin/phpstorm.sh</code> 的 <code>Run the IDE</code> 前加入：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="attribute">XMODIFIERS</span>=<span class="string">"@im=fcitx"</span></span><br><span class="line"><span class="builtin-name">export</span> XMODIFIERS</span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="attribute">XMODIFIERS</span>=<span class="string">&quot;@im=fcitx&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> XMODIFIERS</span><br></pre></td></tr></table></figure>
 
 <p>這樣用 shell 啟動 PhpStorm 就能切到中文輸入法（前提當然是已經有裝好了），不過從 launcher 啟動 PhpStorm 還是不行。</p>
 
@@ -753,20 +753,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
-<h2 id="Part-5-Stacks"><a href="#Part-5-Stacks" class="headerlink" title="Part 5: Stacks"></a><a href="https://docs.docker.com/get-started/part5/" target="_blank" rel="noopener">Part 5: Stacks</a></h2><blockquote>
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-5-Stacks"><a href="#Part-5-Stacks" class="headerlink" title="Part 5: Stacks"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part5/">Part 5: Stacks</a></h2><blockquote>
 <p>A stack is a group of interrelated services that share dependencies, and can be orchestrated and scaled together. A single stack is capable of defining and coordinating the functionality of an entire application (though very complex applications may want to use multiple stacks).</p>
 </blockquote>
 <p>stack 定義了一堆互相有關的 service，把 service 放在一個 stack 裡就可以一起操作、scale 等等。可以用一個 stack 來定義一個 application 的功能，比較複雜的 application 可能有多個 stack。</p>
 <p>也就是可以把 application 拆分成多個 service 來運作，這些 service 可以只跑在一台機器上，也可以在 swarm 中跑在不同機器上。原本要做到這件事，要嘛要在一台機器上裝各種 server，要分散就得在多台機器上裝各自需要的 server，再不然就得裝 VM 起來做這些事，而且也沒有個統一的地方記錄各 service 的版本等等資訊（工人智慧…）。Docker 把 setup 開發及 production 環境跟 scale up 變得簡單很多。</p>
 <h3 id="More-docker-compose-yml"><a href="#More-docker-compose-yml" class="headerlink" title="More docker-compose.yml"></a>More <code>docker-compose.yml</code></h3><p><a href="/Get-started-with-Docker-Part-3/">part 3</a> 寫的 <code>docker-compose.yml</code> 是定義只有一個 service 的 stack。下面是有兩個 service 分別為 <code>visualizer</code> 跟 <code>redis</code> 的 stack：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span>    <span class="comment"># compose file format version</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">visualizer:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">dockersamples/visualizer:stable</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"8080:8080"</span></span><br><span class="line">    <span class="comment"># mapping host 的 file 到 container 裡</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"/var/run/docker.sock:/var/run/docker.sock"</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># 指定 service 要 run 在哪個 node</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> <span class="string">[node.role</span> <span class="string">==</span> <span class="string">manager]</span>    <span class="comment"># 只能 run 在 swarm manager</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"6379:6379"</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># mapping host 的 /home/docker/data 到 container 的 /data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"/home/docker/data:/data"</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> <span class="string">[node.role</span> <span class="string">==</span> <span class="string">manager]</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--appendonly</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span>    <span class="comment"># compose file format version</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">visualizer:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">dockersamples/visualizer:stable</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="comment"># mapping host 的 file 到 container 裡</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/var/run/docker.sock:/var/run/docker.sock&quot;</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># 指定 service 要 run 在哪個 node</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> [<span class="string">node.role</span> <span class="string">==</span> <span class="string">manager</span>]    <span class="comment"># 只能 run 在 swarm manager</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># mapping host 的 /home/docker/data 到 container 的 /data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/home/docker/data:/data&quot;</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> [<span class="string">node.role</span> <span class="string">==</span> <span class="string">manager</span>]</span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--appendonly</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
 
 <p>如果沒有做 volume mapping，container 的 disk 的 file 在 container 重開後會不見。</p>
-<p>其他 compose file 設定可參考：<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">Compose file reference</a>。</p>
+<p>其他 compose file 設定可參考：<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/">Compose file reference</a>。</p>
 <p>修改 <code>docker-compose.yml</code> 後重新 deploy 只需 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code>。</p>
 <p>要結束整個 stack 的 service 則 <code>docker stack rm &lt;stack_name&gt;</code>。</p>
-<h2 id="Part-6-Deploy-your-app"><a href="#Part-6-Deploy-your-app" class="headerlink" title="Part 6: Deploy your app"></a><a href="https://docs.docker.com/get-started/part6/" target="_blank" rel="noopener">Part 6: Deploy your app</a></h2><p>這篇是看你要用 Docker Enterprise 還是自己裝 <a href="https://docs.docker.com/install/" target="_blank" rel="noopener">Docker Engine - Community</a> 進行開發及 deploy production。</p>
+<h2 id="Part-6-Deploy-your-app"><a href="#Part-6-Deploy-your-app" class="headerlink" title="Part 6: Deploy your app"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part6/">Part 6: Deploy your app</a></h2><p>這篇是看你要用 Docker Enterprise 還是自己裝 <a target="_blank" rel="noopener" href="https://docs.docker.com/install/">Docker Engine - Community</a> 進行開發及 deploy production。</p>
 <p>開發環境跟 production 環境的 Docker 操作都一樣（只是執行的地方不一樣。</p>
 
       
@@ -855,9 +855,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
-<h2 id="Part-4-Swarms"><a href="#Part-4-Swarms" class="headerlink" title="Part 4: Swarms"></a><a href="https://docs.docker.com/get-started/part4/" target="_blank" rel="noopener">Part 4: Swarms</a></h2><p>這個 part 會 deploy app 到 cluster 並執行在多個 machine 上。</p>
-<p>Linux 要先<a href="https://docs.docker.com/machine/install-machine/#installing-machine-directly" target="_blank" rel="noopener">安裝 Docker Machine</a>。</p>
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-4-Swarms"><a href="#Part-4-Swarms" class="headerlink" title="Part 4: Swarms"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part4/">Part 4: Swarms</a></h2><p>這個 part 會 deploy app 到 cluster 並執行在多個 machine 上。</p>
+<p>Linux 要先<a target="_blank" rel="noopener" href="https://docs.docker.com/machine/install-machine/#installing-machine-directly">安裝 Docker Machine</a>。</p>
 <h3 id="Swarm"><a href="#Swarm" class="headerlink" title="Swarm"></a>Swarm</h3><blockquote>
 <p>A swarm is a group of machines that are running Docker and joined into a cluster.</p>
 </blockquote>
@@ -870,32 +870,32 @@
 <p>平常 Docker 是在 single-host mode 執行，轉成 swarm mode 才能使用 swarm 相關功能。讓一台機器變成 swarm manager 後，Docker 會將 command 執行在它管理的 swarm 上，而非只在目前的機器。</p>
 <h3 id="Set-up-swarm"><a href="#Set-up-swarm" class="headerlink" title="Set up swarm"></a>Set up swarm</h3><p>用 <code>docker swarm init</code> 把一台機器變成 swarm manager，再到其他要當 worker 的機器上執行 <code>docker swarm join</code>。</p>
 <p>接下來用 VM 建個 cluster。</p>
-<p>因為用 VM，Linux 上要先裝 <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener">VirtualBox</a>。</p>
+<p>因為用 VM，Linux 上要先裝 <a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>。</p>
 <p>使用 <code>docker-machine</code> 產生兩台 VM：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ docker-machine <span class="built_in">create</span> <span class="comment">--driver virtualbox myvm1</span></span><br><span class="line">$ docker-machine <span class="built_in">create</span> <span class="comment">--driver virtualbox myvm2</span></span><br></pre></td></tr></table></figure>
 
 <p>列出 VM：</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   -        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.100:2376           v19.03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.101:2376           v19.03.1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   -        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.100</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.101</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br></pre></td></tr></table></figure>
 
 <p>接下來讓 <code>myvm1</code> 當 swarm manager、<code>myvm2</code> 當 worker。</p>
 <p>透過 <code>docker-machine ssh &lt;vm&gt; &quot;&lt;command&gt;&quot;</code> 可以在 VM 上執行指令：</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">"docker swarm init --advertise-addr &lt;myvm1 ip&gt;"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">&quot;docker swarm init --advertise-addr &lt;myvm1 ip&gt;&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>上面指令會得到將 worker 加入此 swarm 的 command，到 <code>myvm2</code> 上執行：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker-machine ssh myvm2 "docker swarm join --token <span class="tag">&lt;<span class="name">token</span>&gt;</span> <span class="tag">&lt;<span class="name">swarm</span> <span class="attr">manager</span> <span class="attr">ip</span>&gt;</span>:<span class="tag">&lt;<span class="name">port</span>&gt;</span>"</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker-machine ssh myvm2 &quot;docker swarm join --token <span class="tag">&lt;<span class="name">token</span>&gt;</span> <span class="tag">&lt;<span class="name">swarm</span> <span class="attr">manager</span> <span class="attr">ip</span>&gt;</span>:<span class="tag">&lt;<span class="name">port</span>&gt;</span>&quot;</span><br></pre></td></tr></table></figure>
 
 <p>port 預設是 2377。</p>
 <p>從 <code>myvm1</code> 看 node：</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">"docker node ls"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">&quot;docker node ls&quot;</span></span><br></pre></td></tr></table></figure>
 
 <p>最後 node 離開 swarm：</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm2 <span class="string">"docker swarm leave"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm2 <span class="string">&quot;docker swarm leave&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="docker-machine-shell"><a href="#docker-machine-shell" class="headerlink" title="docker-machine shell"></a><code>docker-machine</code> shell</h3><p><code>docker-machine ssh</code> 打起來很長，VM 也無法 access VM host 的檔案。用 <code>docker-machine env &lt;machine&gt;</code> 設定可以讓 shell 直接跟 VM 溝通：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker-machine env myvm1</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_TLS_VERIFY</span>=<span class="string">"1"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_HOST</span>=<span class="string">"tcp://192.168.99.100:2376"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_CERT_PATH</span>=<span class="string">"/home/cjw/.docker/machine/machines/myvm1"</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_MACHINE_NAME</span>=<span class="string">"myvm1"</span></span><br><span class="line"><span class="comment"># Run this command to configure your shell:</span></span><br><span class="line"><span class="comment"># eval $(docker-machine env myvm1)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker-machine env myvm1</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_TLS_VERIFY</span>=<span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_HOST</span>=<span class="string">&quot;tcp://192.168.99.100:2376&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_CERT_PATH</span>=<span class="string">&quot;/home/cjw/.docker/machine/machines/myvm1&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_MACHINE_NAME</span>=<span class="string">&quot;myvm1&quot;</span></span><br><span class="line"><span class="comment"># Run this command to configure your shell:</span></span><br><span class="line"><span class="comment"># eval $(docker-machine env myvm1)</span></span><br></pre></td></tr></table></figure>
 
 <p>執行 <code>eval $(docker-machine env myvm1)</code>，接著用 <code>docker-machine ls</code> 確認目前 shell active 的 machine（<code>ACTIVE</code> column）：</p>
-<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   *        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.100:2376           v19.03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   <span class="string">tcp:</span><span class="comment">//192.168.99.101:2376           v19.03.1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   *        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.100</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.101</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br></pre></td></tr></table></figure>
 
 <p>之後執行 docker 指令都是在 <code>myvm1</code> 上執行囉！比較方便而且可以 access 到 VM host 的檔案。要換到別的 machine 就再執行一次 <code>docker-machine env &lt;machine&gt;</code> 把 <code>&lt;machine&gt;</code> 換掉即可。</p>
 <h3 id="在-swarm-manager-上-deploy-app"><a href="#在-swarm-manager-上-deploy-app" class="headerlink" title="在 swarm manager 上 deploy app"></a>在 swarm manager 上 deploy app</h3><p>跟 part 3 一樣，只是 part 3 是把本機直接變成 swarm manager，現在 swarm manager 是 <code>myvm1</code>（把它當作遠端）。</p>
@@ -906,14 +906,14 @@
 <h3 id="access-swarm-上的-app"><a href="#access-swarm-上的-app" class="headerlink" title="access swarm 上的 app"></a>access swarm 上的 app</h3><p>可以透過 swarm 中任何一個 node 的 IP 去 access app。這是藉由讓 node 在 ingress routing mesh 裡達到。</p>
 <img src="https://i.imgur.com/UPiyTkX.png" width="800">
 
-<p>[<a href="https://docs.docker.com/get-started/part4/" target="_blank" rel="noopener">source</a>]</p>
+<p>[<a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part4/">source</a>]</p>
 <p>在 swarm mode 打開前，swarm node 間的 port 7946 TCP/UDP 以及 port 4789 UDP 要開啟，ingress network 才能運作，所以要注意 app 不能佔用這些 port。</p>
 <h3 id="scale-up-in-cluster"><a href="#scale-up-in-cluster" class="headerlink" title="scale up in cluster"></a>scale up in cluster</h3><p>要讓 service 使用更多 node，只要先用 <code>docker swarm join</code> 增加 node，再 <code>docker stack deploy</code>，service 就能使用增加的 node。</p>
 <h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="Cleanup"></a>Cleanup</h3><p>清掉 <code>docker-machine</code> 的環境變數：</p>
 <figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">$ eval <span class="constructor">$(<span class="params">docker</span>-<span class="params">machine</span> <span class="params">env</span> -<span class="params">u</span>)</span></span><br></pre></td></tr></table></figure>
 
 <p>結束 stack 的所有 service、刪掉 stack：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">stack</span> <span class="keyword">rm</span> &lt;stack_name&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">rm</span> &lt;stack_name&gt;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -1001,12 +1001,12 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
-<h2 id="Part-3-Services"><a href="#Part-3-Services" class="headerlink" title="Part 3: Services"></a><a href="https://docs.docker.com/get-started/part3/" target="_blank" rel="noopener">Part 3: Services</a></h2><p>Linux 要先<a href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener">安裝 Docker Compose</a>，Windows 的 Docker Desktop 已經包含 Docker Compose。</p>
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-3-Services"><a href="#Part-3-Services" class="headerlink" title="Part 3: Services"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part3/">Part 3: Services</a></h2><p>Linux 要先<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/">安裝 Docker Compose</a>，Windows 的 Docker Desktop 已經包含 Docker Compose。</p>
 <h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>分散式系統中各 app 都可稱為一個 “service”，儲存資料到 DB、處理 video transcoding 等等都可以是個 “service”。</p>
 <p>Docker 的 services 是一堆在 production 的 containers。一個 service run 一個 image，service 會指定這個 image 要怎麼執行──使用哪些 port、會跑多少 container 等等。只要改變執行的 container instance 數量就能 scale service。透過 <code>docker-compose.yml</code> 定義、執行跟 scale services。</p>
 <h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a><code>docker-compose.yml</code></h3><p><code>docker-compose.yml</code> 定義 container 在 production 該有什麼行為。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># 這個 service 叫作 web</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="comment"># 從 registry pull image</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">cjwind/get-started:part2</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># run 5 instances</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">limits:</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能使用一個 single core CPU 10% 的 CPU time</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">"0.1"</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能用 50MB memory</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">50M</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="comment"># container fail 會立刻 restart</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="comment"># map host port 4000 到 service web 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">"4000:80"</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="comment"># 讓 containers 透過 webnet 這個 load-balanced network 共用 host 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="comment"># 以預設值（load-balanced overlay network）定義 webnet</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># 這個 service 叫作 web</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="comment"># 從 registry pull image</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">cjwind/get-started:part2</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># run 5 instances</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">limits:</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能使用一個 single core CPU 10% 的 CPU time</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">&quot;0.1&quot;</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能用 50MB memory</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">50M</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="comment"># container fail 會立刻 restart</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="comment"># map host port 4000 到 service web 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;4000:80&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="comment"># 讓 containers 透過 webnet 這個 load-balanced network 共用 host 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="comment"># 以預設值（load-balanced overlay network）定義 webnet</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="執行-service"><a href="#執行-service" class="headerlink" title="執行 service"></a>執行 service</h3><p>跑 service 前要先：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker swarm init</span><br></pre></td></tr></table></figure>
@@ -1028,11 +1028,11 @@
 
 <p>當然也可以用 <code>docker container ls</code> 看 service 的 running container。</p>
 <p>列出 stack 所有 task：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ docker stack <span class="keyword">ps</span> <span class="symbol">&lt;stack_name&gt;</span></span><br><span class="line">$ docker stack <span class="keyword">ps</span> getstartedlab</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">ps</span> &lt;stack_name&gt;</span><br><span class="line"><span class="variable">$</span> docker stack <span class="built_in">ps</span> getstartedlab</span><br></pre></td></tr></table></figure>
 
 <p>service 執行時如果想修改 task 數量，只要修改 <code>docker-compose.yml</code> 的 <code>replicas</code> 設定，再執行一次 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code> 就可以了！</p>
 <p>要結束 service，首先關掉 app：</p>
-<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">stack</span> <span class="keyword">rm</span> getstartedlab</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">rm</span> getstartedlab</span><br></pre></td></tr></table></figure>
 
 <p>離開 swarm：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker swarm leave <span class="operator">-f</span></span><br></pre></td></tr></table></figure>
@@ -1123,8 +1123,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Dodkcer Get Started</a> 隨手記。</p>
-<h2 id="Part-1-Orientation-and-setup"><a href="#Part-1-Orientation-and-setup" class="headerlink" title="Part 1: Orientation and setup"></a><a href="https://docs.docker.com/get-started/" target="_blank" rel="noopener">Part 1: Orientation and setup</a></h2><blockquote>
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-1-Orientation-and-setup"><a href="#Part-1-Orientation-and-setup" class="headerlink" title="Part 1: Orientation and setup"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Part 1: Orientation and setup</a></h2><blockquote>
 <p>Docker is a platform for developers and sysadmins to <strong>develop, deploy, and run</strong> applications with containers.</p>
 </blockquote>
 <blockquote>
@@ -1144,7 +1144,7 @@
 <p>a <strong>virtual machine</strong> (VM) runs a full-blown “guest” operating system with <em>virtual access</em> to host resources through a hypervisor. In general, VMs provide an environment with more resources than most applications need.</p>
 </blockquote>
 <p>用 Docker 可以把 application 需要的環境跟 code 等等包在 image 裡，以此 image 來開發跟 deploy，解決 application 的 system dependency 問題。因為整個環境都包在 Docker 裡了，application 可以在任何有 Docker 環境的地方執行（從 local 到 cloud 等等）。相較 VM，container 比較 light-weight 而且只有 application 需要的環境。</p>
-<h2 id="Part-2-Containers"><a href="#Part-2-Containers" class="headerlink" title="Part 2: Containers"></a><a href="https://docs.docker.com/get-started/part2/" target="_blank" rel="noopener">Part 2: Containers</a></h2><p>hierarchy 由高到低：</p>
+<h2 id="Part-2-Containers"><a href="#Part-2-Containers" class="headerlink" title="Part 2: Containers"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part2/">Part 2: Containers</a></h2><p>hierarchy 由高到低：</p>
 <ul>
 <li>Stack：define the interactions of all the services</li>
 <li>Services：defines how containers behave in production</li>
@@ -1154,7 +1154,7 @@
 <p><strong><code>Dockerfile</code></strong> defines what goes on in the environment inside your container.</p>
 </blockquote>
 <p>container 的網路跟 disk drive 是 virtualized、跟外界隔開的，所以要做 port mapping 以及指定哪些檔案要 copy 進 container。</p>
-<p>Dockerfile 指令 [<a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="noopener">Ref</a>]：</p>
+<p>Dockerfile 指令 [<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">Ref</a>]：</p>
 <ul>
 <li><code>FROM</code> 指定 parent image</li>
 <li><code>WORKDIP</code> 指定 container 內的 working dir</li>
@@ -1182,14 +1182,14 @@
 <li>在 container 裡拿 hostname 會拿到 container ID</li>
 </ul>
 <h3 id="更多-docker-run"><a href="#更多-docker-run" class="headerlink" title="更多 docker run"></a>更多 <code>docker run</code></h3><ul>
-<li><code>-p &lt;host port&gt;:&lt;container port&gt;</code> publish port，做 host port 跟 container port 的 mapping。[<a href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports" target="_blank" rel="noopener">Ref</a>]</li>
+<li><code>-p &lt;host port&gt;:&lt;container port&gt;</code> publish port，做 host port 跟 container port 的 mapping。[<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports">Ref</a>]</li>
 <li><code>-d</code> 以 detach mode 執行 container，就是背景執行啦～</li>
 </ul>
-<p><a href="http://127.0.0.1:4000/PhpStorm-Docker-in-Win10/#Docker-Command-Line-Usage" target="_blank" rel="noopener">基本 docker run 使用 Ref</a></p>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1:4000/PhpStorm-Docker-in-Win10/#Docker-Command-Line-Usage">基本 docker run 使用 Ref</a></p>
 <h3 id="Share-image"><a href="#Share-image" class="headerlink" title="Share image"></a>Share image</h3><blockquote>
 <p>A registry is a collection of repositories, and a repository is a collection of images</p>
 </blockquote>
-<p><code>docker</code> 預設使用的 registry 是 <a href="https://hub.docker.com/" target="_blank" rel="noopener">Docker Hub</a>。</p>
+<p><code>docker</code> 預設使用的 registry 是 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>。</p>
 <p>tag 是用來給 image 版本的方式。</p>
 <ol>
 <li>幫 image 加上 registry 的 repository tag：</li>
@@ -1290,7 +1290,7 @@
 <h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>目標是 Win10 下的 PhpStorm 可以用不同版本 PHP 執行程式。</p>
 <p>一個方式是裝多個版本的 PHP <del>（覺得把環境弄得很亂不蘇胡）</del>，既然 PhpStorm 的 CLI Interpreter 可以用 Docker，乾脆來玩一下 Docker～</p>
 <p>雖然是在 Win10，但除了安裝 Docker 的版本不同，其他 Docker 操作基本在 Linux 應該是可以用的（畢竟這沒有牽涉到更細節的什麼 linux container、windows container 之類的，我也不確定那有沒有關係）。</p>
-<h2 id="Win10-Docker-Installation"><a href="#Win10-Docker-Installation" class="headerlink" title="Win10 Docker Installation"></a>Win10 Docker Installation</h2><p>google it，裝完就忘了，大概是 Hyper-V 要開、Win10 要某個版本之後，然後去裝 Docker for Windows，可以參考<a href="http://marcus116.blogspot.com/2019/01/docker-docker-for-windows.html" target="_blank" rel="noopener">這篇</a>。</p>
+<h2 id="Win10-Docker-Installation"><a href="#Win10-Docker-Installation" class="headerlink" title="Win10 Docker Installation"></a>Win10 Docker Installation</h2><p>google it，裝完就忘了，大概是 Hyper-V 要開、Win10 要某個版本之後，然後去裝 Docker for Windows，可以參考<a target="_blank" rel="noopener" href="http://marcus116.blogspot.com/2019/01/docker-docker-for-windows.html">這篇</a>。</p>
 <h2 id="Docker-的-Image-amp-Container-極簡概念"><a href="#Docker-的-Image-amp-Container-極簡概念" class="headerlink" title="Docker 的 Image &amp; Container 極簡概念"></a>Docker 的 Image &amp; Container 極簡概念</h2><ul>
 <li>image：類似 VM image 的東西，而且 image 可以一層層疊起來。</li>
 <li>container：依據 image 開起來的 instance，container 的環境是互相隔離的。</li>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="發現兩個問題：Tapir 不支援中文、換過 permalink 會怪怪的。 2014&#x2F;4&#x2F;28 updated  Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 Tapir，可以在自己站內找。 Tapir 的原理是它每 15 分鐘會掃一次網站的 RSS，再透過他們的 API 達到以 RSS">
@@ -266,10 +266,10 @@
         <p>發現兩個問題：Tapir 不支援中文、換過 permalink 會怪怪的。</p>
 <p><em>2014/4/28 updated</em></p>
 <hr>
-<p>Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 <a href="http://tapirgo.com/" target="_blank" rel="noopener">Tapir</a>，可以在自己站內找。</p>
+<p>Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 <a target="_blank" rel="noopener" href="http://tapirgo.com/">Tapir</a>，可以在自己站內找。</p>
 <p>Tapir 的原理是它每 15 分鐘會掃一次網站的 RSS，再透過他們的 API 達到以 RSS 為 base 的搜尋功能。要注意的是，沒在 RSS 中的文章是不會被 search 到的。</p>
-<h2 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h2><p>先到 <a href="http://tapirgo.com/" target="_blank" rel="noopener">Tapir</a> 輸入 RSS feed 跟 mail，會得到一組 key，這裡只需要用到 public key。</p>
-<p>到 <a href="https://github.com/blimey85/octopress-tapir" target="_blank" rel="noopener">Octopress Tapir plugin</a> 下載所需檔案並放到對應資料夾。</p>
+<h2 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h2><p>先到 <a target="_blank" rel="noopener" href="http://tapirgo.com/">Tapir</a> 輸入 RSS feed 跟 mail，會得到一組 key，這裡只需要用到 public key。</p>
+<p>到 <a target="_blank" rel="noopener" href="https://github.com/blimey85/octopress-tapir">Octopress Tapir plugin</a> 下載所需檔案並放到對應資料夾。</p>
 <ul>
 <li>source/search.html</li>
 <li>source/javascripts/jquery_tapir.js</li>
@@ -293,9 +293,9 @@
 
 <p>修改 <code>source/atom.xml</code>，拿掉 <code>for post in site.posts limit: 20</code> 的 <code>limit: 20</code>，讓所有 post 都會出現在 RSS feed 。另一個可能的做法是複製 <code>source/atom.xml</code> 為 <code>source/atomForSearch.xml</code>，<code>rake generate</code> 後將這個 XML 的 URL 丟給 Tapir 當作 search 的 base。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://tapirgo.com/" target="_blank" rel="noopener">http://tapirgo.com/</a></li>
-<li><a href="https://github.com/blimey85/octopress-tapir" target="_blank" rel="noopener">https://github.com/blimey85/octopress-tapir</a></li>
-<li><a href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/" target="_blank" rel="noopener">http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/</a></li>
+<li><a target="_blank" rel="noopener" href="http://tapirgo.com/">http://tapirgo.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blimey85/octopress-tapir">https://github.com/blimey85/octopress-tapir</a></li>
+<li><a target="_blank" rel="noopener" href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/">http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/</a></li>
 </ul>
 
     </div>
@@ -389,7 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改方式"><span class="nav-number">1.</span> <span class="nav-text">修改方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">修改方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">2.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

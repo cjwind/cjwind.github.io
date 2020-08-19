@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="Executable Format 主要有：  Windows 下的 PE（Portable Executable） Linux 下的 ELF（Executable Linkable Format）  其他還有 Intel&#x2F;Microsoft 的 OMF（Object Module Format）、Unix 的 a.out 以及 MS-DOS COM 格式等等。 除了可執行檔外，Dynamic L">
@@ -323,8 +323,8 @@
 <p>ELF 在 mapping 到 virtual address space 時是以 page 為單位，如果 section 的大小不是 page 大小的整數倍又以 section 為單位進行 mapping，會浪費許多 memory。load ELF 時 OS 只在乎 section 的屬性如可讀、可寫、可執行，OS 不在乎 section 的內容，為了節省記憶體空間延伸出<strong>「將屬性相同的 section 合併成一個 segment，再對應到 virtual address space」</strong>的方式。linker 在 link object file 時會盡量將相同屬性的 section 放在一起。</p>
 <p>segment 是以 load 的角度劃分 ELF，也就是 <strong>Execution View</strong>。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://refspecs.linuxbase.org/elf/elf.pdf" target="_blank" rel="noopener">http://refspecs.linuxbase.org/elf/elf.pdf</a></li>
-<li><a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format" target="_blank" rel="noopener">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></li>
+<li><a target="_blank" rel="noopener" href="http://refspecs.linuxbase.org/elf/elf.pdf">http://refspecs.linuxbase.org/elf/elf.pdf</a></li>
+<li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format">http://en.wikipedia.org/wiki/Executable_and_Linkable_Format</a></li>
 <li>《程式設計師的自我修養》ch 3, 6</li>
 </ul>
 

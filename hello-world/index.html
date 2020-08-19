@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="簡單來說，我變心了。 Octopress 隨著文章數越多 rake generate 似乎有越來越慢的趨勢，稍微查一下發現雖然有 generate 加速的方法，但遇到 deploy 還是會慢，索性跳到比較快的 Hexo。 Hexo 也可以配合 Github page 使用。跟 Octopress 的不同的是 Hexo 把 post 跟 draft 分開，還不錯。 從 Octopress 轉到 He">
@@ -265,7 +265,7 @@
         <p><del>簡單來說，我變心了。</del></p>
 <p>Octopress 隨著文章數越多 <code>rake generate</code> 似乎有越來越慢的趨勢，稍微查一下發現雖然有 <code>generate</code> 加速的方法，但遇到 <code>deploy</code> 還是會慢，索性跳到比較快的 Hexo。</p>
 <p>Hexo 也可以配合 Github page 使用。跟 Octopress 的不同的是 Hexo 把 post 跟 draft 分開，還不錯。</p>
-<p>從 Octopress 轉到 Hexo 不難，先安裝好 <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a>，再將原本 <code>_posts/</code> 底下的檔案搬過來便是。Hexo 不像 Octopress 將 source 開成另一個 branch 可以 push 到 repos 上，<del>為了備份跟遠端傳輸 source 檔，我把整個 Hexo 資料夾放在 Dropbox 上。</del>理論上電腦有裝 node.js 跟 Git 的環境就可以直接寫。</p>
+<p>從 Octopress 轉到 Hexo 不難，先安裝好 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a>，再將原本 <code>_posts/</code> 底下的檔案搬過來便是。Hexo 不像 Octopress 將 source 開成另一個 branch 可以 push 到 repos 上，<del>為了備份跟遠端傳輸 source 檔，我把整個 Hexo 資料夾放在 Dropbox 上。</del>理論上電腦有裝 node.js 跟 Git 的環境就可以直接寫。</p>
 <p>偶爾改爛 theme，放在 Dropbox 上就不知道自己改了什麼、改不回去，試驗開另一個 repos 放 source。</p>
 <h2 id="新增頁面"><a href="#新增頁面" class="headerlink" title="新增頁面"></a>新增頁面</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ hexo new<span class="built_in"> page </span>&lt;name&gt;</span><br></pre></td></tr></table></figure>
 
@@ -274,11 +274,11 @@
 
 <p>這個設定因 theme 而異，以上設定是 default theme landscape 的。</p>
 <h2 id="Custom-Domain-Name"><a href="#Custom-Domain-Name" class="headerlink" title="Custom Domain Name"></a>Custom Domain Name</h2><p>在 <code>source/</code> 底下增加一檔案 <code>CNAME</code>，內容為自訂 domain name，如 <code>www.cjwind.idv.tw</code>。</p>
-<h2 id="Theme"><a href="#Theme" class="headerlink" title="Theme"></a>Theme</h2><p><del>改用 <a href="https://github.com/seff/nut" target="_blank" rel="noopener">nut</a></del></p>
+<h2 id="Theme"><a href="#Theme" class="headerlink" title="Theme"></a>Theme</h2><p><del>改用 <a target="_blank" rel="noopener" href="https://github.com/seff/nut">nut</a></del></p>
 <h2 id="修改-Deploy-git-repos"><a href="#修改-Deploy-git-repos" class="headerlink" title="修改 Deploy git repos"></a>修改 Deploy git repos</h2><p>除了修改 <code>_config.yml</code> 裡 <code>deploy</code> 下 <code>repo</code> 的設定外，也要刪除 <code>.deploy/</code>，才會套用新的 repos 設定。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="http://hexo.io/" target="_blank" rel="noopener">http://hexo.io/</a></li>
-<li><a href="http://lostjs.com/2014/04/22/from-octopress-to-hexo/" target="_blank" rel="noopener">http://lostjs.com/2014/04/22/from-octopress-to-hexo/</a></li>
+<li><a target="_blank" rel="noopener" href="http://hexo.io/">http://hexo.io/</a></li>
+<li><a target="_blank" rel="noopener" href="http://lostjs.com/2014/04/22/from-octopress-to-hexo/">http://lostjs.com/2014/04/22/from-octopress-to-hexo/</a></li>
 </ul>
 
     </div>
@@ -371,7 +371,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#新增頁面"><span class="nav-number">1.</span> <span class="nav-text">新增頁面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Custom-Domain-Name"><span class="nav-number">2.</span> <span class="nav-text">Custom Domain Name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Theme"><span class="nav-number">3.</span> <span class="nav-text">Theme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-Deploy-git-repos"><span class="nav-number">4.</span> <span class="nav-text">修改 Deploy git repos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E9%A0%81%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">新增頁面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Custom-Domain-Name"><span class="nav-number">2.</span> <span class="nav-text">Custom Domain Name</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Theme"><span class="nav-number">3.</span> <span class="nav-text">Theme</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-Deploy-git-repos"><span class="nav-number">4.</span> <span class="nav-text">修改 Deploy git repos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">5.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

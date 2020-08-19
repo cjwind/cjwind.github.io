@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="generator" content="Hexo 5.0.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -17,7 +17,7 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
   </script>
 
   <meta name="description" content="用 concurrency 就是為了更快，為了比 sequential 程式快，不然搞得那麼複雜幹嘛呢。 如何評估 concurrent 程式的效能提升？ speedup &#x3D; sequential 程式執行時間 &#x2F; concurrent 程式執行時間 speedup 可能隨著使用的 core 數改變，標示程式在不同 core 數上的 speedup，可以由不同 core 數的 speedup 變化">
@@ -295,9 +295,9 @@
 <p><code>efficiency = 實際觀察到的 speedup / 使用的 core 數</code></p>
 <p>efficiency 通常以百分比表示，愈高表示愈沒有資源是閒置的。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a href="https://en.wikipedia.org/wiki/Amdahl%27s_law" target="_blank" rel="noopener">Wiki Amdahl’s law</a></li>
-<li><a href="http://en.wikipedia.org/wiki/Gustafson%27s_law" target="_blank" rel="noopener">Wiki Gustafson’s law</a></li>
-<li><a href="http://www.ithome.com.tw/voice/106886" target="_blank" rel="noopener">關注平行程式設計</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Amdahl%27s_law">Wiki Amdahl’s law</a></li>
+<li><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Gustafson%27s_law">Wiki Gustafson’s law</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.ithome.com.tw/voice/106886">關注平行程式設計</a></li>
 </ul>
 
     </div>
@@ -389,7 +389,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Amdahl’s-law"><span class="nav-number">1.</span> <span class="nav-text">Amdahl’s law</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gustafson’s-law"><span class="nav-number">2.</span> <span class="nav-text">Gustafson’s law</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Efficiency（效率）"><span class="nav-number">3.</span> <span class="nav-text">Efficiency（效率）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Amdahl%E2%80%99s-law"><span class="nav-number">1.</span> <span class="nav-text">Amdahl’s law</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gustafson%E2%80%99s-law"><span class="nav-number">2.</span> <span class="nav-text">Gustafson’s law</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Efficiency%EF%BC%88%E6%95%88%E7%8E%87%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">Efficiency（效率）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">4.</span> <span class="nav-text">Ref</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
