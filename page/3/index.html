@@ -15,9 +15,9 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta property="og:type" content="website">
@@ -31,7 +31,7 @@
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/3/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,24 +60,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -85,25 +97,26 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">cjwind's note</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -159,7 +172,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
@@ -169,7 +182,7 @@
 </div>
 <div id="search-result">
   <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -177,22 +190,103 @@
   </div>
 
 </div>
-    </header>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
+
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        
 
-          <div class="content index posts-expand">
-            
+        <div class="content index posts-expand">
+          
       
   
   
@@ -208,6 +302,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -254,8 +350,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>一般 <code>#define</code> macro 不會將 parameter 展開成字串，只會把 parameter 放到對應位置，例如：</p>
 <figure class="highlight php"><figcaption><span>php</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Hello world&quot;</span>;</span><br></pre></td></tr></table></figure>
 
@@ -311,6 +405,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -357,8 +453,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>在<a href="/test-event/">如何測試 event</a> 裡提到 event 的測試有兩個方面，其中之一是測試 event 是否有被正確 trigger，有些 test framework 有檢驗 event 是否 trigger（或稱 emit）的驗證。（我應該是在某個 js test framework 看到的）</p>
 <p>現在工作是用 <a target="_blank" rel="noopener" href="https://www.yiiframework.com/">Yii</a> 這套 PHP framework，配合的 test framework 是 Codeception。</p>
 <p>Yii2 有它的 <a target="_blank" rel="noopener" href="https://www.yiiframework.com/doc/guide/2.0/en/concept-events">Event</a> 機制，看了下 <a target="_blank" rel="noopener" href="https://codeception.com/">Codeception</a> 的 Yii2 module 沒有提供 event trigger 的驗證，上星期無聊就自己寫了個 <a target="_blank" rel="noopener" href="https://github.com/cjwind/codeception-yii2-event-tester">codeception-yii2-event-tester</a> 啦。 </p>
@@ -393,6 +487,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -439,8 +535,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>Travis 在 run <code>composer install</code> 會出現類似以下錯誤：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Failed <span class="built_in">to</span> clone <span class="keyword">the</span> git@github.com:jquery/jquery-dist.git repository, <span class="keyword">try</span> running <span class="keyword">in</span> interactive mode so that you can enter your GitHub credentials</span><br><span class="line"></span><br><span class="line">  [Composer\Repository\InvalidRepositoryException]</span><br><span class="line">  No valid bower.json was found <span class="keyword">in</span> <span class="keyword">any</span> branch <span class="keyword">or</span> tag <span class="keyword">of</span> <span class="keyword">https</span>://github.com/jq</span><br><span class="line">  uery/jquery-dist.git, could <span class="keyword">not</span> <span class="built_in">load</span> <span class="keyword">a</span> package <span class="built_in">from</span> <span class="keyword">it</span>.</span><br></pre></td></tr></table></figure>
 
@@ -484,6 +578,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -530,8 +626,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>測試 event 分成兩邊：</p>
 <ul>
 <li>測試 event listener：有沒有在 event 發生後做該做的事。</li>
@@ -573,6 +667,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -619,8 +715,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="Download-kernel-source-code"><a href="#Download-kernel-source-code" class="headerlink" title="Download kernel source code"></a>Download kernel source code</h2><p>我用的 kernel source code 是從 <code>https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</code> clone 的，寫這篇的版本是 <code>5.0.0-rc3</code>。</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ git clone https:<span class="regexp">//gi</span>t.kernel.org<span class="regexp">/pub/</span>scm<span class="regexp">/linux/</span>kernel<span class="regexp">/git/</span>stable/linux.git linux-stable</span><br></pre></td></tr></table></figure>
 
@@ -666,6 +760,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -712,8 +808,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Extract and Override 是另一種 injection 方式，它幾乎不會改變程式的語意（增加 constructor 的參數或者其他 public 介面等等），寫起來乾淨漂亮。它適合用於模擬回傳值或回傳 stub 或 mock object，不適合用在確認被測試程式與 dependency object 的互動。</p>
 <h2 id="Override-factory-method-to-inject-stub"><a href="#Override-factory-method-to-inject-stub" class="headerlink" title="Override factory method to inject stub"></a>Override factory method to inject stub</h2><ol>
 <li>在被測試 class 加入可被繼承並 override 的 factory method 來取得 dependency object。</li>
@@ -756,6 +850,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -802,8 +898,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>接下來要 inject dependency object 啦～</p>
 <h2 id="Constructor-amp-Setter-Injection"><a href="#Constructor-amp-Setter-Injection" class="headerlink" title="Constructor &amp; Setter Injection"></a>Constructor &amp; Setter Injection</h2><h3 id="Constructor-Injection"><a href="#Constructor-Injection" class="headerlink" title="Constructor Injection"></a>Constructor Injection</h3><p>在被測試 class 加新的 constructor 或在原本的 constructor 加新參數，傳進剛抽出來的 interface 的 object，將它存在被測試 class 的 member，被測試 class 裡的程式邏輯使用這個 member 做事。</p>
           <!--noindex-->
@@ -843,6 +937,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -889,8 +985,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>External Dependency 是系統中與被測試程式互動但你無法控制的物件。被測試程式受到 external dependency 行為影響可能有不同結果，為了保持 unit test 穩定，不會一下結果該是 A、一下結果該是 B，我們希望能掌控 external dependency──藉由 <a href="/Stub-in-test/">stub object</a> 模擬 external dependency 的行為並將其 inject 到被測試程式中，基本步驟如下：</p>
 <ol>
 <li>抽出 external dependency object 的 interface</li>
@@ -940,6 +1034,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -986,8 +1082,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>External Dependency 是系統中與被測試程式互動但你無法掌控的物件。互動就是有 call 啊、使用回傳值之類的。</p>
 <p>stub 是在系統中產生一個可以控制的替代 object 來取代 external dependency object。</p>
 <p>使用 stub 可以解決直接相依帶來的測試問題：無法控制相依物件的行為及回傳值（例如每次 call third party API 得到的結果不同）或者相依物件不穩定，而難以有穩定的環境（固定的 input 及 output）測試要測試的程式邏輯。</p>
@@ -1022,6 +1116,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1068,8 +1164,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="Build-amp-Debug-C"><a href="#Build-amp-Debug-C" class="headerlink" title="Build &amp; Debug C++"></a>Build &amp; Debug C++</h2><p>安裝 extension <code>C/C++</code> (<code>ms-vscode.cpptools</code>)。</p>
 <h3 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h3><p><code>ctrl + ship + p</code> 輸入 <code>tasks</code>，選擇 <code>Configure Task</code>，選個 template 來改。或者直接在 <code>.vscode/</code> 下新增 <code>tasks.json</code>：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;2.0.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;tasks&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;label&quot;</span>: <span class="string">&quot;build&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;shell&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;command&quot;</span>: <span class="string">&quot;make&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;args&quot;</span>: [</span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">&quot;group&quot;</span>: <span class="string">&quot;build&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;presentation&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;reveal&quot;</span>: <span class="string">&quot;silent&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;problemMatcher&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;$gcc&quot;</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1118,8 +1212,8 @@
 
 
 
-          </div>
-          
+        </div>
+        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1142,87 +1236,6 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">cjwind</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">51</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
 
       </div>
     </main>
@@ -1260,15 +1273,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

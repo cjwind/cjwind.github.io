@@ -15,9 +15,9 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta name="description" content="看完《深入淺出物件導向分析與設計》的筆記，這篇概括整理用 OOAD 開發軟體的開發週期，沒有太多細節。 1. 搞清楚客戶想要什麼跟客戶聊天，從模模糊糊中搞清楚他想要什麼。或者問可以決定要做什麼的人，不管那個人是 PM、PL 還是其他各種頭銜… 利用 Commonality 及 Variability 了解客戶想要什麼、軟體要做什麼。 老實講，我覺得這真是門藝術。 2. 建立 feature lis">
@@ -39,7 +39,7 @@
 <link rel="canonical" href="http://www.cjwind.idv.tw/OOAD-software-develop-cycle/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -68,24 +68,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -93,25 +105,26 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">cjwind's note</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -167,7 +180,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
@@ -177,7 +190,7 @@
 </div>
 <div id="search-result">
   <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -185,22 +198,104 @@
   </div>
 
 </div>
-    </header>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%90%9E%E6%B8%85%E6%A5%9A%E5%AE%A2%E6%88%B6%E6%83%B3%E8%A6%81%E4%BB%80%E9%BA%BC"><span class="nav-number">1.</span> <span class="nav-text">1. 搞清楚客戶想要什麼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BB%BA%E7%AB%8B-feature-list-%E5%8F%8A-use-case-diagram"><span class="nav-number">2.</span> <span class="nav-text">2. 建立 feature list 及 use case diagram</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain-Analysis"><span class="nav-number">2.1.</span> <span class="nav-text">Domain Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A8%AD%E8%A8%88%E6%9E%B6%E6%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 設計架構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%B8%80%E5%80%8B%E5%80%8B%E8%99%95%E7%90%86%E5%B0%8F%E5%8A%9F%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">4. 一個個處理小功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%83%B3%E5%B0%8F%E5%8A%9F%E8%83%BD%E7%9A%84-requirement%EF%BC%8C%E5%BB%BA%E7%AB%8B-requirement-list"><span class="nav-number">4.1.</span> <span class="nav-text">4-1. 想小功能的 requirement，建立 requirement list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%AF%AB-Use-case"><span class="nav-number">4.2.</span> <span class="nav-text">4-2. 寫 Use case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E8%A8%AD%E8%A8%88%E7%89%A9%E4%BB%B6%E7%B4%B0%E7%AF%80%E5%8F%8A%E7%89%A9%E4%BB%B6%E9%96%93%E7%9A%84%E9%97%9C%E4%BF%82"><span class="nav-number">4.3.</span> <span class="nav-text">4-3. 設計物件細節及物件間的關係</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E5%AF%A6%E4%BD%9C"><span class="nav-number">4.4.</span> <span class="nav-text">4-4. 實作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B8%AC%E8%A9%A6"><span class="nav-number">5.</span> <span class="nav-text">5. 測試</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Murmur"><span class="nav-number">6.</span> <span class="nav-text">Murmur</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
+
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        
 
-          <div class="content post posts-expand">
-            
+        <div class="content post posts-expand">
+          
 
     
   
@@ -217,6 +312,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           OOAD 軟體開發週期
@@ -262,8 +359,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
         <p>看完《深入淺出物件導向分析與設計》的筆記，這篇概括整理用 OOAD 開發軟體的開發週期，沒有太多細節。</p>
 <h2 id="1-搞清楚客戶想要什麼"><a href="#1-搞清楚客戶想要什麼" class="headerlink" title="1. 搞清楚客戶想要什麼"></a>1. 搞清楚客戶想要什麼</h2><p>跟客戶聊天，<del>從模模糊糊中</del>搞清楚他想要什麼。或者問可以決定要做什麼的人，不管那個人是 PM、PL 還是其他各種頭銜…</p>
 <p>利用 <a href="/Commonality-and-Variability">Commonality 及 Variability</a> 了解客戶想要什麼、軟體要做什麼。</p>
@@ -351,8 +446,8 @@
 
 
 
-          </div>
-          
+        </div>
+        
     
   <div class="comments">
     <div id="disqus_thread">
@@ -382,88 +477,6 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%90%9E%E6%B8%85%E6%A5%9A%E5%AE%A2%E6%88%B6%E6%83%B3%E8%A6%81%E4%BB%80%E9%BA%BC"><span class="nav-number">1.</span> <span class="nav-text">1. 搞清楚客戶想要什麼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E5%BB%BA%E7%AB%8B-feature-list-%E5%8F%8A-use-case-diagram"><span class="nav-number">2.</span> <span class="nav-text">2. 建立 feature list 及 use case diagram</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Domain-Analysis"><span class="nav-number">2.1.</span> <span class="nav-text">Domain Analysis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E8%A8%AD%E8%A8%88%E6%9E%B6%E6%A7%8B"><span class="nav-number">3.</span> <span class="nav-text">3. 設計架構</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%B8%80%E5%80%8B%E5%80%8B%E8%99%95%E7%90%86%E5%B0%8F%E5%8A%9F%E8%83%BD"><span class="nav-number">4.</span> <span class="nav-text">4. 一個個處理小功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%83%B3%E5%B0%8F%E5%8A%9F%E8%83%BD%E7%9A%84-requirement%EF%BC%8C%E5%BB%BA%E7%AB%8B-requirement-list"><span class="nav-number">4.1.</span> <span class="nav-text">4-1. 想小功能的 requirement，建立 requirement list</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%AF%AB-Use-case"><span class="nav-number">4.2.</span> <span class="nav-text">4-2. 寫 Use case</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E8%A8%AD%E8%A8%88%E7%89%A9%E4%BB%B6%E7%B4%B0%E7%AF%80%E5%8F%8A%E7%89%A9%E4%BB%B6%E9%96%93%E7%9A%84%E9%97%9C%E4%BF%82"><span class="nav-number">4.3.</span> <span class="nav-text">4-3. 設計物件細節及物件間的關係</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E5%AF%A6%E4%BD%9C"><span class="nav-number">4.4.</span> <span class="nav-text">4-4. 實作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%B8%AC%E8%A9%A6"><span class="nav-number">5.</span> <span class="nav-text">5. 測試</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Murmur"><span class="nav-number">6.</span> <span class="nav-text">Murmur</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">cjwind</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">51</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
 
       </div>
     </main>
@@ -501,15 +514,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
@@ -555,7 +561,7 @@
     this.page.identifier = "OOAD-software-develop-cycle/";
     this.page.title = "OOAD 軟體開發週期";
     };
-  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+  NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {
       DISQUS.reset({
         reload: true,

@@ -15,9 +15,9 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta property="og:type" content="website">
@@ -31,7 +31,7 @@
 <link rel="canonical" href="http://www.cjwind.idv.tw/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,24 +60,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -85,25 +97,26 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">cjwind's note</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -159,7 +172,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
@@ -169,7 +182,7 @@
 </div>
 <div id="search-result">
   <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -177,22 +190,103 @@
   </div>
 
 </div>
-    </header>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
+
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        
 
-          <div class="content index posts-expand">
-            
+        <div class="content index posts-expand">
+          
       
   
   
@@ -208,6 +302,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -248,8 +344,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>在 Debian，先安裝：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sudo apt install mariadb-server</span></span><br></pre></td></tr></table></figure>
 
@@ -284,6 +378,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -339,8 +435,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul>
 <li>自動化重構工具<ul>
 <li>像 JetBrains、Visual Studio 等 IDE 的 refactor 功能。</li>
@@ -393,6 +487,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -442,8 +538,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Seam-amp-Enabling-Point"><a href="#Seam-amp-Enabling-Point" class="headerlink" title="Seam &amp; Enabling Point"></a>Seam &amp; Enabling Point</h1><p>seam（接縫）是指程式中一些特殊的點，在這些點上你不需要修改它本身就可以變動程式行為。</p>
 <p>例如某段程式 call 了一個 function 來計算商品價格，現在想改變計算價格的 strategy。想在不改變 call 計價 function 的情況下，改變計價結果（程式行為）。</p>
 <p>又例如程式 call 到牽連龐大子系統的 function，我們希望在 test 中避免執行到那些複雜的 code（不然很難測或無法測），又要在 prodcution code 裡照常執行到。如果這段 code 有 seam，便能在不改動到原本 call function 的情況下，換掉該 function 的行為來避免在 test 中碰到子系統。</p>
@@ -498,6 +592,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -538,8 +634,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>先安裝 ibus：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install ibus ibus-chewing</span><br></pre></td></tr></table></figure>
 
@@ -580,6 +674,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -626,8 +722,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>用 Git diff 生 patch file</p>
 <p><code>$ git diff [file] &gt; [path_file]</code></p>
 <p>上 patch</p>
@@ -668,6 +762,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -723,8 +819,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>這天很多在介紹 C，尤其是 pointer，作者用組語的角度去看 C，很有趣。這邊只寫些簡單的筆記。</p>
 <p>組語跟 C 一起使用時，只有 <code>EAX</code>、<code>ECX</code>、<code>EDX</code> 三個 register 可以使用，其他 register 只能 read 不能 write，因為它們存著 C 語言程式的相關資料。</p>
 <p>C 語言中，普通數值跟表示 memory address 的數值被當作兩種不同的東西。</p>
@@ -825,6 +919,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -880,8 +976,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="製作真正的-IPL"><a href="#製作真正的-IPL" class="headerlink" title="製作真正的 IPL"></a>製作真正的 IPL</h2><p>IPL 是 Initial Program Loader，現在要開始做真正的 IPL──把磁碟上的東西 load 到 memory 裡！</p>
 <p>這部分書上是一點一點的增加 assembly code，從讀一個 sector 到讀多個 cylinder 的所有 sector。</p>
 <h3 id="floppy-disk-的-cylinder、sector"><a href="#floppy-disk-的-cylinder、sector" class="headerlink" title="floppy disk 的 cylinder、sector"></a>floppy disk 的 cylinder、sector</h3><p>floppy disk 的磁片由外而內的一個個同心圓稱為 cylinder（柱面），共有 80 個 cylinder。由圓心往外切（像切蛋糕），cylinder 切成一格格的稱為 sector，一個 cylinder 有 18 個 sector。磁片正反面都可以存放資料，因此磁頭有正反面，以 0 跟 1 表示。</p>
@@ -998,6 +1092,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1053,8 +1149,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>來解釋這段組語在幹嘛~</p>
 <figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; hello-os</span></span><br><span class="line"><span class="comment">; TAB=4</span></span><br><span class="line"></span><br><span class="line">        ORG        <span class="number">0x7c00</span>            <span class="comment">; 指明程式的 load 位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 以下的記述用於標準 FAT12 格式的磁片</span></span><br><span class="line">        <span class="keyword">JMP</span>        entry</span><br><span class="line">        <span class="built_in">DB</span>        <span class="number">0x90</span></span><br><span class="line"></span><br><span class="line">--- (中略) ---</span><br><span class="line"></span><br><span class="line"><span class="comment">; 程式核心</span></span><br><span class="line"><span class="symbol">entry:</span>                            <span class="comment">; label</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">AX</span>,<span class="number">0</span>            <span class="comment">; initialize register</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">SS</span>,<span class="built_in">AX</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">SP</span>,<span class="number">0x7c00</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">ES</span>,<span class="built_in">AX</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">SI</span>,msg            <span class="comment">; SI = msg 的 address</span></span><br><span class="line"><span class="symbol">putloop:</span></span><br><span class="line">        <span class="comment">; 將 memory address 為 SI register 值的資料 assign 給 AL</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">AL</span>,[<span class="built_in">SI</span>]            </span><br><span class="line">        <span class="keyword">ADD</span>        <span class="built_in">SI</span>,<span class="number">1</span>            <span class="comment">; SI + 1</span></span><br><span class="line">        <span class="keyword">CMP</span>        <span class="built_in">AL</span>,<span class="number">0</span>            <span class="comment">; 比較 AL 的值是否為 0</span></span><br><span class="line">        <span class="keyword">JE</span>        fin</span><br><span class="line">        <span class="keyword">MOV</span>        <span class="number">AH</span>,<span class="number">0x0e</span>            <span class="comment">; 顯示一個文字</span></span><br><span class="line">        <span class="keyword">MOV</span>        <span class="built_in">BX</span>,<span class="number">15</span>            <span class="comment">; 指定文字顏色</span></span><br><span class="line">        <span class="keyword">INT</span>        <span class="number">0x10</span>            <span class="comment">; call 顯卡 BIOS</span></span><br><span class="line">        <span class="keyword">JMP</span>        putloop</span><br><span class="line"><span class="symbol">fin:</span></span><br><span class="line">        <span class="keyword">HLT</span>                    <span class="comment">; 讓 CPU 停止，等待指令</span></span><br><span class="line">        <span class="keyword">JMP</span>        fin            <span class="comment">; infinite loop</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">msg:</span></span><br><span class="line">        <span class="built_in">DB</span>        <span class="number">0x0a</span>, <span class="number">0x0a</span>        <span class="comment">; 換行兩次</span></span><br><span class="line">        <span class="built_in">DB</span>        <span class="string">&quot;hello, world&quot;</span></span><br><span class="line">        <span class="built_in">DB</span>        <span class="number">0x0a</span>            <span class="comment">; 換行</span></span><br><span class="line">        <span class="built_in">DB</span>        <span class="number">0</span></span><br></pre></td></tr></table></figure>
 
@@ -1130,6 +1224,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1185,8 +1281,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>開始看買來放了一陣的<a target="_blank" rel="noopener" href="https://www.tenlong.com.tw/products/9787115287960">《30 天自制操作系統》</a>（簡中翻譯日文書），原本以為是本很硬很難啃的 OS 書，沒想到意外有趣！作者有各種各樣的 murmur 跟吐槽滿點。翻譯除了專有名詞，語句上蠻通順的。</p>
 <p>Day 1 直接用 binary editor 幹出一個 hello world OS。</p>
 <p>本書使用的組譯器是作者自己開發的 nask，其中很多語法模仿 NASM。</p>
@@ -1261,6 +1355,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1316,8 +1412,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h1 id="Chapter-Summary"><a href="#Chapter-Summary" class="headerlink" title="Chapter Summary"></a>Chapter Summary</h1><p>為了能夠測試，有兩個進行解依賴的理由：</p>
 <ul>
 <li>Sense（感測）是指「得知執行某一塊 code 後會有什麼樣的結果、產生什麼影響」<ul>
@@ -1362,8 +1456,8 @@
 
 
 
-          </div>
-          
+        </div>
+        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1386,87 +1480,6 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">cjwind</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">51</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
 
       </div>
     </main>
@@ -1504,15 +1517,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

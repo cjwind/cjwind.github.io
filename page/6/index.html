@@ -15,9 +15,9 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta property="og:type" content="website">
@@ -31,7 +31,7 @@
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/6/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,24 +60,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -85,25 +97,26 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">cjwind's note</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -159,7 +172,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
@@ -169,7 +182,7 @@
 </div>
 <div id="search-result">
   <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -177,22 +190,103 @@
   </div>
 
 </div>
-    </header>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
+
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        
 
-          <div class="content index posts-expand">
-            
+        <div class="content index posts-expand">
+          
       
   
   
@@ -208,6 +302,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -254,8 +350,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="Dynamic-linking-遇到的問題"><a href="#Dynamic-linking-遇到的問題" class="headerlink" title="Dynamic linking 遇到的問題"></a>Dynamic linking 遇到的問題</h2><p>Dynamic linking 想解決的一大問題是 memory 浪費。直覺想法是如果能讓不同 process 都會使用到的 library 在 memory 只有一份就能節省空間。對不同 process 來說 library 的內容必須是相同的才能共用。library 主要是 instruction 以及 data （executable file 都是這樣辣），data 不可能在 process 間共用，因為每個 process 都需要它自己的 data，不然會互相干擾（好像有古代系統是共用的…），因此能共用的主要是 instruction。</p>
 <p>excutable file、object file 以及 library 等 binary file 中 instruction 會以不同定址方式 access symbol，絕對定址模式會將 symbol 的 virtual address 寫進 instruction，相對定址模式則跟 instruction 及 data 之間的相對位置有關。也就是說，無論是 executable file 還是要共用的 library，instruction 都可能涉及 symbol 的 address 資訊。</p>
 <p>不像 executable file，library 在 compile time 無法知道會被 load 到哪，因為系統裡會有多個 library，如果各自指定要 load 到哪可能會撞到，所以得等到 runtime 由系統決定，其中 symbol 位置也要到 runtime 才能決定。這使得 compile time 無法修改 instruction 內的 address 資訊，也就是 static linking 做的事。</p>
@@ -327,6 +421,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -373,8 +469,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="Static-Linking-的問題"><a href="#Static-Linking-的問題" class="headerlink" title="Static Linking 的問題"></a>Static Linking 的問題</h2><p>static link 拆分了可執行檔，讓不同人或組織可以開發自己的 module，最後再 link 成執行檔。隨著系統變複雜，OS 裡有多個 process 在執行，當多個 process 以 static linking 連結相同的 library 時，例如擁有 <code>printf()</code> 的 standard library，memory 會有多份類似的 library 程式碼，造成浪費。</p>
 <p>另一個問題是 static linking 不易更新 module。例如 App 這個程式用到 <code>Lib.o</code>，<code>Lib.o</code> 更新時（<code>Lib.o</code> 可能是別人提供的 module，App 開發者無法控制其版本），App 的開發者必須拿 <code>App.o</code> 跟 <code>Lib.o</code> 再 link 成新版 App，再給發佈新版 App。</p>
 <h2 id="Dynamic-Linking-基本概念"><a href="#Dynamic-Linking-基本概念" class="headerlink" title="Dynamic Linking 基本概念"></a>Dynamic Linking 基本概念</h2><p>為了解決 static link 在 memory 浪費以及不易更新的問題，最簡單的做法是將程式拆成多個 module，不在 compile 時期 link library，等到執行時才 link。如此一來就能只放一份共用 module 在 memory，需要該 module 的 executable file 就去 link。</p>
@@ -451,6 +545,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -497,8 +593,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>裝 Linux 桌面系統來用用，為了避免以後可能重灌還要重找一次，記下些安裝過程。</p>
 <p>雖然有 open source 版的顯卡 driver，但我還是覺得裝 Nvidia 的比較好，而且不另外裝 driver 根本調不動螢幕解析度……</p>
 <p>原本想裝 LMDE 2 然後用<a href="/solve-servo-blank/">這篇</a>的方法裝 Nvidia 的 driver，但不知道為什麼就是無法進文字模式。設開機進文字模式或不裝桌面開機會卡在半路開不了，直接關掉桌面系統還是停在無法操作的狀態。</p>
@@ -544,6 +638,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -590,8 +686,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p><del>這個人又來胡言亂語了，不是什麼正經筆記</del></p>
 <p>最近寫某個邏輯或定義常常不清楚或者 ambiguous 的東西（因為資料來源是給人看而且也沒整理過），但程式需要清楚的邏輯，感覺在試圖把模糊不清的東西轉成邏輯清晰的程式。似乎，在原本是人工作業而且沒有特別統一或整理過邏輯或步驟的事情上可能就有這種現象。</p>
 <p>工程師很喜歡「找 general 的方法」跟「確認出清楚的邏輯」，畢竟這樣程式比較好寫。但是這東西不只原本的邏輯可能不清楚，還「一定會變動但無法預期會如何變動」，以至於後來我放棄找 general 的方法，而是把問題切得更細再組起來，其實就是 divide and conquer。 甚至稍微放寬對清晰邏輯的要求，改用擴充性比較好的做法。只要變動的時候可以用比較低風險──不會影響到其他部分──的方式因應就好，如此，無論是現在邏輯可能再修正或者之後增加目前沒有的東西都能處理。</p>
@@ -628,6 +722,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -674,8 +770,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <h2 id="Cargo-basic"><a href="#Cargo-basic" class="headerlink" title="Cargo basic"></a>Cargo basic</h2><p>Cargo 是 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/index.html">Rust</a> 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。<a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/install.html">安裝 Rust</a> 會一起裝 Cargo。</p>
 <p>這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package management 還有 build system。package manager 是為了解決各種 library 或 package dependency 的問題，例如像 C/C++ 得自己處理如何 build 跟 link library（還會有只剩 binary 檔不知道 source code 從哪來的 library）、維持 library 版本以及升級 library 等問題。</p>
 <p>Cargo 裡稱 package 或 library 為 crate。</p>
@@ -730,6 +824,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -776,8 +872,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。</p>
 <p>在程式碼裡指定了什麼時候要 load 哪個模組，對程式來說它就「知道」要有載入模組的動作。如果是以 dynamic linker 來 load 跟 link，模組跟 library 對程式是透明的，它不知道它用了什麼。兩者的差別即在手動或自動 load shared library，以及load 的時機。</p>
 <p>另一方面，如果需要知道一個程式依賴哪些模組，例如移植時要將所有相關模組移植到其他平台以確保所有功能正常。這時以 explicit runtime linking 載入的模組可能增加檢查 dependency 的難度，因為無法用 <code>ldd</code> 得知依賴的模組，可能要等到用到某個功能時才當掉或無法使用。當然這問題並不是太大的缺點，可以透過適當管理 dependency library 以及以一致的方式撰寫 explicit linking 程式碼來避免。</p>
@@ -867,6 +961,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -913,8 +1009,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>build 好 servo 之後執行 <code>./mach run -d tests/html/about-mozilla.html</code> 視窗只出現白白的畫面。這怎麼看都不正常啊……ˊ（´;ω;｀)</p>
 <h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><ul>
 <li>LMDE 2 Cinnamon 64 bits</li>
@@ -985,6 +1079,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1031,8 +1127,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Design Pattern <strong>提供某個情境下針對某問題的某種解決方法</strong>。這些解法通常是前人整理出來、經過驗證的。</p>
 <ul>
 <li>「情境」是某種不斷出現的狀況。</li>
@@ -1114,6 +1208,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1160,8 +1256,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>大名鼎鼎的 MVC（Model-View-Controller）是一種 compound pattern，要說是個架構也行，這篇主要用 design pattern 的角度去看 MVC。</p>
 <p>compound pattern 是一堆 design pattern 被結合起來使用以解決一般性問題。</p>
 <p>MVC 將 component 分成 model、view 以及 controller：</p>
@@ -1206,6 +1300,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1252,8 +1348,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>讓某個物件有個替身，藉以控制外界對物件的接觸。<del>就是個經紀人的概念。(欸)</del></p>
 <p>Proxy pattern 主要目的在於「控制存取」，被代理的物件可以是遠端主機上的物件、建立成本高（例如需要時間下載）的物件、或者需要做存取權限管控的物件。</p>
 <h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/proxy_pattern.png" alt="Proxy Pattern"></p>
@@ -1293,8 +1387,8 @@
 
 
 
-          </div>
-          
+        </div>
+        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1317,87 +1411,6 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">cjwind</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">51</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
 
       </div>
     </main>
@@ -1435,15 +1448,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

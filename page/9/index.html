@@ -15,9 +15,9 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta property="og:type" content="website">
@@ -31,7 +31,7 @@
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/9/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,24 +60,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -85,25 +97,26 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">cjwind's note</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -159,7 +172,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
@@ -169,7 +182,7 @@
 </div>
 <div id="search-result">
   <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -177,22 +190,103 @@
   </div>
 
 </div>
-    </header>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
+
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        
 
-          <div class="content index posts-expand">
-            
+        <div class="content index posts-expand">
+          
       
   
   
@@ -208,6 +302,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -254,8 +350,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>最近看了些 code，發現不同情況下有不同 trace code 的方式，來 murmur 一下。</p>
 <p>通常拿到一份 code 會先看它主要 component 的結構。如果有 UI 會先大概了解有哪些 component、分別叫什麼、彼此階層關係是什麼，例如哪個 container 裡放著什麼之類的。如果是網頁會先看資料夾結構是一般自己寫的還是用 framework。之後依照要做的事情不同而有不同的 trace 方式。</p>
 <p>第一種，debug 或者找特定功能。</p>
@@ -327,6 +421,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -373,8 +469,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>API 分很多種 style，各有優缺跟取捨。</p>
 <ul>
 <li>C style</li>
@@ -434,6 +528,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -480,8 +576,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>C compiler 編出來的 object file 可以跟 C++ compiler 編出來的 object file link 在一起。</p>
 <p>假設 Linux 環境下有一個 object file <code>foo.o</code> 是 C compiler 編出來的，可以將 <code>foo.o</code> 看作一 C library，而 <code>main.cpp</code> 是由 C++ 實作並且使用 <code>foo.o</code> 裡的 function，因此 <code>main.cpp</code> 會 include 內含 function declaration 的 <code>foo.h</code>。C++ compiler 在一般狀況下會將 <code>foo.h</code> 內的 function 當作 C++ function 以 C++ 的規則處理。</p>
 <p>由於 <code>foo.o</code> 是 C compiler 編出來的，其對 function 的處理方式不像 C++ 會額外加修飾，使得 link 時 <code>main.o</code> 及 <code>foo.o</code> 中 symbol 對不起來而產生 <code>undefined reference</code> 錯誤。在 <code>foo.h</code> 中加上 <code>extern &quot;C&quot;</code> 是告訴 C++ compiler 要把這段 function declaration 當作 C function 處理，也就是不做 <strong>name decoration</strong>，之後 link symbol 才對得起來。實例如下：</p>
@@ -529,6 +623,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -575,8 +671,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p><em>盡量不要讓看過的書像船過水無痕，嘗試用自己的話做小結。</em></p>
 <p>這章的重點在：What are the basic qualities of a good API?</p>
 <h2 id="Model-the-problem-domain"><a href="#Model-the-problem-domain" class="headerlink" title="Model the problem domain"></a>Model the problem domain</h2><p>API 是用來解決某個問題的，問題可大可小。</p>
@@ -665,6 +759,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -711,8 +807,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>像 naming、argument 順序、standard pattern 的使用、memory model、exception 的使用、error handling 等等，如果設計上有一致性，使用者較容易使用。保有一致性時，使用者可以輕易透過原本的理解認知推測新功能或其他部分如何使用。</p>
 <p>在設計 C++ API 上，如果跟 standard library 保有相同的模式與規則也會讓 API 易於使用，畢竟大家都會用 standard library 啊！</p>
 <p>雖然這篇標題是說 API 的設計，但小至 class 跟 function 也是有類似的觀念啊～</p>
@@ -749,6 +843,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -795,8 +891,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>API 的功能可以是比較 atomic、比較基本的，讓外部使用這些基本功能組合出它想要的東西。也可以是 API 本身即組合一些基本功能、提供較方便的功能給外部使用。這兩種特性雖然互相衝突，但都是作為 API 希望滿足的。</p>
 <p>滿足這兩種特性的方式是將僅提供基本功能的 core API 及較方便的 API 分開。可能是以 class 或檔案區隔，甚至直接拆成不同 library。重點是較方便的 API 是使用 core API 的 public interface，就像在 core API 外再包一層，而不會 access 到 core API 的內部結構。</p>
 <p>如此使用者就能有方便使用的 API 也能在想自行組合功能的時候使用進階的 core API。這概念類似於 UI 設計上常有的「進階」按鈕──平常設定頁只會有基本設定，按進階按鈕後才會顯示更細部的設定。</p>
@@ -830,6 +924,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -876,8 +972,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>常用功能的 plugin 及快捷鍵：</p>
 <ul>
 <li>游標停在字上的時候會自動 highlight 同樣的字<br>開啟 vim 後輸入 <code>z/</code>，目前還沒找到怎麼一開 vim 就啟動自動 highlight。</li>
@@ -955,6 +1049,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1001,8 +1097,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>大學時因為很任性的理由沒有修軟體工程，所以 agile 是一直到開始工作才聽到。之前是聽過 XP 跟 pair programming，不過沒有很清楚在幹嘛。話說 pair programming 實在要看狀況用，像我這種基本上屬於內向害羞的類型，用 pair programming 大多數狀況下根本直接腦殘化…= =</p>
 <p>之前<del>被拐</del>去上 scrum 的課，說不定是因為講師一直強調 agile 本身精神很重要云云，有個想法一直在腦袋徘徊不去(?)，只好來 murmur 一下看能不能清爽些。阿不過這篇只講對 agile 精神的想法，scrum 方法我不會(欸)。</p>
 <p>我將 agile 精神類比為適應，因為根本上概念是共通的。適應就是因應改變，無論那改變來自外在環境抑或是自身變化。差別只在於生物上各種生物有不同的適應方式，人對於環境以及種種變化所做出的調整也是適應，而 agile 則是將這樣的想法套用於組織性的軟體開發。</p>
@@ -1039,6 +1133,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1085,8 +1181,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <blockquote>
 <p>定義物件間一對多的關係，當一個物件改變狀態，其他相依者都會收到通知並自動被更新。</p>
 </blockquote>
@@ -1159,6 +1253,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1205,8 +1301,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>今天看到<a target="_blank" rel="noopener" href="http://www.buffettism88.com/2015/07/notetoaction.html">這篇文章</a>，加上近日對於整理筆記之厭倦，在想到底寫筆記是寫來幹嘛的？</p>
 <p>那篇文章表示不用寫「資訊」，但以學習知識來說，我還是需要一點「重點整理」方便日後查找，尤其是一些從書上看來、稍微消化過但也還沒熟到整個記下來的部分。資訊的確幾乎都可以找 google 大神，但是重新 google 到的資訊可能跟我的印象有出入，還有一些眉眉角角不見得記得，有個地方作為資訊的集中地對我還是有用的。</p>
 <p>只不過，有時候似乎會趨向小時候在課堂上抄寫筆記的狀況，像在抄書。這感覺就怪怪的，有時候分不清楚自己是在抄書還是那真是重點（好吧，我猜如果覺得很厭倦的話大概就是在抄書或者已經不需要寫了）。想著想著發現原來今年初寫過<a href="/Murmur-about-note">筆記這回事</a>。</p>
@@ -1235,8 +1329,8 @@
 
 
 
-          </div>
-          
+        </div>
+        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1259,87 +1353,6 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">cjwind</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">51</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
 
       </div>
     </main>
@@ -1377,15 +1390,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>

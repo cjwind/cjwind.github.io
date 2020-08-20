@@ -15,9 +15,9 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<script id="hexo-configurations">
+<script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.3","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"prism":false,"path":"search.json"};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
   <meta property="og:type" content="website">
@@ -31,7 +31,7 @@
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/12/">
 
 
-<script id="page-configurations">
+<script class="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
@@ -60,24 +60,36 @@
 
   <noscript>
   <style>
-  .use-motion .brand,
+  body { margin-top: 2rem; }
+
   .use-motion .menu-item,
-  .sidebar-inner,
+  .use-motion .sidebar,
   .use-motion .post-block,
   .use-motion .pagination,
   .use-motion .comments,
   .use-motion .post-header,
   .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
 
   .use-motion .site-title,
-  .use-motion .site-subtitle {
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
     opacity: initial;
     top: initial;
   }
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
   </style>
 </noscript>
 
@@ -85,25 +97,26 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
+  <div class="container">
     <div class="headband"></div>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="Toggle navigation bar">
-        <span class="toggle-line toggle-line-first"></span>
-        <span class="toggle-line toggle-line-middle"></span>
-        <span class="toggle-line toggle-line-last"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
+      <i class="logo-line"></i>
       <h1 class="site-title">cjwind's note</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
     </a>
   </div>
 
@@ -159,7 +172,7 @@
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
@@ -169,7 +182,7 @@
 </div>
 <div id="search-result">
   <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -177,22 +190,103 @@
   </div>
 
 </div>
-    </header>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
   <div class="back-to-top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
+
       <div class="main-inner">
-        <div class="content-wrap">
-          
+        
 
-          <div class="content index posts-expand">
-            
+        <div class="content index posts-expand">
+          
       
   
   
@@ -208,6 +302,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -254,8 +350,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>QMap 內的資料會以 key 的值 sort 好。以自訂 class 或 struct 作為 key 需要提供 <code>operator&lt;</code>。所以將資料 insert 進 QMap，再用 iterator 取出就可以做到 sorting。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">QMap&lt;<span class="keyword">int</span>, QString&gt; sortMap;</span><br><span class="line"></span><br><span class="line">sortMap.insert(<span class="number">31</span>, <span class="string">&quot;31&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">3</span>, <span class="string">&quot;3&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">2</span>, <span class="string">&quot;2&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">5</span>, <span class="string">&quot;5&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">7</span>, <span class="string">&quot;7&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (QMap&lt;<span class="keyword">int</span>, QString&gt;::iterator iter = sortMap.begin(); iter != sortMap.end(); ++iter)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// sorted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -295,6 +389,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -341,8 +437,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>今年，專業上：</p>
 <ul>
 <li>開了這個 blog</li>
@@ -403,6 +497,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -449,8 +545,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>一個檔案 include 另一個檔案時，這兩個檔案便形成 compilation dependency。一個被 include 的檔案一旦修改，跟它有 compilation dependency 的檔案（無論直接或間接 include）都需要重新 compile。假設 A.h include B.h，當 B.h 改變或 B.h include 的檔案改變時，所有 include A.h 的檔案都需要重新 compile。</p>
 <p>應該盡量降低 compile dependency，以減少修改一個 header 而需要重新 compile 的檔案數量，免得改個檔案全世界都要重新 compile。<del>（工程師無數青春在哭泣）</del></p>
 <p>原則上盡量<strong>以 declaration 的 dependency 取代 definition 的 dependency</strong>。</p>
@@ -505,6 +599,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -551,8 +647,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>program by constract（按契約程式設計）就是寫 code 跟用那份 code 的人說好，這些 function 要做什麼、負責什麼、使用的人要怎麼用，大家照說好的去做。</p>
 <p>defensive programming（防禦性程式設計）則是大家互相不信任，會做許多檢查以確保自己不會當掉、使用的人用錯也不會當。defensive programming 會產生許多用於檢查的 code，讓 code 變得冗長、效率也可能較差，所以一般建議在 input 要進入系統時做檢查，系統內部互相 call 時就不再做檢查。當檢查發現問題、出現不該出現的錯誤時，較建議盡快讓程式 fail 好找出錯誤，而非忽略錯誤、繼續讓系統執行下去。</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
@@ -589,6 +683,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -635,8 +731,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Linux 本身沒有 thread 的概念，它把 process 跟 thread 都視為 <strong>Task</strong>。</p>
 <p><code>fork()</code> 用來生 child process，生出來的是概念上的 process。</p>
 <p>而 <code>clone()</code> 可以生出跟 parent process 共用 memory space、file descriptor 的 table、signal handler 的 table 等東西的 child process，也就是概念上的 thread。Linux 用 <code>clone()</code> 實作 thread 概念。</p>
@@ -675,6 +769,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -721,8 +817,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>class diagram 只是個概觀，不會說明所有細節（例如如何實作），可以為需要建立的 class 進行 modeling。</p>
 <p>用一張圖解釋：</p>
 <img src="/images/class_diagram_ex.png" class="" width="800">
@@ -774,6 +868,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -820,8 +916,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>這個原則跟何時該使用繼承有關：derived class 必須能替代 base class。</p>
 <p>使用繼承時必須確保 base class 的所有特性及 method 對 derived class 仍成立，反過來說，derived class 必須有 base class 所有特性。一個 derived class 的 object 是一個（is-a）base class 的 object，原本對 base class 的 object 所做的所有操作可以直接換成對 derived class 的 object 操作。</p>
 <p>C++ 的 public 繼承在意義上即是 LSP 所說的繼承觀念。</p>
@@ -861,6 +955,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -907,8 +1003,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>class 應該只負責一件事、只有一個改變的理由，class 聚焦於實作該責任。避免一個 class 有多重責任，或者一個責任分散在多個 class 中。SRP 的主要目的是增加 class 的 cohesion（內聚力）。</p>
 <p>OO 中會以 class 為單位，但可以提升到 process level。舉例來說，將多個 process 啟動與結束的控制分散在各個 process 以及 watch dog，就讓「控制 process 的啟動與結束」這個責任分散在多個地方。這會導致較難理解控制流程、不知道某個時間點是誰在控制，修改時也容易出 bug。</p>
 <p>一個 class 可以負責一個「大」責任。運用 SRP 應該會讓系統中的 class 比較少但比較大，因為會將功能性集中在負責該功能的 class。在思考一個 class 應該負責什麼時，用較抽象的方式去想會比較好，想這 class 要做什麼？它的名稱顯示它該負責什麼？某件事究竟關不關它的事？</p>
@@ -952,6 +1046,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -998,8 +1094,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>名稱就說明了它的意思──不要重複。</p>
 <p>這也是概念上的原則。不僅限於不重複相同的程式碼，也包括不要重複相同的程式碼、相同的功能（例如多個軟體間不重複相同的功能）等等，確保一件事情、一項資訊只存在一個地方。</p>
 <p>遵守這個原則的好處是當一件事情需要修改的時候，只需要修改一個地方，不會因為需要改很多地方而漏掉、造成問題。</p>
@@ -1034,6 +1128,8 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
+
+    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
@@ -1080,8 +1176,6 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
           <p>Software entities such as class, modules, functions should be <strong>open for extension, but closed for modification</strong>.</p>
 <p>直接英翻中就是「對擴展開放，對修改關閉。」</p>
 <p>換句話說，允許擴展但不允許修改原有的 code。在現有程式運作得好好、通過測試的狀況下，應該以擴展的方式新增系統功能，而非修改原有的 code。OCP 著重於軟體彈性，遵守這原則能在增加新功能時確保原本行為不會被更動，減少在原本運作良好的部分產生 bug 的風險。不過遵循 OCP 可能會引入新的抽象層、增加 code 的複雜度，所以並不是整個系統所有地方都該遵守，而是找出最有可能改變的地方才使用 OCP，沒必要的地方使用也是種浪費。</p>
@@ -1115,8 +1209,8 @@
 
 
 
-          </div>
-          
+        </div>
+        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1139,87 +1233,6 @@
     });
   }
 </script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          Table of Contents
-        </li>
-        <li class="sidebar-nav-overview">
-          Overview
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">cjwind</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">154</span>
-          <span class="site-state-item-name">posts</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">3</span>
-        <span class="site-state-item-name">categories</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">51</span>
-        <span class="site-state-item-name">tags</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
 
       </div>
     </main>
@@ -1257,15 +1270,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
 <script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
 
 
 <script src="/js/next-boot.js"></script>
