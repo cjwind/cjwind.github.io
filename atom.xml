@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2020-08-29T07:35:30.753Z</updated>
+  <updated>2020-08-29T09:48:56.231Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go init() function</title>
+    <link href="http://www.cjwind.idv.tw/Golang-init-func/"/>
+    <id>http://www.cjwind.idv.tw/Golang-init-func/</id>
+    <published>2020-08-29T09:48:15.000Z</published>
+    <updated>2020-08-29T09:48:56.231Z</updated>
+    
+    <content type="html"><![CDATA[<p>任何檔案可以擁有任意數量的 <code>init()</code> function：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>init()</code> 會在程式啟動時自動以宣告的順序執行，但不能被 call 或參考。</p><p>假設有以下兩個 go 檔案：</p><figure class="highlight go"><figcaption><span>foo.go</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;foo.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight go"><figcaption><span>main.go</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go second init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>go run</code> 以不同的順序指定 source file 會有不同結果：</p><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">go</span> run foo.<span class="built_in">go</span> main.<span class="built_in">go</span></span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">go</span> run main.<span class="built_in">go</span> foo.<span class="built_in">go</span></span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line"></span><br><span class="line"># 不指定 file</span><br><span class="line">$ <span class="built_in">go</span> run .</span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br></pre></td></tr></table></figure><p>不指定 file 的話 <code>go</code> 會將 file 以其名稱排序。</p><p>如果嘗試直接 call <code>init()</code>：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    init()  <span class="comment">// compile error: undefined: init</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;任何檔案可以擁有任意數量的 &lt;code&gt;init()&lt;/code&gt; function：&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span cl</summary>
+      
+    
+    
+    
+    
+    <category term="Go" scheme="http://www.cjwind.idv.tw/tags/Go/"/>
+    
+  </entry>
   
   <entry>
     <title>ch10 I Can&#39;t Run This Method in a Test Harness</title>
@@ -474,31 +497,6 @@
       
     <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/&quot;&gt;Dodkcer Get Started&lt;/a&gt; 隨手記。&lt;/p&gt;
 &lt;h2 id=&quot;Part-3-Services&quot;&gt;&lt;a href=&quot;#Part-3-Services&quot; class</summary>
-      
-    
-    
-    
-    <category term="Get started with Docker" scheme="http://www.cjwind.idv.tw/categories/Get-started-with-Docker/"/>
-    
-    
-    <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Get started with Docker Part 1 &amp; 2</title>
-    <link href="http://www.cjwind.idv.tw/get-started-with-docker/part-1-2/"/>
-    <id>http://www.cjwind.idv.tw/get-started-with-docker/part-1-2/</id>
-    <published>2019-08-03T15:23:44.000Z</published>
-    <updated>2020-08-09T03:17:09.268Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p><h2 id="Part-1-Orientation-and-setup"><a href="#Part-1-Orientation-and-setup" class="headerlink" title="Part 1: Orientation and setup"></a><a href="https://docs.docker.com/get-started/">Part 1: Orientation and setup</a></h2><blockquote><p>Docker is a platform for developers and sysadmins to <strong>develop, deploy, and run</strong> applications with containers.</p></blockquote><blockquote><p>The use of Linux containers to deploy applications is called <em>containerization</em>.</p></blockquote><h3 id="Images-and-containers"><a href="#Images-and-containers" class="headerlink" title="Images and containers"></a>Images and containers</h3><blockquote><p>An <strong>image</strong> is an executable package that includes everything needed to run an application–the code, a runtime, libraries, environment variables, and configuration files.</p></blockquote><blockquote><p>A <strong>container</strong> is a runtime instance of an image–what the image becomes in memory when executed (that is, an image with state, or a user process).</p></blockquote><h3 id="Container-vs-VM"><a href="#Container-vs-VM" class="headerlink" title="Container vs VM"></a>Container vs VM</h3><blockquote><p>A <strong>container</strong> runs natively on Linux and shares the kernel of the host machine with other containers. It runs a discrete process, taking no more memory than any other executable, making it lightweight.</p></blockquote><p>看起來 container 是 process level 的。</p><blockquote><p>a <strong>virtual machine</strong> (VM) runs a full-blown “guest” operating system with <em>virtual access</em> to host resources through a hypervisor. In general, VMs provide an environment with more resources than most applications need.</p></blockquote><p>用 Docker 可以把 application 需要的環境跟 code 等等包在 image 裡，以此 image 來開發跟 deploy，解決 application 的 system dependency 問題。因為整個環境都包在 Docker 裡了，application 可以在任何有 Docker 環境的地方執行（從 local 到 cloud 等等）。相較 VM，container 比較 light-weight 而且只有 application 需要的環境。</p><h2 id="Part-2-Containers"><a href="#Part-2-Containers" class="headerlink" title="Part 2: Containers"></a><a href="https://docs.docker.com/get-started/part2/">Part 2: Containers</a></h2><p>hierarchy 由高到低：</p><ul><li>Stack：define the interactions of all the services</li><li>Services：defines how containers behave in production</li><li>Container：a runtime instance of an image</li></ul><h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><blockquote><p><strong><code>Dockerfile</code></strong> defines what goes on in the environment inside your container.</p></blockquote><p>container 的網路跟 disk drive 是 virtualized、跟外界隔開的，所以要做 port mapping 以及指定哪些檔案要 copy 進 container。</p><p>Dockerfile 指令 [<a href="https://docs.docker.com/engine/reference/builder/">Ref</a>]：</p><ul><li><code>FROM</code> 指定 parent image</li><li><code>WORKDIP</code> 指定 container 內的 working dir</li><li><code>COPY</code> copy 檔案到 container 裡</li><li><code>RUN</code> 執行指令<ul><li><blockquote><p>The RUN instruction will execute any commands in a new layer on top of the current image and commit the results.</p></blockquote></li></ul></li><li><code>EXPOSE</code> 表示 container 會 listen 哪些 port<ul><li>跟 <code>docker run -p</code> 做 port mapping 不同，不會真的 publish port</li><li><blockquote><p>The <code>EXPOSE</code> instruction does not actually publish the port. It functions as a type of documentation between the person who builds the image and the person who runs the container, about which ports are intended to be published.</p></blockquote></li><li>寫不寫 <code>EXPOSE</code> 都可以 publish port，<code>EXPOSE</code> 是讓使用 image 的人知道 container 會 listen 哪個 port，好知道怎麼 publish port。</li></ul></li><li><code>ENV</code> 設定環境變數</li><li><code>CMD</code> container 開起來時要執行的指令</li></ul><h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><ul><li>在 container 裡拿 hostname 會拿到 container ID</li></ul><h3 id="更多-docker-run"><a href="#更多-docker-run" class="headerlink" title="更多 docker run"></a>更多 <code>docker run</code></h3><ul><li><code>-p &lt;host port&gt;:&lt;container port&gt;</code> publish port，做 host port 跟 container port 的 mapping。[<a href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports">Ref</a>]</li><li><code>-d</code> 以 detach mode 執行 container，就是背景執行啦～</li></ul><p><a href="http://127.0.0.1:4000/PhpStorm-Docker-in-Win10/#Docker-Command-Line-Usage">基本 docker run 使用 Ref</a></p><h3 id="Share-image"><a href="#Share-image" class="headerlink" title="Share image"></a>Share image</h3><blockquote><p>A registry is a collection of repositories, and a repository is a collection of images</p></blockquote><p><code>docker</code> 預設使用的 registry 是 <a href="https://hub.docker.com/">Docker Hub</a>。</p><p>tag 是用來給 image 版本的方式。</p><ol><li>幫 image 加上 registry 的 repository tag：</li></ol><figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">tag</span> <span class="variable">&lt;image&gt;</span> <span class="variable">&lt;username&gt;</span>/<span class="variable">&lt;repository&gt;</span>:<span class="variable">&lt;tag&gt;</span></span><br></pre></td></tr></table></figure><ol start="2"><li>publish image：</li></ol><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker push <span class="tag">&lt;<span class="name">username</span>&gt;</span>/<span class="tag">&lt;<span class="name">repository</span>&gt;</span>:<span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure><ol start="3"><li>pull and run image from remote repository：</li></ol><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker run <span class="tag">&lt;<span class="name">username</span>&gt;</span>/<span class="tag">&lt;<span class="name">repository</span>&gt;</span>:<span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure><p>如果 local 不存在 image，Docker 會從 repository pull image 下來再執行。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/&quot;&gt;Dodkcer Get Started&lt;/a&gt; 隨手記。&lt;/p&gt;
-&lt;h2 id=&quot;Part-1-Orientation-and-setup&quot;&gt;&lt;a href=&quot;#Part-1-Or</summary>
       
     
     

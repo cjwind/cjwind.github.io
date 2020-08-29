@@ -226,7 +226,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -288,6 +288,126 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Observer-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Observer-Pattern/" class="post-title-link" itemprop="url">Observer Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-07-09 23:30:12" itemprop="dateCreated datePublished" datetime="2015-07-09T23:30:12+08:00">2015-07-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2015-08-06 23:32:00" itemprop="dateModified" datetime="2015-08-06T23:32:00+08:00">2015-08-06</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Observer-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Observer-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>定義物件間一對多的關係，當一個物件改變狀態，其他相依者都會收到通知並自動被更新。</p>
+</blockquote>
+<h2 id="適用場合"><a href="#適用場合" class="headerlink" title="適用場合"></a>適用場合</h2><p>某個物件擁有某些 state，還有一堆其他物件很在乎這些 state 有沒有改變，這些物件在 state 改變時需要做些事情。這邊的 state 是抽象概念，舉凡一個 button 被 click、load data 的 progress、load data 完成與否、畫面是否被修改等等都可以看作 state。另外，一個 object 可能會有很多種 state。</p>
+<p>網路上很喜歡用的說法：observer 是一種訂報紙的概念。簡言之，有間報社（subject or observable），要訂報紙的人（observer）跟報社說他要訂報紙，之後報社有新報紙了（狀態改變）就會通知這些訂戶，訂戶拿到報紙後或許拿來看、或許拿來墊便當(?)，想幹嘛就幹嘛。如果一個訂戶不想收到新報紙了，就跟報社說一聲退出訂閱，之後報社就不會再通知他了。</p>
+<p>再舉另一個例子：UI 操作上滑鼠點了某個東西，程式其他部分需要因應點選做些事情時也適用 observer pattern。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/observer_pattern.jpg" alt="Observer Pattern"></p>
+<p>Observable 中會有些 state，state 變化時 call NotifyXXX() 通知 observer 們 update。一種做法是 NotifyXXX() call observer 的 update()，而 obsever 會在各自的 update() 中 implement observable 狀態改變時要做的事。</p>
+<h2 id="observer-如何取得-observable-的資料？"><a href="#observer-如何取得-observable-的資料？" class="headerlink" title="observer 如何取得 observable 的資料？"></a>observer 如何取得 observable 的資料？</h2><p>observer 拿 observable 的資料有兩種方式：</p>
+<ul>
+<li>push：由 observable 在通知時一起傳給 observer。</li>
+<li>pull：observer 用 observable 提供的 getter 取得資料。</li>
+</ul>
+<p><em>我是還感覺不出來兩種方式的好壞啦……</em></p>
+<h2 id="有的沒的"><a href="#有的沒的" class="headerlink" title="有的沒的"></a>有的沒的</h2><ul>
+<li>observer 在 update 時不可以依賴被 notify 的順序，因為不同的 observable 實作可能導致結果不同。</li>
+<li>Java 裡有現成的 observer pattern API。</li>
+<li>Java 的 ActionListener 機制是種 observer pattern 的實作──當某件事發生時會 call ActionListener 相應的 function。</li>
+</ul>
+<h2 id="Qt-signal-slot-轉成-native-寫法"><a href="#Qt-signal-slot-轉成-native-寫法" class="headerlink" title="Qt signal-slot 轉成 native 寫法"></a>Qt signal-slot 轉成 native 寫法</h2><p>Qt 的 signal-slot 在用途是特定的狀況下，例如某些 signal-slot 是特別針對某個操作時，可以改成自己實作 observer 並取代之。什麼時候會這麼做？不想用 Qt 做某些 notify 甚至不想用 Qt 的時候…</p>
+<p>我覺得 observer 跟 listener 差不太多，這裡說的 listener 是稍微簡化的 observer，不會有如上述的 observable interface，而是 listenable 的 class 各自自行增加 listener 相關 member 及 function。</p>
+<p>如何將 Qt 的 signal-slot 改成 native 的 listener 寫法、自己處理 notify 呢？</p>
+<ol>
+<li>看懂原本 notify 的流程，區分誰是 listener 誰是 listenable。一般來說 signal 的 sender 是 listenable，signal 的 receiver 是 listener。確認要改哪些 signal、slot、connect()、disconnect()。</li>
+<li>在 listenable class 增加 listener list、add 跟 remove listener function。</li>
+<li>在 listener interface 增加 update function，也就是當某件事發生時會被 call 的 function。</li>
+<li>修改 listenable class 的 emit signal，改為 call listener 的 update function 或 NotifyXXX()，由 NotifyXXX() 再 call listener 的 update function。如果有多處需要通知 listener，建議寫成 NotifyXXX()。如果只有一個地方需要通知，也可以不用 NotifyXXX()。</li>
+<li>listener class 繼承 listener interface 並 implement update function。將原本的 slot 改為一般 function，接著看要由 update function call 還是直接 rename 為 update function。如果原本是 auto 或 queued connection 要注意 thread issue。</li>
+<li>修改 listener class，將 connect() 及 disconnect() 改為 call add 及 remove observer。</li>
+<li>需注意 listener 及 listenable object 的生命週期，如果 listenable 活得比 listener 久，listener 死之前要將自己從 listenable 的 listener list 中移除。</li>
+</ol>
+<p>Qt 的 signal connection 有些特殊功能也要一併處理：</p>
+<ul>
+<li>queued connection 可能隱含換 thread，需釐清原本程式是否意圖使用換 thread 機制。<br>如果有換 thread 就不是單純 observer pattern 可以處理的，可能要改用 thread + event loop，或 listener 的部分可以使用 Qt 則在 listener 以 signal-slot 換 thread。</li>
+<li>direct connection 幾乎等同直接 call function，不需要額外處理。</li>
+<li>unique connection 代換作法之一是在 register observer 時做 filter，已經是 observer 的 object 就不再加入 observer list。</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《深入淺出設計模式》ch 2</li>
+<li><a target="_blank" rel="noopener" href="http://openhome.cc/Gossip/DesignPattern/ObserverPattern.htm">http://openhome.cc/Gossip/DesignPattern/ObserverPattern.htm</a></li>
+<li><a target="_blank" rel="noopener" href="http://kgsprogrammer.pixnet.net/blog/post/27955277-design-pattern----observer">http://kgsprogrammer.pixnet.net/blog/post/27955277-design-pattern----observer</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1152,97 +1272,6 @@
 <p>解決方式軟體及硬體皆有，硬體的我看不懂所以這裡只說軟體。(欸)</p>
 <p>軟體解決方式：不處理 bounce 時間內的訊號。「不處理」的實際做法可以自己硬寫也可以在 <code>add_event_detect()</code> 裡設定。</p>
 <p>圖片來源：<a target="_blank" rel="noopener" href="http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml">http://www.bbc.co.uk/schools/gcsebitesize/design/electronics/switchesrev2.shtml</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pull-up-and-pull-down-resistor/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/pull-up-and-pull-down-resistor/" class="post-title-link" itemprop="url">Pull-up & Pull-down resistor（上拉 & 下拉電阻）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-04-16 00:04:14" itemprop="dateCreated datePublished" datetime="2015-04-16T00:04:14+08:00">2015-04-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/pull-up-and-pull-down-resistor/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="pull-up-and-pull-down-resistor/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>接 button、switch 時會用到。<del>（看到 button 這字想到的是 GUI 上的…）</del></p>
-<p>電路中希望維持一個電位基準值，好判斷某個電壓值是 0 還是 1。pull-up 跟 pull-down 電阻就是用來維持基準電位的，如果電路沒有接個東西，程式會讀到雜訊（亂數值）。</p>
-<p><img src="/images/Pullup_Resistor.png" alt="Pull-up resistor"></p>
-<p>switch 斷開時上半部的電路是通的，logic gate 會讀到較高的電位。switch 接上後，logic gate 的電位會變低（從電流來看是下半部電路會接通，以至於電位會改變）。如果認定 switch 接上是邏輯的 1 則 logic gate 是低電位時表示邏輯的 1，高電位表示邏輯的 0。</p>
-<p><img src="/images/Pulldown_Resistor.png" alt="Pull-down resistor"></p>
-<p>pull-down 電阻是反過來，switch 斷開時 logic gate 會讀到低電位，接上後是高電位。所以高電位表示邏輯 1，低電位表示邏輯 0。</p>
-<p>接 Raspberry Pi 時，上面說的 logic gate 就是 Raspberry Pi 的 GPIO pin。</p>
-<p><em>murmur：被高低電位搞得頭有點暈，不太確定那個電流的理解對不對？沒搞得很懂 logic gate 在乎的是電位還是電位差……我的電路學只有高中程度啊……Orz</em></p>
-<p>圖片來源及 Ref：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB">http://zh.wikipedia.org/wiki/%E4%B8%8A%E6%8B%89%E7%94%B5%E9%98%BB</a></li>
-<li><a target="_blank" rel="noopener" href="http://playground.arduino.cc/CommonTopics/PullUpDownResistor">http://playground.arduino.cc/CommonTopics/PullUpDownResistor</a></li>
-</ul>
 
       
     </div>

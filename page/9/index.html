@@ -226,7 +226,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -288,6 +288,108 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Strong-Symbol-and-Weak-Symbol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Strong-Symbol-and-Weak-Symbol/" class="post-title-link" itemprop="url">Strong Symbol and Weak Symbol</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-13 15:27:20" itemprop="dateCreated datePublished" datetime="2015-12-13T15:27:20+08:00">2015-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Strong-Symbol-and-Weak-Symbol/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Strong-Symbol-and-Weak-Symbol/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>symbol 的 definition 可分為 strong symbol 跟 weak symbol。C/C++ 的 compiler 預設 function 及有初始化的 global variable 為 strong symbol，未初始化的 global variable 為 weak symbol。strong &amp; weak symbol 跟處理 symbol 重複定義有關：</p>
+<ol>
+<li>不允許 strong symbol 重複定義，有的話會 link error。</li>
+<li>如果一個 symbol 在某個 object file 中是 strong symbol，其他都是 weak symbol，選 strong symbol。</li>
+<li>如果都是 weak symbol，選 type size 最大的。</li>
+</ol>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>GCC 中可用 <code>__attribute__((weak))</code> 來定義一個 strong symbol 為 weak symbol：</p>
+<figure class="highlight c++"><figcaption><span>weaksym.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line">__attribute__((weak)) <span class="keyword">int</span> x = <span class="number">2</span>;    <span class="comment">// weak symbol</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">123</span>;    <span class="comment">// strong symbol</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;        <span class="comment">// result is 123</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>weak symbol 可以在 link time 置換 function。一開始給個預設 implementation 並設為 weak symbol，使用者可以寫 function 編成 object file 去 link。由於使用者寫的是 strong symbol 會蓋掉原本的 default implementation，達到 link 階段換 implementation。</p>
+<figure class="highlight c++"><figcaption><span>weakfoo.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> __<span class="title">attribute__</span> <span class="params">((weak))</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;default foo&quot;</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    foo();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><figcaption><span>foo.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;custom foo&quot;</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">&gt; g++ -c weakfoo<span class="selector-class">.cpp</span> -o weakfoo.o</span><br><span class="line">&gt; g++ -c foo<span class="selector-class">.cpp</span> -o foo.o</span><br><span class="line">&gt; g++ weakfoo.o</span><br><span class="line">&gt; ./<span class="selector-tag">a</span>.out</span><br><span class="line">default foo</span><br><span class="line">&gt; g++ weakfoo<span class="selector-class">.o</span> foo.o</span><br><span class="line">&gt; ./<span class="selector-tag">a</span>.out</span><br><span class="line">custom foo</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《程式設計師的自我修養》3.5.5</li>
+<li><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Function-Attributes.html">https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Function-Attributes.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Weak_symbol">https://en.wikipedia.org/wiki/Weak_symbol</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1232,126 +1334,6 @@
 <p>需求改變（外在環境）、內部人員的不同（內在改變）等等都是變化，有了基本精神後當然是以各種工具與方法達成。而現在有許多經過不少人<del>血淚斑斑的</del>試驗過、覺得還不錯的方法可以使用，但是最後依然要找出適合組織與情境的方式。</p>
 <p>我是從個人的角度出發去看「因應變化」這件事。因應變化常常帶著不確定性，所以有時候不太討喜，但是近年我喜歡這種會因應變化的觀念，因為這代表彈性、可能性以及選擇。我喜歡用「成長」的角度去看待改變，改變不見得是成長，但是沒有改變幾乎難以有所成長。有改變代表有新東西，有新東西代表有新選項，有新選項代表有不同未來的可能性。倘若不滿意現況，如果希冀有所不同，又怎麼能夠期望同樣的方式能帶來不同的結果？</p>
 <p>至於結果是更好還是更壞，如果以從個人角度出發來看，我是不太在意。因為覺得不好，再改就是了，這不正是彈性的好處？我傾向相信，終究會慢慢摸索出適合的方式。而那方式，也可能只適用於某一陣子，那只是一個暫時的答案，不是絕對。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Observer-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Observer-Pattern/" class="post-title-link" itemprop="url">Observer Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-09 23:30:12" itemprop="dateCreated datePublished" datetime="2015-07-09T23:30:12+08:00">2015-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-08-06 23:32:00" itemprop="dateModified" datetime="2015-08-06T23:32:00+08:00">2015-08-06</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Observer-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Observer-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>定義物件間一對多的關係，當一個物件改變狀態，其他相依者都會收到通知並自動被更新。</p>
-</blockquote>
-<h2 id="適用場合"><a href="#適用場合" class="headerlink" title="適用場合"></a>適用場合</h2><p>某個物件擁有某些 state，還有一堆其他物件很在乎這些 state 有沒有改變，這些物件在 state 改變時需要做些事情。這邊的 state 是抽象概念，舉凡一個 button 被 click、load data 的 progress、load data 完成與否、畫面是否被修改等等都可以看作 state。另外，一個 object 可能會有很多種 state。</p>
-<p>網路上很喜歡用的說法：observer 是一種訂報紙的概念。簡言之，有間報社（subject or observable），要訂報紙的人（observer）跟報社說他要訂報紙，之後報社有新報紙了（狀態改變）就會通知這些訂戶，訂戶拿到報紙後或許拿來看、或許拿來墊便當(?)，想幹嘛就幹嘛。如果一個訂戶不想收到新報紙了，就跟報社說一聲退出訂閱，之後報社就不會再通知他了。</p>
-<p>再舉另一個例子：UI 操作上滑鼠點了某個東西，程式其他部分需要因應點選做些事情時也適用 observer pattern。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/observer_pattern.jpg" alt="Observer Pattern"></p>
-<p>Observable 中會有些 state，state 變化時 call NotifyXXX() 通知 observer 們 update。一種做法是 NotifyXXX() call observer 的 update()，而 obsever 會在各自的 update() 中 implement observable 狀態改變時要做的事。</p>
-<h2 id="observer-如何取得-observable-的資料？"><a href="#observer-如何取得-observable-的資料？" class="headerlink" title="observer 如何取得 observable 的資料？"></a>observer 如何取得 observable 的資料？</h2><p>observer 拿 observable 的資料有兩種方式：</p>
-<ul>
-<li>push：由 observable 在通知時一起傳給 observer。</li>
-<li>pull：observer 用 observable 提供的 getter 取得資料。</li>
-</ul>
-<p><em>我是還感覺不出來兩種方式的好壞啦……</em></p>
-<h2 id="有的沒的"><a href="#有的沒的" class="headerlink" title="有的沒的"></a>有的沒的</h2><ul>
-<li>observer 在 update 時不可以依賴被 notify 的順序，因為不同的 observable 實作可能導致結果不同。</li>
-<li>Java 裡有現成的 observer pattern API。</li>
-<li>Java 的 ActionListener 機制是種 observer pattern 的實作──當某件事發生時會 call ActionListener 相應的 function。</li>
-</ul>
-<h2 id="Qt-signal-slot-轉成-native-寫法"><a href="#Qt-signal-slot-轉成-native-寫法" class="headerlink" title="Qt signal-slot 轉成 native 寫法"></a>Qt signal-slot 轉成 native 寫法</h2><p>Qt 的 signal-slot 在用途是特定的狀況下，例如某些 signal-slot 是特別針對某個操作時，可以改成自己實作 observer 並取代之。什麼時候會這麼做？不想用 Qt 做某些 notify 甚至不想用 Qt 的時候…</p>
-<p>我覺得 observer 跟 listener 差不太多，這裡說的 listener 是稍微簡化的 observer，不會有如上述的 observable interface，而是 listenable 的 class 各自自行增加 listener 相關 member 及 function。</p>
-<p>如何將 Qt 的 signal-slot 改成 native 的 listener 寫法、自己處理 notify 呢？</p>
-<ol>
-<li>看懂原本 notify 的流程，區分誰是 listener 誰是 listenable。一般來說 signal 的 sender 是 listenable，signal 的 receiver 是 listener。確認要改哪些 signal、slot、connect()、disconnect()。</li>
-<li>在 listenable class 增加 listener list、add 跟 remove listener function。</li>
-<li>在 listener interface 增加 update function，也就是當某件事發生時會被 call 的 function。</li>
-<li>修改 listenable class 的 emit signal，改為 call listener 的 update function 或 NotifyXXX()，由 NotifyXXX() 再 call listener 的 update function。如果有多處需要通知 listener，建議寫成 NotifyXXX()。如果只有一個地方需要通知，也可以不用 NotifyXXX()。</li>
-<li>listener class 繼承 listener interface 並 implement update function。將原本的 slot 改為一般 function，接著看要由 update function call 還是直接 rename 為 update function。如果原本是 auto 或 queued connection 要注意 thread issue。</li>
-<li>修改 listener class，將 connect() 及 disconnect() 改為 call add 及 remove observer。</li>
-<li>需注意 listener 及 listenable object 的生命週期，如果 listenable 活得比 listener 久，listener 死之前要將自己從 listenable 的 listener list 中移除。</li>
-</ol>
-<p>Qt 的 signal connection 有些特殊功能也要一併處理：</p>
-<ul>
-<li>queued connection 可能隱含換 thread，需釐清原本程式是否意圖使用換 thread 機制。<br>如果有換 thread 就不是單純 observer pattern 可以處理的，可能要改用 thread + event loop，或 listener 的部分可以使用 Qt 則在 listener 以 signal-slot 換 thread。</li>
-<li>direct connection 幾乎等同直接 call function，不需要額外處理。</li>
-<li>unique connection 代換作法之一是在 register observer 時做 filter，已經是 observer 的 object 就不再加入 observer list。</li>
-</ul>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《深入淺出設計模式》ch 2</li>
-<li><a target="_blank" rel="noopener" href="http://openhome.cc/Gossip/DesignPattern/ObserverPattern.htm">http://openhome.cc/Gossip/DesignPattern/ObserverPattern.htm</a></li>
-<li><a target="_blank" rel="noopener" href="http://kgsprogrammer.pixnet.net/blog/post/27955277-design-pattern----observer">http://kgsprogrammer.pixnet.net/blog/post/27955277-design-pattern----observer</a></li>
-</ul>
 
       
     </div>

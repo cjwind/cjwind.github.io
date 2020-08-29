@@ -226,7 +226,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-count">156</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -288,6 +288,98 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Linux-Desktop-Chinese/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Linux-Desktop-Chinese/" class="post-title-link" itemprop="url">Linux Desktop 2 中文環境</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-16 20:42:15" itemprop="dateCreated datePublished" datetime="2017-03-16T20:42:15+08:00">2017-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Linux-Desktop-Chinese/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Linux-Desktop-Chinese/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>用 Linux 桌面最麻煩的地方之一是中文介面。我已經放棄設語系為中文，畢竟 terminal 各種 message 顯示中文實在很奇怪，但還是需要輸入法跟能看一點的字型啊啊啊啊啊……</p>
+<ul>
+<li>distribution：Debian 8</li>
+<li>桌面環境：KDE</li>
+</ul>
+<h2 id="輸入法"><a href="#輸入法" class="headerlink" title="輸入法"></a>輸入法</h2><p>我先試了 scim，但用起來好像有點 bug，導致操作有點卡。後來換 hime，它的各種切換快捷鍵、符號輸入等等操作跟 windows 的中文輸入法差不多，就用它啦～</p>
+<p>裝完、修改完設定檔 <code>~/.xsessionrc</code> 讓 KDE 去用它，改完 relogin。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install hime hime-chewing</span><br><span class="line">$ cat ~/.xsessionrc</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">GTK_IM_MODULE</span>=hime</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">XMODIFIERS</span>=@im=hime</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_IM_MODULE</span>=hime</span><br></pre></td></tr></table></figure>
+
+<h2 id="中文字型"><a href="#中文字型" class="headerlink" title="中文字型"></a>中文字型</h2><p>比較喜歡沒襯線、像麥克筆寫的字體。</p>
+<p>目前覺得 Noto 系列跟 WenQuanYi Micro Hei 系列不錯。一般字體就挑順眼的，等寬字體是用 WenQuanYi Micro Hei Mono。WenQuanYi 還有正黑體的版本，但我覺得微米黑（Micro Hei）比較好看。</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get install <span class="built_in">fonts</span>-noto <span class="built_in">fonts</span>-wqy-microhei <span class="built_in">fonts</span>-wqy-zenhei</span><br></pre></td></tr></table></figure>
+
+<p>Ref：<a target="_blank" rel="noopener" href="http://wiki.ubuntu.hk/w/%E4%B8%AD%E6%96%87%E5%AD%97%E5%9E%8B">http://wiki.ubuntu.hk/w/%E4%B8%AD%E6%96%87%E5%AD%97%E5%9E%8B</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1264,98 +1356,6 @@
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software_design_pattern">https://en.wikipedia.org/wiki/Software_design_pattern</a></li>
 <li><a target="_blank" rel="noopener" href="http://hillside.net/">http://hillside.net/</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/MVC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/MVC/" class="post-title-link" itemprop="url">MVC (Model-View-Controller)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-12-20 23:15:40" itemprop="dateCreated datePublished" datetime="2016-12-20T23:15:40+08:00">2016-12-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/MVC/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="MVC/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>大名鼎鼎的 MVC（Model-View-Controller）是一種 compound pattern，要說是個架構也行，這篇主要用 design pattern 的角度去看 MVC。</p>
-<p>compound pattern 是一堆 design pattern 被結合起來使用以解決一般性問題。</p>
-<p>MVC 將 component 分成 model、view 以及 controller：</p>
-<ul>
-<li>model 包含商業邏輯、資料、狀態等等，真正的功能跟做事的 code 會放在 model。</li>
-<li>view 負責呈現各種資料跟畫面。</li>
-<li>controller 接收來自 view 的 input，解讀後要 model 做事。依據使用的 model 不同，controller 對 input 的解讀會不同。</li>
-</ul>
-<h2 id="MVC-中的-design-pattern"><a href="#MVC-中的-design-pattern" class="headerlink" title="MVC 中的 design pattern"></a>MVC 中的 design pattern</h2><p>MVC 中有 <a href="/Observer-Pattern">Observer pattern</a>、<a href="/Strategy-Pattern">Strategy pattern</a> 以及 <a href="/Composite-Pattern">Composite pattern</a>。</p>
-<p>model 利用 observer pattern 通知 controller 及 view 狀態改變。如果 observer 使用 pull 的方式取得資料，model 會開 getter。如果用 push，model 會在 notify 時將 state 傳給 observer。view 一般只從 model 取得資料、不會改變 model。要 model 做事或改變 model 是 controller 的工作。有 controller 可以讓 model 跟 view 不要綁那麼緊。</p>
-<p>view 跟 controller 使用 strategy pattern，controller 是 view 的 strategy。view 負責管理呈現，任何操作與動作都交給 controller 處理。strategy 讓 view 只需要更換 controller 就能有不同動作。</p>
-<p>view 通常用 composite pattern 管理內部的顯示 component，例如 window、panel、widget、button 的階層式結構。</p>
-<p>另外，如果需要轉換某個 model 的 interface 就輪到 <a href="/Adapter-Pattern">Adapter pattern</a> 上場啦。例如 db table 的 primary key 改了，新程式碼希望用新的 primary key 當參數又不想改舊 model，就可以用 adapter 轉換 interface。</p>
-<h2 id="Murmur"><a href="#Murmur" class="headerlink" title="Murmur"></a>Murmur</h2><p>最早遇到 MVC 是在網頁 framework，所以一直理解 model 為「資料」。後來發現 model 好像不只是資料，有文件說 model 包含商業邏輯，但我還是說不上來到底是什麼。現在的理解是絕大多數的程式都是 model，只是把 view 拆出去並且引進 controller 作為類似中介的角色。</p>
 
       
     </div>
