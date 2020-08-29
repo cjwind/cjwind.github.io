@@ -226,7 +226,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">154</span>
+          <span class="site-state-item-count">155</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -288,6 +288,97 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/dokuwiki-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/dokuwiki-tips/" class="post-title-link" itemprop="url">Dokuwiki Tips</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-05 13:07:30" itemprop="dateCreated datePublished" datetime="2014-04-05T13:07:30+08:00">2014-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/dokuwiki-tips/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="dokuwiki-tips/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="清除特定頁面-cache"><a href="#清除特定頁面-cache" class="headerlink" title="清除特定頁面 cache"></a>清除特定頁面 cache</h2><p>在該頁面網址後面加上</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">?<span class="attribute">purge</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="clean-cache-script"><a href="#clean-cache-script" class="headerlink" title="clean cache script"></a>clean cache script</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cleanup</span></span>() &#123;</span><br><span class="line">  <span class="comment"># $1 ... full path to data directory of wiki</span></span><br><span class="line">  <span class="comment"># $2 ... number of days after which old files are to be removed</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># purge files older than $2 days from attic and media_attic (old revisions)</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/&#123;media_,&#125;attic/ -<span class="built_in">type</span> f -mtime +<span class="variable">$2</span> -print0 | xargs -0r rm -f</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove stale lock files (files which are 1-2 days old)</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/locks/ -name <span class="string">&#x27;*.lock&#x27;</span> -<span class="built_in">type</span> f -mtime +1 -print0 | xargs -0r rm -f</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove empty directories</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/&#123;attic,cache,index,locks,media,media_attic,media_meta,meta,pages,tmp&#125;/ \</span><br><span class="line">    -mindepth 1 -<span class="built_in">type</span> d -empty -print0 | xargs -0r rmdir</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove files older than $2 days from the cache</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/cache/?/ -<span class="built_in">type</span> f -mtime +<span class="variable">$2</span> -print0 | xargs -0r rm -f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ ./cleanwiki.sh <span class="tag">&lt;<span class="name">path</span> <span class="attr">of</span> <span class="attr">dokuwiki</span>&gt;</span>/data <span class="tag">&lt;<span class="name">天數</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.dokuwiki.org/tips:maintenance">https://www.dokuwiki.org/tips:maintenance</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1135,131 +1226,6 @@
 <p><code>pthread_cond_signal()</code> 會叫起一個正在 wait condition variable 的 thread 來 run。如果沒有 thread 正在 wait，什麼事都不會發生。</p>
 <p><code>pthread_cond_wait()</code> 會 atomically unlcok mutex 並讓 calling thread wait condition variable（suspend 此 thread，suspend 的 thread 不會使用任何 CPU time）。這兩個動作是 atomically 執行的，不會被打斷。</p>
 <p>進入 <code>pthread_cond_wait()</code> 前必須先 lock mutex。而 <code>pthread_cond_wait()</code> 在 return（可以 return 是因為有人 signal condition variable）前，會重新 lock 住 mutex。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pthread-mutex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/pthread-mutex/" class="post-title-link" itemprop="url">Pthread Mutex</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-04 23:55:51" itemprop="dateCreated datePublished" datetime="2014-04-04T23:55:51+08:00">2014-04-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/pthread-mutex/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="pthread-mutex/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>mutex 用來保護多個 thread 共享（shared）的資料，避免 concurrent modification 造成問題。</p>
-<p>lock mutex =&gt; modify shared data =&gt; unlock mutex</p>
-<p>mutex 有三種 type：</p>
-<ol>
-<li>fast</li>
-<li>recursive</li>
-<li>error check</li>
-</ol>
-<p>操作 mutex 的 function 會依照 type 不同而可能有不同的操作方式。</p>
-<h2 id="Initialize-Mutex"><a href="#Initialize-Mutex" class="headerlink" title="Initialize Mutex"></a>Initialize Mutex</h2><p>initial 時，可以用 pthread_mutex_init() 或直接 assign const 指定 mutex 的 type。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex, <span class="keyword">const</span> <span class="keyword">pthread_mutexattr_t</span> *mutexattr)</span></span>;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 直接 assign const</span></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> fastmutex = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> recmutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> errchkmutex = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Lock-Mutex"><a href="#Lock-Mutex" class="headerlink" title="Lock Mutex"></a>Lock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_lock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<p>如果 mutex 是 unlock 狀態，則 lock 該 mutex 且讓該 mutex 為 call phread_mutex_lock() 的 thread 擁有，做完這些後立刻 return。</p>
-<p>如果 mutex 正被 lock 住，此 function 會依照不同 type 的 mutex 有不同動作：</p>
-<ol>
-<li><p>fast</p>
-<p>calling thread 會 suspend，直到 mutex unlock。沒寫好的話可能造成 deadlock。</p>
-</li>
-<li><p>recursive</p>
-<p>成功並立刻 return。這種 mutex 會記錄它被 lock 幾次，也就是一個 thread 可以 lock 這種 mutex 很多次。要 unlock 這種 mutex 時，也必須 call 相應 lock 次數的 unlock function 才能真正 unlock。</p>
-</li>
-<li><p>error check</p>
-<p>立刻 return，但 errno = EDEADLK。<em>真是個會讓人誤會的 errno 名稱…</em></p>
-<p>EDEADLK 在 man page 的解釋：</p>
-<blockquote>
-<p>the mutex is already locked by the calling thread (``error checking’’ mutexes only).</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="Try-Lock-Mutex"><a href="#Try-Lock-Mutex" class="headerlink" title="Try Lock Mutex"></a>Try Lock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_trylock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<p>跟 pthread_mutex_lock() 差不多，差別是這個不會 block 住。</p>
-<p>操作 fast mutex 時，trylock() 會立刻 return，而 errno 為 EBUSY。</p>
-<h2 id="Unlock-Mutex"><a href="#Unlock-Mutex" class="headerlink" title="Unlock Mutex"></a>Unlock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_unlock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<p>進入此 function 前，mutex 應為 locked 且被 calling thread 擁有。</p>
-<p>fast mutex 會直接被 unlock。recursive mutex 需 call 相同於 lock 次數的 unlock 才會真正 unlock。</p>
-<p>error check 跟 recursive 的 mutex 會檢查兩個條件：此 mutex 是否為 locked 且被 calling thread 擁有。若有一條件不符合，則不會 unlock，會 return error code。fast mutex 不會做此檢查，所以非擁有此 mutex 的 thread 也可以 unlock 它（這當然不好）。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>Linux pthread_mutex man page<ul>
-<li>PS：Ubuntu 上要裝 glic-doc 才有 pthread 的 man page</li>
-</ul>
-</li>
-</ul>
 
       
     </div>

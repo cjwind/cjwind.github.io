@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+
+  <meta name="description" content="要為一段 code 寫測試，首先要在測試中建立它所屬的 class 的 instance，接著為要修改的 method 寫測試。這章要解決的是「難以在測試中執行要測試的 method」的情境。為一個 method 寫測試可能會遇到的問題：  無法在測試中 access 那個 method，例如它可能是 private 的或是有其他存取限制。 很難建立所需參數，導致很難 call method，例如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ch10 I Can&#39;t Run This Method in a Test Harness">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/index.html">
+<meta property="og:site_name" content="cjwind&#39;s note">
+<meta property="og:description" content="要為一段 code 寫測試，首先要在測試中建立它所屬的 class 的 instance，接著為要修改的 method 寫測試。這章要解決的是「難以在測試中執行要測試的 method」的情境。為一個 method 寫測試可能會遇到的問題：  無法在測試中 access 那個 method，例如它可能是 private 的或是有其他存取限制。 很難建立所需參數，導致很難 call method，例如">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-29T07:35:09.000Z">
+<meta property="article:modified_time" content="2020-08-29T07:35:30.753Z">
+<meta property="article:author" content="cjwind">
+<meta property="article:tag" content="Refactor">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>ch10 I Can't Run This Method in a Test Harness | cjwind's note</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-62800351-2');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="cjwind's note" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <main class="main">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+        <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">cjwind's note</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">如果只知道堅守昨天的成果，<br>明天又會變成什麼樣呢？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Case-of-the-Hidden-Method"><span class="nav-number">1.</span> <span class="nav-text">The Case of the Hidden Method</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A3%9C%E5%85%85"><span class="nav-number">2.</span> <span class="nav-text">補充</span></a></li></ol></div>
+      </section>
+      <!--/noindex-->
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">cjwind</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">155</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:cwentsai@gmail.com" title="E-Mail → mailto:cwentsai@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.youtube.com/channel/UCJCXRf8LQCjX8Ydlrd1i0vw" title="YouTube → https:&#x2F;&#x2F;www.youtube.com&#x2F;channel&#x2F;UCJCXRf8LQCjX8Ydlrd1i0vw" rel="noopener" target="_blank"><i class="fab fa-youtube fa-fw"></i>YouTube</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.linkedin.com/in/chia-wen-tsai-b1605166/" title="Linkedin → https:&#x2F;&#x2F;www.linkedin.com&#x2F;in&#x2F;chia-wen-tsai-b1605166&#x2F;" rel="noopener" target="_blank"><i class="fab fa-linkedin fa-fw"></i>Linkedin</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      </span>
+  </div>
+
+
+
+      </section>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </header>
+
+      
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+      <div class="main-inner">
+        
+
+        <div class="content post posts-expand">
+          
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ch10 I Can't Run This Method in a Test Harness
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-08-29 15:35:09 / Modified: 15:35:30" itemprop="dateCreated datePublished" datetime="2020-08-29T15:35:09+08:00">2020-08-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Working-Effectively-with-Legacy-Code/" itemprop="url" rel="index"><span itemprop="name">Working Effectively with Legacy Code</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>要為一段 code 寫測試，首先要在測試中建立它所屬的 class 的 instance，接著為要修改的 method 寫測試。這章要解決的是「難以在測試中執行要測試的 method」的情境。為一個 method 寫測試可能會遇到的問題：</p>
+<ul>
+<li>無法在測試中 access 那個 method，例如它可能是 private 的或是有其他存取限制。</li>
+<li>很難建立所需參數，導致很難 call method，例如參數是一包 XML。</li>
+<li>要測試的 method 可能產生糟糕的 side effect，例如修改 DB、發射飛彈等等，所以無法在測試中執行它。</li>
+<li>需要透過該 method 使用的 object 進行 sense，才能知道這個 method 做了什麼事。</li>
+</ul>
+<h1 id="The-Case-of-the-Hidden-Method"><a href="#The-Case-of-the-Hidden-Method" class="headerlink" title="The Case of the Hidden Method"></a>The Case of the Hidden Method</h1><p>假設我們要修改的是一個 private method，想要測試它，該怎麼辦呢？</p>
+<p>首先，能透過 public method 來測試它嗎？如果可以，就這麼幹吧～用 public method 去測試，就是按照程式中 private method 如何被使用的方式去測試它。如果有天要把 private method 改成 public，把它變成 public 的人應該寫一系列的測試說明這個 method 的用途以及 caller 該如何使用它。</p>
+<p>這邊有提到一點 method 設計實作上的小概念：</p>
+<blockquote>
+<p>雖然 general 的 method 對 caller 來說蠻有用的，但每個 method 的功能應該剛好可以滿足 caller 並且易於理解與修改。</p>
+</blockquote>
+<p>有時候呢，我們就是想直接為 private method 寫測試（任性），可能是因為我們想用測試來知道如何使用 private method，或者用 public method 來測試它實在太難太痛苦啦～</p>
+<p>例如一個擁有商業邏輯並且會 call third-party API 的 class 做的事情是：call API 取得一包 XML 資料，parse XML 得到商業邏輯需要的資料，再做商業邏輯上的計算或操作。我們想知道 parse XML 的 private method 是否正確，但它埋在整個流程裡，而用 public method 做整個的 call API、parsing、商業邏輯的測試難以只測試到 parse XML 的部份。</p>
+<p>所以，想為 private method 寫測試時該怎麼辦呢？</p>
+<blockquote>
+<p>如果需要測試一個 private method，就該把它設成 public。</p>
+</blockquote>
+<p>看到書上這句話我蠻驚恐的，想著：「等等等，不是吧？就這樣直接把 private method 變成 public 好嗎？這不會在 class 上開出看起來突兀或者不知如何使用的 method 嗎？」</p>
+<blockquote>
+<p>如果不方便將其設為 public，大多數情況下意味著我們的 class 做太多事了，應該進行調整。</p>
+</blockquote>
+<p>喔～原來是這樣～這倒是真的～像上面那個例子，一個 class 既 call third-party API 又 parse XML 又做商業邏輯，太多事情了。</p>
+<p>如果我們想測試一個 private method，首先看它是不是個適合在這個 class 當作 public 的 method？如果是，直接改成 public。否則看看是不是這個 class 做太多事了，有些事可以交由另一個 class 處理。例如我們把 parse XML 有關的 method 放到另一個 parser class，這些 method 到了新 class 會變成 public，原本的 class 就能 new 一個 parser 出來做事。</p>
+<blockquote>
+<p>好的設計應當是可測試的，不具可測試性的設計是糟糕的。</p>
+</blockquote>
+<p>如果我們遇到上面這樣的狀況，想拆解 class、將職責分開，卻沒有多少現成測試呢？假設我們想拆解這個包山包海的 class，但它本身卻沒有什麼測試，而 refactor 應當要有測試保護，雞生蛋蛋生雞的問題出現啦～</p>
+<p>又或許，我們正在開發週期的後期，軟體已經接近 deploy，我們沒有多少時間去做拆解的 refactor，而且沒有測試又讓 refactor 的風險大幅提昇。儘管 refactor 可以改善程式結構、有好處，但需要考慮目前處於開發週期的哪個階段、時間多寡與風險高低，才能決定要不要 refactor 以及 refactor 到什麼程度。</p>
+<p>時間不夠或風險太高的時，我們無法拆解 class。退而求其次，至少幫我們要修改的 private method 加上測試，讓這個 class 開始有測試保護也是好的。</p>
+<p>想為 private method 加上測試，表示要能在測試中直接 call 到這個 method，要怎麼做呢？</p>
+<p>又用到 Extract and Override 了～<em>這招也太萬用…</em></p>
+<p>假設我們有個與機票搜尋、訂購有關的 class：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">$searchParams</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// call third party api and get response as xml</span></span><br><span class="line">    $searchResults = <span class="keyword">$this</span>-&gt;parseSearchResponse($xml);</span><br><span class="line">    <span class="comment">// other impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSearchResponse</span>(<span class="params">$xml</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">booking</span>(<span class="params">$bookingParams</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// other methods</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>search()</code> 裡先用 http client 向 third party API 送 request 並收 response，response 是一包 XML，我們想 parse 出其中需要的資料而 call <code>parseSearchResponse()</code>。因為 XML 相當複雜，我們希望能單獨確認 parsing 結果是否正確。</p>
+<p>這個 class 除了 search、booking、parse 各種 XML 之外還會做許多事情，它的職責太多了，如果我們現在沒有時間去拆解它，卻想測試 <code>parseSearchResponse()</code> 的結果該怎麼做？</p>
+<p>首先將 <code>parseSearchResponse()</code> 從 <code>private</code> 變成 <code>protected</code>：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">$searchParams</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// call third party api and get response as xml</span></span><br><span class="line">    $searchResults = <span class="keyword">$this</span>-&gt;parseSearchResponse($xml);</span><br><span class="line">    <span class="comment">// other impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 變成 protected</span></span><br><span class="line">  <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSearchResponse</span>(<span class="params">$xml</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// impl.</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接著在測試中繼承它：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlightForTest</span> <span class="keyword">extends</span> <span class="title">Flight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSearchResponse</span>(<span class="params">$xml</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::parseSearchResponse($xml);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這樣就能在測試 call 到 <code>parseSearchResponse()</code> 進行測試了：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlightTest</span> <span class="keyword">extends</span> <span class="title">TestCase</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">testParseSearchResponse</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $target = <span class="keyword">new</span> FlightForTest();</span><br><span class="line">    $xml = <span class="string">&#x27;blabla&#x27;</span>;</span><br><span class="line">    $ret = $target-&gt;parseSearchResponse($xml);</span><br><span class="line">    <span class="comment">// assertions</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這麼做雖然沒有立即改善 <code>Flight</code> 做太多事的問題，但至少幫修改的地方加上測試，確保目前的修改是正確的。並且為將來拆解 class 的 refactor 鋪路――因為加了些測試而減少之後 refactor 所需的 effort 跟時間，使之後 refactor 成為可能。</p>
+<h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://dotblogs.com.tw/hatelove/2012/07/19/why-you-should-not-write-unit-test-with-private-and-protected-method">[測試]單元測試：是否針對非 public method 進行測試？</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Refactor/" rel="tag"># Refactor</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Install-mariadb-and-setup-root-password/" rel="prev" title="安裝 mariadb 並設定 root password">
+      <i class="fa fa-chevron-left"></i> 安裝 mariadb 並設定 root password
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+        </div>
+        
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">cjwind</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cjwind.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/";
+    this.page.identifier = "Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/";
+    this.page.title = "ch10 I Can't Run This Method in a Test Harness";
+    };
+  NexT.utils.loadComments('#disqus_thread', () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cjwind.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
