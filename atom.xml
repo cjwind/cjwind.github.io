@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>cjwind&#39;s note</title>
   
-  <subtitle>明白對自己重要的是什麼，&lt;br&gt;然後全力以赴</subtitle>
+  
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
@@ -315,9 +315,9 @@
     <link href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch2-Working-with-Feedback/"/>
     <id>http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch2-Working-with-Feedback/</id>
     <published>2020-02-28T14:40:55.000Z</published>
-    <updated>2020-08-18T15:15:39.070Z</updated>
+    <updated>2020-09-09T01:03:10.480Z</updated>
     
-    <content type="html"><![CDATA[<p>《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。</p><p>改 code 的兩種方法：edit and pray 以及 cover and modify XD</p><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul><li>要用 unit test 保護修改<ul><li>才知道新修改有沒有改對，以及有沒有改壞原本的東西</li><li>跑測試的速度：需要 0.1s 才能跑完的 unit test 就算慢了</li></ul></li><li>修改 legacy code 步驟 overview<ol><li>確定變動點：ch 16、17</li><li>找出測試點：ch 11、12</li><li>解依賴的技術<ul><li>將 code 放進測試時，讓下手的第一刀更安全：ch 23</li><li>解決一般的依賴問題：ch 9、10</li><li>無法寫測試是因為沒解決大型 method 中的依賴：ch 22</li><li>build code 時間太長：ch 7</li></ul></li><li>編寫測試：ch 13</li><li>修改及 refactor<ul><li>如何增加 feature：ch 8</li><li>將 legacy code 變得結構更好：ch 20 ~ 22</li></ul></li></ol></li></ul>]]></content>
+    <content type="html"><![CDATA[<p>《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。</p><p>改 code 的兩種方法：edit and pray 以及 cover and modify XD</p><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul><li>要用 unit test 保護修改<ul><li>才知道新修改有沒有改對，以及有沒有改壞原本的東西</li><li>跑測試的速度：需要 0.1s 才能跑完的 unit test 就算慢了</li></ul></li><li>修改 legacy code 步驟 overview<ol><li>確定變動點（理解 code）：ch 16、17</li><li>找出測試點：ch 11、12</li><li>解依賴的技術<ul><li>將 code 放進測試時，讓下手的第一刀更安全：ch 23</li><li>解決一般的依賴問題：ch 9、10</li><li>無法寫測試是因為沒解決大型 method 中的依賴：ch 22</li><li>build code 時間太長：ch 7</li></ul></li><li>編寫測試：ch 13</li><li>修改及 refactor<ul><li>如何增加 feature：ch 8</li><li>將 legacy code 變得結構更好：ch 20 ~ 22</li></ul></li></ol></li></ul>]]></content>
     
     
       
