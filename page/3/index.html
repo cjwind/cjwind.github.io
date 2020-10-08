@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,128 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/get-started-with-docker/part-3/" class="post-title-link" itemprop="url">Get started with Docker Part 3: Services</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-04 21:56:10" itemprop="dateCreated datePublished" datetime="2019-08-04T21:56:10+08:00">2019-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/get-started-with-docker/part-3/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="get-started-with-docker/part-3/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-3-Services"><a href="#Part-3-Services" class="headerlink" title="Part 3: Services"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part3/">Part 3: Services</a></h2><p>Linux 要先<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/install/">安裝 Docker Compose</a>，Windows 的 Docker Desktop 已經包含 Docker Compose。</p>
+<h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>分散式系統中各 app 都可稱為一個 “service”，儲存資料到 DB、處理 video transcoding 等等都可以是個 “service”。</p>
+<p>Docker 的 services 是一堆在 production 的 containers。一個 service run 一個 image，service 會指定這個 image 要怎麼執行──使用哪些 port、會跑多少 container 等等。只要改變執行的 container instance 數量就能 scale service。透過 <code>docker-compose.yml</code> 定義、執行跟 scale services。</p>
+<h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a><code>docker-compose.yml</code></h3><p><code>docker-compose.yml</code> 定義 container 在 production 該有什麼行為。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># 這個 service 叫作 web</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="comment"># 從 registry pull image</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">cjwind/get-started:part2</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># run 5 instances</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">limits:</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能使用一個 single core CPU 10% 的 CPU time</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">&quot;0.1&quot;</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能用 50MB memory</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">50M</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="comment"># container fail 會立刻 restart</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="comment"># map host port 4000 到 service web 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;4000:80&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="comment"># 讓 containers 透過 webnet 這個 load-balanced network 共用 host 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="comment"># 以預設值（load-balanced overlay network）定義 webnet</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="執行-service"><a href="#執行-service" class="headerlink" title="執行 service"></a>執行 service</h3><p>跑 service 前要先：</p>
+<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker swarm init</span><br></pre></td></tr></table></figure>
+
+<p>接著執行：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">$ docker <span class="built_in">stack</span> deploy -c docker-compose.yml &lt;stack_name&gt;</span><br><span class="line">$ docker <span class="built_in">stack</span> deploy -c docker-compose.yml getstartedlab</span><br></pre></td></tr></table></figure>
+
+<p>可以用以下兩個 command 看執行的 service：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker<span class="built_in"> service </span>ls</span><br><span class="line">$ docker stack services &lt;stack_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>兩個 command 的結果都是：</p>
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">ID </span>                 <span class="string">NAME </span>               <span class="string">MODE </span>               <span class="string">REPLICAS </span>           <span class="string">IMAGE </span>                     <span class="string">PORTS</span></span><br><span class="line"><span class="string">ylewu1idwhp0 </span>       <span class="string">getstartedlab_web </span>  <span class="string">replicated </span>         5/5                 <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   *:<span class="string">4000-</span>&gt;<span class="string">80/</span><span class="string">tcp</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>A single container running in a service is called a <strong>task</strong>.</p>
+</blockquote>
+<p>列出 service 的 task：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker<span class="built_in"> service </span>ps &lt;service_name&gt;</span><br><span class="line">$ docker<span class="built_in"> service </span>ps getstartedlab_web</span><br></pre></td></tr></table></figure>
+
+<p>當然也可以用 <code>docker container ls</code> 看 service 的 running container。</p>
+<p>列出 stack 所有 task：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">ps</span> &lt;stack_name&gt;</span><br><span class="line"><span class="variable">$</span> docker stack <span class="built_in">ps</span> getstartedlab</span><br></pre></td></tr></table></figure>
+
+<p>service 執行時如果想修改 task 數量，只要修改 <code>docker-compose.yml</code> 的 <code>replicas</code> 設定，再執行一次 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code> 就可以了！</p>
+<p>要結束 service，首先關掉 app：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">rm</span> getstartedlab</span><br></pre></td></tr></table></figure>
+
+<p>離開 swarm：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker swarm leave <span class="operator">-f</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1174,103 +1296,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Dependency-Injection-Constructor-and-Setter-Injection/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-Dependency-Object/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Extract-Dependency-Object/" class="post-title-link" itemprop="url">Dependency Injection - Extract Dependency Object</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-17 21:20:10" itemprop="dateCreated datePublished" datetime="2018-12-17T21:20:10+08:00">2018-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Dependency-Injection-Extract-Dependency-Object/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-Dependency-Object/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>External Dependency 是系統中與被測試程式互動但你無法控制的物件。被測試程式受到 external dependency 行為影響可能有不同結果，為了保持 unit test 穩定，不會一下結果該是 A、一下結果該是 B，我們希望能掌控 external dependency──藉由 <a href="/Stub-in-test/">stub object</a> 模擬 external dependency 的行為並將其 inject 到被測試程式中，基本步驟如下：</p>
-<ol>
-<li>抽出 external dependency object 的 interface</li>
-<li>stub implement 該 interface 並實作 function</li>
-<li>inject stub 到被測試程式<ul>
-<li>Constructor Injection</li>
-<li>Setter Injection</li>
-<li>Extract and Override</li>
-</ul>
-</li>
-</ol>
-<p>本篇用例子說明步驟 1 跟 2：<code>MyClass</code> 是被測試程式，<code>Foo</code> 是 external dependency。（為了讓 code 短一點直接在 header 實作）</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Dependency-Injection-Extract-Dependency-Object/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

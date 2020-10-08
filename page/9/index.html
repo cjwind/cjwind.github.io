@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,92 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/cpp-handle-self-assignment-in-operator-assignment/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/cpp-handle-self-assignment-in-operator-assignment/" class="post-title-link" itemprop="url">C++ 在 operator=() 處理 self assignment</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-12-13 16:24:56" itemprop="dateCreated datePublished" datetime="2015-12-13T16:24:56+08:00">2015-12-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/cpp-handle-self-assignment-in-operator-assignment/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="cpp-handle-self-assignment-in-operator-assignment/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>self assignment：object 被 assign 給自己。</p>
+<p>class member 有 pointer 時寫 <code>operator=()</code> 要小心處理 self assignment。如果先把自己原本的 member delete 掉，等同把 rhs 的 member 也 delete 掉，assign 後會得到爛掉的 pointer。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">Foo&amp; Foo::<span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp; rhs)</span><br><span class="line">&#123;</span><br><span class="line">    Bitmap* pOrig = pb;    <span class="comment">// pb is member pointer in Widget</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (rhs.pb != <span class="literal">NULL</span>)</span><br><span class="line">        pb = <span class="keyword">new</span> Bitmap(*rhs.pb);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        pb = <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">delete</span> pOrig;</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>這做法可以處理 member pointer 但會讓 member pointer 指的位置經過 self assignment 後變得不同，另一種做法是檢查 <code>this</code> 是否跟 <code>&amp;rhs</code> 相同，不同時才真的做 copy。 </p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1254,90 +1340,6 @@
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://vim.wikia.com/wiki/Go_to_definition_using_g">http://vim.wikia.com/wiki/Go_to_definition_using_g</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-Agile-concept/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Murmur-Agile-concept/" class="post-title-link" itemprop="url">對 agile 精神的理解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-13 23:45:17" itemprop="dateCreated datePublished" datetime="2015-07-13T23:45:17+08:00">2015-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Murmur-Agile-concept/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Murmur-Agile-concept/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>大學時因為很任性的理由沒有修軟體工程，所以 agile 是一直到開始工作才聽到。之前是聽過 XP 跟 pair programming，不過沒有很清楚在幹嘛。話說 pair programming 實在要看狀況用，像我這種基本上屬於內向害羞的類型，用 pair programming 大多數狀況下根本直接腦殘化…= =</p>
-<p>之前<del>被拐</del>去上 scrum 的課，說不定是因為講師一直強調 agile 本身精神很重要云云，有個想法一直在腦袋徘徊不去(?)，只好來 murmur 一下看能不能清爽些。阿不過這篇只講對 agile 精神的想法，scrum 方法我不會(欸)。</p>
-<p>我將 agile 精神類比為適應，因為根本上概念是共通的。適應就是因應改變，無論那改變來自外在環境抑或是自身變化。差別只在於生物上各種生物有不同的適應方式，人對於環境以及種種變化所做出的調整也是適應，而 agile 則是將這樣的想法套用於組織性的軟體開發。</p>
-<p>需求改變（外在環境）、內部人員的不同（內在改變）等等都是變化，有了基本精神後當然是以各種工具與方法達成。而現在有許多經過不少人<del>血淚斑斑的</del>試驗過、覺得還不錯的方法可以使用，但是最後依然要找出適合組織與情境的方式。</p>
-<p>我是從個人的角度出發去看「因應變化」這件事。因應變化常常帶著不確定性，所以有時候不太討喜，但是近年我喜歡這種會因應變化的觀念，因為這代表彈性、可能性以及選擇。我喜歡用「成長」的角度去看待改變，改變不見得是成長，但是沒有改變幾乎難以有所成長。有改變代表有新東西，有新東西代表有新選項，有新選項代表有不同未來的可能性。倘若不滿意現況，如果希冀有所不同，又怎麼能夠期望同樣的方式能帶來不同的結果？</p>
-<p>至於結果是更好還是更壞，如果以從個人角度出發來看，我是不太在意。因為覺得不好，再改就是了，這不正是彈性的好處？我傾向相信，終究會慢慢摸索出適合的方式。而那方式，也可能只適用於某一陣子，那只是一個暫時的答案，不是絕對。</p>
 
       
     </div>

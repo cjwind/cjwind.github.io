@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2020-08-29T09:48:56.231Z</updated>
+  <updated>2020-10-08T15:12:57.945Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git submodule</title>
+    <link href="http://www.cjwind.idv.tw/Git-submodule/"/>
+    <id>http://www.cjwind.idv.tw/Git-submodule/</id>
+    <published>2020-10-08T15:12:57.000Z</published>
+    <updated>2020-10-08T15:12:57.945Z</updated>
+    
+    <content type="html"><![CDATA[<p>submodule 是在 git repos 中使用別的 repos 的方式之一。</p><p>git 的 submodule 是記錄一個指到別人 repo 某個 commit 的指標。對主 repo 來說，記錄的只是一個 submodule commit hash。</p><p>切到 submodule 的目錄時做 git 操作會是在操作另一個 repo。</p><h2 id="加入-submodule"><a href="#加入-submodule" class="headerlink" title="加入 submodule"></a>加入 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule add &lt;repo path&gt;</span></span><br></pre></td></tr></table></figure><h2 id="clone-含有-submodule-的-repos"><a href="#clone-含有-submodule-的-repos" class="headerlink" title="clone 含有 submodule 的 repos"></a>clone 含有 submodule 的 repos</h2><p>clone 含有 submodule 的 repos 後，submodule 的目錄會是空的，要做以下動作來初始化：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update</span></span><br></pre></td></tr></table></figure><p><code>git submodule update</code> 會讓 submodule 的內容回到記錄的 commit。</p><h2 id="更新-submodule"><a href="#更新-submodule" class="headerlink" title="更新 submodule"></a>更新 submodule</h2><p>submodule 的 repo 更新或者想用不同版本（commit）的 submodule 時，要做以下操作：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull    </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ..</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git a submodule_dir        <span class="comment"># 更新主 repo 記錄的 submodule commit hash</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git ci</span></span><br></pre></td></tr></table></figure><p>概念是把 submodule 的 repo 更新或者 checkout 到想要的 commit，再在主 repo 更新記錄的 submodule commit hash。</p><h2 id="移除-submodule"><a href="#移除-submodule" class="headerlink" title="移除 submodule"></a>移除 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -rf submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim .git/config        <span class="comment"># 移掉 submodule 相關設定</span></span></span><br></pre></td></tr></table></figure><h2 id="gitmodules"><a href="#gitmodules" class="headerlink" title=".gitmodules"></a>.gitmodules</h2><p>檔案 <code>.gitmodules</code> 會記錄有哪些 submodule。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;submodule 是在 git repos 中使用別的 repos 的方式之一。&lt;/p&gt;
+&lt;p&gt;git 的 submodule 是記錄一個指到別人 repo 某個 commit 的指標。對主 repo 來說，記錄的只是一個 submodule commit hash。&lt;/</summary>
+      
+    
+    
+    
+    
+    <category term="Git" scheme="http://www.cjwind.idv.tw/tags/Git/"/>
+    
+  </entry>
   
   <entry>
     <title>Go init() function</title>
@@ -482,31 +505,6 @@
       
     <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/&quot;&gt;Dodkcer Get Started&lt;/a&gt; 隨手記。&lt;/p&gt;
 &lt;h2 id=&quot;Part-4-Swarms&quot;&gt;&lt;a href=&quot;#Part-4-Swarms&quot; class=&quot;he</summary>
-      
-    
-    
-    
-    <category term="Get started with Docker" scheme="http://www.cjwind.idv.tw/categories/Get-started-with-Docker/"/>
-    
-    
-    <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Get started with Docker Part 3: Services</title>
-    <link href="http://www.cjwind.idv.tw/get-started-with-docker/part-3/"/>
-    <id>http://www.cjwind.idv.tw/get-started-with-docker/part-3/</id>
-    <published>2019-08-04T13:56:10.000Z</published>
-    <updated>2020-08-09T03:17:09.268Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p><h2 id="Part-3-Services"><a href="#Part-3-Services" class="headerlink" title="Part 3: Services"></a><a href="https://docs.docker.com/get-started/part3/">Part 3: Services</a></h2><p>Linux 要先<a href="https://docs.docker.com/compose/install/">安裝 Docker Compose</a>，Windows 的 Docker Desktop 已經包含 Docker Compose。</p><h3 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h3><p>分散式系統中各 app 都可稱為一個 “service”，儲存資料到 DB、處理 video transcoding 等等都可以是個 “service”。</p><p>Docker 的 services 是一堆在 production 的 containers。一個 service run 一個 image，service 會指定這個 image 要怎麼執行──使用哪些 port、會跑多少 container 等等。只要改變執行的 container instance 數量就能 scale service。透過 <code>docker-compose.yml</code> 定義、執行跟 scale services。</p><h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a><code>docker-compose.yml</code></h3><p><code>docker-compose.yml</code> 定義 container 在 production 該有什麼行為。</p><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="comment"># 這個 service 叫作 web</span></span><br><span class="line">  <span class="attr">web:</span></span><br><span class="line">    <span class="comment"># 從 registry pull image</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">cjwind/get-started:part2</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># run 5 instances</span></span><br><span class="line">      <span class="attr">replicas:</span> <span class="number">5</span></span><br><span class="line">      <span class="attr">resources:</span></span><br><span class="line">        <span class="attr">limits:</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能使用一個 single core CPU 10% 的 CPU time</span></span><br><span class="line">          <span class="attr">cpus:</span> <span class="string">&quot;0.1&quot;</span></span><br><span class="line">          <span class="comment"># 一個 instance 最多只能用 50MB memory</span></span><br><span class="line">          <span class="attr">memory:</span> <span class="string">50M</span></span><br><span class="line">      <span class="attr">restart_policy:</span></span><br><span class="line">        <span class="comment"># container fail 會立刻 restart</span></span><br><span class="line">        <span class="attr">condition:</span> <span class="string">on-failure</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="comment"># map host port 4000 到 service web 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;4000:80&quot;</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="comment"># 讓 containers 透過 webnet 這個 load-balanced network 共用 host 的 port 80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="comment"># 以預設值（load-balanced overlay network）定義 webnet</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure><h3 id="執行-service"><a href="#執行-service" class="headerlink" title="執行 service"></a>執行 service</h3><p>跑 service 前要先：</p><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker swarm init</span><br></pre></td></tr></table></figure><p>接著執行：</p><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">$ docker <span class="built_in">stack</span> deploy -c docker-compose.yml &lt;stack_name&gt;</span><br><span class="line">$ docker <span class="built_in">stack</span> deploy -c docker-compose.yml getstartedlab</span><br></pre></td></tr></table></figure><p>可以用以下兩個 command 看執行的 service：</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker<span class="built_in"> service </span>ls</span><br><span class="line">$ docker stack services &lt;stack_name&gt;</span><br></pre></td></tr></table></figure><p>兩個 command 的結果都是：</p><figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">ID </span>                 <span class="string">NAME </span>               <span class="string">MODE </span>               <span class="string">REPLICAS </span>           <span class="string">IMAGE </span>                     <span class="string">PORTS</span></span><br><span class="line"><span class="string">ylewu1idwhp0 </span>       <span class="string">getstartedlab_web </span>  <span class="string">replicated </span>         5/5                 <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   *:<span class="string">4000-</span>&gt;<span class="string">80/</span><span class="string">tcp</span></span><br></pre></td></tr></table></figure><blockquote><p>A single container running in a service is called a <strong>task</strong>.</p></blockquote><p>列出 service 的 task：</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker<span class="built_in"> service </span>ps &lt;service_name&gt;</span><br><span class="line">$ docker<span class="built_in"> service </span>ps getstartedlab_web</span><br></pre></td></tr></table></figure><p>當然也可以用 <code>docker container ls</code> 看 service 的 running container。</p><p>列出 stack 所有 task：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">ps</span> &lt;stack_name&gt;</span><br><span class="line"><span class="variable">$</span> docker stack <span class="built_in">ps</span> getstartedlab</span><br></pre></td></tr></table></figure><p>service 執行時如果想修改 task 數量，只要修改 <code>docker-compose.yml</code> 的 <code>replicas</code> 設定，再執行一次 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code> 就可以了！</p><p>要結束 service，首先關掉 app：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">rm</span> getstartedlab</span><br></pre></td></tr></table></figure><p>離開 swarm：</p><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker swarm leave <span class="operator">-f</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/&quot;&gt;Dodkcer Get Started&lt;/a&gt; 隨手記。&lt;/p&gt;
-&lt;h2 id=&quot;Part-3-Services&quot;&gt;&lt;a href=&quot;#Part-3-Services&quot; class</summary>
       
     
     

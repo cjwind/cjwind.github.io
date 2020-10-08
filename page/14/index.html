@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,102 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/hello-world/" class="post-title-link" itemprop="url">Hello Hexo</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-30 23:10:28" itemprop="dateCreated datePublished" datetime="2014-04-30T23:10:28+08:00">2014-04-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2014-05-18 23:00:00" itemprop="dateModified" datetime="2014-05-18T23:00:00+08:00">2014-05-18</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/hello-world/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="hello-world/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><del>簡單來說，我變心了。</del></p>
+<p>Octopress 隨著文章數越多 <code>rake generate</code> 似乎有越來越慢的趨勢，稍微查一下發現雖然有 <code>generate</code> 加速的方法，但遇到 <code>deploy</code> 還是會慢，索性跳到比較快的 Hexo。</p>
+<p>Hexo 也可以配合 Github page 使用。跟 Octopress 的不同的是 Hexo 把 post 跟 draft 分開，還不錯。</p>
+<p>從 Octopress 轉到 Hexo 不難，先安裝好 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a>，再將原本 <code>_posts/</code> 底下的檔案搬過來便是。Hexo 不像 Octopress 將 source 開成另一個 branch 可以 push 到 repos 上，<del>為了備份跟遠端傳輸 source 檔，我把整個 Hexo 資料夾放在 Dropbox 上。</del>理論上電腦有裝 node.js 跟 Git 的環境就可以直接寫。</p>
+<p>偶爾改爛 theme，放在 Dropbox 上就不知道自己改了什麼、改不回去，試驗開另一個 repos 放 source。</p>
+<h2 id="新增頁面"><a href="#新增頁面" class="headerlink" title="新增頁面"></a>新增頁面</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ hexo new<span class="built_in"> page </span>&lt;name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在導覽列加新的頁面要修改 <code>themes/&lt;theme name&gt;/_config.yml</code>，在 <code>menu</code> 底下加，例如：</p>
+<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">  Home:</span> /</span><br><span class="line"><span class="symbol">  Archives:</span> /archives</span><br><span class="line"><span class="symbol">  Toy:</span> /toy</span><br><span class="line"><span class="symbol">  About:</span> /about</span><br></pre></td></tr></table></figure>
+
+<p>這個設定因 theme 而異，以上設定是 default theme landscape 的。</p>
+<h2 id="Custom-Domain-Name"><a href="#Custom-Domain-Name" class="headerlink" title="Custom Domain Name"></a>Custom Domain Name</h2><p>在 <code>source/</code> 底下增加一檔案 <code>CNAME</code>，內容為自訂 domain name，如 <code>www.cjwind.idv.tw</code>。</p>
+<h2 id="Theme"><a href="#Theme" class="headerlink" title="Theme"></a>Theme</h2><p><del>改用 <a target="_blank" rel="noopener" href="https://github.com/seff/nut">nut</a></del></p>
+<h2 id="修改-Deploy-git-repos"><a href="#修改-Deploy-git-repos" class="headerlink" title="修改 Deploy git repos"></a>修改 Deploy git repos</h2><p>除了修改 <code>_config.yml</code> 裡 <code>deploy</code> 下 <code>repo</code> 的設定外，也要刪除 <code>.deploy/</code>，才會套用新的 repos 設定。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://hexo.io/">http://hexo.io/</a></li>
+<li><a target="_blank" rel="noopener" href="http://lostjs.com/2014/04/22/from-octopress-to-hexo/">http://lostjs.com/2014/04/22/from-octopress-to-hexo/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1149,98 +1245,6 @@
 <li>跟 C++ IO 不熟，才會出現很明顯的 copy。還為了 output 七位小數而混雜 printf()，因為我不會調 C++ 的 output format。<del>比賽的時候懶得查直接用最熟的比較快</del></li>
 <li>變數名稱亂取，<del>不過算了比賽程式不要計較太多</del> XD</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/set-up-existing-octopress-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/set-up-existing-octopress-blog/" class="post-title-link" itemprop="url">Clone 已有 Octopress blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 23:57:35" itemprop="dateCreated datePublished" datetime="2014-04-05T23:57:35+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/set-up-existing-octopress-blog/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="set-up-existing-octopress-blog/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Octopress 的後端就是自己的電腦，有多台電腦時需要在其他電腦再建立 Octopress 的撰寫環境，並且拿 Github 上面的 repos 下來繼續寫。</p>
-<h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>基本環境：<a target="_blank" rel="noopener" href="http://msysgit.github.io/">Git for Windows</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">RubyInstaller 1.9.3</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">Ruby Development kit</a>。如果用到 code highlight，要裝 <a target="_blank" rel="noopener" href="https://www.python.org/">Python 2</a>，否則 <code>rake generate</code> 會生出空白頁。安裝完 Ruby 跟 Python 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑以及 Python 的安裝路徑，如 <code>C:\Ruby193\bin</code> 及 <code>C:\Python27</code>。</p>
-<h2 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h2><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone -b source <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io octopress</span><br><span class="line"></span><br><span class="line">$ cd octopress</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io <span class="emphasis">_deploy</span></span><br></pre></td></tr></table></figure>
-
-<p>Octopress 將 master branch 放在 <code>_deploy/</code>。</p>
-<h2 id="Rake-installation-and-configuration"><a href="#Rake-installation-and-configuration" class="headerlink" title="Rake installation and configuration"></a>Rake installation and configuration</h2><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gem <span class="keyword">install </span><span class="keyword">bundler</span></span><br><span class="line"><span class="keyword">$ </span><span class="keyword">bundle </span><span class="keyword">install</span></span><br><span class="line"><span class="keyword">$ </span>rake setup_github_pages</span><br></pre></td></tr></table></figure>
-
-<p>最後一個指令會要求輸入 Github 的 repository URL。</p>
-<h2 id="Pull-repository"><a href="#Pull-repository" class="headerlink" title="Pull repository"></a>Pull repository</h2><p>有多台電腦編輯時，開始前要記得將 local repository 更新到最新。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin <span class="built_in">source</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> _deploy</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull origin master</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
-</ul>
 
       
     </div>

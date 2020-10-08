@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">156</span>
+          <span class="site-state-item-count">157</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,97 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Single-Responsibility-Principle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Single-Responsibility-Principle/" class="post-title-link" itemprop="url">Single Responsibility Principle (SRP)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-12-02 22:44:09" itemprop="dateCreated datePublished" datetime="2014-12-02T22:44:09+08:00">2014-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2016-11-14 22:00:13" itemprop="dateModified" datetime="2016-11-14T22:00:13+08:00">2016-11-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Single-Responsibility-Principle/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Single-Responsibility-Principle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>class 應該只負責一件事、只有一個改變的理由，class 聚焦於實作該責任。避免一個 class 有多重責任，或者一個責任分散在多個 class 中。SRP 的主要目的是增加 class 的 cohesion（內聚力）。</p>
+<p>OO 中會以 class 為單位，但可以提升到 process level。舉例來說，將多個 process 啟動與結束的控制分散在各個 process 以及 watch dog，就讓「控制 process 的啟動與結束」這個責任分散在多個地方。這會導致較難理解控制流程、不知道某個時間點是誰在控制，修改時也容易出 bug。</p>
+<p>一個 class 可以負責一個「大」責任。運用 SRP 應該會讓系統中的 class 比較少但比較大，因為會將功能性集中在負責該功能的 class。在思考一個 class 應該負責什麼時，用較抽象的方式去想會比較好，想這 class 要做什麼？它的名稱顯示它該負責什麼？某件事究竟關不關它的事？</p>
+<p>我覺得區分 class 的責任蠻困難的，取決於設計者怎麼想、怎麼看待一個 class 以及其想法的合理性。</p>
+<h2 id="SRP-分析"><a href="#SRP-分析" class="headerlink" title="SRP 分析"></a>SRP 分析</h2><p>分析一個 class 是否符合 SRP。把 class 跟 method 名稱套到以下句子，用人類語言看看通不通順。</p>
+<p><code>The [class] [method] itself.</code><br><code>The [class] [method] [arg] itself.</code><br><code>該 [class] [method] 它自己</code><br><code>該 [class] 自己 [method]</code></p>
+<p>想起來順表示該 method 屬於這個 class、符合 SRP，反之則表示這 method 應該移到其他地方。</p>
+<p>分析時要注意參數可能在 construct 已先傳入，不一定是 method 的 argument。</p>
+<h2 id="Related-Posts"><a href="#Related-Posts" class="headerlink" title="Related Posts"></a>Related Posts</h2><ul>
+<li><a href="/Open-Closed-Principle">Open Closed Principle（OCP）</a></li>
+<li><a href="/Dont-Repeat-Yourself">Don’t Repeat Yourself（DRY）</a></li>
+<li><a href="/encapsulate-change">封裝會改變的東西</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1069,102 +1160,6 @@
 <li><a target="_blank" rel="noopener" href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/hello-world/" class="post-title-link" itemprop="url">Hello Hexo</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-30 23:10:28" itemprop="dateCreated datePublished" datetime="2014-04-30T23:10:28+08:00">2014-04-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2014-05-18 23:00:00" itemprop="dateModified" datetime="2014-05-18T23:00:00+08:00">2014-05-18</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/hello-world/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="hello-world/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><del>簡單來說，我變心了。</del></p>
-<p>Octopress 隨著文章數越多 <code>rake generate</code> 似乎有越來越慢的趨勢，稍微查一下發現雖然有 <code>generate</code> 加速的方法，但遇到 <code>deploy</code> 還是會慢，索性跳到比較快的 Hexo。</p>
-<p>Hexo 也可以配合 Github page 使用。跟 Octopress 的不同的是 Hexo 把 post 跟 draft 分開，還不錯。</p>
-<p>從 Octopress 轉到 Hexo 不難，先安裝好 <a target="_blank" rel="noopener" href="http://hexo.io/">Hexo</a>，再將原本 <code>_posts/</code> 底下的檔案搬過來便是。Hexo 不像 Octopress 將 source 開成另一個 branch 可以 push 到 repos 上，<del>為了備份跟遠端傳輸 source 檔，我把整個 Hexo 資料夾放在 Dropbox 上。</del>理論上電腦有裝 node.js 跟 Git 的環境就可以直接寫。</p>
-<p>偶爾改爛 theme，放在 Dropbox 上就不知道自己改了什麼、改不回去，試驗開另一個 repos 放 source。</p>
-<h2 id="新增頁面"><a href="#新增頁面" class="headerlink" title="新增頁面"></a>新增頁面</h2><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ hexo new<span class="built_in"> page </span>&lt;name&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在導覽列加新的頁面要修改 <code>themes/&lt;theme name&gt;/_config.yml</code>，在 <code>menu</code> 底下加，例如：</p>
-<figure class="highlight dts"><table><tr><td class="code"><pre><span class="line"><span class="symbol">menu:</span></span><br><span class="line"><span class="symbol">  Home:</span> /</span><br><span class="line"><span class="symbol">  Archives:</span> /archives</span><br><span class="line"><span class="symbol">  Toy:</span> /toy</span><br><span class="line"><span class="symbol">  About:</span> /about</span><br></pre></td></tr></table></figure>
-
-<p>這個設定因 theme 而異，以上設定是 default theme landscape 的。</p>
-<h2 id="Custom-Domain-Name"><a href="#Custom-Domain-Name" class="headerlink" title="Custom Domain Name"></a>Custom Domain Name</h2><p>在 <code>source/</code> 底下增加一檔案 <code>CNAME</code>，內容為自訂 domain name，如 <code>www.cjwind.idv.tw</code>。</p>
-<h2 id="Theme"><a href="#Theme" class="headerlink" title="Theme"></a>Theme</h2><p><del>改用 <a target="_blank" rel="noopener" href="https://github.com/seff/nut">nut</a></del></p>
-<h2 id="修改-Deploy-git-repos"><a href="#修改-Deploy-git-repos" class="headerlink" title="修改 Deploy git repos"></a>修改 Deploy git repos</h2><p>除了修改 <code>_config.yml</code> 裡 <code>deploy</code> 下 <code>repo</code> 的設定外，也要刪除 <code>.deploy/</code>，才會套用新的 repos 設定。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://hexo.io/">http://hexo.io/</a></li>
-<li><a target="_blank" rel="noopener" href="http://lostjs.com/2014/04/22/from-octopress-to-hexo/">http://lostjs.com/2014/04/22/from-octopress-to-hexo/</a></li>
 </ul>
 
       
