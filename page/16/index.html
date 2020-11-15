@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,100 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/linux-process-exit-status/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/linux-process-exit-status/" class="post-title-link" itemprop="url">Linux Process Exit Status</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-05 12:05:16" itemprop="dateCreated datePublished" datetime="2014-04-05T12:05:16+08:00">2014-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/linux-process-exit-status/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="linux-process-exit-status/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Process-Termination"><a href="#Process-Termination" class="headerlink" title="Process Termination"></a>Process Termination</h2><p>Linux 中 process 結束時系統會回收該 process 使用的大部分 resource，僅留下結束資訊供它的 parent 取得。parent 回收 child process、取得這些資訊後，剩餘的 resource 才會被釋放。如果 parent 沒有回收結束的 child process，child 會變殭屍（zombie），即執行結束了但沒有把 resource 釋放乾淨，會佔用 PID 及一些記憶體空間放 exit status。</p>
+<p>parent process 透過 call <code>wait()</code> 回收 child process 並取得 child process 的 exit status。</p>
+<p>process 結束分成正常結束（terminate normally）跟不正常結束（terminate abnormally or crash）。</p>
+<p>以系統的角度來看，process call <code>exit()</code> 或從 <code>main()</code> return 算 terminate normally。（實際上從 <code>main()</code> return 後就會 call <code>exit()</code> 系列 function。）process crash、被 signal 結束或其他狀況算 terminate abnormally。</p>
+<p>以程式或 programmer 的角度來看，<code>exit()</code> 的參數為非 0 通常代表有些檢查沒有通過，程式無法繼續完成工作才會在中間 call <code>exit()</code>。這個狀況是<strong>「程式正常結束，但沒有完成該有的運作」</strong>，屬於程式執行邏輯上的錯誤，跟 crash 不同。</p>
+<h2 id="Process-Exit-Status"><a href="#Process-Exit-Status" class="headerlink" title="Process Exit Status"></a>Process Exit Status</h2><p>Linux 中以 exit status code 表示 process 結束時的狀態（它怎麼結束的）。</p>
+<h3 id="System"><a href="#System" class="headerlink" title="System"></a>System</h3><p>系統 exit status code 的範圍為 0 至 255。若程式設置超過 255 的 code，會以 mod 256 作為 exit code。</p>
+<p>有些 code 已保留給系統使用、有固定意義。一般不建議 programmer 再對這些 code 定義其他意義。系統已保留的 exit code 為：0、1、2、126 ~ 165、255。</p>
+<h3 id="C-C-program"><a href="#C-C-program" class="headerlink" title="C/C++ program"></a>C/C++ program</h3><p>在 C/C++ program 中 <code>exit()</code> 的參數值是在 process <strong>正常結束</strong>下，讓 programmer 得知「程式階層上」的 exit status，跟系統所使用的 exit status code <strong>相關但不相等</strong>。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/linux-process-exit-status/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   

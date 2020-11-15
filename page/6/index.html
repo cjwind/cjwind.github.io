@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,167 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Shared-Library-Versioning/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Shared-Library-Versioning/" class="post-title-link" itemprop="url">Shared Library Versioning</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-03 16:53:36" itemprop="dateCreated datePublished" datetime="2017-04-03T16:53:36+08:00">2017-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Shared-Library-Versioning/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Shared-Library-Versioning/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="相容性問題"><a href="#相容性問題" class="headerlink" title="相容性問題"></a>相容性問題</h2><p>使用 library 其中一個目標是不需要重新 compile 就能方便的升級程式的部份功能或者修正 bug。理想上，升級 library 只需要用新的檔案取代舊的。但是事情沒那麼美好，舊程式不見得能正常使用新 library，新舊程式間會有相容性問題。</p>
+<p>依據舊程式能不能使用新 library，library 的更新分為相容更新與不相容更新。相容更新通常不修改 interface，可能只是修正 bug 或者加點新東西。不相容更新則改變了 interface，這時舊版程式無法正常使用新版 library。</p>
+<p>library 以 binary 的形式發佈，代表 interface 是 binary 層級，也就是 ABI（Application Binary Layer），包含 call function 的 stack 結構、symbol 命名、memory 配置、參數的結構等等。</p>
+<p>ABI 跟語言有很大關係，以 C 語言來說，只要跟 export 的 symbol（function 跟 variable）有關的修改，都會動到 ABI，例如增加 export 變數、增減 export 的 function 參數、修改 export 的資料結構（會改變 memory 配置，程式依舊配置使用新結構會踩壞記憶體）等等。至於 C++ <del>基本上是場災難</del>，因為各家 compiler 甚至相同 compiler 的不同版本可能都對 C++ 的各種特性諸如 virtual function 等有不同實作方式，這會造成 ABI 不相容。C++ 有一些避免改到 interface 的原則及作法，例如 pimpl。</p>
+<h2 id="版號"><a href="#版號" class="headerlink" title="版號"></a>版號</h2><p>既然有相容性問題，程式如何知道能不能使用新 library？系統必須有方法確保相容性、讓程式能正常執行，其中一個方法是以版號區分不同版本的 library，並讓程式指定它相容於哪些版本的 library。</p>
+<p>在 Linux 系統中，shared library 的檔案命名規則為 <code>libname.so.x.y.z</code>。最前面是字首 <code>lib</code>，中間是 library 名稱，接著 <code>.so</code>，最後跟著三個版號數字。<code>x</code> 表示 major versison number，<code>y</code> 是 minor version number，<code>z</code> 為 release version number。</p>
+<p>major version number 代表 library 有重大升級，不同 major version number 的 library 是不相容的。使用舊版的程式必須要經過修改及重新 compile 才能使用新版 library。系統中需要保留舊版 library 以讓未更新至使用新版 library 的程式依然能正常執行。</p>
+<p>minor version number 表示 library 是增量升級，也就是加一些新的 interface 並且保持原本的 symbol 在名稱與語意上皆不變，例如增加一個 function。在 major version number 相同的狀況下，高 minor version number 的 library 向後相容低 minor version number 的 library，使用舊版 library 的程式可以使用新版 library，例如使用 <code>1.1.z</code> libary 的程式可以在 <code>1.2.z</code> library 上正常執行。</p>
+<p>release version number 是 library 的 bug 修正、效能改進等等，不添加新 interface 也不改動舊 interface。因此相同 major version number 以及 minor version number 的不同 release version 之間的 library 完全相容，依賴某個 release version 的程式可以使用其他任一 release version。</p>
+<h3 id="SO-NAME"><a href="#SO-NAME" class="headerlink" title="SO-NAME"></a>SO-NAME</h3><p>library 有版號之後，程式如何指定使用的 library 版本？</p>
+<p>在 Solaris 跟 Linux 裡採用 SO-NAME 命名機制，SO-NAME 是 library 版號只保留 major version number，去掉 minor version 以及 release version，例如 <code>libfoo.so.3.2.1</code> 的 SO-NAME 是 <code>libfoo.so.3</code>。</p>
+<p>Linux 系統會建立檔名為 SO-NAME 並指向 major version 相同、最新 minor 及 release version 的 library 實體檔案的 soft link，例如 <code>/usr/lib/libcln.so.6</code> 指向 <code>/usr/lib/libcln.so.6.0.4</code>。這麼做的好處是系統中的程式只需要記錄 library 的 SO-NAME，再藉由 soft link 就能使用該 major version 最新的 library。</p>
+<p>記錄 SO-NAME 提供了一些彈性，讓 library 有一定的升級空間，不會讓程式只限定於某版本的 library。同時又能知道何種狀況是大幅度的更新，系統不應該自動使用新 major version 的 library，需保留舊版 library 讓使用的程式可以正常執行。當然，話是這麼說，版號只是個規則，還是需要由開發者判斷新版是否向後相容以決定如何升版號。</p>
+<p>ELF 在 <code>.dynamic</code> 以 SO-NAME 記錄所需的 shared library：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line">Dynamic section at offset 0x868 contains 26 entries:</span><br><span class="line">  Tag       <span class="built_in"> Type </span>                        Name/Value</span><br><span class="line"><span class="built_in">..</span>.</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure>
+
+<p>Linux 指令 <code>ldconfig</code> 用來更新上述 library 的 soft link，它會掃過所有預設 shared library directory，例如 <code>/lib</code>、<code>/usr/lib</code> 等，更新所有 soft link，將其指向目前系統中最新的 library 或為新 library 建立 soft link。安裝或更新 library 需要執行 <code>ldconfig</code>。</p>
+<h3 id="link-name"><a href="#link-name" class="headerlink" title="link name"></a>link name</h3><p>compile 時我們以 <code>-lXXX</code> 指定要 link 的 library，這個 <code>XXX</code> 稱為 link name。指定 link name 時省略了版號，compiler 會到系統相關的搜尋路徑中尋找最新版本的 <code>XXX</code> library。</p>
+<h2 id="Symbol-Versioning"><a href="#Symbol-Versioning" class="headerlink" title="Symbol Versioning"></a>Symbol Versioning</h2><p>SO-NAME 有升級彈性，但仍有問題──假設依賴的 library 是 <code>libfoo.2.3.1</code>，SO-NAME 是 <code>libfoo.2</code>，但執行環境中只有 <code>libfoo.2.2.1</code>，以 SO-NAME 來看是正確的，但卻可能不相容，因為程式可能使用 <code>libfoo.2.3.1</code> 才有的 interface，這在 <code>libfoo.2.2.1</code> 中找不到，因而執行錯誤。這個問題稱為 Minor-revision Rendezvous Problem。</p>
+<p>為解決 Minor-revision Rendezvous Problem，Solaris 2.5 發展出 symbol versioning 機制，提供 versioning 以及 scoping 機制。</p>
+<h3 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h3><p>基本概念是在每個 import 及 export symbol 加上版號，例如 <code>libfoo.1.3</code> 要更新為 <code>libfoo.1.4</code> 時，就把 <code>libfoo.1.4</code> 增加的 symbol 加上 <code>VERS_1.4</code> 的標記。如此 SO-NAME 是 <code>libfoo.1</code> 各版 library 裡會有 <code>VERS_1.2</code>、<code>VERS_1.3</code>、<code>VERS_1.4</code> 等等擁有不同版號標記的 symbol，就能區別 symbol 的版本了。</p>
+<p>versioning 定義了一些 symbol 集合。symbol 集合有名稱，例如 <code>VERS_1.2</code>，每個集合包含一些 symbol，一個集合能包含另一個集合，例如 <code>VERS_1.2</code> 包含 <code>VERS_1.1</code>，這種包含關係也像是繼承，<code>VERS_1.2</code> 繼承 <code>VERS_1.1</code> 的 symbol。symbol 集合由 symbol version script 指定，在 <code>gcc</code> 可以用 <code>-Xlinker --version-script &lt;script file&gt;</code> 指定。</p>
+<p>versioning 機制讓 symbol 可以標上版號，build 執行檔時會記錄它需要的 symbol 及其版號。因為 symbol 只能有一個 version，在相同 major version 的 library 中，同一個 symbol 的 version 是固定的，否則會導致向後不相容。因此，執行檔執行時可以用 SO-NAME 找到系統中最新的 library，接著看它是不是有所需要版本的 symbol，如果有就能正常執行，以此解決 Minor-revision Rendezvous Problem。</p>
+<p>但 Solaris 2.5 的 symbol versioning 有個限制：在一個 shared library 中每個 symbol 只能有一個 version，也就是如果 symbol 是 <code>VERS_1.1</code> 就不能再是 <code>VERS_1.2</code>。這造成如果 interface 只有小修改，例如只加一個參數、依然向後相容（只是擴充，舊有功能不變），由於無法讓新版 library 標示該 symbol 為新版，只能透過增加 major version 來表示 interface 改變，有點小題大作。</p>
+<h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p>source code</p>
+<figure class="highlight h"><figcaption><span>foo-1.0.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>foo-1.0.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> (x + y); &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight h"><figcaption><span>foo-1.1.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>foo-1.1.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> (x + y); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> (x + x); &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>main1.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo-1.0.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>main2.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo-1.1.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo2(<span class="number">12</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><figcaption><span>foo.1.0.ver</span></figcaption><table><tr><td class="code"><pre><span class="line">VERS_1.0 &#123;</span><br><span class="line">    global:</span><br><span class="line">        foo;</span><br><span class="line">    local:</span><br><span class="line">        *;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><figcaption><span>foo.1.1.ver</span></figcaption><table><tr><td class="code"><pre><span class="line">VERS_1.0 &#123;</span><br><span class="line">    global:</span><br><span class="line">        foo;</span><br><span class="line">    local:</span><br><span class="line">        *;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">VERS_1.1 &#123;</span><br><span class="line">    global:</span><br><span class="line">        foo2;</span><br><span class="line">&#125; VERS_1.0;</span><br></pre></td></tr></table></figure>
+
+<p>library 版本更新的時候，可由新的 symbol 集合看出它的 interface 改動，例如上面 <code>1.1</code> 版繼承了 <code>1.0</code> 版、增加了 symbol <code>foo2</code>。</p>
+<figure class="highlight makefile"><figcaption><span>Makefile</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">1.0:</span></span><br><span class="line">        gcc -shared -fPIC foo-1.0.c -Xlinker --version-script foo.1.0.ver -o libfoo.1.0.so</span><br><span class="line">        rm -f libfoo.so</span><br><span class="line">        ln -s libfoo.1.0.so libfoo.so</span><br><span class="line">        gcc main1.c ./libfoo.so -o main1</span><br><span class="line"></span><br><span class="line"><span class="section">1.1:</span></span><br><span class="line">        gcc -shared -fPIC foo-1.1.c -Xlinker --version-script foo.1.1.ver -o libfoo.1.1.so</span><br><span class="line">        rm -f libfoo.so</span><br><span class="line">        ln -s libfoo.1.1.so libfoo.so</span><br><span class="line">        gcc main2.c ./libfoo.so -o main2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>看看 library 的 export symbol：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.0.so </span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 9 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 00000000000004b0     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10 </span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     4: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line">     6: 0000000000000000     0 FUNC    WEAK  <span class="built_in"> DEFAULT </span> UND __cxa_finalize@GLIBC_2.2.5 (3)</span><br><span class="line">     7: 0000000000000600    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.0</span><br><span class="line">     8: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms libfoo.1.1.so </span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 11 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000528     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10 </span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     4: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line">     6: 0000000000000000     0 FUNC    WEAK  <span class="built_in"> DEFAULT </span> UND __cxa_finalize@GLIBC_2.2.5 (4)</span><br><span class="line">     7: 0000000000000680    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.0</span><br><span class="line">     8: 0000000000000694    14 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo2@@VERS_1.1</span><br><span class="line">     9: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line">    10: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.1</span><br></pre></td></tr></table></figure>
+
+<p>兩個 library 的 symbol <code>foo</code> 後面加上 <code>VERS</code> 資訊。如果多個 symbol 集合裡有相同 symbol，第一次出現 symbol 的集合是該 symbol 的 version。另外，會被包含的集合必須先寫。也就是說 symbol version 的前後關係是由 version script 指定的，通常遵照數字順序寫（不然會誤導別人啦）。</p>
+<p>執行檔可以看到使用的 symbol 版本：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms main1</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 8 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     2: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo@VERS_1.0 (2)</span><br><span class="line">     3: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND printf@GLIBC_2.2.5 (3)</span><br><span class="line">     4: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND __libc_start_main@GLIBC_2.2.5 (3)</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     6: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     7: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms main2</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 9 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo2@VERS_1.1 (2)</span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo@VERS_1.0 (3)</span><br><span class="line">     4: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND printf@GLIBC_2.2.5 (4)</span><br><span class="line">     5: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND __libc_start_main@GLIBC_2.2.5 (4)</span><br><span class="line">     6: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     7: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     8: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br></pre></td></tr></table></figure>
+
+<p>修改 soft link <code>libfoo.so</code> 指向的 library，<code>main1</code> 依然可以正常使用 <code>1.1</code> 版的 library，但 <code>main2</code> 無法使用 <code>1.0</code> 版的 library，會跳 <code>./main2: ./libfoo.so: version &#39;VERS_1.1&#39; not found (required by ./main2)</code> 找不到 symbol 的 error。</p>
+<h3 id="Scoping"><a href="#Scoping" class="headerlink" title="Scoping"></a>Scoping</h3><p>在 symbol 集合裡，<code>local:</code> 的設置會將原本 global 的 symbol 變成 local 的，程式以及其他 shared library 無法使用到這些 symbol。這稱為 scoping 機制，算是補強 ELF 處理 C 的 global symbol scoping，因為 ELF 把所有 global symbol 當作 export symbol，這也是為什麼 Linux 下不需要特別指定哪些 global symbol 要 export 就能 export symbol（windows 就需要）。</p>
+<p>上面的例子裡如果把 <code>foo.1.0.ver</code> 裡 <code>local: *;</code> 拿掉，原本其他的 export symbol 就不會被設成 local：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.0.so</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 14 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 0000000000000570     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10</span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     4: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line">     6: 0000000000000000     0 FUNC    WEAK  <span class="built_in"> DEFAULT </span> UND __cxa_finalize@GLIBC_2.2.5 (3)</span><br><span class="line">     7: 00000000002009b8     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>  22 _edata</span><br><span class="line">     8: 00000000000006c0    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.0</span><br><span class="line">     9: 00000000002009c0     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>  23 _end</span><br><span class="line">    10: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line">    11: 00000000002009b8     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>  23 __bss_start</span><br><span class="line">    12: 0000000000000570     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  10 _init</span><br><span class="line">    13: 00000000000006d4     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  13 _fini</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="GCC-對-symbol-version-的擴充"><a href="#GCC-對-symbol-version-的擴充" class="headerlink" title="GCC 對 symbol version 的擴充"></a>GCC 對 symbol version 的擴充</h3><p>GCC 對於 symbol version 提供兩個擴充。第一個是可以指定 symbol 的 version，例如 <code>asm(&quot;.symver foo_new, foo@VERS_1.1&quot;);</code> 指定 <code>foo_new</code> 是 symbol <code>foo</code> 的 <code>1.1</code> 版。</p>
+<p>第二個擴充是允許同個 symbol 有多個版本，這補充了 Solaris 版本機制的限制。例如上面例子裡想在 1.1 版的 <code>foo()</code> 增加一個參數，但希望仍保留舊版功能好能向後相容，這時候就能以指定不同版本來達到。</p>
+<figure class="highlight c"><figcaption><span>foo-1.1.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">asm</span>(<span class="string">&quot;.symver foo_old, foo@VERS_1.0&quot;</span>);</span><br><span class="line"><span class="keyword">asm</span>(<span class="string">&quot;.symver foo_new, foo@@VERS_1.1&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo_old</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> x + y; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo_new</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span> </span>&#123; <span class="keyword">return</span> (x + y + z); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> (x + x); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>兩個 <code>.symver</code> 分別指定 <code>foo_old()</code> 是 <code>foo</code> 的版本 <code>1.0</code>，<code>foo_new()</code> 是版本 <code>1.1</code>。因為已經用 <code>.symver</code> 自訂 <code>foo</code> 這個 symbol，如果又寫 <code>foo()</code> link 時會有 <code>multiple definition</code> 錯誤。<code>foo@@VERS_1.1</code> 表示 <code>foo</code> 預設版本是 <code>1.1</code>，一個 symbol 的預設版號只能有一個，實驗看起來預設版號會影響 compile 執行檔時記錄的 symbol。由於仍然有 <code>1.0</code> 的 <code>foo</code>，<code>main1</code> 用新版 library 仍能正常執行。</p>
+<figure class="highlight h"><figcaption><span>foo-1.1.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>main2.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo-1.1.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo2(<span class="number">12</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>header 跟 library 檔一起發佈，在 compile 執行檔時讓執行檔知道有什麼 symbol，所以必須要是新版 <code>foo</code> 的 prototype，而且 function name 也要是 <code>foo</code>，而非 <code>foo_new</code>。（我想還是有別的方式可以做到同樣的事情，甚至可以刻意使用舊版 symbol，這只是我認為合理的 library 發佈以及使用方式）</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.1.so </span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 12 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     7: 0000000000000690    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@VERS_1.0</span><br><span class="line">     8: 00000000000006a4    28 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.1</span><br><span class="line">     9: 00000000000006c0    14 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo2@@VERS_1.1</span><br><span class="line">    10: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line">    11: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.1</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms main2</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 9 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     1: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo2@VERS_1.1 (2)</span><br><span class="line">     6: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo@VERS_1.1 (2)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Semantic-Versioning"><a href="#Semantic-Versioning" class="headerlink" title="Semantic Versioning"></a>Semantic Versioning</h2><p>由 <a target="_blank" rel="noopener" href="http://tom.preston-werner.com/">Tom Preston-Werner</a> 提出的 <a target="_blank" rel="noopener" href="http://semver.org/">Semantic Versioning</a> 以 spec 的形式提供了版號規範，例如每個數字代表的意義、何時該增加版號、如何增加版號以及如何區分版本的新舊等等。它定義的版號包含 <code>MAJOR.MINOR.PATCH</code> 三個數字，並且可以加上如 <code>-alpha</code>、<code>-beta</code> 等 pre-release 資訊。概念與上面說的 library 版號類似，interface 有變更時需增加 major verion，增加向後相容的功能時要增加 minor version，修 bug 則增加 patch version，只是它以精準定義的方式描述這些規則。</p>
+<p>當然，它只定義了版號本身的規則，至於「什麼改變是有向後相容？是否更改的 interface？」等問題仍然要由開發者判斷。</p>
+<h2 id="Related-posts-amp-Ref"><a href="#Related-posts-amp-Ref" class="headerlink" title="Related posts &amp; Ref"></a>Related posts &amp; Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/publications/library/proceedings/als00/2000papers/papers/full_papers/browndavid/browndavid_html/">Library Interface Versioning in Solaris and Linux</a> / <a target="_blank" rel="noopener" href="https://www.usenix.org/legacy/publications/library/proceedings/als00/2000papers/papers/full_papers/browndavid/browndavid.pdf">pdf</a></li>
+<li>《程式設計師的自我修養》ch8</li>
+<li><a href="ftp://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_node/ld_25.html">Using LD, the GNU linker - Version Script</a></li>
+<li><a target="_blank" rel="noopener" href="http://semver.org/">Semantic Versioning</a></li>
+<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
+<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
+<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+<li><a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1255,124 +1416,6 @@
 <li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
 <li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
 <li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/solve-servo-blank/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/solve-servo-blank/" class="post-title-link" itemprop="url">解決執行 Servo 只有白畫面問題</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-02-05 21:04:39" itemprop="dateCreated datePublished" datetime="2017-02-05T21:04:39+08:00">2017-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/solve-servo-blank/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="solve-servo-blank/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>build 好 servo 之後執行 <code>./mach run -d tests/html/about-mozilla.html</code> 視窗只出現白白的畫面。這怎麼看都不正常啊……ˊ（´;ω;｀)</p>
-<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><ul>
-<li>LMDE 2 Cinnamon 64 bits</li>
-<li>NVIDIA GeForce GTS 250</li>
-<li>kernel 3.16.0-4-amd64</li>
-</ul>
-<h2 id="各種測試"><a href="#各種測試" class="headerlink" title="各種測試"></a>各種測試</h2><p>build release 版後 <code>./mach run -r tests/html/about-mozilla.html</code> 跟從 <a target="_blank" rel="noopener" href="https://download.servo.org/">https://download.servo.org/</a> 抓 pre-built 版都白白的。</p>
-<p>用 gdb 跑跑看</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">./mcah <span class="builtin-name">run</span> -d --debug</span><br><span class="line">gdb&gt; r tests/html/about-mozilla.html</span><br><span class="line"><span class="built_in">..</span>.blahblah</span><br></pre></td></tr></table></figure>
-
-<p>所以有在動啊……</p>
-<p><code>./mach run -d tests/html/about-mozilla.html -o output.png</code> 輸出圖檔，圖片也是一片白。</p>
-<p>update 系統再 try 也不行。</p>
-<p>用 VM LMDE 跑 pre-built 出現其他 error <code>0:1(10): error: GLSL 1.50 is not supported. Supported versions are 1.10, 1.20, 1.30, 1.00 ES, and 3.00 ES</code>，<a target="_blank" rel="noopener" href="https://github.com/servo/servo/issues/11124">可能跟 VM 沒 support OpenGL 有關</a>，有點岔題所以不管。</p>
-<p>另一台電腦 Ubuntu 跑 pre-built，正常。</p>
-<h2 id="猜猜樂"><a href="#猜猜樂" class="headerlink" title="猜猜樂"></a>猜猜樂</h2><p>pre-built 不會動表示不是我 build 的有問題。猜是 render 有問題，測輸出圖檔也不行，應該八九不離十是 render 問題。google 看不出所以然，Ubuntu 是好的但應該不至於 Ubuntu 可以 LMDE 卻不能用。</p>
-<p>畫不出來，不然更新看看 driver。</p>
-<p>先說結果，猜中了。(′‧ω‧‵)</p>
-<h2 id="檢查顯卡型號-amp-driver"><a href="#檢查顯卡型號-amp-driver" class="headerlink" title="檢查顯卡型號 &amp; driver"></a>檢查顯卡型號 &amp; driver</h2><figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ lspci | grep VGA</span><br><span class="line"><span class="number">01</span>:<span class="number">00.0</span> VGA compatible controller: NVIDIA Corporation G92 [GeForce GTS <span class="number">250</span>] (rev a2)</span><br></pre></td></tr></table></figure>
-<p>看顯卡型號。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ glxinfo | OpenGL</span><br><span class="line">OpenGL vendor string: NVIDIA Corporation</span><br><span class="line">OpenGL renderer string: GeForce GTS 250/PCIe/SSE2</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>version string: 3.3.0 NVIDIA 340.101</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>shading language version string: 3.30 NVIDIA via Cg compiler</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>context flags: (none)</span><br><span class="line">OpenGL core<span class="built_in"> profile profile </span>mask: core profile</span><br><span class="line">OpenGL core<span class="built_in"> profile </span>extensions:</span><br><span class="line">OpenGL version string: 3.3.0 NVIDIA 340.101</span><br><span class="line">OpenGL shading language version string: 3.30 NVIDIA via Cg compiler</span><br><span class="line">OpenGL context flags: (none)</span><br><span class="line">OpenGL<span class="built_in"> profile </span>mask: (none)</span><br><span class="line">OpenGL extensions:</span><br><span class="line">OpenGL ES<span class="built_in"> profile </span>version string: OpenGL ES 2.0 NVIDIA 340.101 340.101</span><br><span class="line">OpenGL ES<span class="built_in"> profile </span>shading language version string: OpenGL ES GLSL ES 1.00</span><br><span class="line">OpenGL ES<span class="built_in"> profile </span>extensions:</span><br></pre></td></tr></table></figure>
-
-<p>看顯卡 driver，這是已經換成 NVIDIA driver 的結果。如果 <code>OpenGL renderer string</code> 出現 Mesa 之類的表示不是用 NVIDIA 的 driver。</p>
-<h2 id="更新顯卡-driver"><a href="#更新顯卡-driver" class="headerlink" title="更新顯卡 driver"></a>更新顯卡 driver</h2><p>為了更新顯卡搞了半天……總結如下。</p>
-<p><a target="_blank" rel="noopener" href="http://www.nvidia.com/Download/index.aspx?lang=en-us">抓 NVIDIA driver</a>。</p>
-<p>修改 <code>/etc/default/grub</code>：<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;nouveau.blacklist=1 quiet splash text&quot;</code>，之後</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> sudo <span class="built_in">update-grub</span></span><br><span class="line"><span class="variable">$</span> sudo <span class="built_in">update-initramfs</span></span><br><span class="line"><span class="variable">$</span> sudo reboot</span><br></pre></td></tr></table></figure>
-
-<p><code>nouveau.blacklist=1</code> 是 disable nouveau，nouveau 是 open source 社群做的 NVIDIA 顯卡的 driver。</p>
-<p><code>text</code> 則是開機不進 GUI，因為得關掉 X server 才能裝 driver，乾脆直接進文字模式裝。我以為是改 run level，但是 google 到一堆都這樣搞就這樣了。有人說用 recovery mode 也可以裝 driver，不過我沒試。</p>
-<p>從 NVIDIA 抓下 <code>NVIDIA-Linux-x86_64-340.101.run</code>，是個 script，要用 root 權限跑。</p>
-<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># export CC=gcc-4.8</span></span><br><span class="line"><span class="meta"># sh NVIDIA-Linux-x86_64-340.101.run</span></span><br></pre></td></tr></table></figure>
-
-<p>需要設 <code>CC</code> 是因為我 gcc 預設版本是 4.9，但是 compile driver 需要 4.8。</p>
-<p>安裝過程是 console 的互動介面（忘記這叫什麼了啦）就不細寫了。中間有問要不要 build 成什麼 module 之類的，選 yes 會 fail，懶得研究那是什麼東西，用 no 就安裝成功了。</p>
-<p>最後，修改 <code>/etc/default/grub</code> 以 GUI 開機：<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;nouveau.blacklist=1 quiet splash&quot;</code> 再 update grub 跟 reboot。</p>
-<p>開 servo 終於正常了…\T_T/</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html">http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html</a></li>
 </ul>
 
       

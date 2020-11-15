@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,90 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Toolchain-on-windows-and-linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Toolchain-on-windows-and-linux/" class="post-title-link" itemprop="url">C++ toolchain on windows and linux</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-03-06 22:14:03" itemprop="dateCreated datePublished" datetime="2016-03-06T22:14:03+08:00">2016-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Toolchain-on-windows-and-linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Toolchain-on-windows-and-linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <img src="../images/toolchain.png" width="800">
+
+<figure class="highlight latex"><table><tr><td class="code"><pre><span class="line">cl /I &lt;include path&gt;</span><br><span class="line">link /LIBPATH:&lt;library path&gt; /OUT:&lt;output file&gt;</span><br><span class="line"></span><br><span class="line">cl /I &quot;C:<span class="tag">\<span class="name">Program</span></span> Files (x86)<span class="tag">\<span class="name">Microsoft</span></span> Visual Studio 12.0<span class="tag">\<span class="name">VC</span></span><span class="tag">\<span class="name">include</span></span>&quot; /c hello.cpp</span><br><span class="line">link /LIBPATH:&quot;C:<span class="tag">\<span class="name">Program</span></span> Files (x86)<span class="tag">\<span class="name">Microsoft</span></span> Visual Studio 12.0<span class="tag">\<span class="name">VC</span></span><span class="tag">\<span class="name">lib</span></span>&quot; /LIBPATH:&quot;C:<span class="tag">\<span class="name">Program</span></span> Files (x86)<span class="tag">\<span class="name">Microsoft</span></span> SDKs<span class="tag">\<span class="name">Windows</span></span><span class="tag">\<span class="name">v</span></span>7.1A<span class="tag">\<span class="name">Lib</span></span>&quot; /OUT:hello.exe hello.obj</span><br></pre></td></tr></table></figure>
+
+<p>library path 加 <code>C:\Program Files (x86)\Microsoft SDKs\Windows\v7.1A\Lib</code> 主要為了 <code>kernel32.lib</code>。</p>
+<p>不過很少直接用 <code>cl</code>，通常都是用 Visual Studio 整套 IDE。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1215,131 +1299,6 @@
           <p>API 的功能可以是比較 atomic、比較基本的，讓外部使用這些基本功能組合出它想要的東西。也可以是 API 本身即組合一些基本功能、提供較方便的功能給外部使用。這兩種特性雖然互相衝突，但都是作為 API 希望滿足的。</p>
 <p>滿足這兩種特性的方式是將僅提供基本功能的 core API 及較方便的 API 分開。可能是以 class 或檔案區隔，甚至直接拆成不同 library。重點是較方便的 API 是使用 core API 的 public interface，就像在 core API 外再包一層，而不會 access 到 core API 的內部結構。</p>
 <p>如此使用者就能有方便使用的 API 也能在想自行組合功能的時候使用進階的 core API。這概念類似於 UI 設計上常有的「進階」按鈕──平常設定頁只會有基本設定，按進階按鈕後才會顯示更細部的設定。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/vim/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vim/" class="post-title-link" itemprop="url">vim 常用功能</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-14 21:01:27" itemprop="dateCreated datePublished" datetime="2015-07-14T21:01:27+08:00">2015-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2016-06-05 18:00:11" itemprop="dateModified" datetime="2016-06-05T18:00:11+08:00">2016-06-05</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/vim/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vim/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>常用功能的 plugin 及快捷鍵：</p>
-<ul>
-<li>游標停在字上的時候會自動 highlight 同樣的字<br>開啟 vim 後輸入 <code>z/</code>，目前還沒找到怎麼一開 vim 就啟動自動 highlight。</li>
-<li>跳到游標所在 variable 或 function 的宣告</li>
-<li>在 .cpp 跟 .h 之間切換<br>a.vim (<code>:A</code>)</li>
-<li>跳到游標所在的 function 的定義<br>cscope (<code>ctrl+\ g</code>)<br>ctags (<code>g]</code> or <code>ctrl+]</code>)</li>
-<li>跳到游標所在的 variable local 宣告<br>ctags (<code>gd</code>)</li>
-<li>跳到游標所在的 variable global 宣告<br>ctags (<code>gD</code>)</li>
-<li>全 project search<br>cscope (<code>ctrl+\ t</code>)</li>
-<li>列出 file 中有哪些 function<br>taglist (<code>F8</code>)</li>
-<li>自動補齊<br>於 insert mode <code>ctrl + n</code></li>
-<li>自動補括號</li>
-<li>hex mode<br><code>:%! xxd</code></li>
-<li>切換 history<br><code>ctrl + i</code> &amp; <code>ctrl + o</code></li>
-<li>多行註解<br><code>ESC</code>、<code>ctrl + V</code> 選範圍、大寫 <code>I</code>、輸入註解符號、<code>ESC</code></li>
-<li>多行取消註解<br><code>ESC</code>、<code>ctrl + V</code> 選範圍、delete</li>
-</ul>
-<p>My <code>.vimrc</code>：<a target="_blank" rel="noopener" href="https://github.com/cjwind/dotfiles/blob/master/vimrc">https://github.com/cjwind/dotfiles/blob/master/vimrc</a></p>
-<h2 id="ctags-taglist"><a href="#ctags-taglist" class="headerlink" title="ctags taglist"></a>ctags taglist</h2><p><code>$ sudo apt-get install ctags</code></p>
-<p>切到 project 資料夾產生 tag 資訊：</p>
-<p><code>$ ctags --extra=+f -R *</code></p>
-<p>加上 <code>--extra=+f</code> 可以在 vim 中使用 <code>:tag &lt;filename&gt;</code> 跳到該檔案，<code>:tag &lt;filename&gt;</code> 後再 <code>ctrl + t</code> 可回原本檔案。</p>
-<p>到 <a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=273">http://www.vim.org/scripts/script.php?script_id=273</a> 抓 <code>taglist_45.zip</code>，解開後將 <code>taglist.vim</code> 放到 <code>~/vim/plugin</code>。</p>
-<p><code>~/.vimrc</code> 加入相關設定：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Tlist_Ctags_Cmd = <span class="string">&#x27;/usr/bin/ctags&#x27;</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Auto_Open = <span class="number">1</span>     <span class="comment">&quot; 讓 Tlist 自動開啟</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Show_One_File = <span class="number">1</span>             <span class="comment">&quot; 不同時顯示多個文件的tag，只顯示當前文件的</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Exit_OnlyWindow = <span class="number">1</span>           <span class="comment">&quot; 如果taglist窗口是最後一個窗口，則退出vim</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Use_Right_Window = <span class="number">1</span>          <span class="comment">&quot; 在右側窗口中顯示taglist窗口</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;silent&gt;</span> <span class="symbol">&lt;F8&gt;</span> :TlistToggle<span class="symbol">&lt;CR&gt;</span> <span class="comment">&quot; F8 為開啟/關閉 Tlist 的快速鍵</span></span><br></pre></td></tr></table></figure>
-
-<p><code>ctrl + w</code> 再加方向鍵可以切換 window，例如加右鍵就是跳到右邊的 window。</p>
-<h3 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h3><p>有時候切換 tab 會出現 error <code>Taglist error: Error detected while processing function &lt;SNR&gt;29_Tlist_Refresh_Folds</code>，可用 <a target="_blank" rel="noopener" href="http://vim.1045645.n5.nabble.com/attachment/3321902/0/taglist.diff">patch</a> 解決：<code>$ patch -p0 ~/.vim/plugin/taglist.vim taglist.diff</code></p>
-<h2 id="cscope"><a href="#cscope" class="headerlink" title="cscope"></a>cscope</h2><p><code>$ sudo apt-get install cscope</code></p>
-<p>切到 project 的資料夾產生 cscope 資料庫：</p>
-<p><code>$ cscope -RC</code></p>
-<p>之後用 vim 開啟 source code，可用 <code>:cs</code> 指令使用 cscope 的功能。也可以在 <code>~/.vim/plugin</code> 中放 <a target="_blank" rel="noopener" href="http://cscope.sourceforge.net/cscope_maps.vim">cscope_map.vim</a> 加快捷鍵：</p>
-<figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">ctrl+<span class="string">\</span> s <span class="string">&quot;s表Symbol，列出所有參考到游標所在字串的地方，包含定義和呼叫。</span></span><br><span class="line"><span class="string">ctrl+\ g &quot;</span>Find <span class="built_in">this</span> definition</span><br><span class="line">ctrl+<span class="string">\</span> c <span class="string">&quot;c表Call，列出所有以游標所在字串當函數名的地方。</span></span><br><span class="line"><span class="string">ctrl+\ t &quot;</span>t表Text，列出專案中所有出現游標所在字串的地方。</span><br><span class="line">ctrl+<span class="string">\</span> f <span class="string">&quot;f表File，以游標所在字串當檔名，開啟之。</span></span><br><span class="line"><span class="string">ctrl+\ i &quot;</span>i表Include，以游標所在字串當檔名，列出所有include此檔的檔案。</span><br><span class="line">ctrl+<span class="string">\</span> d <span class="string">&quot;d表calleD，以游標所在字串當函式名，列出所有此函式呼叫的函式。</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="自動-highlight"><a href="#自動-highlight" class="headerlink" title="自動 highlight"></a>自動 highlight</h2><p>在 <code>.vim/plugin</code> 加入 <code>autohighlight.vim</code>：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="comment">&quot; Highlight all instances of word under cursor, when idle.</span></span><br><span class="line"><span class="comment">&quot; Useful when studying strange source code.</span></span><br><span class="line"><span class="comment">&quot; Type z/ to toggle highlighting on/off.</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="keyword">z</span>/ :<span class="keyword">if</span> AutoHighlightToggle()<span class="symbol">&lt;Bar&gt;</span><span class="keyword">set</span> hls<span class="symbol">&lt;Bar&gt;</span><span class="keyword">endif</span><span class="symbol">&lt;CR&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">AutoHighlightToggle</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">let</span> @/ = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">exists</span>(<span class="string">&#x27;#auto_highlight&#x27;</span>)</span><br><span class="line">    au! auto_highlight</span><br><span class="line">    augroup! auto_highlight</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">4000</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;Highlight current word: off&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">augroup</span> auto_highlight</span><br><span class="line">      au!</span><br><span class="line">      <span class="keyword">au</span> CursorHold * <span class="keyword">let</span> @/ = <span class="string">&#x27;\V\&lt;&#x27;</span>.<span class="built_in">escape</span>(<span class="built_in">expand</span>(<span class="string">&#x27;&lt;cword&gt;&#x27;</span>), <span class="string">&#x27;\&#x27;</span>).<span class="string">&#x27;\&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">augroup</span> end</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">500</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;Highlight current word: ON&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">endif</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
-
-<p>輸入 <code>z/</code> 可開關自動 highlight 的功能。</p>
-<p><a target="_blank" rel="noopener" href="http://vim.wikia.com/wiki/Auto_highlight_current_word_when_idle">reference here</a></p>
-<h2 id="a-vim"><a href="#a-vim" class="headerlink" title="a.vim"></a>a.vim</h2><p>在 header 及 source 之間切換。<a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=31">script</a></p>
-<p>切換指令為 <code>:A</code>。</p>
-<h2 id="自動補括號"><a href="#自動補括號" class="headerlink" title="自動補括號"></a>自動補括號</h2><p><a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=3599">Auto Pairs</a></p>
-<p>將 script 放到 <code>~/.vim/plugin/</code> 底下。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://vim.wikia.com/wiki/Go_to_definition_using_g">http://vim.wikia.com/wiki/Go_to_definition_using_g</a></li>
-</ul>
 
       
     </div>

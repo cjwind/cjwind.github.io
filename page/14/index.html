@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,102 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/singleton/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/singleton/" class="post-title-link" itemprop="url">Singleton Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-05-04 12:30:00" itemprop="dateCreated datePublished" datetime="2014-05-04T12:30:00+08:00">2014-05-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/singleton/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="singleton/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>屬於 Creational pattern。</p>
+<p>確保 class 只有一個 instance，並且給它 global 的存取點。</p>
+<p>可以做到延後產生 instance，也就是真正使用到時才 create instance。如果用 global variable，依據不同語言及實作的特性可能在程式一開始就產生 instance。</p>
+<p>常用來管理 shared resource。</p>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><ul>
+<li>將 constructor、copy constructor、destructor、assignment operator 宣告為 private 確保外面無法產生第二個 instance 及 destory instance。</li>
+<li>使用 static function 讓外界取得唯一的 instance。</li>
+</ul>
+<h2 id="C-實作"><a href="#C-實作" class="headerlink" title="C++ 實作"></a>C++ 實作</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Singleton* <span class="title">GetSingleton</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Singleton() &#123; <span class="comment">/* implement */</span> &#125;;</span><br><span class="line">    ~Singleton();</span><br><span class="line">    Singleton(<span class="keyword">const</span> Singleton&amp;);</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Singleton&amp;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Singleton* <span class="title">Singleton::GetSingleton</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Singleton* pSingleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">    <span class="keyword">return</span> pSingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>外面要取得 instance 時 call <code>Singleton::GetSingleton()</code>。這邊直接用 C++ 的 static local variable 在 function 第一次 call 時會 initialize 之後不會再 initialize 的特性，而它的 lifetime 會持續到程式結束。</p>
+<p>有另一種做法是 <code>GetSingleton()</code> 不 return pointer，而 return reference。</p>
+<p>這個實作沒有 thread-safe，有多個 thread 會 call <code>GetSingleton()</code> 就 GG 了。要 thread-safe 可以用 double-checked locking。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
+<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1155,97 +1251,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-google-code-jam-qualification-round/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2014-google-code-jam-qualification-round/" class="post-title-link" itemprop="url">2014 Google Code Jam Qualification Round</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-13 12:05:07" itemprop="dateCreated datePublished" datetime="2014-04-13T12:05:07+08:00">2014-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2014-google-code-jam-qualification-round/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014-google-code-jam-qualification-round/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>昨天晚上在慵懶的狀態下寫今年 Google Code Jam 資格賽。</p>
-<p>A 跟 B 很簡單，A 就照著算一下，B 簡單 Greedy，看到過 C 的比例比較低先跳過，看 D 覺得要想一下，可是已經在想睡覺……丟了一次很爛的 algo 上去果然 WA，放棄收工了，只要 B 的 large input 有對也是會過，阿要是沒對就 GG 了！XD</p>
-<p>遙想我每次玩 Code Jam 都只有過資格賽……Orz……看今年會不會有鬥志一點，至少兩次時間可以參加的 Round 1 都去玩一下。</p>
-<script src="//gist.github.com/596ddacefe38b6f97eea.js?file=2014GCJ_QR_A.cpp"></script>
-
-<script src="//gist.github.com/6aaa4b0c9bc8ea7e05c9.js?file=2014GCJ_QR_B.cpp"></script>
-
-<p><del>貼這種 code 出來好像在丟人現眼</del></p>
-<p>簡單針對 code 檢討一下好了，algo 沒什麼好檢討的，因為寫的兩題太簡單。</p>
-<ol>
-<li>跟 C++ IO 不熟，才會出現很明顯的 copy。還為了 output 七位小數而混雜 printf()，因為我不會調 C++ 的 output format。<del>比賽的時候懶得查直接用最熟的比較快</del></li>
-<li>變數名稱亂取，<del>不過算了比賽程式不要計較太多</del> XD</li>
-</ol>
-
       
     </div>
 

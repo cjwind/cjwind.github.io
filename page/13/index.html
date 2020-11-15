@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">158</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,93 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/liskov-substitution-principle/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/liskov-substitution-principle/" class="post-title-link" itemprop="url">Liskov Substitution Principle (LSP)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-12-02 23:11:31" itemprop="dateCreated datePublished" datetime="2014-12-02T23:11:31+08:00">2014-12-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2016-11-14 22:05:00" itemprop="dateModified" datetime="2016-11-14T22:05:00+08:00">2016-11-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/liskov-substitution-principle/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="liskov-substitution-principle/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>這個原則跟何時該使用繼承有關：derived class 必須能替代 base class。</p>
+<p>使用繼承時必須確保 base class 的所有特性及 method 對 derived class 仍成立，反過來說，derived class 必須有 base class 所有特性。一個 derived class 的 object 是一個（is-a）base class 的 object，原本對 base class 的 object 所做的所有操作可以直接換成對 derived class 的 object 操作。</p>
+<p>C++ 的 public 繼承在意義上即是 LSP 所說的繼承觀念。</p>
+<h2 id="繼承的替代方案"><a href="#繼承的替代方案" class="headerlink" title="繼承的替代方案"></a>繼承的替代方案</h2><p>使用繼承一般是希望擴充原有 class，但如果套用繼承時發現會違反 LSP，有什麼替代方案呢？</p>
+<ul>
+<li><a href="/delegate">Delegate</a><br>將達成某功能的任務委託給原本想擴充的 class，也就是<del>不負責任的</del>丟給別人做。</li>
+<li><a href="relationships-between-classes">Composition</a></li>
+<li><a href="relationships-between-classes">Aggregation</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1065,102 +1152,6 @@
 <li>邏輯上有方向但細節沒想清楚，像 Q 一直除 2 的時候原本沒先檢查是不是能整除，原本也沒處理處理特殊值 1。</li>
 <li>大測資一開始沒用 <code>long long int</code>，然後就 segementation fault 了。</li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/singleton/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/singleton/" class="post-title-link" itemprop="url">Singleton Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-05-04 12:30:00" itemprop="dateCreated datePublished" datetime="2014-05-04T12:30:00+08:00">2014-05-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/singleton/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="singleton/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>屬於 Creational pattern。</p>
-<p>確保 class 只有一個 instance，並且給它 global 的存取點。</p>
-<p>可以做到延後產生 instance，也就是真正使用到時才 create instance。如果用 global variable，依據不同語言及實作的特性可能在程式一開始就產生 instance。</p>
-<p>常用來管理 shared resource。</p>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><ul>
-<li>將 constructor、copy constructor、destructor、assignment operator 宣告為 private 確保外面無法產生第二個 instance 及 destory instance。</li>
-<li>使用 static function 讓外界取得唯一的 instance。</li>
-</ul>
-<h2 id="C-實作"><a href="#C-實作" class="headerlink" title="C++ 實作"></a>C++ 實作</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> Singleton* <span class="title">GetSingleton</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Singleton() &#123; <span class="comment">/* implement */</span> &#125;;</span><br><span class="line">    ~Singleton();</span><br><span class="line">    Singleton(<span class="keyword">const</span> Singleton&amp;);</span><br><span class="line">    Singleton&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Singleton&amp;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Singleton* <span class="title">Singleton::GetSingleton</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> Singleton* pSingleton = <span class="keyword">new</span> Singleton();</span><br><span class="line">    <span class="keyword">return</span> pSingleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>外面要取得 instance 時 call <code>Singleton::GetSingleton()</code>。這邊直接用 C++ 的 static local variable 在 function 第一次 call 時會 initialize 之後不會再 initialize 的特性，而它的 lifetime 會持續到程式結束。</p>
-<p>有另一種做法是 <code>GetSingleton()</code> 不 return pointer，而 return reference。</p>
-<p>這個實作沒有 thread-safe，有多個 thread 會 call <code>GetSingleton()</code> 就 GG 了。要 thread-safe 可以用 double-checked locking。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html">http://charlesbc.blogspot.tw/2009/04/design-pattern-singleton.html</a></li>
-<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/1008019/c-singleton-design-pattern">http://stackoverflow.com/questions/1008019/c-singleton-design-pattern</a></li>
-<li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/6223355/static-variables-in-class-methods">http://stackoverflow.com/questions/6223355/static-variables-in-class-methods</a></li>
-</ul>
 
       
     </div>
