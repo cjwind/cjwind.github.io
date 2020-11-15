@@ -22,13 +22,13 @@
 
   <meta name="description" content="使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。 使用 embedded structtype Serving struct &amp;#123;    Amount float64    Unit">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Go jaon and embedded strucr">
+<meta property="og:title" content="Go json and embedded struct">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Go-json-and-embedded-struct/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
 <meta property="og:description" content="使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。 使用 embedded structtype Serving struct &amp;#123;    Amount float64    Unit">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-15T14:00:46.000Z">
-<meta property="article:modified_time" content="2020-11-15T14:00:46.231Z">
+<meta property="article:modified_time" content="2020-11-15T14:09:42.737Z">
 <meta property="article:author" content="cjwind">
 <meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Go jaon and embedded strucr | cjwind's note</title>
+  <title>Go json and embedded struct | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -318,7 +318,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Go jaon and embedded strucr
+          Go json and embedded struct
         </h1>
 
         <div class="post-meta">
@@ -327,8 +327,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
+              
 
-              <time title="Created: 2020-11-15 22:00:46" itemprop="dateCreated datePublished" datetime="2020-11-15T22:00:46+08:00">2020-11-15</time>
+              <time title="Created: 2020-11-15 22:00:46 / Modified: 22:09:42" itemprop="dateCreated datePublished" datetime="2020-11-15T22:00:46+08:00">2020-11-15</time>
             </span>
 
           
@@ -511,7 +512,7 @@
   var disqus_config = function() {
     this.page.url = "http://www.cjwind.idv.tw/Go-json-and-embedded-struct/";
     this.page.identifier = "Go-json-and-embedded-struct/";
-    this.page.title = "Go jaon and embedded strucr";
+    this.page.title = "Go json and embedded struct";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {
