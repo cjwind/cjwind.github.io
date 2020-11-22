@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2020-11-15T14:09:42.737Z</updated>
+  <updated>2020-11-21T14:49:58.371Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Dockerfile</title>
+    <link href="http://www.cjwind.idv.tw/Dockerfile/"/>
+    <id>http://www.cjwind.idv.tw/Dockerfile/</id>
+    <published>2020-11-21T14:49:58.000Z</published>
+    <updated>2020-11-21T14:49:58.371Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h2><p><code>COPY</code> 如果 source 是 directory，會 copy directory 的內容，但是 directory 本身不會 copy。</p><p>假設有個資料夾叫 <code>css/</code>，底下有兩個 file <code>foo.css</code> 跟 <code>bar.css</code>。</p><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./css /workspace/</span></span><br></pre></td></tr></table></figure><p>這樣在 container 裡會變成 <code>/workspace/</code> 底下有 <code>foo.css</code> 跟 <code>bar.css</code>，而不是 <code>/workspace/css/</code> 底下有 <code>foo.css</code> 跟 <code>bar.css</code>。想要是 <code>/workspace/css/</code> 底下有兩個 file 得這樣寫：</p><figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./css /workspace/css</span></span><br></pre></td></tr></table></figure><p>Ref：<a href="https://docs.docker.com/engine/reference/builder/#copy">https://docs.docker.com/engine/reference/builder/#copy</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;COPY&quot;&gt;&lt;a href=&quot;#COPY&quot; class=&quot;headerlink&quot; title=&quot;COPY&quot;&gt;&lt;/a&gt;COPY&lt;/h2&gt;&lt;p&gt;&lt;code&gt;COPY&lt;/code&gt; 如果 source 是 directory，會 copy directory 的內容，但</summary>
+      
+    
+    
+    
+    
+    <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Go json and embedded struct</title>
@@ -158,11 +180,11 @@
     <category term="Working Effectively with Legacy Code" scheme="http://www.cjwind.idv.tw/categories/Working-Effectively-with-Legacy-Code/"/>
     
     
+    <category term="Refactor" scheme="http://www.cjwind.idv.tw/tags/Refactor/"/>
+    
     <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
     
     <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
-    
-    <category term="Refactor" scheme="http://www.cjwind.idv.tw/tags/Refactor/"/>
     
   </entry>
   
@@ -486,31 +508,6 @@
     <category term="Linux" scheme="http://www.cjwind.idv.tw/tags/Linux/"/>
     
     <category term="PhpStorm" scheme="http://www.cjwind.idv.tw/tags/PhpStorm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Get started with Docker Part 5 &amp; 6</title>
-    <link href="http://www.cjwind.idv.tw/get-started-with-docker/part-5-6/"/>
-    <id>http://www.cjwind.idv.tw/get-started-with-docker/part-5-6/</id>
-    <published>2019-08-09T07:43:54.000Z</published>
-    <updated>2020-08-09T03:17:09.268Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p><h2 id="Part-5-Stacks"><a href="#Part-5-Stacks" class="headerlink" title="Part 5: Stacks"></a><a href="https://docs.docker.com/get-started/part5/">Part 5: Stacks</a></h2><blockquote><p>A stack is a group of interrelated services that share dependencies, and can be orchestrated and scaled together. A single stack is capable of defining and coordinating the functionality of an entire application (though very complex applications may want to use multiple stacks).</p></blockquote><p>stack 定義了一堆互相有關的 service，把 service 放在一個 stack 裡就可以一起操作、scale 等等。可以用一個 stack 來定義一個 application 的功能，比較複雜的 application 可能有多個 stack。</p><p>也就是可以把 application 拆分成多個 service 來運作，這些 service 可以只跑在一台機器上，也可以在 swarm 中跑在不同機器上。原本要做到這件事，要嘛要在一台機器上裝各種 server，要分散就得在多台機器上裝各自需要的 server，再不然就得裝 VM 起來做這些事，而且也沒有個統一的地方記錄各 service 的版本等等資訊（工人智慧…）。Docker 把 setup 開發及 production 環境跟 scale up 變得簡單很多。</p><h3 id="More-docker-compose-yml"><a href="#More-docker-compose-yml" class="headerlink" title="More docker-compose.yml"></a>More <code>docker-compose.yml</code></h3><p><a href="/Get-started-with-Docker-Part-3/">part 3</a> 寫的 <code>docker-compose.yml</code> 是定義只有一個 service 的 stack。下面是有兩個 service 分別為 <code>visualizer</code> 跟 <code>redis</code> 的 stack：</p><figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span>    <span class="comment"># compose file format version</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">visualizer:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">dockersamples/visualizer:stable</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="comment"># mapping host 的 file 到 container 裡</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/var/run/docker.sock:/var/run/docker.sock&quot;</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># 指定 service 要 run 在哪個 node</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> [<span class="string">node.role</span> <span class="string">==</span> <span class="string">manager</span>]    <span class="comment"># 只能 run 在 swarm manager</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># mapping host 的 /home/docker/data 到 container 的 /data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/home/docker/data:/data&quot;</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> [<span class="string">node.role</span> <span class="string">==</span> <span class="string">manager</span>]</span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--appendonly</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure><p>如果沒有做 volume mapping，container 的 disk 的 file 在 container 重開後會不見。</p><p>其他 compose file 設定可參考：<a href="https://docs.docker.com/compose/compose-file/">Compose file reference</a>。</p><p>修改 <code>docker-compose.yml</code> 後重新 deploy 只需 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code>。</p><p>要結束整個 stack 的 service 則 <code>docker stack rm &lt;stack_name&gt;</code>。</p><h2 id="Part-6-Deploy-your-app"><a href="#Part-6-Deploy-your-app" class="headerlink" title="Part 6: Deploy your app"></a><a href="https://docs.docker.com/get-started/part6/">Part 6: Deploy your app</a></h2><p>這篇是看你要用 Docker Enterprise 還是自己裝 <a href="https://docs.docker.com/install/">Docker Engine - Community</a> 進行開發及 deploy production。</p><p>開發環境跟 production 環境的 Docker 操作都一樣（只是執行的地方不一樣。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/&quot;&gt;Dodkcer Get Started&lt;/a&gt; 隨手記。&lt;/p&gt;
-&lt;h2 id=&quot;Part-5-Stacks&quot;&gt;&lt;a href=&quot;#Part-5-Stacks&quot; class=&quot;he</summary>
-      
-    
-    
-    
-    <category term="Get started with Docker" scheme="http://www.cjwind.idv.tw/categories/Get-started-with-Docker/"/>
-    
-    
-    <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
     
   </entry>
   

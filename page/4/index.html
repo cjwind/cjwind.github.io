@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,96 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-and-Override/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Dependency-Injection-Extract-and-Override/" class="post-title-link" itemprop="url">Dependency Injection - Extract and Override</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-30 17:15:05" itemprop="dateCreated datePublished" datetime="2018-12-30T17:15:05+08:00">2018-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dependency-Injection-Extract-and-Override/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-and-Override/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Extract and Override 是另一種 injection 方式，它幾乎不會改變程式的語意（增加 constructor 的參數或者其他 public 介面等等），寫起來乾淨漂亮。它適合用於模擬回傳值或回傳 stub 或 mock object，不適合用在確認被測試程式與 dependency object 的互動。</p>
+<h2 id="Override-factory-method-to-inject-stub"><a href="#Override-factory-method-to-inject-stub" class="headerlink" title="Override factory method to inject stub"></a>Override factory method to inject stub</h2><ol>
+<li>在被測試 class 加入可被繼承並 override 的 factory method 來取得 dependency object。</li>
+<li>在測試裡新增一個 class 繼承被測試 class，override 該 factory method 回傳 stub object，接著使用測試 class 進行測試。</li>
+</ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Dependency-Injection-Extract-and-Override/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1109,103 +1199,6 @@
 <p>蛤？？？windows 休眠中？？？可是我現在是開機成 linux 啊？？？哪來的 windows？？？感覺就是 win10 的錯（喂）。重開機進 win10，再重開進 linux，嗯？又好了？從 win10 關機，開機進 linux，又 ro。</p>
 <p><a target="_blank" rel="noopener" href="https://www.howtogeek.com/236807/how-to-mount-your-windows-10-or-8-system-drive-on-linux/">這篇</a> 給了我答案。簡單來說，win10 的 shut down 不是真的 shut down，reboot 才會真的 shut down<del>（講人話）</del>。好吧，把那個快速啟動關掉，我也不差那幾秒。win10 關機，開機進 linux，耶，世界一片美好。</p>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Exception-Handling/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Exception-Handling/" class="post-title-link" itemprop="url">Exception Handling</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-04-05 22:04:26" itemprop="dateCreated datePublished" datetime="2018-04-05T22:04:26+08:00">2018-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Exception-Handling/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Exception-Handling/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>前陣子寫 code 遇到 exception 或程式執行錯誤該丟出 exception 的情況，雖然知道 try catch 跟 throw exception，但「什麼時候」要「如何使用」exception 卻沒個概念然後搞得一團亂。只好來念念《例外處理設計的逆襲》，順便整理下嗑完書的簡略筆記。</p>
-<h2 id="區分-Fault、Error、Failure、Exception"><a href="#區分-Fault、Error、Failure、Exception" class="headerlink" title="區分 Fault、Error、Failure、Exception"></a>區分 Fault、Error、Failure、Exception</h2><p>首先區分幾個名詞的概念，不然這些東西都很像，不分清楚講到後來都不知道在講些什麼了。</p>
-<ul>
-<li>（從外部看）一個 <strong>component 沒有提供正確服務稱為 service failure</strong>，簡稱 failure。</li>
-<li><strong>error 是種「狀態」</strong>，表示 component 內部處於錯誤狀態。這種狀態可能導致 component 執行失敗，造成 failure。</li>
-<li><strong>fault 則是導致 error 發生的「原因」</strong>。</li>
-<li>程式語言以 exception 表達 error 與 failure 的概念。<ul>
-<li>從不同角度來看（如 caller 跟 callee），exception 可以代表 error 也可以代表 failure。</li>
-<li>遇到某種情況要不要丟出 exception，決定方式之一是看在該 function 的語意及功能下，該狀況是不是屬於「目前可能處在不正確的狀態」或「被 call 的 function 沒做好該做的事」。如果是，當然就丟出 exception。</li>
-</ul>
-</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Exception-Handling/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 

@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,108 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-5-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/get-started-with-docker/part-5-6/" class="post-title-link" itemprop="url">Get started with Docker Part 5 & 6</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-09 15:43:54" itemprop="dateCreated datePublished" datetime="2019-08-09T15:43:54+08:00">2019-08-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/get-started-with-docker/part-5-6/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="get-started-with-docker/part-5-6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-5-Stacks"><a href="#Part-5-Stacks" class="headerlink" title="Part 5: Stacks"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part5/">Part 5: Stacks</a></h2><blockquote>
+<p>A stack is a group of interrelated services that share dependencies, and can be orchestrated and scaled together. A single stack is capable of defining and coordinating the functionality of an entire application (though very complex applications may want to use multiple stacks).</p>
+</blockquote>
+<p>stack 定義了一堆互相有關的 service，把 service 放在一個 stack 裡就可以一起操作、scale 等等。可以用一個 stack 來定義一個 application 的功能，比較複雜的 application 可能有多個 stack。</p>
+<p>也就是可以把 application 拆分成多個 service 來運作，這些 service 可以只跑在一台機器上，也可以在 swarm 中跑在不同機器上。原本要做到這件事，要嘛要在一台機器上裝各種 server，要分散就得在多台機器上裝各自需要的 server，再不然就得裝 VM 起來做這些事，而且也沒有個統一的地方記錄各 service 的版本等等資訊（工人智慧…）。Docker 把 setup 開發及 production 環境跟 scale up 變得簡單很多。</p>
+<h3 id="More-docker-compose-yml"><a href="#More-docker-compose-yml" class="headerlink" title="More docker-compose.yml"></a>More <code>docker-compose.yml</code></h3><p><a href="/Get-started-with-Docker-Part-3/">part 3</a> 寫的 <code>docker-compose.yml</code> 是定義只有一個 service 的 stack。下面是有兩個 service 分別為 <code>visualizer</code> 跟 <code>redis</code> 的 stack：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">&quot;3&quot;</span>    <span class="comment"># compose file format version</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">visualizer:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">dockersamples/visualizer:stable</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;8080:8080&quot;</span></span><br><span class="line">    <span class="comment"># mapping host 的 file 到 container 裡</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/var/run/docker.sock:/var/run/docker.sock&quot;</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="comment"># 指定 service 要 run 在哪個 node</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> [<span class="string">node.role</span> <span class="string">==</span> <span class="string">manager</span>]    <span class="comment"># 只能 run 在 swarm manager</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">redis</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;6379:6379&quot;</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="comment"># mapping host 的 /home/docker/data 到 container 的 /data</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;/home/docker/data:/data&quot;</span></span><br><span class="line">    <span class="attr">deploy:</span></span><br><span class="line">      <span class="attr">placement:</span></span><br><span class="line">        <span class="attr">constraints:</span> [<span class="string">node.role</span> <span class="string">==</span> <span class="string">manager</span>]</span><br><span class="line">    <span class="attr">command:</span> <span class="string">redis-server</span> <span class="string">--appendonly</span> <span class="literal">yes</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">webnet</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">webnet:</span></span><br></pre></td></tr></table></figure>
+
+<p>如果沒有做 volume mapping，container 的 disk 的 file 在 container 重開後會不見。</p>
+<p>其他 compose file 設定可參考：<a target="_blank" rel="noopener" href="https://docs.docker.com/compose/compose-file/">Compose file reference</a>。</p>
+<p>修改 <code>docker-compose.yml</code> 後重新 deploy 只需 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code>。</p>
+<p>要結束整個 stack 的 service 則 <code>docker stack rm &lt;stack_name&gt;</code>。</p>
+<h2 id="Part-6-Deploy-your-app"><a href="#Part-6-Deploy-your-app" class="headerlink" title="Part 6: Deploy your app"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part6/">Part 6: Deploy your app</a></h2><p>這篇是看你要用 Docker Enterprise 還是自己裝 <a target="_blank" rel="noopener" href="https://docs.docker.com/install/">Docker Engine - Community</a> 進行開發及 deploy production。</p>
+<p>開發環境跟 production 環境的 Docker 操作都一樣（只是執行的地方不一樣。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -597,7 +699,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+                <time title="Modified: 2020-11-21 21:43:46" itemprop="dateModified" datetime="2020-11-21T21:43:46+08:00">2020-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -639,6 +741,7 @@
 <blockquote>
 <p>The use of Linux containers to deploy applications is called <em>containerization</em>.</p>
 </blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/debian/">Install Docker Engine on Debian</a></p>
 <h3 id="Images-and-containers"><a href="#Images-and-containers" class="headerlink" title="Images and containers"></a>Images and containers</h3><blockquote>
 <p>An <strong>image</strong> is an executable package that includes everything needed to run an application–the code, a runtime, libraries, environment variables, and configuration files.</p>
 </blockquote>
@@ -666,7 +769,7 @@
 <p>Dockerfile 指令 [<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">Ref</a>]：</p>
 <ul>
 <li><code>FROM</code> 指定 parent image</li>
-<li><code>WORKDIP</code> 指定 container 內的 working dir</li>
+<li><code>WORKDIR</code> 指定 container 內的 working dir</li>
 <li><code>COPY</code> copy 檔案到 container 裡</li>
 <li><code>RUN</code> 執行指令<ul>
 <li><blockquote>
@@ -768,7 +871,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+                <time title="Modified: 2020-11-21 22:51:16" itemprop="dateModified" datetime="2020-11-21T22:51:16+08:00">2020-11-21</time>
               </span>
 
           
@@ -1265,96 +1368,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/Add-system-call-to-linux/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-and-Override/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Extract-and-Override/" class="post-title-link" itemprop="url">Dependency Injection - Extract and Override</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-30 17:15:05" itemprop="dateCreated datePublished" datetime="2018-12-30T17:15:05+08:00">2018-12-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Dependency-Injection-Extract-and-Override/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-and-Override/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Extract and Override 是另一種 injection 方式，它幾乎不會改變程式的語意（增加 constructor 的參數或者其他 public 介面等等），寫起來乾淨漂亮。它適合用於模擬回傳值或回傳 stub 或 mock object，不適合用在確認被測試程式與 dependency object 的互動。</p>
-<h2 id="Override-factory-method-to-inject-stub"><a href="#Override-factory-method-to-inject-stub" class="headerlink" title="Override factory method to inject stub"></a>Override factory method to inject stub</h2><ol>
-<li>在被測試 class 加入可被繼承並 override 的 factory method 來取得 dependency object。</li>
-<li>在測試裡新增一個 class 繼承被測試 class，override 該 factory method 回傳 stub object，接著使用測試 class 進行測試。</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Dependency-Injection-Extract-and-Override/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

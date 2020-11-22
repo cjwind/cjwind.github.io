@@ -20,21 +20,20 @@
     var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 
-  <meta name="description" content="像 naming、argument 順序、standard pattern 的使用、memory model、exception 的使用、error handling 等等，如果設計上有一致性，使用者較容易使用。保有一致性時，使用者可以輕易透過原本的理解認知推測新功能或其他部分如何使用。 在設計 C++ API 上，如果跟 standard library 保有相同的模式與規則也會讓 API 易於">
+  <meta name="description" content="COPYCOPY 如果 source 是 directory，會 copy directory 的內容，但是 directory 本身不會 copy。 假設有個資料夾叫 css&#x2F;，底下有兩個 file foo.css 跟 bar.css。 COPY .&#x2F;css &#x2F;workspace&#x2F;  這樣在 container 裡會變成 &#x2F;workspace&#x2F; 底下有 foo.css 跟 bar.css，而不是">
 <meta property="og:type" content="article">
-<meta property="og:title" content="API 設計的一致性">
-<meta property="og:url" content="http://www.cjwind.idv.tw/Consistent-API-Design/index.html">
+<meta property="og:title" content="Dockerfile">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Dockerfile/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
-<meta property="og:description" content="像 naming、argument 順序、standard pattern 的使用、memory model、exception 的使用、error handling 等等，如果設計上有一致性，使用者較容易使用。保有一致性時，使用者可以輕易透過原本的理解認知推測新功能或其他部分如何使用。 在設計 C++ API 上，如果跟 standard library 保有相同的模式與規則也會讓 API 易於">
+<meta property="og:description" content="COPYCOPY 如果 source 是 directory，會 copy directory 的內容，但是 directory 本身不會 copy。 假設有個資料夾叫 css&#x2F;，底下有兩個 file foo.css 跟 bar.css。 COPY .&#x2F;css &#x2F;workspace&#x2F;  這樣在 container 裡會變成 &#x2F;workspace&#x2F; 底下有 foo.css 跟 bar.css，而不是">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2015-08-08T08:38:37.000Z">
-<meta property="article:modified_time" content="2020-08-09T03:17:09.236Z">
+<meta property="article:published_time" content="2020-11-21T14:49:58.000Z">
+<meta property="article:modified_time" content="2020-11-21T14:49:58.371Z">
 <meta property="article:author" content="cjwind">
-<meta property="article:tag" content="C++">
-<meta property="article:tag" content="API">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://www.cjwind.idv.tw/Consistent-API-Design/">
+<link rel="canonical" href="http://www.cjwind.idv.tw/Dockerfile/">
 
 
 <script class="page-configurations">
@@ -47,7 +46,7 @@
   };
 </script>
 
-  <title>API 設計的一致性 | cjwind's note</title>
+  <title>Dockerfile | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -211,7 +210,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -223,6 +222,7 @@
 
       <!--noindex-->
       <section class="post-toc-wrap sidebar-panel">
+          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#COPY"><span class="nav-number">1.</span> <span class="nav-text">COPY</span></a></li></ol></div>
       </section>
       <!--/noindex-->
 
@@ -303,7 +303,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Consistent-API-Design/">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dockerfile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -318,7 +318,7 @@
     
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          API 設計的一致性
+          Dockerfile
         </h1>
 
         <div class="post-meta">
@@ -328,15 +328,8 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-08 16:38:37" itemprop="dateCreated datePublished" datetime="2015-08-08T16:38:37+08:00">2015-08-08</time>
+              <time title="Created: 2020-11-21 22:49:58" itemprop="dateCreated datePublished" datetime="2020-11-21T22:49:58+08:00">2020-11-21</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
 
           
   
@@ -347,8 +340,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/Consistent-API-Design/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Consistent-API-Design/" itemprop="commentCount"></span>
+    <a title="disqus" href="/Dockerfile/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dockerfile/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -361,12 +354,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>像 naming、argument 順序、standard pattern 的使用、memory model、exception 的使用、error handling 等等，如果設計上有一致性，使用者較容易使用。保有一致性時，使用者可以輕易透過原本的理解認知推測新功能或其他部分如何使用。</p>
-<p>在設計 C++ API 上，如果跟 standard library 保有相同的模式與規則也會讓 API 易於使用，畢竟大家都會用 standard library 啊！</p>
-<p>雖然這篇標題是說 API 的設計，但小至 class 跟 function 也是有類似的觀念啊～</p>
-<p>舉個 argument 不一致的例子：<code>fscanf()</code> 跟 <code>fgets()</code>，它們分別長這樣：</p>
-<p><code>int fscanf(FILE* stream, const char* format, ...);</code><br><code>char* fgets(char* str, int num, FILE* stream);</code></p>
-<p>兩個類似的 function，<code>FILE* stream</code> 參數卻是一個在第一個、一個在最後一個，讓我太久沒用就得回頭瞄一下文件……</p>
+        <h2 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h2><p><code>COPY</code> 如果 source 是 directory，會 copy directory 的內容，但是 directory 本身不會 copy。</p>
+<p>假設有個資料夾叫 <code>css/</code>，底下有兩個 file <code>foo.css</code> 跟 <code>bar.css</code>。</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./css /workspace/</span></span><br></pre></td></tr></table></figure>
+
+<p>這樣在 container 裡會變成 <code>/workspace/</code> 底下有 <code>foo.css</code> 跟 <code>bar.css</code>，而不是 <code>/workspace/css/</code> 底下有 <code>foo.css</code> 跟 <code>bar.css</code>。想要是 <code>/workspace/css/</code> 底下有兩個 file 得這樣寫：</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./css /workspace/css</span></span><br></pre></td></tr></table></figure>
+
+<p>Ref：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/#copy">https://docs.docker.com/engine/reference/builder/#copy</a></p>
 
     </div>
 
@@ -376,8 +371,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/C/" rel="tag"># C++</a>
-              <a href="/tags/API/" rel="tag"># API</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
           </div>
 
         
@@ -386,13 +380,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/Core-API-and-convenient-API/" rel="prev" title="API 的基本功能性及便利性">
-      <i class="fa fa-chevron-left"></i> API 的基本功能性及便利性
+    <a href="/Go-json-and-embedded-struct/" rel="prev" title="Go json and embedded struct">
+      <i class="fa fa-chevron-left"></i> Go json and embedded struct
     </a></div>
-      <div class="post-nav-item">
-    <a href="/API-Design-for-Cpp-ch2-note/" rel="next" title="《C++ API 設計》ch2 Qualities">
-      《C++ API 設計》ch2 Qualities <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -514,9 +505,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://www.cjwind.idv.tw/Consistent-API-Design/";
-    this.page.identifier = "Consistent-API-Design/";
-    this.page.title = "API 設計的一致性";
+    this.page.url = "http://www.cjwind.idv.tw/Dockerfile/";
+    this.page.identifier = "Dockerfile/";
+    this.page.title = "Dockerfile";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {

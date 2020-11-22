@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">158</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,103 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Exception-Handling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Exception-Handling/" class="post-title-link" itemprop="url">Exception Handling</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-05 22:04:26" itemprop="dateCreated datePublished" datetime="2018-04-05T22:04:26+08:00">2018-04-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Exception-Handling/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Exception-Handling/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>前陣子寫 code 遇到 exception 或程式執行錯誤該丟出 exception 的情況，雖然知道 try catch 跟 throw exception，但「什麼時候」要「如何使用」exception 卻沒個概念然後搞得一團亂。只好來念念《例外處理設計的逆襲》，順便整理下嗑完書的簡略筆記。</p>
+<h2 id="區分-Fault、Error、Failure、Exception"><a href="#區分-Fault、Error、Failure、Exception" class="headerlink" title="區分 Fault、Error、Failure、Exception"></a>區分 Fault、Error、Failure、Exception</h2><p>首先區分幾個名詞的概念，不然這些東西都很像，不分清楚講到後來都不知道在講些什麼了。</p>
+<ul>
+<li>（從外部看）一個 <strong>component 沒有提供正確服務稱為 service failure</strong>，簡稱 failure。</li>
+<li><strong>error 是種「狀態」</strong>，表示 component 內部處於錯誤狀態。這種狀態可能導致 component 執行失敗，造成 failure。</li>
+<li><strong>fault 則是導致 error 發生的「原因」</strong>。</li>
+<li>程式語言以 exception 表達 error 與 failure 的概念。<ul>
+<li>從不同角度來看（如 caller 跟 callee），exception 可以代表 error 也可以代表 failure。</li>
+<li>遇到某種情況要不要丟出 exception，決定方式之一是看在該 function 的語意及功能下，該狀況是不是屬於「目前可能處在不正確的狀態」或「被 call 的 function 沒做好該做的事」。如果是，當然就丟出 exception。</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Exception-Handling/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1200,121 +1297,6 @@
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=left,bottom,right,top</span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">540</span>,<span class="number">25</span>.<span class="number">05</span></span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?node[bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">55</span>,<span class="number">25</span>.<span class="number">06</span>][highway=traffic_signals]</span><br></pre></td></tr></table></figure>
 
 <p>tag 可以串很多，會被 and 起來，其中 node 也可以改成 way 跟 relation。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Use-Shared-Library-in-Linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Use-Shared-Library-in-Linux/" class="post-title-link" itemprop="url">Use Shared Library in Linux</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-14 22:25:09" itemprop="dateCreated datePublished" datetime="2017-04-14T22:25:09+08:00">2017-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Use-Shared-Library-in-Linux/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Use-Shared-Library-in-Linux/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="執行檔如何尋找-shared-library"><a href="#執行檔如何尋找-shared-library" class="headerlink" title="執行檔如何尋找 shared library"></a>執行檔如何尋找 shared library</h2><p>ELF 將依賴的 shared library 存在 <code>.dynamic</code> section 的 <code>DT_NEED</code> 欄位。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line"></span><br><span class="line">Dynamic section at offset 0x868 contains 26 entries:</span><br><span class="line">  Tag       <span class="built_in"> Type </span>                        Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [./libfoo.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [./libbar.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure>
-
-<p>如果是絕對路徑， dynamic linker 直接去該路徑存取 shared library。如果是相對路徑，則會依照以下順序到不同路徑下找 library：</p>
-<ul>
-<li><code>LD_LIBRARY_PATH</code> 環境變數指定的路徑</li>
-<li><code>.dynamic</code> section 中 <code>DT_RUNPATH</code> 欄位記錄的路徑</li>
-<li><code>/etc/ld.so.conf</code> 設定的路徑（實際上是讀取 <code>/etc/ld.so.cache</code>）</li>
-<li><code>/lib</code></li>
-<li><code>/usr/lib</code></li>
-</ul>
-<p>因為一個個搜尋路徑很慢，所以指令 <code>ldconfig</code> 除了更新系統中 library 的 SO-NAME soft link 外，還會將這些 SO-NAME 以特殊的形式存在 <code>/etc/ld.so.cache</code> 作為 cache 以加快搜尋。所以增加、刪除或更新 shared library 以及修改 <code>/etc/ld.so.conf</code> 後，都要執行 <code>ldconfig</code> 來更新 SO-NAME。</p>
-<h2 id="環境變數"><a href="#環境變數" class="headerlink" title="環境變數"></a>環境變數</h2><p>幾個跟 dynamic linking 有關的常用環境變數。</p>
-<h3 id="LD-LIBRARY-PATH"><a href="#LD-LIBRARY-PATH" class="headerlink" title="LD_LIBRARY_PATH"></a>LD_LIBRARY_PATH</h3><p>臨時改變 shared library 的搜尋路徑，開發跟 debug 的時候很好用。</p>
-<figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">$ LD_LIBRARY_PATH=<span class="regexp">/home/</span>foo ls</span><br></pre></td></tr></table></figure>
-
-<h3 id="LD-PRELOAD"><a href="#LD-PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h3><p>可以指定預先 load 的 shared library 或 object file，無論執行檔或使用的 shared library 有沒有依賴它。因為會使用先 load 的 shared library 的 symbol，所以可以用來改掉原本執行檔使用的 shared library，例如 standard C library。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ LD_PRELOAD=.<span class="regexp">/libfoo.so ./m</span>ain</span><br></pre></td></tr></table></figure>
-
-<h3 id="LD-DEBUG"><a href="#LD-DEBUG" class="headerlink" title="LD_DEBUG"></a>LD_DEBUG</h3><p>可以看 dynamic linker 的 debug 訊息，設成 <code>help</code> 可以看可設定的值。</p>
-<h2 id="建立-amp-安裝-shared-library"><a href="#建立-amp-安裝-shared-library" class="headerlink" title="建立 &amp; 安裝 shared library"></a>建立 &amp; 安裝 shared library</h2><p>build 出 shared library：</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ gcc -<span class="keyword">shared</span> -fPIC -Wl,-soname,mysoname -o library_name sources</span><br></pre></td></tr></table></figure>
-
-<p><code>-shared</code> 表示輸出 shared library，<code>-fPIC</code> 表示使用 <a href="/Dynamic-Linking-PIC/">PIC</a>。<code>-Wl</code> 可以將參數傳給 linker。<code>-soname</code> 是指定 SO-NAME，如果不指定，shared library 預設沒有 SO-NAME，即無法用 <code>ldconfig</code> 建 soft link。shared library 的 SO-NAME 可以用 <code>readelf -d</code> 查看。</p>
-<p>去除 symbol 資訊可以讓 shared library 檔案變小，常用在 release 時：</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>strip libfoo.so</span><br></pre></td></tr></table></figure>
-
-<p>安裝 shared library 通常是放到系統相關的路徑下，例如 <code>/lib</code>、<code>/usr/lib</code> 等，然後執行 <code>ldconfig</code> 更新 soft link。不過通常安裝會用 <code>make install</code> 之類的指令，不需要手動 copy 跟 <code>ldconfig</code>。</p>
-<h2 id="Related-Posts-amp-Ref"><a href="#Related-Posts-amp-Ref" class="headerlink" title="Related Posts &amp; Ref"></a>Related Posts &amp; Ref</h2><ul>
-<li>ld-linux manual</li>
-<li>《程式設計師的自我修養》ch8</li>
-<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
-<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
-<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
-<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
-<li><a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a></li>
-</ul>
 
       
     </div>
