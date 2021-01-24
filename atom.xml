@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2020-11-21T14:49:58.371Z</updated>
+  <updated>2021-01-24T09:35:40.545Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Go Module</title>
+    <link href="http://www.cjwind.idv.tw/Go-Module/"/>
+    <id>http://www.cjwind.idv.tw/Go-Module/</id>
+    <published>2021-01-24T09:34:34.000Z</published>
+    <updated>2021-01-24T09:35:40.545Z</updated>
+    
+    <content type="html"><![CDATA[<p>Go 從 1.13 開始支援 Go Module，可以在 <code>GOPATH</code> 以外的地方建立 go project 並進行套件管理。<em>一直覺得 source code 只能放在 <code>GOPATH</code> 裡超阿雜…</em></p><h2 id="建立-project"><a href="#建立-project" class="headerlink" title="建立 project"></a>建立 project</h2><p>在 <code>GOPATH</code> 以外的地方建立一個 directory，並且在其中執行 <code>go mod init</code>：</p><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">$ mkdir <span class="keyword">project</span></span><br><span class="line">$ cd <span class="keyword">project</span></span><br><span class="line">$ go mod init github.com<span class="regexp">/cjwind/</span><span class="keyword">project</span></span><br></pre></td></tr></table></figure><p>會產生 <code>go.mod</code> 檔案，它會記錄 Go module 與使用的 Go 版本：</p><figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">module github.com<span class="regexp">/cjwind/</span><span class="keyword">project</span></span><br><span class="line"></span><br><span class="line">go <span class="number">1.15</span></span><br></pre></td></tr></table></figure><p>接下來在這個 directory 裡進行開發跟 build 就都一樣，重點是現在 source code 不用非得放在 <code>GOPATH</code> 裡啦～</p><h2 id="套件管理"><a href="#套件管理" class="headerlink" title="套件管理"></a>套件管理</h2><p>用 <code>go get</code> 安裝 package 後，會發現在 <code>go.mod</code> 多了一行 <code>require [package] [version]</code>，就表示目前使用的 package 及其 version。</p><p>另外可能會出現 <code>require [package] [version] // indirect</code>，這表示是我們使用的 package 所需要的 package。</p><p>也可以用 <code>go get [package]@[version]</code> 來指定特定的 package version。</p><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://blog.golang.org/using-go-modules">Using Go Modules</a></li><li><a href="https://golang.org/ref/mod">Go Modules Reference</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Go 從 1.13 開始支援 Go Module，可以在 &lt;code&gt;GOPATH&lt;/code&gt; 以外的地方建立 go project 並進行套件管理。&lt;em&gt;一直覺得 source code 只能放在 &lt;code&gt;GOPATH&lt;/code&gt; 裡超阿雜…&lt;/em&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="Go" scheme="http://www.cjwind.idv.tw/tags/Go/"/>
+    
+  </entry>
   
   <entry>
     <title>Dockerfile</title>
@@ -180,11 +203,11 @@
     <category term="Working Effectively with Legacy Code" scheme="http://www.cjwind.idv.tw/categories/Working-Effectively-with-Legacy-Code/"/>
     
     
-    <category term="Refactor" scheme="http://www.cjwind.idv.tw/tags/Refactor/"/>
-    
     <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
     
     <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
+    
+    <category term="Refactor" scheme="http://www.cjwind.idv.tw/tags/Refactor/"/>
     
   </entry>
   
@@ -482,32 +505,6 @@
     
     
     <category term="OpenAPI" scheme="http://www.cjwind.idv.tw/tags/OpenAPI/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux 下 PhpStorm 輸入中文</title>
-    <link href="http://www.cjwind.idv.tw/PhpStorm-input-chinese-in-Linux/"/>
-    <id>http://www.cjwind.idv.tw/PhpStorm-input-chinese-in-Linux/</id>
-    <published>2019-09-09T15:43:04.000Z</published>
-    <updated>2020-08-09T03:17:09.248Z</updated>
-    
-    <content type="html"><![CDATA[<p>問題：Linux 下的 PhpStorm 無法切換輸入法輸入中文。</p><p>在 PhpStorm 啟動 script <code>bin/phpstorm.sh</code> 的 <code>Run the IDE</code> 前加入：</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="attribute">XMODIFIERS</span>=<span class="string">&quot;@im=fcitx&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> XMODIFIERS</span><br></pre></td></tr></table></figure><p>這樣用 shell 啟動 PhpStorm 就能切到中文輸入法（前提當然是已經有裝好了），不過從 launcher 啟動 PhpStorm 還是不行。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;問題：Linux 下的 PhpStorm 無法切換輸入法輸入中文。&lt;/p&gt;
-&lt;p&gt;在 PhpStorm 啟動 script &lt;code&gt;bin/phpstorm.sh&lt;/code&gt; 的 &lt;code&gt;Run the IDE&lt;/code&gt; 前加入：&lt;/p&gt;
-&lt;figure cl</summary>
-      
-    
-    
-    
-    
-    <category term="Linux" scheme="http://www.cjwind.idv.tw/tags/Linux/"/>
-    
-    <category term="PhpStorm" scheme="http://www.cjwind.idv.tw/tags/PhpStorm/"/>
     
   </entry>
   

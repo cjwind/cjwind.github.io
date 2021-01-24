@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,126 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/design-a-new-c-plus-plus-class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/design-a-new-c-plus-plus-class/" class="post-title-link" itemprop="url">設計 C++ class</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-04-13 15:40:02" itemprop="dateCreated datePublished" datetime="2014-04-13T15:40:02+08:00">2014-04-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/design-a-new-c-plus-plus-class/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design-a-new-c-plus-plus-class/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>列出設計一新 class 時需要注意的問題跟與其相關的東西：</p>
+<ul>
+<li><p>真的需要一個新 class 嗎？<em>（我覺得這最重要）</em></p>
+<p>使用既有 class 是否能達成需求？</p>
+</li>
+<li><p>如何產生及銷毀新 class 的 object？</p>
+<p>與 constructor、destructor、new、new[]、delete、delete[] 有關</p>
+</li>
+<li><p>物件的 initialization 跟 assignment 有何區別？</p>
+<p>與 constructor、assignment operator 的行為有關</p>
+</li>
+<li><p>如果以 pass by value 的方式傳遞新 class 的 object 時是什麼意思？</p>
+<p>與 copy constructor 有關</p>
+</li>
+<li><p>新 class 的合法值為何？</p>
+<p>需維護的條件、member function（如 constructor、assignment operator、setter）所做的錯誤檢查、exception、exception specification</p>
+</li>
+<li><p>新 class 是否繼承某個繼承架構？</p>
+<p>base class 的 non-virtual 及 virtual function</p>
+<p>virtual distructor</p>
+</li>
+<li><p>新 class 需要那些轉型？</p>
+<p>轉型 function</p>
+</li>
+<li><p>那些 operator、function 對此 class 來說是合法的？</p>
+<p>牽涉到要宣告那些 function？是否為 member？</p>
+</li>
+<li><p>不想使用哪些 compiler 會自動生成的 function（如 constructor）？</p>
+<p>如果不使用，將它宣告成 private。</p>
+</li>
+<li><p>誰可以使用新 class 的 memeber？</p>
+<p>public、protected、private、friend</p>
+</li>
+<li><p>新 class 的 undeclared interface 是？</p>
+</li>
+<li><p>這個 class 需要多 general？</p>
+<p>class template</p>
+</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》item 19</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1122,97 +1242,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-const-member-function/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-const-member-function/" class="post-title-link" itemprop="url">C++ const member function</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 12:37:19" itemprop="dateCreated datePublished" datetime="2014-04-05T12:37:19+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c-plus-plus-const-member-function/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-const-member-function/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>不能修改 class non-static member data 也不能 call 其他非 const member function 的 member function。</p>
-<p>宣告 function 時在最後面加個 const 的 function，ex：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetIndex</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>Declaring a member function with the const keyword specifies that the function is a “read-only” function that does not modify the object for which it is called. A constant member function cannot modify any non-static data members or call any member functions that aren’t constant.</p>
-</blockquote>
-<p>compiler 會檢查 const member function 是否有改到 member data、return value 是否為 pointer 或 reference，如果改到 member data 或傳回可以讓外界修改 member data 時 compiler 會 error。可以透過這個特性反向檢查一個原本非 const 的 member function 是否有修改到 member data。</p>
-<p>如果要在 const member function 中修改特定 member data，可以在該 member data 的宣告前面加上 mutable。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》</li>
-<li><a target="_blank" rel="noopener" href="http://msdn.microsoft.com/zh-tw/library/6ke686zh.aspx">http://msdn.microsoft.com/zh-tw/library/6ke686zh.aspx</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1258,7 +1287,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

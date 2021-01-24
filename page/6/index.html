@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,130 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Open-Street-Map-API/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Open-Street-Map-API/" class="post-title-link" itemprop="url">Open Street Map API</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-04-15 23:43:15" itemprop="dateCreated datePublished" datetime="2017-04-15T23:43:15+08:00">2017-04-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Open-Street-Map-API/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Open-Street-Map-API/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>記錄開放街圖 Open Street Map（OSM） API 的基本使用跟文件。</p>
+<h2 id="Editing-API"><a href="#Editing-API" class="headerlink" title="Editing API"></a>Editing API</h2><p>RESTful API，data 格式為 XML，目前版本為 v0.6。</p>
+<p>文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API">http://wiki.openstreetmap.org/wiki/API</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6">http://wiki.openstreetmap.org/wiki/API_v0.6</a></li>
+</ul>
+<p>程式化編輯資料要注意的事情：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API#Terms_of_use">http://wiki.openstreetmap.org/wiki/API#Terms_of_use</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct">http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct</a></li>
+</ul>
+<p>OSM 有提供測試用 API，測試站跟正式網站的帳號是分開的。</p>
+<ul>
+<li>測試站：<a target="_blank" rel="noopener" href="https://master.apis.dev.openstreetmap.org/">https://master.apis.dev.openstreetmap.org/</a></li>
+<li>測試用 API：<a target="_blank" rel="noopener" href="https://master.apis.dev.openstreetmap.org/">https://master.apis.dev.openstreetmap.org/</a></li>
+<li>正式 API：<a target="_blank" rel="noopener" href="http://api.openstreetmap.org/">http://api.openstreetmap.org/</a> </li>
+</ul>
+<p>編輯修改 element 必須 reference 到一個 changeset，可以想成修改 log。changeset 跟 element 一樣有 tag，文件建議包含 <code>comment=*</code> 以及 <code>created_by=*</code> tag，簡述改了什麼以及由誰修改。</p>
+<h3 id="API-使用流程"><a href="#API-使用流程" class="headerlink" title="API 使用流程"></a>API 使用流程</h3><ol>
+<li>生一個 changeset 得到 changeset id</li>
+<li>call API 修改 element，會帶 changeset id</li>
+<li>關閉 changeset</li>
+</ol>
+<p>changeset 如果沒有關掉，<a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM 有規則會自動關閉它</a>。</p>
+<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>editing API 需要 authentication，可以用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>，即在 http header 加上 <code>Authorization: Basic xxx</code>，其中 <code>xxx</code> 是 <code>user:password</code> 的 base64 字串。nodejs 下可以用 <code>new Buffer(&quot;Hello World&quot;).toString(&#39;base64&#39;);</code> 得到 base64 字串。</p>
+<p>以 <code>curl</code> 送 request：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ curl https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span>capabilities</span><br><span class="line">$ curl -H <span class="string">&quot;Authorization: Basic xxx&quot;</span> https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span><span class="number">0.6</span>/permissions</span><br></pre></td></tr></table></figure>
+
+<p>除了 HTTP basic authentication 外也可以使用 <a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/OAuth">OAuth</a>，這我沒研究。</p>
+<p>剩下 API 使用參考<a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6#API_calls">文件定義</a>囉。</p>
+<h2 id="Overpass-API"><a href="#Overpass-API" class="headerlink" title="Overpass API"></a>Overpass API</h2><p>read only API</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API">http://wiki.openstreetmap.org/wiki/Overpass_API</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer">http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer</a></li>
+</ul>
+<p>Overpass API 有幾種 query 語法，大致分成 XML query format 跟 Overpass QL，相關文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide">http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide</a></li>
+<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL">http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL</a></li>
+</ul>
+<p>我只用 XAPI Compatibility Layer 做簡單的 map 讀取跟 tag query，沒使用上面比較複雜的 query 功能。</p>
+<p>XAPI Compatibility Layer 基本 HTTP GET：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=left,bottom,right,top</span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">540</span>,<span class="number">25</span>.<span class="number">05</span></span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?node[bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">55</span>,<span class="number">25</span>.<span class="number">06</span>][highway=traffic_signals]</span><br></pre></td></tr></table></figure>
+
+<p>tag 可以串很多，會被 and 起來，其中 node 也可以改成 way 跟 relation。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1308,108 +1432,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cargo-project-basic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Cargo-project-basic/" class="post-title-link" itemprop="url">Cargo project basic</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-02-21 23:01:10" itemprop="dateCreated datePublished" datetime="2017-02-21T23:01:10+08:00">2017-02-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Cargo-project-basic/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cargo-project-basic/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Cargo-basic"><a href="#Cargo-basic" class="headerlink" title="Cargo basic"></a>Cargo basic</h2><p>Cargo 是 <a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/index.html">Rust</a> 的 build &amp; package management system，通常會用 Cargo 管理 Rust project。<a target="_blank" rel="noopener" href="https://www.rust-lang.org/en-US/install.html">安裝 Rust</a> 會一起裝 Cargo。</p>
-<p>這跟 npm、bower、composer 等等 package manager 很像，不過為 Rust 需要 compile，所以 Cargo 除了 package management 還有 build system。package manager 是為了解決各種 library 或 package dependency 的問題，例如像 C/C++ 得自己處理如何 build 跟 link library（還會有只剩 binary 檔不知道 source code 從哪來的 library）、維持 library 版本以及升級 library 等問題。</p>
-<p>Cargo 裡稱 package 或 library 為 crate。</p>
-<p>Cargo 基本指令：</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>cargo build</span><br><span class="line"><span class="variable">$ </span>cargo run</span><br><span class="line"><span class="variable">$ </span>cargo clean</span><br><span class="line"><span class="variable">$ </span>cargo update  <span class="comment"># 升級 crate</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Start-new-project"><a href="#Start-new-project" class="headerlink" title="Start new project"></a>Start new project</h2><p><code>$ cargo new &lt;project name&gt; --bin</code></p>
-<p>產生基本 project 的 directory，內含 <code>src/</code> 跟 <code>Cargo.toml</code> 並且建立 git repository。加 <code>--bin</code> 是為了 build 出可執行檔，不加會是 library。建立 project 後修改 <code>Cargo.toml</code> 即可，<code>Cargo.toml</code> sample：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;rust-hello-cargo&quot;</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">&quot;cjwind &lt;cwentsai@gmail.com&gt;&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br></pre></td></tr></table></figure>
-
-
-<h2 id="Directory-structure"><a href="#Directory-structure" class="headerlink" title="Directory structure"></a>Directory structure</h2><figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">src/    # source code directory</span><br><span class="line">    xxx.rs</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>toml    # Cargo configuration</span><br><span class="line"><span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock    # Cargo uses the <span class="module-access"><span class="module"><span class="identifier">Cargo</span>.</span></span>lock file <span class="keyword">to</span> keep track <span class="keyword">of</span> dependencies</span><br></pre></td></tr></table></figure>
-
-<p>Cargo 會自己維護 <code>Cargo.lock</code>，不須手動修改。</p>
-<h3 id="Cargo-toml"><a href="#Cargo-toml" class="headerlink" title="Cargo.toml"></a>Cargo.toml</h3><p>Cargo 用 <code>Cargo.toml</code> 來 maintain dependency──需要什麼 crate 以及 crate 版本。這跟 nodejs、PHP 之類的 package management 差不多，只是各自用不同格式而已。</p>
-<p>修改 <code>Cargo.toml</code> 之後再 build，Cargo 會去抓需要的 crate 跟處理 dependency──如果 crate 還有 depend 是 project 沒有的也會去抓──然後 compile 它們。</p>
-<h3 id="Cargo-lock"><a href="#Cargo-lock" class="headerlink" title="Cargo.lock"></a>Cargo.lock</h3><p>假設 project 依賴 crate A 1.0.12，crate A 有新版本 1.0.13 時會怎樣？</p>
-<p>如果 Cargo 自動更新 crate 版本，萬一新版 crate A 反而讓我們的程式爛掉怎麼辦？畢竟總是可能有 bug 的，又或者某些介面或功能被修改了、行為跟原本不一樣也可能造成問題。</p>
-<p>Cargo 對此的解決方式跟其他 package manager 差不多──使用 <code>Cargo.lock</code>。</p>
-<p>第一次 build project 的時候（應該是 dependency 改動過後的第一次），Cargo 會在 <code>Cargo.lock</code> 記下當下 crate 的版本並且認定這些版本是 ok 的。之後即使 crate 有新版本，Cargo 也不會主動去更新而是以 <code>Cargo.lock</code> 記錄的為準，直到我們要求升級 crate。</p>
-<p><code>cargo update</code> 預設只會升最後一碼版號，比較大版本的升級要手動改 <code>Cargo.toml</code>。因為大版本的更新可能會有 interface 的改動，需要我們確認相應修改沒問題才能更新。</p>
-<h2 id="延伸閱讀"><a href="#延伸閱讀" class="headerlink" title="延伸閱讀"></a>延伸閱讀</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://semver.org/">Semantic Versioning</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1455,7 +1477,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

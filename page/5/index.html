@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,94 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/win10-and-linux-dual-system-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/win10-and-linux-dual-system-note/" class="post-title-link" itemprop="url">win10 與 linux 多重開機的糾葛(?)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-06-24 16:00:24" itemprop="dateCreated datePublished" datetime="2018-06-24T16:00:24+08:00">2018-06-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/win10-and-linux-dual-system-note/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="win10-and-linux-dual-system-note/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>原本電腦有用 UEFI 裝的 win7 跟 debian，用 grub2 開機。</p>
+<h2 id="多灌-win10"><a href="#多灌-win10" class="headerlink" title="多灌 win10"></a>多灌 win10</h2><p><del>其實從來沒搞懂 UEFI 在幹嘛，只知道比古早時代的 BIOS 新，然後常常造成我灌系統的困擾（喂）。</del></p>
+<p>這次用新硬碟裝 win10，原本用 legacy mode 裝起來，但 <code>update-grub</code> 抓不到，在 <code>/etc/grub.d/40_custom</code> 寫 google 來的各種 menuentry 也不行。改用 UEFI mode 裝 win10，它一下說找不到磁碟分割表（明明看起來就有），一下又說無法設定重開機所以不能裝，但明明我 BIOS 裡的 boot priority 已經選那顆新硬碟了（不過事後懷疑說不定應該要選 win7 的那顆才對）。在 BIOS 裡東調西調，從相容 legacy mode 換成 windows 8/10 又換成 windows 8/10 的另一種模式總算裝起來（裝完還把我 linux 那顆硬碟的 SATA port 關掉不知道是怎樣= =）。</p>
+<p>看起來 win10 把自己的開機區裝到原本 win7 的 UEFI 系統，所以不動原本 grub 設定的情況下，從原本開 win7 的 partition 進去，就可以再選 win10 或 win7 開機。只是如果要開 win7，它會再重開一次……= =a…..（後來懷疑說不定是因為 win10 預設不會「真關機」，所以某些情況下開 win7 會需要重開，不過只是猜測，沒試過）</p>
+<p>grub2 要加開機選項一般只要 <code>update-grub</code>。如果有自訂需求，到 <code>/etc/grub.d/</code> 底下手動加再 <code>update-grub</code>。</p>
+<h2 id="在-Linux-mount-成-read-only-的-NTFS"><a href="#在-Linux-mount-成-read-only-的-NTFS" class="headerlink" title="在 Linux mount 成 read-only 的 NTFS"></a>在 Linux mount 成 read-only 的 NTFS</h2><p>裝 win10 後的某天，我在 linux 裡要存檔案到原本 windows 下放資料的硬碟（理所當然的是 NTFS）。</p>
+<p>嗯？為什麼寫不進去？ro？為什麼變 ro 了？之前都可以 rw 啊。</p>
+<p><code>umount</code> 又 <code>mount</code> 了一陣，ro 就是 ro，錯誤訊息看起來是說 windows 休眠中，所以不給 mount rw 免得壞掉。</p>
+<p>蛤？？？windows 休眠中？？？可是我現在是開機成 linux 啊？？？哪來的 windows？？？感覺就是 win10 的錯（喂）。重開機進 win10，再重開進 linux，嗯？又好了？從 win10 關機，開機進 linux，又 ro。</p>
+<p><a target="_blank" rel="noopener" href="https://www.howtogeek.com/236807/how-to-mount-your-windows-10-or-8-system-drive-on-linux/">這篇</a> 給了我答案。簡單來說，win10 的 shut down 不是真的 shut down，reboot 才會真的 shut down<del>（講人話）</del>。好吧，把那個快速啟動關掉，我也不差那幾秒。win10 關機，開機進 linux，耶，世界一片美好。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1188,130 +1276,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Open-Street-Map-API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Open-Street-Map-API/" class="post-title-link" itemprop="url">Open Street Map API</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2017-04-15 23:43:15" itemprop="dateCreated datePublished" datetime="2017-04-15T23:43:15+08:00">2017-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Open-Street-Map-API/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Open-Street-Map-API/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>記錄開放街圖 Open Street Map（OSM） API 的基本使用跟文件。</p>
-<h2 id="Editing-API"><a href="#Editing-API" class="headerlink" title="Editing API"></a>Editing API</h2><p>RESTful API，data 格式為 XML，目前版本為 v0.6。</p>
-<p>文件：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API">http://wiki.openstreetmap.org/wiki/API</a></li>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6">http://wiki.openstreetmap.org/wiki/API_v0.6</a></li>
-</ul>
-<p>程式化編輯資料要注意的事情：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API#Terms_of_use">http://wiki.openstreetmap.org/wiki/API#Terms_of_use</a></li>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct">http://wiki.openstreetmap.org/wiki/Automated_Edits_code_of_conduct</a></li>
-</ul>
-<p>OSM 有提供測試用 API，測試站跟正式網站的帳號是分開的。</p>
-<ul>
-<li>測試站：<a target="_blank" rel="noopener" href="https://master.apis.dev.openstreetmap.org/">https://master.apis.dev.openstreetmap.org/</a></li>
-<li>測試用 API：<a target="_blank" rel="noopener" href="https://master.apis.dev.openstreetmap.org/">https://master.apis.dev.openstreetmap.org/</a></li>
-<li>正式 API：<a target="_blank" rel="noopener" href="http://api.openstreetmap.org/">http://api.openstreetmap.org/</a> </li>
-</ul>
-<p>編輯修改 element 必須 reference 到一個 changeset，可以想成修改 log。changeset 跟 element 一樣有 tag，文件建議包含 <code>comment=*</code> 以及 <code>created_by=*</code> tag，簡述改了什麼以及由誰修改。</p>
-<h3 id="API-使用流程"><a href="#API-使用流程" class="headerlink" title="API 使用流程"></a>API 使用流程</h3><ol>
-<li>生一個 changeset 得到 changeset id</li>
-<li>call API 修改 element，會帶 changeset id</li>
-<li>關閉 changeset</li>
-</ol>
-<p>changeset 如果沒有關掉，<a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6#Changesets_2">OSM 有規則會自動關閉它</a>。</p>
-<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>editing API 需要 authentication，可以用 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>，即在 http header 加上 <code>Authorization: Basic xxx</code>，其中 <code>xxx</code> 是 <code>user:password</code> 的 base64 字串。nodejs 下可以用 <code>new Buffer(&quot;Hello World&quot;).toString(&#39;base64&#39;);</code> 得到 base64 字串。</p>
-<p>以 <code>curl</code> 送 request：</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ curl https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span>capabilities</span><br><span class="line">$ curl -H <span class="string">&quot;Authorization: Basic xxx&quot;</span> https:<span class="regexp">//m</span>aster.apis.dev.openstreetmap.org<span class="regexp">/api/</span><span class="number">0.6</span>/permissions</span><br></pre></td></tr></table></figure>
-
-<p>除了 HTTP basic authentication 外也可以使用 <a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/OAuth">OAuth</a>，這我沒研究。</p>
-<p>剩下 API 使用參考<a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/API_v0.6#API_calls">文件定義</a>囉。</p>
-<h2 id="Overpass-API"><a href="#Overpass-API" class="headerlink" title="Overpass API"></a>Overpass API</h2><p>read only API</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API">http://wiki.openstreetmap.org/wiki/Overpass_API</a></li>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer">http://wiki.openstreetmap.org/wiki/Overpass_API/XAPI_Compatibility_Layer</a></li>
-</ul>
-<p>Overpass API 有幾種 query 語法，大致分成 XML query format 跟 Overpass QL，相關文件：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide">http://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide</a></li>
-<li><a target="_blank" rel="noopener" href="http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL">http://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL</a></li>
-</ul>
-<p>我只用 XAPI Compatibility Layer 做簡單的 map 讀取跟 tag query，沒使用上面比較複雜的 query 功能。</p>
-<p>XAPI Compatibility Layer 基本 HTTP GET：</p>
-<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=left,bottom,right,top</span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?map?bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">540</span>,<span class="number">25</span>.<span class="number">05</span></span><br><span class="line"><span class="attribute">http</span>://www.overpass-api.de/api/xapi?node[bbox=<span class="number">121</span>.<span class="number">53828</span>,<span class="number">25</span>.<span class="number">045</span>,<span class="number">121</span>.<span class="number">55</span>,<span class="number">25</span>.<span class="number">06</span>][highway=traffic_signals]</span><br></pre></td></tr></table></figure>
-
-<p>tag 可以串很多，會被 and 起來，其中 node 也可以改成 way 跟 relation。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1357,7 +1321,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

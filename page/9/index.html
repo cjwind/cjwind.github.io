@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,97 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Adapter-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Adapter-Pattern/" class="post-title-link" itemprop="url">Adapter Pattern</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-02 22:55:44" itemprop="dateCreated datePublished" datetime="2016-04-02T22:55:44+08:00">2016-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Adapter-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Adapter-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>將一個 class 的 interface 轉換成另一個 interface 供其他人使用，讓原本不相容的 interface 可以相容。</strong></p>
+<p>一個轉接頭的概念。</p>
+<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>不想改其他使用 class A 的 code 卻想用 class B 達成相同功能時，以 Adapter 將 class B 的 interface 轉成 class A。</p>
+<p>Adapter 因為受限 Adaptee 的能力，不一定能完美 implement interface 所提供的功能，這種時候通常用文件（就大家講好）或 exception 等等方式處理。之前一直以為 Adpater 要完全 implement interface 提供的功能，遇到受限的狀況就有點 confuse 這樣是不是 adpater…</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/adapter_pattern.png" alt="Adapter Pattern (合成)"></p>
+<p>Client 只知道 Target 的 interface，不知道 Adaptee 的 interface，Class 跟 Adaptee 之間是鬆綁的。如果需要同時使用兩種 interface，Adapater 也可以 implement 多個 Target interface，例如有 Target1 及 Target2 兩個 interface，有些地方原本使用 Target1，後來新寫的 code 使用 Target2，Adapter 同時支援兩者就可以不改動到原有的 code。</p>
+<p>我比較習慣用合成讓 Adapter 使用 Adaptee，有另一種做法是用繼承，沒很懂這樣用的好處跟時機，先記著有這種方式：</p>
+<p><img src="/images/adapter_pattern2.png" alt="Adapter Pattern (繼承)"></p>
+<h2 id="跟其他-pattern-比較"><a href="#跟其他-pattern-比較" class="headerlink" title="跟其他 pattern 比較"></a>跟其他 pattern 比較</h2><ul>
+<li>Adapter 是做 interface 轉換。</li>
+<li>Facade 是為了提供簡單的 interface 讓其他人易於操作 sub system，Adapter 跟 Facade 的差別在「目的」。</li>
+<li>Decorator 是加功能。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1231,90 +1322,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Consistent-API-Design/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Consistent-API-Design/" class="post-title-link" itemprop="url">API 設計的一致性</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-08-08 16:38:37" itemprop="dateCreated datePublished" datetime="2015-08-08T16:38:37+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Consistent-API-Design/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Consistent-API-Design/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>像 naming、argument 順序、standard pattern 的使用、memory model、exception 的使用、error handling 等等，如果設計上有一致性，使用者較容易使用。保有一致性時，使用者可以輕易透過原本的理解認知推測新功能或其他部分如何使用。</p>
-<p>在設計 C++ API 上，如果跟 standard library 保有相同的模式與規則也會讓 API 易於使用，畢竟大家都會用 standard library 啊！</p>
-<p>雖然這篇標題是說 API 的設計，但小至 class 跟 function 也是有類似的觀念啊～</p>
-<p>舉個 argument 不一致的例子：<code>fscanf()</code> 跟 <code>fgets()</code>，它們分別長這樣：</p>
-<p><code>int fscanf(FILE* stream, const char* format, ...);</code><br><code>char* fgets(char* str, int num, FILE* stream);</code></p>
-<p>兩個類似的 function，<code>FILE* stream</code> 參數卻是一個在第一個、一個在最後一個，讓我太久沒用就得回頭瞄一下文件……</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1360,7 +1367,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

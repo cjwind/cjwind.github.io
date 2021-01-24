@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">159</span>
+          <span class="site-state-item-count">160</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,111 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Qt-d-pointer-and-q-pointer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Qt-d-pointer-and-q-pointer/" class="post-title-link" itemprop="url">Qt d-pointer & q-pointer</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-10-23 23:45:00" itemprop="dateCreated datePublished" datetime="2016-10-23T23:45:00+08:00">2016-10-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Qt-d-pointer-and-q-pointer/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Qt-d-pointer-and-q-pointer/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>每次看 Qt source code 都不知道 <code>d-&gt;</code> 跟 <code>q-&gt;</code> 到底在幹嘛，翻到 <a target="_blank" rel="noopener" href="https://wiki.qt.io/D-Pointer">D-Pointer</a> 這篇解釋就來看一下。<del>但是我原本不是要追究這個的ㄚㄚㄚ……</del></p>
+<h2 id="d-pointer-pattern"><a href="#d-pointer-pattern" class="headerlink" title="d-pointer pattern"></a>d-pointer pattern</h2><p>d-pointer 是個 design pattern，也叫 Opaque pointer 或 Pimpl idiom。它分開給外面看的公開 class interface 跟實作的 class。做法是在公開 class 放個實作 class 的 pointer，公開 class 各 function 只是 call implementation class 的 function。公開 class 中跟實作相關的 member 只有那個 pointer，所以 size 會固定是 pointer 的 size。<del>老覺得在哪看過類似的東西……</del></p>
+<p>Qt 用 d-pointer 主要是為了保持 binary compatibility。</p>
+<h2 id="Binary-Compatibility"><a href="#Binary-Compatibility" class="headerlink" title="Binary Compatibility"></a>Binary Compatibility</h2><p>有 binary compatibility 表示 application 在以舊版 library compile 後，新版 library binary 可以直接取代舊版 library 而不需要重新 compile application。要達到 binary compatibility 就不能改變已經公開出去的 C++ class 的 size 或 memory  layout，即不能增加 member 或者更改 function 跟 member 的順序。如果改了，application 認定的 library class size 或 memory layout 跟新版 library 不同，會把 memory 踩爛掉。</p>
+<p>Qt 使用 d-pointer 達到不修改既有公開 class 還能增加 feature 或修改實作細節。</p>
+<h2 id="Qt-的實作"><a href="#Qt-的實作" class="headerlink" title="Qt 的實作"></a>Qt 的實作</h2><p>基於保持 binary compatibility，Qt 幾乎所有 class 都用 d-pointer 指向真正實作的 class。實作 class 叫 <code>QXXXPrivate</code>，例如 <code>QWidget</code> 就有 <code>QWidgetPrivate</code>，通常定義在 <code>xxx_p.h</code>，例如 <code>qwidget_p.h</code>。<code>QXXX</code> 以及 <code>QXXXPrivate</code> 的實作會寫在 <code>qxxx.cpp</code>。</p>
+<p>為了減少 memory allocation 的次數，<code>QXXXPrivate</code> 的 class 也會有繼承關係。其繼承關係會依循一般 class 的繼承關係，例如 <code>QLabel</code> 繼承 <code>QFrame</code>，<code>QLabelPrivate</code> 就會繼承 <code>QFramePrivate</code>。<code>QXXXPrivate</code> 大多繼承自 <code>QObjectPrivate</code>。</p>
+<p>以下 code 擷取自 Qt 5.7.0。</p>
+<h3 id="d-pointer-amp-q-pointer"><a href="#d-pointer-amp-q-pointer" class="headerlink" title="d-pointer &amp; q-pointer"></a>d-pointer &amp; q-pointer</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObject</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    QScopedPointer&lt;QObjectData&gt; d_ptr;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObjectData</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    QObject *q_ptr;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_CORE_EXPORT</span> <span class="title">QObjectPrivate</span> :</span> <span class="keyword">public</span> QObjectData &#123; ... &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>好啦～上面是 d-pointer，<code>QObjectPrivate</code> 繼承 <code>QObjectData</code>，而 <code>QObject</code> 有 <code>d_ptr</code> 指向 <code>QObjectData</code>。</p>
+<p>有時候實作 class 需要使用公開 class，因此實作 class 會存公開 class 的 pointer，稱為 q-pointer。如上，<code>QObjectData</code> 有 <code>QObject</code> 的 pointer <code>q_ptr</code>。</p>
+<p>在 Qt 裡 d-pointer 跟 q-pointer 基本上是繼承自 base class，不過也有例外。</p>
+<h3 id="Q-D-amp-Q-Q-macro"><a href="#Q-D-amp-Q-Q-macro" class="headerlink" title="Q_D() &amp; Q_Q () macro"></a>Q_D() &amp; Q_Q () macro</h3><p><code>qtbase/src/corelib/global/qglobal.h</code> 定義了這些 function 跟 macro：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> T *<span class="title">qGetPtrHelper</span><span class="params">(T *ptr)</span> </span>&#123; <span class="keyword">return</span> ptr; &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_DECLARE_PRIVATE(Class) \</span></span><br><span class="line">    <span class="keyword">inline</span> Class##<span class="function">Private* <span class="title">d_func</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;Class##Private *&gt;(qGetPtrHelper(d_ptr)); &#125; \</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">const</span> Class##<span class="function">Private* <span class="title">d_func</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">reinterpret_cast</span>&lt;<span class="keyword">const</span> Class##Private *&gt;(qGetPtrHelper(d_ptr)); &#125; \</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>##<span class="title">Private</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_DECLARE_PUBLIC(Class)                                    \</span></span><br><span class="line">    <span class="function"><span class="keyword">inline</span> Class* <span class="title">q_func</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;Class *&gt;(q_ptr); &#125; \</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">const</span> Class* <span class="title">q_func</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;<span class="keyword">const</span> Class *&gt;(q_ptr); &#125; \</span><br><span class="line">    <span class="keyword">friend</span> <span class="class"><span class="keyword">class</span> <span class="title">Class</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_D(Class) Class##Private * const d = d_func()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Q_Q(Class) Class * const q = q_func()</span></span><br></pre></td></tr></table></figure>
+
+<p>在 class 內會用 <code>Q_DECLARE_PRIVATE()</code>，以 <code>QStandardItem</code> 為例：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Q_GUI_EXPORT</span> <span class="title">QStandardItem</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    QScopedPointer&lt;QStandardItemPrivate&gt; d_ptr;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    Q_DECLARE_PRIVATE(QStandardItem)</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">QStandardItem::QStandardItem() : d_ptr(<span class="keyword">new</span> QStandardItemPrivate)</span><br><span class="line">&#123;</span><br><span class="line">    Q_D(QStandardItem);</span><br><span class="line">    d-&gt;q_ptr = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QStandardItem::setChild</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> column, QStandardItem *item)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Q_D(QStandardItem);</span><br><span class="line">    d-&gt;setChild(row, column, item, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>QStandardItem</code> 裡有兩個 inline 的 private function 分別為 <code>QStandardItemPrivate* d_func()</code> 以及 <code>const QStandardItemPrivate* d_fun() const</code>，並且 <code>QStandardItemPrivate</code> 是 <code>QStandardItem</code> 的 friend class，可以 access <code>QStandardItem</code> 的 private member。constructor 生了 <code>QStandardItemPrivate</code> 並將 <code>d_ptr</code> 指過去。</p>
+<p>依據 macro 的定義，<code>d</code> 是 <code>QStandardItemPrivate*</code>，<code>d_func()</code> 將 <code>qGetPtrHelper(d_ptr)</code> 轉型成 <code>QStandardItemPrivate*</code> 丟出來。<code>d_ptr</code> 是個 <code>QScopedPointer&lt;QStandardItemPrivate&gt;</code>，<code>qGetPtrHelper()</code> 將 smart pointer 轉成單純的 pointer（參考<a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/8015718/what-is-the-use-of-qgetptrhelper-in-this-example">這篇</a>）。<del>還沒有看得很懂怎麼轉的，不過先這樣理解吧…</del> 總之 <code>d</code> 是指向 construct 時塞進來的 <code>QStandardItemPrivate</code> 的 pointer。所以最後 <code>QStandardItem::setChild()</code> 是用 <code>QStandardItemPrivate::setChild()</code> 實際做事。</p>
+<p>反過來的 <code>Q_Q()</code> 比較簡單。<del>這 macro 的名字真好笑(離題</del></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QStandardItemPrivate</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    Q_DECLARE_PUBLIC(QStandardItem)</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ...</span><br><span class="line">    QStandardItem *q_ptr;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">QStandardItemPrivate::setChild</span><span class="params">(<span class="keyword">int</span> row, <span class="keyword">int</span> column, QStandardItem *item,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">bool</span> emitChanged)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Q_Q(QStandardItem);</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (rows &lt;= row)</span><br><span class="line">        q-&gt;setRowCount(row + <span class="number">1</span>);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>透過 <code>q_func()</code> 拿到的 <code>q</code> 是轉型成 <code>QStandardItem*</code> 的 pointer。</p>
+<p>這個例子裡，因為 <code>QStandardItem</code> 跟 <code>QStandardItemPrivate</code> 沒有繼承別人，它們自己分別記錄了 <code>d_ptr</code> 跟 <code>q_ptr</code>，所以 <code>d_func()</code> 跟 <code>q_func()</code> 有沒有轉型根本沒差。但其他繼承 <code>QObjectPrivate</code> 的 class，<code>q_ptr</code> 是從 <code>QObjectData</code> 來的，type 是 <code>QObject*</code>，如果要直接使用 sub class 的 member 就得轉型，<code>d_ptr</code> 同理。除非用 virtual function 做多型，不過這個狀況用 virtual function 很怪，因為這樣 base class <code>QObject</code> 得有所有 sub class 會用到的 interface，這邊顯然不是這個意思，用 virtual function 不合理。</p>
+<p>這樣看過之後，對 Qt source code 的結構比較理解了，才不會每次看到 <code>Q_D()</code> 啊 <code>Q_Q()</code> 啊都想 Q_Q 了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1195,97 +1300,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Adapter-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Adapter-Pattern/" class="post-title-link" itemprop="url">Adapter Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-04-02 22:55:44" itemprop="dateCreated datePublished" datetime="2016-04-02T22:55:44+08:00">2016-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Adapter-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Adapter-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>將一個 class 的 interface 轉換成另一個 interface 供其他人使用，讓原本不相容的 interface 可以相容。</strong></p>
-<p>一個轉接頭的概念。</p>
-<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>不想改其他使用 class A 的 code 卻想用 class B 達成相同功能時，以 Adapter 將 class B 的 interface 轉成 class A。</p>
-<p>Adapter 因為受限 Adaptee 的能力，不一定能完美 implement interface 所提供的功能，這種時候通常用文件（就大家講好）或 exception 等等方式處理。之前一直以為 Adpater 要完全 implement interface 提供的功能，遇到受限的狀況就有點 confuse 這樣是不是 adpater…</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/adapter_pattern.png" alt="Adapter Pattern (合成)"></p>
-<p>Client 只知道 Target 的 interface，不知道 Adaptee 的 interface，Class 跟 Adaptee 之間是鬆綁的。如果需要同時使用兩種 interface，Adapater 也可以 implement 多個 Target interface，例如有 Target1 及 Target2 兩個 interface，有些地方原本使用 Target1，後來新寫的 code 使用 Target2，Adapter 同時支援兩者就可以不改動到原有的 code。</p>
-<p>我比較習慣用合成讓 Adapter 使用 Adaptee，有另一種做法是用繼承，沒很懂這樣用的好處跟時機，先記著有這種方式：</p>
-<p><img src="/images/adapter_pattern2.png" alt="Adapter Pattern (繼承)"></p>
-<h2 id="跟其他-pattern-比較"><a href="#跟其他-pattern-比較" class="headerlink" title="跟其他 pattern 比較"></a>跟其他 pattern 比較</h2><ul>
-<li>Adapter 是做 interface 轉換。</li>
-<li>Facade 是為了提供簡單的 interface 讓其他人易於操作 sub system，Adapter 跟 Facade 的差別在「目的」。</li>
-<li>Decorator 是加功能。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1331,7 +1345,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
