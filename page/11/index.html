@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -243,7 +243,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -292,6 +292,94 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Story-of-linking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Story-of-linking/" class="post-title-link" itemprop="url">Linking 的故事(?)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-05-07 23:55:55" itemprop="dateCreated datePublished" datetime="2015-05-07T23:55:55+08:00">2015-05-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Story-of-linking/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Story-of-linking/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>很久很久以前（大概是還在用紙帶打洞的時代），會在 code 裡直接寫 variable 跟 function 所在的 address（我猜一開始說不定只有「要在哪裡取得資料」跟「要跳到哪裡繼續執行」的概念）。增加指令、修改程式後，會有很多 variable 及 function 的 address 被改變，像是中間多塞個指令就會讓後面東西 address 全改了，所以程式中所有 address 都需要重新調整（relocate）。</p>
+<p>這種 relocate 工作太令人崩潰，於是有人想出 symbol 的概念──以符號代表某個 variable 或 function（其實就是取名字）。code 裡改用 symbol，不再直接寫 address。等程式要執行的時候再把 symbol 換成真正的 address。這就是最開始 linking 主要做的事。</p>
+<p>隨著時代演進(?)，程式規模越來越大，人們開始在一個程式中分許多 module 並且分別 compile。有多個 module 後 linking 就要處理跨 module 的 variable 及 function 引用，也就是將在其他 module 中的 variable 跟 function 的 address 填入 reference 到它們的地方。例如在 A module 裡 call B module 的 function foo()，就要在 A module 中填入 foo() 真正的 address。</p>
+<p>如此一來，compile 階段可以不用知道 symbol 的 address，而且 module 也可以獨立 compile，等到 link 階段再由 linker 處理 symbol 及 address 的轉換。linker 就像是將多個 compile 好的 module 黏起來。</p>
+<p>linking 主要過程：</p>
+<ul>
+<li>Address and storage allocation</li>
+<li>Symbol resolution</li>
+<li>Relocation</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1142,99 +1230,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/feature-driven-and-use-case-driven-development/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/feature-driven-and-use-case-driven-development/" class="post-title-link" itemprop="url">Feature driven and Use case driven development</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-03-13 23:32:06" itemprop="dateCreated datePublished" datetime="2015-03-13T23:32:06+08:00">2015-03-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-05-13 21:10:00" itemprop="dateModified" datetime="2015-05-13T21:10:00+08:00">2015-05-13</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/feature-driven-and-use-case-driven-development/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="feature-driven-and-use-case-driven-development/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>設計軟體事先處理整體系統輪廓，將大系統切成多個較小的問題，再逐一反覆處理每個小問題直到完成整個系統。</p>
-<p>Feature Driven Development 及 Use Case Driven Development 是「將系統切成小問題再逐一反覆處理」的方式。</p>
-<h2 id="Feature-Driven-Development"><a href="#Feature-Driven-Development" class="headerlink" title="Feature Driven Development"></a>Feature Driven Development</h2><p>以 feature 為主軸，以功能為切入角度。</p>
-<p>挑出特定功能，規劃、分析及開發該功能直到完成。</p>
-<p>看系統的角度比較 granular。</p>
-<p>適合功能較個別獨立、未密切相連的系統。</p>
-<h2 id="Use-Case-Driven-Development"><a href="#Use-Case-Driven-Development" class="headerlink" title="Use Case Driven Development"></a>Use Case Driven Development</h2><p>以 use case diagram 為主軸，以 scenario（使用情境）及流程為切入角度。從 use diagram 拿出一個個 use case 做，挑出 use case 的 scenraio，寫 code 支援該 scenario，直到完成 use case 的所有 scenario 以及完成所有 use case。</p>
-<p>看系統的角度比較整體。</p>
-<p>適合由一堆流程構成的系統，例如差勤請假系統。</p>
-<h2 id="碎念時間"><a href="#碎念時間" class="headerlink" title="碎念時間"></a>碎念時間</h2><p>實際上開發軟體會混合多種方式，例如從 use case driven 開始，接著在 use case 挑出小功能進行設計（這是 feature driven），最後在實作階段用 test driven 來思考如何 implement。</p>
-<p>開發軟體的方式很多，各有其適用之所在，重點不在於哪個方法最好，而是哪些方法的搭配使用能較好的解決所面對的問題。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/10/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/12/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 

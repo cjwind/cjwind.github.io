@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -243,7 +243,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -292,6 +292,91 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OpenAPI-PSR-7-Message-Validator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/OpenAPI-PSR-7-Message-Validator/" class="post-title-link" itemprop="url">OpenAPI PSR-7 Message Validator required field</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-25 22:28:10" itemprop="dateCreated datePublished" datetime="2019-10-25T22:28:10+08:00">2019-10-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/OpenAPI-PSR-7-Message-Validator/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="OpenAPI-PSR-7-Message-Validator/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/thephpleague/openapi-psr7-validator">https://github.com/thephpleague/openapi-psr7-validator</a></li>
+</ul>
+<p>如果要驗證 response「要有某個欄位」，在 api 定義（yaml 或 json 檔）裡該欄位要設 <code>required</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">                <span class="attr">properties:</span></span><br><span class="line">                  <span class="attr">id:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">                  <span class="attr">username:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                <span class="attr">required:</span>    <span class="comment"># 沒有這個的話, response 有或沒有這些欄位都會過</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
+
+<p>用 component 的版本：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="string">\$ref:</span> <span class="string">&#x27;#/components/schemas/User&#x27;</span></span><br><span class="line"><span class="attr">components:</span></span><br><span class="line">  <span class="attr">schemas:</span></span><br><span class="line">    <span class="attr">User:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">      <span class="attr">properties:</span></span><br><span class="line">        <span class="attr">id:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">        <span class="attr">username:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">required:</span> <span class="comment"># 這裡</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1288,99 +1373,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/test-event/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/test-event/" class="post-title-link" itemprop="url">如何測試 event</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-04-07 16:01:04" itemprop="dateCreated datePublished" datetime="2019-04-07T16:01:04+08:00">2019-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/test-event/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="test-event/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>測試 event 分成兩邊：</p>
-<ul>
-<li>測試 event listener：有沒有在 event 發生後做該做的事。</li>
-<li>測試 trigger event：有沒有正確 trigger event。</li>
-</ul>
-<p>基本概念是驗證一方時假造另一方。</p>
-<h2 id="測試-event-listener"><a href="#測試-event-listener" class="headerlink" title="測試 event listener"></a>測試 event listener</h2><p>檢查 event 有沒有註冊到 event listener。用「event 發生後 event listener 有沒有做該做的事」來驗證，而不是試圖 access class 的內部 event 資訊來看是否有註冊成功。例如發生 event 後系統某些狀態會改變，測試方式是在測試裡 trigger event（假造 trigger event），驗證系統狀態是否有正確改變。</p>
-<p>如果發生 event 後會 call 某些 third party function，測試方式是先做個 mock object、inject mock object 到被測試 class，接著 trigger event，最後驗證 mock object 是否有被 call 到該 call 的 function。</p>
-<h2 id="測試是否有-trigger-event"><a href="#測試是否有-trigger-event" class="headerlink" title="測試是否有 trigger event"></a>測試是否有 trigger event</h2><p>在測試中給要測試的 event 註冊一個假的 event listener，接著讓被測試 class 做應該要 trigger event 的事情，最後驗證假 event listener 有沒有被 call 到。</p>
-<p>驗證假 event listener 有沒有被 call 到不一定要用 mock object，也可以是假 event listener 在被 call 到時修改 test 裡的變數，最後直接驗證該變數，這跟語言支援有關。</p>
-<h3 id="test-framework-支援"><a href="#test-framework-支援" class="headerlink" title="test framework 支援"></a>test framework 支援</h3><p>有些 test framework 的支援「某個 event 是否有被 trigger 或 emit 的驗證」。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
