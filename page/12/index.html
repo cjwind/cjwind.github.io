@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">161</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,102 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/delegate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/delegate/" class="post-title-link" itemprop="url">Delegate</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-03-14 00:16:27" itemprop="dateCreated datePublished" datetime="2015-03-14T00:16:27+08:00">2015-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/delegate/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="delegate/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Delegate 中文叫「委派」。</p>
+<p>將某些操作（例如是否相等）的細節交給 object 自己處理。</p>
+<p>用一點簡單的 code 來說明。首先是沒有 delegate 的寫法（這裡先不管 member 放在 public 不是好習慣的問題）：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo(<span class="keyword">int</span> x, <span class="keyword">int</span> y) : m_x(x), m_y(y) &#123; &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> m_x;</span><br><span class="line">    <span class="keyword">int</span> m_y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo foo1(10, 20), foo2(200, 300);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (foo1.m_x == foo2.m_x &amp;&amp; foo1.m_y == foo2.m_y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// do sth.</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>這種方式，當在<strong>任何地方</strong>需要比較兩個 <code>Foo</code> object 時，都要像上面第 14 行這樣寫。<del>不覺得這樣都把 Foo 肚子裡的東西挖出來到處亂放嗎？</del>如果之後 Foo 要多加一個 member，<strong>所有比較 <code>Foo</code> object 的地方</strong>都要改，光是有 20 個地方要改就有得受了，更何況還可能漏掉勒。所以啦，delegate 的觀念就可以在這裡拯救可憐的工程師，以下是有 delegate 觀念的版本：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Foo(<span class="keyword">int</span> x, <span class="keyword">int</span> y) : m_x(x), m_y(y) &#123; &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">IsEqual</span><span class="params">(<span class="keyword">const</span> Foo&amp; rFoo)</span> <span class="keyword">const</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (m_x == rFoo.m_x &amp;&amp; m_y == rFoo.m_y);</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> m_x;</span><br><span class="line">    <span class="keyword">int</span> m_y;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Foo foo1(10, 20), foo2(200, 300);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (foo1.IsEqual(foo2))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// do sth.</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>增加 <code>IsEqual()</code> 後，我們就可以把判斷放進 <code>class Foo</code>，由 <code>Foo</code> 自己處理如何判斷相等的這件事。外面只需要 call <code>IsEqual()</code> 就可以比較兩個 <code>Foo</code> object，也就是外界將判斷相等的事情「委派」給 <code>Foo</code>。這時候如果多加一個 member <code>m_z</code>，只需要改 <code>IsEqual()</code> 的 implement 就可以了，外面 20 個比較的地方都不用改！世界變得一片美好。</p>
+<p>文言一點來說，delegate 有助於保持 <code>loosely coupled</code>。loosely coupled 表示 object 彼此獨立（也可以看成 object 跟其他 code），對一 object 的修改不會引起一連串其他 object 或 code 的修改。</p>
+<h2 id="問題時間"><a href="#問題時間" class="headerlink" title="問題時間"></a>問題時間</h2><ul>
+<li><p>為什麼不用 C++ 的 <code>operator==</code>？</p>
+<p>用 <code>operator==</code> 也可以。這裡想表達的是 delegate 的觀念，如何實作不是重點。反過來說，不同語言也有不同的特性跟用法，而一個觀念可以用很多種方式實作。</p>
+</li>
+<li><p>為什麼感覺有封裝的味道？</p>
+<p>我也這麼覺得。一些 OO 原則跟觀念彼此根本一家親，運用 A 的同時也運用了 B。我暫時想不出更好的範例了，就先這樣吧！:P</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1165,108 +1261,6 @@
 </li>
 </ul>
 <p>我也不知道寫這些目標會不會照著做，很具體的應該會，寫得越抽象的越容易歪掉就是了。明年底再來看哪些有做到、哪些歪掉、又有什麼是吃飽太閒在亂玩。:P</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c++-decrease-compilation-dependency/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c++-decrease-compilation-dependency/" class="post-title-link" itemprop="url">C++ 降低 Compilation Dependency</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-12-29 23:11:04" itemprop="dateCreated datePublished" datetime="2014-12-29T23:11:04+08:00">2014-12-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c++-decrease-compilation-dependency/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c++-decrease-compilation-dependency/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>一個檔案 include 另一個檔案時，這兩個檔案便形成 compilation dependency。一個被 include 的檔案一旦修改，跟它有 compilation dependency 的檔案（無論直接或間接 include）都需要重新 compile。假設 A.h include B.h，當 B.h 改變或 B.h include 的檔案改變時，所有 include A.h 的檔案都需要重新 compile。</p>
-<p>應該盡量降低 compile dependency，以減少修改一個 header 而需要重新 compile 的檔案數量，免得改個檔案全世界都要重新 compile。<del>（工程師無數青春在哭泣）</del></p>
-<p>原則上盡量<strong>以 declaration 的 dependency 取代 definition 的 dependency</strong>。</p>
-<ul>
-<li><p>可以用 object pointer 或 object reference，就不要用 object。</p>
-<p>可以在 class 裡宣告 pointer 或 reference 作為 member，就不要定義 object 當 member，因為定義 object 就需要該 class 的 definition。</p>
-</li>
-<li><p>分開 class 的宣告與實作</p>
-<p>讓 include（提供 definition）可以從 header file 移到真正使用這些 class、function 的 cpp file。</p>
-<ul>
-<li><p>Handle class</p>
-<p>使用兩個 class，一個代表宣告，一個是真正的實作。前者通常稱為 <code>Handle class</code>，只宣告 function 並有個 pointer 指向後者。外界使用 Handle class，而 Handle class 會轉 call 真正 implement 的 class 達到功能。這個方式用到第一點的概念──避免使用 object，改用 pointer。</p>
-<p>因為兩個 class 會有相同的 function，會造成同時 maintain 兩份類似 class 的問題。</p>
-</li>
-<li><p>Interface class（abstract base class）</p>
-<p>interface class 沒有 member data、沒有 constructor，只有一 virtual destructor 跟一堆 pure virtual function。實作的 class 繼承 interface class 進行功能實作，以 virtual function 的機制讓外界用 interface class 的 pointer 使用。</p>
-</li>
-</ul>
-<p>這兩種方法的 trade off 是速度會慢一點、多用點 memory，不過普遍上來說好處比 trade off 重要。</p>
-</li>
-</ul>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》item 31</li>
-</ul>
 
       
     </div>

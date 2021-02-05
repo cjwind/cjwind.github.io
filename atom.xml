@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-02-04T15:23:20.567Z</updated>
+  <updated>2021-02-05T15:57:41.634Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PhpStorm 快捷鍵</title>
+    <link href="http://www.cjwind.idv.tw/PhpStorm-shortcut/"/>
+    <id>http://www.cjwind.idv.tw/PhpStorm-shortcut/</id>
+    <published>2021-02-05T15:57:41.000Z</published>
+    <updated>2021-02-05T15:57:41.634Z</updated>
+    
+    <content type="html"><![CDATA[<p>我的 keymap 是 Sublime + Jetbrains 部份按鍵 + 自己設再配 vim 的大雜燴</p><ul><li><code>ctrl + shift + p</code>：執行動作（action）</li><li><code>ctrl + p</code>：找檔案</li><li><code>ctrl + r</code>：檔案中找 symbol</li><li><code>ctrl + alt + shift + t</code>：refactor 選單</li><li><code>alt + enter</code>：各種神奇功能(?)</li><li><code>alt + insert</code>：加入各種 code</li><li><code>shift + f6</code>：rename</li><li><code>alt + 1</code>：project browse window</li><li><code>alt + 3</code>：find window</li><li><code>alt + 4</code>：run window</li><li><code>alt + 9</code>：git window</li></ul><p>TBC…</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;我的 keymap 是 Sublime + Jetbrains 部份按鍵 + 自己設再配 vim 的大雜燴&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ctrl + shift + p&lt;/code&gt;：執行動作（action）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ctrl + p&lt;/co</summary>
+      
+    
+    
+    
+    
+    <category term="PhpStorm" scheme="http://www.cjwind.idv.tw/tags/PhpStorm/"/>
+    
+  </entry>
   
   <entry>
     <title>《跑者都該懂的跑步關鍵數據》跑步技術</title>
@@ -481,31 +506,6 @@
     
     
     <category term="C" scheme="http://www.cjwind.idv.tw/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go 多維 array 與 slice</title>
-    <link href="http://www.cjwind.idv.tw/Go-multi-dimention-array-and-slice/"/>
-    <id>http://www.cjwind.idv.tw/Go-multi-dimention-array-and-slice/</id>
-    <published>2019-11-09T14:25:56.000Z</published>
-    <updated>2020-08-09T06:39:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>Array types are always one-dimensional but may be composed to form multi-dimensional types.</p></blockquote><p>from <a href="https://golang.org/ref/spec#Array_types">spec Array types</a></p><blockquote><p>A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array.<br>…<br>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects.</p></blockquote><p>from <a href="https://golang.org/ref/spec#Slice_types">spec Slice types</a></p><h1 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h1><h2 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h2><p>在多維的情況下，inner slice 只能一個個初始化，像這樣：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>上面例子沒有迴圈直接去 access <code>x[0][0]</code> 的話會 <code>index out of range</code>。</p><p>或者用 literal 直接寫：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">a := [][]<span class="keyword">uint8</span>&#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;,</span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>初始化成零值比較簡單：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line">c := [<span class="number">5</span>][<span class="number">5</span>]<span class="keyword">uint8</span>&#123;&#125;</span><br><span class="line"><span class="comment">// [[0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0]]</span></span><br></pre></td></tr></table></figure><h1 id="Memory-Size"><a href="#Memory-Size" class="headerlink" title="Memory Size"></a>Memory Size</h1><p>多維 array 的 size 是 <code>type size * element 數量</code> 。</p><p>多維 slice 的 size 則要看多維 slice 是怎麼組成的。slice 由指向 underlying array 的 pointer、length、capacity 組成，多維 slice 不同的組合方式會造成有不同數量的 slice header 而有不同的 size，來個例子：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// x 是 2 x 1000 的 slice</span></span><br><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(x), <span class="built_in">len</span>(x)*<span class="built_in">len</span>(x[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment">// y 是 1000 x 2 的 slice</span></span><br><span class="line">y := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> y &#123;</span><br><span class="line">    y[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(y), <span class="built_in">len</span>(y)*<span class="built_in">len</span>(y[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure><p>output 是：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> <span class="number">2000</span></span><br><span class="line"><span class="number">1000</span> <span class="number">2000</span></span><br></pre></td></tr></table></figure><p>x 跟 y 都是多維 slice 而且都有 2000 個 element。x 只有兩個 slice、每個 slice 有 1000 個 element byte，y 有 1000 個 slice、每個 slice 只有兩個 element。</p><p>slice header 長這樣：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="keyword">uintptr</span></span><br><span class="line">    Len  <span class="keyword">int</span></span><br><span class="line">    Cap  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>from <a href="https://golang.org/pkg/reflect/#SliceHeader">SliceHeader</a></p><p>在 64-bit 平台上，一個 slice header 的 size 是 24 bytes。那麼 x 的總 size 是 2000 + 2 * 24 = 2048 bytes。而 y 的總 size 則是 2000 + 1000 * 24 = 26000 bytes。</p><p>所以啦，考量 memory 使用的時候，需要注意多維 slice 是怎麼組的，像上面的 y，slice header 的 size 遠超過全部 element 的 size。</p><h1 id="Inner-array-slice-length"><a href="#Inner-array-slice-length" class="headerlink" title="Inner array/slice length"></a>Inner array/slice length</h1><blockquote><p>With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.</p></blockquote><p>多維 array 的 inner array 都是相同 length 的。</p><p>多維 slice 的 inner slice 可以是不同 length。另外，inner slice 必須要各自 initialize。</p><h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul><li><a href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go">What is a concise way to create a 2D slice in Go?</a></li><li><a href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation">How is two dimensional array’s memory representation</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;blockquote&gt;
-&lt;p&gt;Array types are always one-dimensional but may be composed to form multi-dimensional types.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;from &lt;a hre</summary>
-      
-    
-    
-    
-    
-    <category term="Go" scheme="http://www.cjwind.idv.tw/tags/Go/"/>
     
   </entry>
   

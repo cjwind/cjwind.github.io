@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">161</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,117 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch4-The-Seam-Model/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Working-Effectively-with-Legacy-Code/ch4-The-Seam-Model/" class="post-title-link" itemprop="url">ch4 The Seam Model</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-11 09:11:13" itemprop="dateCreated datePublished" datetime="2020-08-11T09:11:13+08:00">2020-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-09-19 13:08:17" itemprop="dateModified" datetime="2020-09-19T13:08:17+08:00">2020-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Working-Effectively-with-Legacy-Code/" itemprop="url" rel="index"><span itemprop="name">Working Effectively with Legacy Code</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Working-Effectively-with-Legacy-Code/ch4-The-Seam-Model/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Working-Effectively-with-Legacy-Code/ch4-The-Seam-Model/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Seam-amp-Enabling-Point"><a href="#Seam-amp-Enabling-Point" class="headerlink" title="Seam &amp; Enabling Point"></a>Seam &amp; Enabling Point</h1><p>seam（接縫）是指程式中一些特殊的點，在這些點上你不需要修改它本身就可以變動程式行為。</p>
+<p>例如某段程式 call 了一個 function 來計算商品價格，現在想改變計算價格的 strategy。想在不改變 call 計價 function 的情況下，改變計價結果（程式行為）。</p>
+<p>又例如程式 call 到牽連龐大子系統的 function，我們希望在 test 中避免執行到那些複雜的 code（不然很難測或無法測），又要在 prodcution code 裡照常執行到。如果這段 code 有 seam，便能在不改動到原本 call function 的情況下，換掉該 function 的行為來避免在 test 中碰到子系統。</p>
+<p>每個 seam 都有一個 enabling point，在這裡你可以決定使用哪種行為。</p>
+<p>seam 是可以讓你改變程式行為的「縫隙」，enabling point 則是決定那個 seam 要是什麼行為。在 enabling point 給不同的值，可以讓 seam 有不同的行為。例如物件 seam，物件 method 的參數列表是 enabling point，因為我們可以傳入不同的物件來改變程式行為。</p>
+<p>為一團亂的 code 測試時，最好別去修改它本身，盡可能透過 seam 去解開 dependency 來測試。</p>
+<h1 id="Seam-Types"><a href="#Seam-Types" class="headerlink" title="Seam Types"></a>Seam Types</h1><p>seam 有很多種類型。不同的語言，可以使用的類型也不同。一個語言從程式碼轉換到 machine code 的各個階段，擁有不同種類的 seam。</p>
+<ul>
+<li>preprocess 時期 seam<ul>
+<li>在 C/C++ 裡可以用 macro 直接把字換掉來達到改變行為，例如直接把有 dependency 的 function call 用 <code>#define</code> 在 <code>#ifdef TESTING</code> 時換成空的 function。</li>
+<li>enabling point 是 <code>#define TESTING</code></li>
+</ul>
+</li>
+<li>link 時期 seam：在將多個 object file link 起來時的 seam<ul>
+<li>dynamic link：直接換掉 dynamic link 要去找的 library 或 object file。</li>
+<li>static link：透過 build script（像 Makefile），在測試環境去 link 抽換的 object file 而非原本 production code 的 object file。</li>
+<li>enabling point 通常在 build 或 deploy script 裡，因為這時候才決定 link 誰。</li>
+</ul>
+</li>
+<li>object seam<ul>
+<li>一般用 interface、polymorphism 來做 dependency injection，以及 extract and override。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1349,125 +1460,6 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">init_object</span><span class="params">(Object *self)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == (self = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Object)))) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    self-&gt;a = <span class="number">0</span>; </span><br><span class="line">    self-&gt;b = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])</span> </span>&#123;</span><br><span class="line">    Object *o = <span class="literal">NULL</span>;</span><br><span class="line">    init_object(o);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>這時候 <code>self</code> 的 value 是 <code>o</code> 的 value，也就是 <code>NULL</code>。在 <code>init_object()</code> 裡 <code>self</code> 是個 local variable，allocate 一塊 <code>Object</code> 大小的 memory 給它以及其他操作都不會如我們希望的影響到 <code>main()</code> 裡的 <code>o</code> 。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Go-multi-dimention-array-and-slice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Go-multi-dimention-array-and-slice/" class="post-title-link" itemprop="url">Go 多維 array 與 slice</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-11-09 22:25:56" itemprop="dateCreated datePublished" datetime="2019-11-09T22:25:56+08:00">2019-11-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 14:39:59" itemprop="dateModified" datetime="2020-08-09T14:39:59+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Go-multi-dimention-array-and-slice/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Go-multi-dimention-array-and-slice/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>Array types are always one-dimensional but may be composed to form multi-dimensional types.</p>
-</blockquote>
-<p>from <a target="_blank" rel="noopener" href="https://golang.org/ref/spec#Array_types">spec Array types</a></p>
-<blockquote>
-<p>A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array.<br>…<br>Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects.</p>
-</blockquote>
-<p>from <a target="_blank" rel="noopener" href="https://golang.org/ref/spec#Slice_types">spec Slice types</a></p>
-<h1 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h1><h2 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h2><p>在多維的情況下，inner slice 只能一個個初始化，像這樣：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面例子沒有迴圈直接去 access <code>x[0][0]</code> 的話會 <code>index out of range</code>。</p>
-<p>或者用 literal 直接寫：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">a := [][]<span class="keyword">uint8</span>&#123;</span><br><span class="line">    &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;,</span><br><span class="line">    &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><p>初始化成零值比較簡單：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">c := [<span class="number">5</span>][<span class="number">5</span>]<span class="keyword">uint8</span>&#123;&#125;</span><br><span class="line"><span class="comment">// [[0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0] [0 0 0 0 0]]</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Memory-Size"><a href="#Memory-Size" class="headerlink" title="Memory Size"></a>Memory Size</h1><p>多維 array 的 size 是 <code>type size * element 數量</code> 。</p>
-<p>多維 slice 的 size 則要看多維 slice 是怎麼組成的。slice 由指向 underlying array 的 pointer、length、capacity 組成，多維 slice 不同的組合方式會造成有不同數量的 slice header 而有不同的 size，來個例子：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// x 是 2 x 1000 的 slice</span></span><br><span class="line">x := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> x &#123;</span><br><span class="line">    x[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(x), <span class="built_in">len</span>(x)*<span class="built_in">len</span>(x[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line"><span class="comment">// y 是 1000 x 2 的 slice</span></span><br><span class="line">y := <span class="built_in">make</span>([][]<span class="keyword">byte</span>, <span class="number">1000</span>)</span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> y &#123;</span><br><span class="line">    y[i] = <span class="built_in">make</span>([]<span class="keyword">byte</span>, <span class="number">2</span>)</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(<span class="built_in">len</span>(y), <span class="built_in">len</span>(y)*<span class="built_in">len</span>(y[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure>
-
-<p>output 是：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="number">2</span> <span class="number">2000</span></span><br><span class="line"><span class="number">1000</span> <span class="number">2000</span></span><br></pre></td></tr></table></figure>
-
-<p>x 跟 y 都是多維 slice 而且都有 2000 個 element。x 只有兩個 slice、每個 slice 有 1000 個 element byte，y 有 1000 個 slice、每個 slice 只有兩個 element。</p>
-<p>slice header 長這樣：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="keyword">uintptr</span></span><br><span class="line">    Len  <span class="keyword">int</span></span><br><span class="line">    Cap  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>from <a target="_blank" rel="noopener" href="https://golang.org/pkg/reflect/#SliceHeader">SliceHeader</a></p>
-<p>在 64-bit 平台上，一個 slice header 的 size 是 24 bytes。那麼 x 的總 size 是 2000 + 2 * 24 = 2048 bytes。而 y 的總 size 則是 2000 + 1000 * 24 = 26000 bytes。</p>
-<p>所以啦，考量 memory 使用的時候，需要注意多維 slice 是怎麼組的，像上面的 y，slice header 的 size 遠超過全部 element 的 size。</p>
-<h1 id="Inner-array-slice-length"><a href="#Inner-array-slice-length" class="headerlink" title="Inner array/slice length"></a>Inner array/slice length</h1><blockquote>
-<p>With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.</p>
-</blockquote>
-<p>多維 array 的 inner array 都是相同 length 的。</p>
-<p>多維 slice 的 inner slice 可以是不同 length。另外，inner slice 必須要各自 initialize。</p>
-<h1 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39804861/what-is-a-concise-way-to-create-a-2d-slice-in-go">What is a concise way to create a 2D slice in Go?</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/39561140/how-is-two-dimensional-arrays-memory-representation">How is two dimensional array’s memory representation</a></li>
-</ul>
 
       
     </div>

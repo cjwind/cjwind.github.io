@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">161</span>
+          <span class="site-state-item-count">162</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,96 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Hexo-hacking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Hexo-hacking/" class="post-title-link" itemprop="url">Hexo hacking</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2014-07-05 23:00:03" itemprop="dateCreated datePublished" datetime="2014-07-05T23:00:03+08:00">2014-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2014-07-10 23:30:00" itemprop="dateModified" datetime="2014-07-10T23:30:00+08:00">2014-07-10</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Hexo-hacking/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Hexo-hacking/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>安裝 <a target="_blank" rel="noopener" href="http://nodejs.org/">Node.js</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/hexojs/hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update --init</span></span><br></pre></td></tr></table></figure>
+
+<p><code>npm install</code> 應該是為了把需要的 node module 裝起來。</p>
+<p>修改後直接 run <code>bin/hexo</code> 即可。</p>
+<h2 id="改以-updated-排序-post"><a href="#改以-updated-排序-post" class="headerlink" title="改以 updated 排序 post"></a>改以 updated 排序 post</h2><p>抄 <a target="_blank" rel="noopener" href="http://goo.gl/63S6ui">http://goo.gl/63S6ui</a> 的，可從 <code>_config.yml</code> 設定 post 以 date 或 updated 排序。如果 post 沒有設 updated，updated 時間會等於 date。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae">https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae</a><br><a target="_blank" rel="noopener" href="https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b">https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b</a></p>
+<p><em>耍蠢所以變成兩個 commit</em></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://hexo.io/docs/contributing.html">http://hexo.io/docs/contributing.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/tommy351/hexo/issues/376">https://github.com/tommy351/hexo/issues/376</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1088,118 +1178,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/qt4-sequential-container/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/libcurl/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/libcurl/" class="post-title-link" itemprop="url">libcurl - HTTP usage</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-17 22:31:25" itemprop="dateCreated datePublished" datetime="2014-04-17T22:31:25+08:00">2014-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2014-10-15 20:52:00" itemprop="dateModified" datetime="2014-10-15T20:52:00+08:00">2014-10-15</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/libcurl/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="libcurl/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>libcurl 是處理收送網路 request、response 的 library，可用來收送 HTTP 的 request 及 response。</p>
-<p>libcurl 收到 response 時會 call callback function，由 callback function 處理收到的資料。callback function 可自行撰寫，其 prototype 如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">func</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, <span class="keyword">void</span> *userdata)</span></span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ptr 指向收到的資料</li>
-<li>nmemb 為收到資料的大小</li>
-<li>userdata 可自己定義，我拿它當 return value。</li>
-</ul>
-<p>libcurl 的 callback function 分成處理 header 跟 data，用 <code>curl_easy_setopt()</code> 指定處理的 callback function。如果沒有指定 callback function，預設上 data 會被印出來，header 則不處理。</p>
-<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>1. Initialize</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;curl/curl.h&gt;</span></span></span><br><span class="line">        </span><br><span class="line">CURL* curl = curl_easy_init();</span><br></pre></td></tr></table></figure>
-
-<p>2.  Set HTTP header data</p>
-<p>設 HTTP header，如指定 Content-type：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span>* <span class="title">headers</span>;</span></span><br><span class="line"><span class="built_in">memset</span>(header, <span class="number">0</span>, <span class="keyword">sizeof</span>(headers));</span><br><span class="line">headers = curl_slist_append(headers, <span class="string">&quot;Content-type: application/json&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>call <code>curl_slist_append()</code> 會不斷加資訊到 headers 這個資料結構中。</p>
-<p>3. Set options</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);                <span class="comment">// 以 POST 傳送資料</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);    <span class="comment">// 指定 header</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_URL, url.c_str());       <span class="comment">// 指定 url</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);   <span class="comment">// 指定 data，將 postdata 當作 POST data 傳給 server</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);    <span class="comment">// 指定處理 HTTP header 的 callback function 為 parseHeader</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;rescode);          <span class="comment">// 指定 parseHeader 的 userdata</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponse);     <span class="comment">// 指定處理 data 的 callback function 為 getResponse</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEDATA, &amp;response);           <span class="comment">// 指定 getResponse 的 userdata</span></span><br></pre></td></tr></table></figure>
-
-<p>4. 傳送 request</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_perform(curl);</span><br></pre></td></tr></table></figure>
-
-<p>以 blocking 的方式傳送 request。</p>
-<p>5. clean up</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_slist_free_all(headers);    <span class="comment">// 清掉 headers 裡的東西</span></span><br><span class="line">curl_easy_cleanup(curl);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/libcurl/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
