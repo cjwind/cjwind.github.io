@@ -986,7 +986,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-11-21 21:43:46" itemprop="dateModified" datetime="2020-11-21T21:43:46+08:00">2020-11-21</time>
+                <time title="Modified: 2021-02-08 15:30:38" itemprop="dateModified" datetime="2021-02-08T15:30:38+08:00">2021-02-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1093,17 +1093,18 @@
 <ol>
 <li>幫 image 加上 registry 的 repository tag：</li>
 </ol>
-<figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">tag</span> <span class="variable">&lt;image&gt;</span> <span class="variable">&lt;username&gt;</span>/<span class="variable">&lt;repository&gt;</span>:<span class="variable">&lt;tag&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">tag</span> <span class="variable">&lt;image&gt;</span> <span class="variable">&lt;username&gt;</span>/<span class="variable">&lt;repository&gt;</span>:<span class="variable">&lt;tag&gt;</span></span><br><span class="line">$ docker <span class="keyword">tag</span> <span class="variable">&lt;imageID&gt;</span> cjwind/helloworld:<span class="number">0.1</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
 
 <ol start="2">
 <li>publish image：</li>
 </ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker push <span class="tag">&lt;<span class="name">username</span>&gt;</span>/<span class="tag">&lt;<span class="name">repository</span>&gt;</span>:<span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker push <span class="tag">&lt;<span class="name">username</span>&gt;</span>/<span class="tag">&lt;<span class="name">repository</span>&gt;</span>:<span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br><span class="line">$ docker push cjwind/helloworld:0.1.0</span><br></pre></td></tr></table></figure>
 
+<p>如果是 private registry，要先執行 <code>docker login</code>。</p>
 <ol start="3">
 <li>pull and run image from remote repository：</li>
 </ol>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker run <span class="tag">&lt;<span class="name">username</span>&gt;</span>/<span class="tag">&lt;<span class="name">repository</span>&gt;</span>:<span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">run</span><span class="bash"> &lt;username&gt;/&lt;repository&gt;:&lt;tag&gt;</span></span><br><span class="line">$ docker <span class="keyword">run</span><span class="bash"> cjwind/helloworld:0.1.0</span></span><br></pre></td></tr></table></figure>
 
 <p>如果 local 不存在 image，Docker 會從 repository pull image 下來再執行。</p>
 
