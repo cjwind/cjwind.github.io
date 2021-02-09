@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">163</span>
+          <span class="site-state-item-count">164</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -292,6 +292,93 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/encapsulate-change/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/encapsulate-change/" class="post-title-link" itemprop="url">封裝會改變的東西</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-03-14 17:46:53" itemprop="dateCreated datePublished" datetime="2015-03-14T17:46:53+08:00">2015-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2016-11-14 22:09:11" itemprop="dateModified" datetime="2016-11-14T22:09:11+08:00">2016-11-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/encapsulate-change/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="encapsulate-change/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>封裝會改變的東西，減少改動一個部分會影響到其他部分的狀況。</p>
+<p>將 class 中容易改變的部分封裝到另一個 class 有助於保護原本 class 有不必要的改變。</p>
+<p>程式改變可能改動到相關功能，如果一個 class 中常修改的地方並非該 class 負責的事情，修改它是不必要的，而且可能引入其他功能受到影響的風險。如果能將常修改的地方封裝，就可以保護原本 class 的其他功能不受影響。</p>
+<p>「封裝」不單指將東西包成 class，把一堆 property 放到 map 之類的 container 也是封裝。</p>
+<h2 id="Related-Posts"><a href="#Related-Posts" class="headerlink" title="Related Posts"></a>Related Posts</h2><ul>
+<li><a href="/Open-Closed-Principle">Open Closed Principle（OCP）</a></li>
+<li><a href="/Single-Responsibility-Principle">Single Responsibility Principle（SRP）</a></li>
+<li><a href="/Dont-Repeat-Yourself">Don’t Repeat Yourself（DRY）</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1152,93 +1239,6 @@
 <p>於是乎，這次改變方式，先把要寫的東西全部寫完，再寫 unit test，直接 run unit test 看 code 有沒有寫對。在這種很瑣碎但又得確認是對的事情上，用 unit test 真是神清氣爽啊！雖然不知道之後重複利用的機會多大，但是不用在那裡對到快脫窗真好。也還真給我抓到一個漏掉 assign 的 member…</p>
 <p>看來我的寫 code 方式終於跟 test 連上了一點，不然每次想要硬套 TDD 之類的時候，就像學了個新方法，可是並沒有改變舊習慣，兩邊有點接不起來。這次是注意到舊習慣<del>令人厭煩</del>可以改善的地方，再套一點新東西進去變成好一點的方式。</p>
 <p>最近在想，獨立開發的時候，更該利用自動化測試減少花在重複性工作上的時間。我想，運用科技讓人能更妥善運用時間，才是科技的本意吧。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/sort-by-qmap/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/sort-by-qmap/" class="post-title-link" itemprop="url">以 QMap 做 sort</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-01-06 13:22:03" itemprop="dateCreated datePublished" datetime="2015-01-06T13:22:03+08:00">2015-01-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-07-09 12:52:11" itemprop="dateModified" datetime="2015-07-09T12:52:11+08:00">2015-07-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/sort-by-qmap/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="sort-by-qmap/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>QMap 內的資料會以 key 的值 sort 好。以自訂 class 或 struct 作為 key 需要提供 <code>operator&lt;</code>。所以將資料 insert 進 QMap，再用 iterator 取出就可以做到 sorting。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">QMap&lt;<span class="keyword">int</span>, QString&gt; sortMap;</span><br><span class="line"></span><br><span class="line">sortMap.insert(<span class="number">31</span>, <span class="string">&quot;31&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">3</span>, <span class="string">&quot;3&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">2</span>, <span class="string">&quot;2&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">5</span>, <span class="string">&quot;5&quot;</span>);</span><br><span class="line">sortMap.insert(<span class="number">7</span>, <span class="string">&quot;7&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (QMap&lt;<span class="keyword">int</span>, QString&gt;::iterator iter = sortMap.begin(); iter != sortMap.end(); ++iter)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// sorted</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>key 有多個欄位時可以做到不同欄位有不同 priority 的能力，如：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> XXX&amp; rhs) <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (fieldA != rhs.fieldA)</span><br><span class="line">        <span class="keyword">return</span> fieldA &lt; rhs.fieldA;</span><br><span class="line">    <span class="keyword">if</span> (fieldB != rhs.fieldB)</span><br><span class="line">        <span class="keyword">return</span> fieldB &lt; rhs.fieldB;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這表示在比較上，fieldA 的 priority 比 fieldB 高，也就是先比 fieldA 再比 fieldB。</p>
-<p><code>x &lt; y</code> 跟 <code>y &lt; x</code> 都為 false 時表示 <code>x == y</code>。</p>
 
       
     </div>

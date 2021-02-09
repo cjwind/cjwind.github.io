@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-02-09T09:30:46.047Z</updated>
+  <updated>2021-02-09T12:09:40.403Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker command snippet</title>
+    <link href="http://www.cjwind.idv.tw/Docker-command-snippet/"/>
+    <id>http://www.cjwind.idv.tw/Docker-command-snippet/</id>
+    <published>2021-02-09T12:02:56.000Z</published>
+    <updated>2021-02-09T12:09:40.403Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 跑起一個 ubuntu container 並且用 foreground 模式進入 bash</span></span><br><span class="line"><span class="variable">$ </span>sudo docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo docker run -d -p [HOST_PORT]<span class="symbol">:</span>[CONTAINER_PORT] --name [CONTAINER_NAME] [IMAGE_NAME]<span class="symbol">:</span>[version]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止並移除 container</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rm --force [CONTAINER]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出 local 有的 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Docker Hub 搜尋 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker search [KEYWORD]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在有 Dockerfile 的資料夾 build Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker build --tag [NAME]<span class="symbol">:</span>[TAG] .</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rmi [IMAGE]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Login to a Docker registry</span></span><br><span class="line"><span class="comment"># 如果是 private registry 就要 login 才能 push</span></span><br><span class="line"><span class="variable">$ </span>sudo docker login</span><br><span class="line"></span><br><span class="line"><span class="comment"># Push Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker push [IMAGE_NAME]<span class="symbol">:</span>[TAG]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight elixir&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 跑起一個 ubuntu container 並且用 foreg</summary>
+      
+    
+    
+    
+    
+    <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Readmoo API Go Package</title>
@@ -484,31 +506,6 @@
     <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
     
     <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ch2 Working with Feedback</title>
-    <link href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch2-Working-with-Feedback/"/>
-    <id>http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch2-Working-with-Feedback/</id>
-    <published>2020-02-28T14:40:55.000Z</published>
-    <updated>2020-09-19T05:08:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。</p><p>改 code 的兩種方法：edit and pray 以及 cover and modify XD</p><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul><li>要用 unit test 保護修改<ul><li>才知道新修改有沒有改對，以及有沒有改壞原本的東西</li><li>跑測試的速度：需要 0.1s 才能跑完的 unit test 就算慢了</li></ul></li><li>修改 legacy code 步驟 overview<ol><li>確定變動點（理解 code）：ch 16、17</li><li>找出測試點：ch 11、12</li><li>解依賴的技術<ul><li>將 code 放進測試時，讓下手的第一刀更安全：ch 23</li><li>解決一般的依賴問題：ch 9、10</li><li>無法寫測試是因為沒解決大型 method 中的依賴：ch 22</li><li>build code 時間太長：ch 7</li></ul></li><li>編寫測試：ch 13</li><li>修改及 refactor<ul><li>如何增加 feature：ch 8</li><li>將 legacy code 變得結構更好：ch 20 ~ 22</li></ul></li></ol></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;《Working Effectively with Legacy Code》對 unit test 跟更高層的 test 概念跟《單元測試》差不多，只是沒特別用 integration test 這個詞而已。&lt;/p&gt;
-&lt;p&gt;改 code 的兩種方法：edit and pra</summary>
-      
-    
-    
-    
-    <category term="Working Effectively with Legacy Code" scheme="http://www.cjwind.idv.tw/categories/Working-Effectively-with-Legacy-Code/"/>
-    
-    
-    <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
     
   </entry>
   
