@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-02-09T12:09:40.403Z</updated>
+  <updated>2021-02-09T12:19:00.121Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -21,14 +21,15 @@
     <link href="http://www.cjwind.idv.tw/Docker-command-snippet/"/>
     <id>http://www.cjwind.idv.tw/Docker-command-snippet/</id>
     <published>2021-02-09T12:02:56.000Z</published>
-    <updated>2021-02-09T12:09:40.403Z</updated>
+    <updated>2021-02-09T12:19:00.121Z</updated>
     
-    <content type="html"><![CDATA[<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 跑起一個 ubuntu container 並且用 foreground 模式進入 bash</span></span><br><span class="line"><span class="variable">$ </span>sudo docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo docker run -d -p [HOST_PORT]<span class="symbol">:</span>[CONTAINER_PORT] --name [CONTAINER_NAME] [IMAGE_NAME]<span class="symbol">:</span>[version]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止並移除 container</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rm --force [CONTAINER]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出 local 有的 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Docker Hub 搜尋 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker search [KEYWORD]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在有 Dockerfile 的資料夾 build Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker build --tag [NAME]<span class="symbol">:</span>[TAG] .</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rmi [IMAGE]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Login to a Docker registry</span></span><br><span class="line"><span class="comment"># 如果是 private registry 就要 login 才能 push</span></span><br><span class="line"><span class="variable">$ </span>sudo docker login</span><br><span class="line"></span><br><span class="line"><span class="comment"># Push Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker push [IMAGE_NAME]<span class="symbol">:</span>[TAG]</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>老是失憶……</p><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 跑起一個 ubuntu container 並且用 foreground 模式進入 bash</span></span><br><span class="line"><span class="variable">$ </span>sudo docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo docker run -d -p [HOST_PORT]<span class="symbol">:</span>[CONTAINER_PORT] --name [CONTAINER_NAME] [IMAGE_NAME]<span class="symbol">:</span>[version]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止並移除 container</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rm --force [CONTAINER]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出 local 有的 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Docker Hub 搜尋 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker search [KEYWORD]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在有 Dockerfile 的資料夾 build Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker build --tag [NAME]<span class="symbol">:</span>[TAG] .</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rmi [IMAGE]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Login to a Docker registry</span></span><br><span class="line"><span class="comment"># 如果是 private registry 就要 login 才能 push</span></span><br><span class="line"><span class="variable">$ </span>sudo docker login</span><br><span class="line"></span><br><span class="line"><span class="comment"># Push Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker push [IMAGE_NAME]<span class="symbol">:</span>[TAG]</span><br></pre></td></tr></table></figure>]]></content>
     
     
       
       
-    <summary type="html">&lt;figure class=&quot;highlight elixir&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 跑起一個 ubuntu container 並且用 foreg</summary>
+    <summary type="html">&lt;p&gt;老是失憶……&lt;/p&gt;
+&lt;figure class=&quot;highlight elixir&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 跑起一個 ubuntu conta</summary>
       
     
     
