@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">163</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -243,7 +243,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -292,6 +292,130 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dynamic-Linking-Basic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Dynamic-Linking-Basic/" class="post-title-link" itemprop="url">Dynamic Linking Basic</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2017-03-05 21:41:52" itemprop="dateCreated datePublished" datetime="2017-03-05T21:41:52+08:00">2017-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-03-18 22:47:00" itemprop="dateModified" datetime="2017-03-18T22:47:00+08:00">2017-03-18</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dynamic-Linking-Basic/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dynamic-Linking-Basic/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Static-Linking-的問題"><a href="#Static-Linking-的問題" class="headerlink" title="Static Linking 的問題"></a>Static Linking 的問題</h2><p>static link 拆分了可執行檔，讓不同人或組織可以開發自己的 module，最後再 link 成執行檔。隨著系統變複雜，OS 裡有多個 process 在執行，當多個 process 以 static linking 連結相同的 library 時，例如擁有 <code>printf()</code> 的 standard library，memory 會有多份類似的 library 程式碼，造成浪費。</p>
+<p>另一個問題是 static linking 不易更新 module。例如 App 這個程式用到 <code>Lib.o</code>，<code>Lib.o</code> 更新時（<code>Lib.o</code> 可能是別人提供的 module，App 開發者無法控制其版本），App 的開發者必須拿 <code>App.o</code> 跟 <code>Lib.o</code> 再 link 成新版 App，再給發佈新版 App。</p>
+<h2 id="Dynamic-Linking-基本概念"><a href="#Dynamic-Linking-基本概念" class="headerlink" title="Dynamic Linking 基本概念"></a>Dynamic Linking 基本概念</h2><p>為了解決 static link 在 memory 浪費以及不易更新的問題，最簡單的做法是將程式拆成多個 module，不在 compile 時期 link library，等到執行時才 link。如此一來就能只放一份共用 module 在 memory，需要該 module 的 executable file 就去 link。</p>
+<p>不過現實世界總是不那麼美好，dynamic linking 還是會遇到其他問題，例如如果 program A 需要 1.0 版的 module、program B 需要 2.0 版的 module，或者一個程式更新共用 module 之後，其他程式因為 interface 相依性問題就壞了。</p>
+<p>Linux 稱 ELF 動態連結檔為 Dynamic Shared Objects（DSO），簡稱 shared object，通常以 <code>.so</code> 為副檔名。Windows 則稱為 Dynamical Linking Library，以 <code>.dll</code> 為副檔名。這系列筆記會混用 DSO、shared object、shared library、module 等詞，皆指動態連結檔。</p>
+<h2 id="Usage-in-Linux"><a href="#Usage-in-Linux" class="headerlink" title="Usage in Linux"></a>Usage in Linux</h2><p>先用簡單範例看看 Linux 上如何使用 dynamic link。</p>
+<h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight c"><figcaption><span>foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _LIB_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _LIB_H</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    foo(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="compile-amp-link"><a href="#compile-amp-link" class="headerlink" title="compile &amp; link"></a>compile &amp; link</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ gcc -fPIC -shared -o lib<span class="selector-class">.so</span> lib.c</span><br><span class="line">$ gcc -o main<span class="selector-class">.dyn</span> main<span class="selector-class">.c</span> ./lib.so</span><br></pre></td></tr></table></figure>
+
+<p><code>-shared</code> 表示要編出 shared object。link 出 <code>main.dyn</code> 時，linker 會看 <code>foo()</code> 是定義在其他 static object file 還是在 DSO 裡，如果在 DSO 裡就會標示這個 symbol 為 dynamic linking，等到 load 才進行 symbol relocation。上面第二行要寫 <code>./lib.so</code> 是為了讓 linker 知道 <code>foo()</code> 是在 DSO 裡，而且 <code>main.dyn</code> 也會記錄 <code>lib.so</code> 的路徑。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd main.dyn </span><br><span class="line">linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fff29986000</span>)</span><br><span class="line">./lib.so (<span class="number">0x00007febdc1b6000</span>)</span><br><span class="line">libc.so<span class="number">.6</span> =&gt; /lib/x86_64-linux-gnu/libc.so<span class="number">.6</span> (<span class="number">0x00007febdbe0b000</span>)</span><br><span class="line">/lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span> (<span class="number">0x00007febdc3b7000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>比較常用的寫法是 <code>-l</code> 指定 library、<code>-L</code> 指定找 library 的 path，例如 <code>-lfoo -L./</code> 會找 <code>libfoo.so</code> 來 link，尋找順序則是先找目前目錄再找系統預設目錄。這種寫法在 <code>main.dyn</code> 裡只會記錄 <code>lib.so</code>、不會有路徑，執行時會從系統以及相關參數所設的路徑找 library，如果找不到會跳 error。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -h lib.so | grep Type</span><br><span class="line">  Type:                              DYN (Shared object file)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s lib.so</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 13 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     <span class="built_in">..</span>.</span><br><span class="line">     8: 0000000000000660    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  11 foo</span><br><span class="line">     <span class="built_in">..</span>.</span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 53 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">    <span class="built_in">..</span>.</span><br><span class="line">    46: 0000000000000660    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  11 foo</span><br><span class="line">    <span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+
+<p><code>lib.so</code> 的 symbol table 有給 dynamic link 用的 <code>.dynsym</code> section 跟一般的 <code>.symtab</code> section。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s main.dyn</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 12 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     <span class="built_in">..</span>.</span><br><span class="line">     4: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 65 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">    <span class="built_in">..</span>.</span><br><span class="line">    56: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br></pre></td></tr></table></figure>
+
+<p>重點來啦，<code>main.dyn</code> 是 dynamic link <code>lib.so</code> 的可執行檔，它的 symbol table 標示了 <code>foo</code> 仍然是 undefined，而且在 <code>.dynsym</code> 裡也有這個 symbol。<code>.dynsym</code> section 不會出現在其他 object file 裡的 symbol。</p>
+<h3 id="virtual-memory-space"><a href="#virtual-memory-space" class="headerlink" title="virtual memory space"></a>virtual memory space</h3><p>編出 static linking 版本的執行檔：<code>ld -e main main.o lib.o -o main.st</code> 。執行後 <code>cat /proc/&lt;pid&gt;/maps</code> 可以看到 process 的 virtual memory space：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409244</span>                           /home/cjw/source/dynamic-link/main.st</span><br><span class="line"><span class="attribute">7ffeaa7bb000</span>-<span class="number">7</span>ffeaa<span class="number">7</span>dc<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [stack]</span></span><br><span class="line"><span class="attribute">7ffeaa7ed000</span>-<span class="number">7</span>ffeaa<span class="number">7</span>ef<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vdso]</span></span><br><span class="line"><span class="attribute">7ffeaa7ef000</span>-<span class="number">7</span>ffeaa<span class="number">7</span>f<span class="number">1000</span> r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vvar]</span></span><br><span class="line"><span class="attribute">ffffffffff600000</span>-ffffffffff<span class="number">601000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                 <span class="meta"> [vsyscall]</span></span><br></pre></td></tr></table></figure>
+
+<p>簡單明瞭 load 進 <code>main.st</code>，比較 dynamic linking 的 <code>main.dyn</code>：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409246</span>                           /home/cjw/source/dynamic-link/main.dyn</span><br><span class="line"><span class="attribute">00600000</span>-<span class="number">00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409246</span>                           /home/cjw/source/dynamic-link/main.dyn</span><br><span class="line"><span class="attribute">7fdee17b3000</span>-<span class="number">7</span>fdee<span class="number">1954000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1954000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">54000</span> ---p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1b54000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">58000</span> r--p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1b58000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">5</span>a<span class="number">000</span> rw-p <span class="number">001</span>a<span class="number">5000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1b5a000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">5</span>e<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fdee1b5e000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">5</span>f<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409245</span>                   /home/cjw/source/dynamic-link/lib.so</span><br><span class="line"><span class="attribute">7fdee1b5f000</span>-<span class="number">7</span>fdee<span class="number">1</span>d<span class="number">5</span>e<span class="number">000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409245</span>                   /home/cjw/source/dynamic-link/lib.so</span><br><span class="line"><span class="attribute">7fdee1d5e000</span>-<span class="number">7</span>fdee<span class="number">1</span>d<span class="number">5</span>f<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409245</span>                   /home/cjw/source/dynamic-link/lib.so</span><br><span class="line"><span class="attribute">7fdee1d5f000</span>-<span class="number">7</span>fdee<span class="number">1</span>d<span class="number">7</span>f<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1f5e000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">61000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fdee1f7d000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">7</span>f<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fdee1f7f000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">80000</span> r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1f80000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">81000</span> rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1f81000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">82000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fffbbf58000</span>-<span class="number">7</span>fffbbf<span class="number">79000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [stack]</span></span><br><span class="line"><span class="attribute">7fffbbfce000</span>-<span class="number">7</span>fffbbfd<span class="number">0000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vdso]</span></span><br><span class="line"><span class="attribute">7fffbbfd0000</span>-<span class="number">7</span>fffbbfd<span class="number">2000</span> r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vvar]</span></span><br><span class="line"><span class="attribute">ffffffffff600000</span>-ffffffffff<span class="number">601000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                 <span class="meta"> [vsyscall]</span></span><br></pre></td></tr></table></figure>
+
+<p>除了 <code>main.dyn</code> 跟 <code>lib.so</code> 之外也 load 進 C Runtime <code>/lib/x86_64-linux-gnu/libc-2.19.so</code> 以及動態連結器 <code>/lib/x86_64-linux-gnu/ld-2.19.so</code>。</p>
+<p>那麼 DSO 會 load 到哪呢？從下面 <code>lib.so</code> 的 segment 來看，它會被 load 到的 address 是 <code>0x00000000</code>，但顯然這個 address 不合法。compile time 無法知道 DSO 會被 load 去哪，是在 runtime 才決定（最簡單的想法是 OS 找到一塊放得下 DSO 的 memory 放）。這也是可以想像的，如果 DSO 跟 executable file 一樣編譯時就決定自己要 load 到某個 address，多個 DSO 在系統裡可能會互撞。kill 掉原本的 <code>main.dyn</code> 再跑一次會發現 load <code>lib.so</code> 的 address 不一樣。</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">readelf</span> <span class="string">-l</span> <span class="string">lib.so</span></span><br><span class="line"></span><br><span class="line"><span class="string">Elf</span> <span class="string">file</span> <span class="string">type</span> <span class="string">is</span> <span class="string">DYN</span> <span class="string">(Shared</span> <span class="string">object</span> <span class="string">file)</span></span><br><span class="line"><span class="string">Entry</span> <span class="string">point</span> <span class="number">0x560</span></span><br><span class="line"><span class="string">There</span> <span class="string">are</span> <span class="number">6</span> <span class="string">program</span> <span class="string">headers,</span> <span class="string">starting</span> <span class="string">at</span> <span class="string">offset</span> <span class="number">64</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Program Headers:</span></span><br><span class="line">  <span class="string">Type</span>           <span class="string">Offset</span>             <span class="string">VirtAddr</span>           <span class="string">PhysAddr</span></span><br><span class="line">                 <span class="string">FileSiz</span>            <span class="string">MemSiz</span>              <span class="string">Flags</span>  <span class="string">Align</span></span><br><span class="line">  <span class="string">LOAD</span>           <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span></span><br><span class="line">                 <span class="number">0x0000000000000704</span> <span class="number">0x0000000000000704</span>  <span class="string">R</span> <span class="string">E</span>    <span class="number">200000</span></span><br><span class="line">  <span class="string">LOAD</span>           <span class="number">0x0000000000000708</span> <span class="number">0x0000000000200708</span> <span class="number">0x0000000000200708</span></span><br><span class="line">                 <span class="number">0x0000000000000230</span> <span class="number">0x0000000000000238</span>  <span class="string">RW</span>     <span class="number">200000</span></span><br><span class="line">  <span class="string">DYNAMIC</span>        <span class="number">0x0000000000000720</span> <span class="number">0x0000000000200720</span> <span class="number">0x0000000000200720</span></span><br><span class="line">                 <span class="number">0x00000000000001c0</span> <span class="number">0x00000000000001c0</span>  <span class="string">RW</span>     <span class="number">8</span></span><br><span class="line">  <span class="string">NOTE</span>           <span class="number">0x0000000000000190</span> <span class="number">0x0000000000000190</span> <span class="number">0x0000000000000190</span></span><br><span class="line">                 <span class="number">0x0000000000000024</span> <span class="number">0x0000000000000024</span>  <span class="string">R</span>      <span class="number">4</span></span><br><span class="line">  <span class="string">GNU_EH_FRAME</span>   <span class="number">0x0000000000000680</span> <span class="number">0x0000000000000680</span> <span class="number">0x0000000000000680</span></span><br><span class="line">                 <span class="number">0x000000000000001c</span> <span class="number">0x000000000000001c</span>  <span class="string">R</span>      <span class="number">4</span></span><br><span class="line">  <span class="string">GNU_STACK</span>      <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span></span><br><span class="line">                 <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span>  <span class="string">RW</span>     <span class="number">10</span></span><br><span class="line"></span><br><span class="line"> <span class="attr">Section to Segment mapping:</span></span><br><span class="line">  <span class="string">Segment</span> <span class="string">Sections...</span></span><br><span class="line">   <span class="number">00</span>     <span class="string">.note.gnu.build-id</span> <span class="string">.gnu.hash</span> <span class="string">.dynsym</span> <span class="string">.dynstr</span> <span class="string">.gnu.version</span> <span class="string">.gnu.version_r</span> <span class="string">.rela.dyn</span> <span class="string">.rela.plt</span> <span class="string">.init</span> <span class="string">.plt</span> <span class="string">.text</span> <span class="string">.fini</span> <span class="string">.eh_frame_hdr</span> <span class="string">.eh_frame</span></span><br><span class="line">   <span class="number">01</span>     <span class="string">.init_array</span> <span class="string">.fini_array</span> <span class="string">.jcr</span> <span class="string">.dynamic</span> <span class="string">.got</span> <span class="string">.got.plt</span> <span class="string">.data</span> <span class="string">.bss</span></span><br><span class="line">   <span class="number">02</span>     <span class="string">.dynamic</span></span><br><span class="line">   <span class="number">03</span>     <span class="string">.note.gnu.build-id</span></span><br><span class="line">   <span class="number">04</span>     <span class="string">.eh_frame_hdr</span></span><br><span class="line">   <span class="number">05</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Related-posts-amp-Ref"><a href="#Related-posts-amp-Ref" class="headerlink" title="Related posts &amp; Ref"></a>Related posts &amp; Ref</h2><ul>
+<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
+<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
+<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+<li><a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a></li>
+<li>《程式設計師的自我修養》ch7</li>
+<li><a target="_blank" rel="noopener" href="https://www.bottomupcs.com/chapter08.xhtml">https://www.bottomupcs.com/chapter08.xhtml</a></li>
+<li><a target="_blank" rel="noopener" href="https://hackmd.io/s/HkK7Uf4Ml">你所不知道的 C 語言：動態連結器篇</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1229,98 +1353,6 @@
 <p>在 state object 轉換狀態的缺點是會讓 state object 們互相依賴，解決這問題的方式之一是讓 state object 可以透過 context 取得其他 state object，也就是糖果機的 state getters。</p>
 <h2 id="與-Strategy-Pattern-比較"><a href="#與-Strategy-Pattern-比較" class="headerlink" title="與 Strategy Pattern 比較"></a>與 Strategy Pattern 比較</h2><p>State pattern 跟 <a href="/Strategy-Pattern">Strategy pattern</a> 的 UML 根本長得一樣。兩個 pattern 的差異在於「意圖」，也可以說是出發點、想達到的目的。</p>
 <p>State pattern 將行為封裝在一堆 state object 中，context 隨著狀態不同將動作 delegate 給其中一個 state object。Strategy pattern 則是有很多 algorithm 可以選，通常由使用 algorithm 的使用者（使用 strategy 的 code）決定用哪一個。Strategy 提供了 algotithm 選擇上的彈性但由使用者主導。State 則以狀態為主，狀態改變會導致行為改變。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Design-Principle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Design-Principle/" class="post-title-link" itemprop="url">Design Principle</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2016-11-14 22:24:30" itemprop="dateCreated datePublished" datetime="2016-11-14T22:24:30+08:00">2016-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Design-Principle/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Design-Principle/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ul>
-<li><a href="/encapsulate-change">封裝會改變的東西</a></li>
-<li><a href="/Open-Closed-Principle">Open Closed Principle（OCP）</a></li>
-<li><a href="/Single-Responsibility-Principle">Single Responsibility Principle（SRP）</a></li>
-<li><a href="/Dont-Repeat-Yourself">Don’t Repeat Yourself（DRY）</a></li>
-<li><a href="/liskov-substitution-principle">Liskov Substitution Principle（LSP）</a></li>
-</ul>
-<h2 id="好萊塢守則"><a href="#好萊塢守則" class="headerlink" title="好萊塢守則"></a>好萊塢守則</h2><p>低階 component 可以掛到高階 component 上，但是由高階 component 決定何時 call 低階 component，低階 component 不該 call 高階 component。</p>
-<p>這是為了防止 component 之間的 dependency 爛掉，例如高階 component 使用低階 component 也就 depend on 低階 component，低階 component 如果又使用高階 component 就變成互相依賴，再多來幾個 component 就大家通通糊在一起。</p>
-<h2 id="Least-Knowledge"><a href="#Least-Knowledge" class="headerlink" title="Least Knowledge"></a>Least Knowledge</h2><p>系統中的 object 應該只跟它很有關係的 object 互動，不要讓太多 class 綁在一起，免得動一個就動到一大堆。動 A 會動到 B 往往是 bug 的來源……</p>
-<p>設計時要注意物件所互動的 class 有哪些以及是如何互動的。</p>
-<h2 id="針對-interface-寫-code，不針對-implement-寫-code"><a href="#針對-interface-寫-code，不針對-implement-寫-code" class="headerlink" title="針對 interface 寫 code，不針對 implement 寫 code"></a>針對 interface 寫 code，不針對 implement 寫 code</h2><p>想使用某一堆類似的 class 時，應該是讓這些 class 有個 interface 並透過 interface 使用 class，而不是針對特定某個 class 寫 code。如果針對 interface 寫 code，當 class 又增加時可以運用多型在一開始生新的 class 的 object，之後使用該 object 的 code 都可以不用改。</p>
-<h2 id="多用合成，少用繼承"><a href="#多用合成，少用繼承" class="headerlink" title="多用合成，少用繼承"></a>多用合成，少用繼承</h2><p>「合成」像是把東西組起來，是「有」，has-a。「繼承」則是「是」，is-a。</p>
-<p>這我還沒有很懂為什麼……只想到一個爛例子，如果 class A 需要某個功能，例如 parse json，假設已經有一個 json parser 的 class，那麼應該是讓 class A 以合成的方式使用 json parser，而不是去繼承 json parser。這個例子很明顯，用繼承會讓 class A 的語意變得很奇怪，不過不是每種狀況都那麼明顯……</p>
 
       
     </div>

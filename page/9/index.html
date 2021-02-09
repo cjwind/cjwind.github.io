@@ -230,7 +230,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-count">163</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -243,7 +243,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">53</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -292,6 +292,169 @@
 
         <div class="content index posts-expand">
           
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Static-Link/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+
+    
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Static-Link/" class="post-title-link" itemprop="url">Static Link</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2016-04-06 22:39:06" itemprop="dateCreated datePublished" datetime="2016-04-06T22:39:06+08:00">2016-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2017-02-12 17:12:00" itemprop="dateModified" datetime="2017-02-12T17:12:00+08:00">2017-02-12</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Static-Link/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Static-Link/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>所謂 Static Link（靜態連結）──在 linking 階段針對未知 address 的 symbol 填入 address，把一堆 object file 黏在一起變成可執行檔。</strong></p>
+<p>沒了。(誤)</p>
+<p>object file 是 compile 後的 binary 中間檔，它有多種 format，ELF 是其中之一。linking 主要是將其他 object file 中 symbol 的正確 address 填進 reference 到它的指令中，例如 object file A 的指令 reference 到 object file B 的 symbol x，link 前 object A 無法得知 x 的 address，link 時才會知道 x 正確的 address 並將之填進 object file A 的指令中。</p>
+<h2 id="Two-pass-linking"><a href="#Two-pass-linking" class="headerlink" title="Two-pass linking"></a>Two-pass linking</h2><p>Static link 的流程是 two-pass linking，將 linking 分為兩個步驟：</p>
+<ol>
+<li>分配 virtual address space</li>
+<li>symbol resolution and relocation</li>
+</ol>
+<h3 id="1-分配-virtual-address-space"><a href="#1-分配-virtual-address-space" class="headerlink" title="1. 分配 virtual address space"></a>1. 分配 virtual address space</h3><p>合併多個 object file 成一個檔案。</p>
+<ul>
+<li>掃描所有 object file，合併相同的 section，例如合併 <code>a.o</code> 跟 <code>b.o</code> 的 <code>.text</code> section。</li>
+<li>linker 透過 object file 中的各種 table 得知各 section 的長度、屬性以及位置。</li>
+<li>收集所有 object file symbol table 中的 symbol definition 跟 symbol reference 放到 global symbol table。</li>
+<li>合併完 object file，各 symbol 的 virtual address 已經確定，linker 會計算 symbol 的 virtual address。<ul>
+<li>symbol 的 virtual address = 所在 section 合併後的 address + symbol 的 offset</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-symbol-relocation-and-resolution"><a href="#2-symbol-relocation-and-resolution" class="headerlink" title="2. symbol relocation and resolution"></a>2. symbol relocation and resolution</h3><p>static link 的重點。</p>
+<p>compiler 不知道 reference 到別的 object file 中 variable 或 function 的 address，所以遇到其他 object file 的 symbol 時會塞假的 address 進 instruction。</p>
+<p>利用 relocation table 將真正的 virtual address 填進 instruction 即為 symbol relocation。relocation table 記錄需要調整的 instruction 所在位置以及如何調整。每個需要 relocate 的 section 都有一個 relocation table，relocation table 也是 ELF 檔中的一個 section，如 <code>.rel.text</code> section 是 <code>.text</code> 的 relocation table。可以利用 <code>objdump -r xxx.o</code> 看 relocation table。</p>
+<p>linker 由 global symbol table 得知 symbol 的 address，接著依據不同定址模式將 address 填進 instruction。所有 object file 中原本 undefined 的 symbol 經過 relocate 及 resolve 後應該要能在 global symbol table 中找到對應的 address，否則會出現 undefined reference 的 error。</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>來點例子比較有 fu。</p>
+<h3 id="source"><a href="#source" class="headerlink" title="source"></a>source</h3><figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> sum;</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> globalvar = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> staticvar = <span class="number">1</span>;</span><br><span class="line">    sum = a + b;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>* p = &amp;staticvar;</span><br><span class="line">    p = &amp;sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>sum</code> 宣告成 <code>extern</code>，表示是其他檔案的 symbol，在 <code>foo()</code> 裡使用就是跨 object file 的 reference。</p>
+<p>static 的 global 變數 <code>globalvar</code> 是只在這個 file 裡才看得到的變數。</p>
+<figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"><span class="keyword">int</span> sum = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    foo(<span class="number">5</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>宣告 <code>foo()</code> 在別的檔案。</p>
+<p><code>$ gcc -c foo.c main.c</code> compile 成 object file。</p>
+<p><code>$ ld foo.o main.o -e main -o foo</code> link 兩個 object file，以 <code>-e</code> 指定 entry point。</p>
+<p><em>PS：以上述簡化的 compile 及 link，程式會在跑到要結束的時候發生 segmentation fault，可能跟自己指定 entry point、未使用 C Runtime 處理開始及結束 process 有關。</em></p>
+<h3 id="分配空間及-address"><a href="#分配空間及-address" class="headerlink" title="分配空間及 address"></a>分配空間及 address</h3><p>首先分配空間及 address，將多個 object file 裡相同的 section 放在一起並分配空間及 address，觀察三個檔案的 section：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ readelf -S foo.o</span><br><span class="line"></span><br><span class="line">There are <span class="number">13</span> section headers, starting at offset <span class="number">0x318</span>:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type             Address           Offset</span><br><span class="line">       Size              EntSize          Flags  Link  Info  Align</span><br><span class="line">  [ <span class="number">0</span>]                   NULL             <span class="number">0000000000000000</span>  <span class="number">00000000</span></span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">0</span></span><br><span class="line">  [ <span class="number">1</span>] .text             PROGBITS         <span class="number">0000000000000000</span>  <span class="number">00000040</span></span><br><span class="line">       <span class="number">0000000000000025</span>  <span class="number">0000000000000000</span>  AX       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">2</span>] .rela.text        RELA             <span class="number">0000000000000000</span>  <span class="number">000002</span>a0</span><br><span class="line">       <span class="number">0000000000000048</span>  <span class="number">0000000000000018</span>   I      <span class="number">11</span>     <span class="number">1</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">3</span>] .data             PROGBITS         <span class="number">0000000000000000</span>  <span class="number">00000068</span></span><br><span class="line">       <span class="number">0000000000000014</span>  <span class="number">0000000000000000</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">4</span>] .rela.data        RELA             <span class="number">0000000000000000</span>  <span class="number">000002e8</span></span><br><span class="line">       <span class="number">0000000000000018</span>  <span class="number">0000000000000018</span>   I      <span class="number">11</span>     <span class="number">3</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">5</span>] .bss              NOBITS           <span class="number">0000000000000000</span>  <span class="number">0000007</span>c</span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">6</span>] .comment          PROGBITS         <span class="number">0000000000000000</span>  <span class="number">0000007</span>c</span><br><span class="line">       <span class="number">000000000000001</span>e  <span class="number">0000000000000001</span>  MS       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">7</span>] .note.GNU-stack   PROGBITS         <span class="number">0000000000000000</span>  <span class="number">0000009</span>a</span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">8</span>] .eh_frame         PROGBITS         <span class="number">0000000000000000</span>  <span class="number">000000</span>a0</span><br><span class="line">       <span class="number">0000000000000038</span>  <span class="number">0000000000000000</span>   A       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">9</span>] .rela.eh_frame    RELA             <span class="number">0000000000000000</span>  <span class="number">00000300</span></span><br><span class="line">       <span class="number">0000000000000018</span>  <span class="number">0000000000000018</span>   I      <span class="number">11</span>     <span class="number">8</span>     <span class="number">8</span></span><br><span class="line">  [<span class="number">10</span>] .shstrtab         STRTAB           <span class="number">0000000000000000</span>  <span class="number">000000</span>d8</span><br><span class="line">       <span class="number">000000000000005</span>e  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [<span class="number">11</span>] .symtab           SYMTAB           <span class="number">0000000000000000</span>  <span class="number">00000138</span></span><br><span class="line">       <span class="number">0000000000000138</span>  <span class="number">0000000000000018</span>          <span class="number">12</span>    <span class="number">11</span>     <span class="number">8</span></span><br><span class="line">  [<span class="number">12</span>] .strtab           STRTAB           <span class="number">0000000000000000</span>  <span class="number">00000270</span></span><br><span class="line">       <span class="number">000000000000002f</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line"></span><br><span class="line">$ readelf -S main.o</span><br><span class="line"></span><br><span class="line">There are <span class="number">12</span> section headers, starting at offset <span class="number">0x268</span>:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type             Address           Offset</span><br><span class="line">       Size              EntSize          Flags  Link  Info  Align</span><br><span class="line">  [ <span class="number">0</span>]                   NULL             <span class="number">0000000000000000</span>  <span class="number">00000000</span></span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">0</span></span><br><span class="line">  [ <span class="number">1</span>] .text             PROGBITS         <span class="number">0000000000000000</span>  <span class="number">00000040</span></span><br><span class="line">       <span class="number">000000000000001</span>a  <span class="number">0000000000000000</span>  AX       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">2</span>] .rela.text        RELA             <span class="number">0000000000000000</span>  <span class="number">00000238</span></span><br><span class="line">       <span class="number">0000000000000018</span>  <span class="number">0000000000000018</span>   I      <span class="number">10</span>     <span class="number">1</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">3</span>] .data             PROGBITS         <span class="number">0000000000000000</span>  <span class="number">0000005</span>c</span><br><span class="line">       <span class="number">0000000000000004</span>  <span class="number">0000000000000000</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">4</span></span><br><span class="line">  [ <span class="number">4</span>] .bss              NOBITS           <span class="number">0000000000000000</span>  <span class="number">00000060</span></span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">5</span>] .comment          PROGBITS         <span class="number">0000000000000000</span>  <span class="number">00000060</span></span><br><span class="line">       <span class="number">000000000000001</span>e  <span class="number">0000000000000001</span>  MS       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">6</span>] .note.GNU-stack   PROGBITS         <span class="number">0000000000000000</span>  <span class="number">0000007</span>e</span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">7</span>] .eh_frame         PROGBITS         <span class="number">0000000000000000</span>  <span class="number">00000080</span></span><br><span class="line">       <span class="number">0000000000000038</span>  <span class="number">0000000000000000</span>   A       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">8</span>] .rela.eh_frame    RELA             <span class="number">0000000000000000</span>  <span class="number">00000250</span></span><br><span class="line">       <span class="number">0000000000000018</span>  <span class="number">0000000000000018</span>   I      <span class="number">10</span>     <span class="number">7</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">9</span>] .shstrtab         STRTAB           <span class="number">0000000000000000</span>  <span class="number">000000</span>b8</span><br><span class="line">       <span class="number">0000000000000059</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [<span class="number">10</span>] .symtab           SYMTAB           <span class="number">0000000000000000</span>  <span class="number">00000118</span></span><br><span class="line">       <span class="number">0000000000000108</span>  <span class="number">0000000000000018</span>          <span class="number">11</span>     <span class="number">8</span>     <span class="number">8</span></span><br><span class="line">  [<span class="number">11</span>] .strtab           STRTAB           <span class="number">0000000000000000</span>  <span class="number">00000220</span></span><br><span class="line">       <span class="number">0000000000000015</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line"></span><br><span class="line">$ readelf -S foo</span><br><span class="line"></span><br><span class="line">There are <span class="number">8</span> section headers, starting at offset <span class="number">0x3c8</span>:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type             Address           Offset</span><br><span class="line">       Size              EntSize          Flags  Link  Info  Align</span><br><span class="line">  [ <span class="number">0</span>]                   NULL             <span class="number">0000000000000000</span>  <span class="number">00000000</span></span><br><span class="line">       <span class="number">0000000000000000</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">0</span></span><br><span class="line">  [ <span class="number">1</span>] .text             PROGBITS         <span class="number">00000000004000e8</span>  <span class="number">000000e8</span></span><br><span class="line">       <span class="number">000000000000003f</span>  <span class="number">0000000000000000</span>  AX       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">2</span>] .eh_frame         PROGBITS         <span class="number">0000000000400128</span>  <span class="number">00000128</span></span><br><span class="line">       <span class="number">0000000000000058</span>  <span class="number">0000000000000000</span>   A       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">3</span>] .data             PROGBITS         <span class="number">0000000000600180</span>  <span class="number">00000180</span></span><br><span class="line">       <span class="number">0000000000000018</span>  <span class="number">0000000000000000</span>  WA       <span class="number">0</span>     <span class="number">0</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">4</span>] .comment          PROGBITS         <span class="number">0000000000000000</span>  <span class="number">00000198</span></span><br><span class="line">       <span class="number">000000000000001</span>d  <span class="number">0000000000000001</span>  MS       <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">5</span>] .shstrtab         STRTAB           <span class="number">0000000000000000</span>  <span class="number">000001</span>b5</span><br><span class="line">       <span class="number">000000000000003</span>a  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br><span class="line">  [ <span class="number">6</span>] .symtab           SYMTAB           <span class="number">0000000000000000</span>  <span class="number">000001f</span>0</span><br><span class="line">       <span class="number">0000000000000180</span>  <span class="number">0000000000000018</span>           <span class="number">7</span>    <span class="number">10</span>     <span class="number">8</span></span><br><span class="line">  [ <span class="number">7</span>] .strtab           STRTAB           <span class="number">0000000000000000</span>  <span class="number">00000370</span></span><br><span class="line">       <span class="number">0000000000000053</span>  <span class="number">0000000000000000</span>           <span class="number">0</span>     <span class="number">0</span>     <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/static_link_step1.png" alt="Static link step1"></p>
+<p><code>foo.o</code> 跟 <code>main.o</code> 的 <code>.text</code> 以及 <code>.data</code> section 在 <code>foo</code> 合在一起啦！</p>
+<h3 id="relocation"><a href="#relocation" class="headerlink" title="relocation"></a>relocation</h3><p>section 合併之後就能計算出 symbol 的 address，進入 static link 的重頭戲 relocation。</p>
+<p>先看還沒 relocate 的 <code>foo.o</code> 的 symbol：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s foo.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 13 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS foo.c</span><br><span class="line">     2: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1 </span><br><span class="line">     3: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3 </span><br><span class="line">     4: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5 </span><br><span class="line">     5: 0000000000000000     4 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   3 globalvar</span><br><span class="line">     6: 0000000000000008     8 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   3 p.1749</span><br><span class="line">     7: 0000000000000010     4 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   3 staticvar.1748</span><br><span class="line">     8: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   7 </span><br><span class="line">     9: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8 </span><br><span class="line">    10: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6 </span><br><span class="line">    11: 0000000000000000    37 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 foo</span><br><span class="line">    12: 0000000000000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND sum</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Num：symbol table array 的 index。</li>
+<li>Name：<code>st_name</code>，symbol name。</li>
+<li>Value：<code>st_value</code>，symbol value，該 symbol 的 address。</li>
+<li>Size：<code>st_size</code>，表示所佔的大小。如果 symbol 是變數且在這個 object file 內，size 會有值，再根據有沒有 initialized 決定放在 <code>.data</code> 或 <code>.bss</code> section。global 跟 local static 有 initialized 的變數會在 compile 階段挖好空間、決定好 address，也就會在 executable file 中佔有空間。</li>
+<li>Type 及 Bind 對應 <code>st_info</code>，<code>GLOBAL</code> 表示 global 可見，<code>LOCAL</code> 則表示在這個 compile unit 中可見。</li>
+<li>Ndx：<code>st_shndx</code>，屬於哪個 section，<code>UND</code> 表示這個 symbol 還是 undefined。</li>
+</ul>
+<p><code>globalvar</code> 跟 <code>staticvar</code> 兩個變數都放在 <code>.data</code> section，<code>foo</code> 在 code section <code>.text</code>，<code>sum</code> 被宣告成 <code>extern</code> 則是 undefined 要等 link 的時候才知道在哪。</p>
+<p><code>main.o</code> 的 symbol：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 11 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS main.c</span><br><span class="line">     2: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1 </span><br><span class="line">     3: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3 </span><br><span class="line">     4: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4 </span><br><span class="line">     5: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6 </span><br><span class="line">     6: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   7 </span><br><span class="line">     7: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5 </span><br><span class="line">     8: 0000000000000000     4 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span>   3 sum</span><br><span class="line">     9: 0000000000000000    26 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 main</span><br><span class="line">    10: 0000000000000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br></pre></td></tr></table></figure>
+
+<p><code>sum</code> 定義在 <code>main.o</code> 裡，<code>foo</code> 在 <code>main.o</code> 則是 undefined。</p>
+<p><code>foo</code> 的 symbol：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s foo</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 16 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 00000000004000e8     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1 </span><br><span class="line">     2: 0000000000400128     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   2 </span><br><span class="line">     3: 0000000000600180     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3 </span><br><span class="line">     4: 0000000000000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4 </span><br><span class="line">     5: 0000000000000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS foo.c</span><br><span class="line">     6: 0000000000600180     4 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   3 globalvar</span><br><span class="line">     7: 0000000000600188     8 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   3 p.1749</span><br><span class="line">     8: 0000000000600190     4 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   3 staticvar.1748</span><br><span class="line">     9: 0000000000000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS main.c</span><br><span class="line">    10: 0000000000600194     4 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span>   3 sum</span><br><span class="line">    11: 0000000000600198     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>   3 __bss_start</span><br><span class="line">    12: 000000000040010d    26 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 main</span><br><span class="line">    13: 00000000004000e8    37 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 foo</span><br><span class="line">    14: 0000000000600198     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>   3 _edata</span><br><span class="line">    15: 0000000000600198     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>   3 _end</span><br></pre></td></tr></table></figure>
+
+<p>link 後 symbol 填上 value，原本是 undefined 的 <code>sum</code> 跟 <code>foo</code> 都有各自的 address 跟所屬的 section。這個合併後的 symbol table 就是 global symbol table。</p>
+<p>接著，linker 從 global symbol table 知道 symbol 的 address，並依據 relocation table 知道哪些幾個指令要改以及怎麼改。<code>main.o</code> 跟 <code>foo.o</code> 的 relocation table：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -r foo.o</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.text&#x27;</span> at offset 0x2a0 contains 3 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000014  000c00000002 R_X86_64_PC32     0000000000000000 sum - 4</span><br><span class="line">00000000001b  000300000002 R_X86_64_PC32     0000000000000000 .data + 0</span><br><span class="line">00000000001f  000c0000000b R_X86_64_32S      0000000000000000 sum + 0</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.data&#x27;</span> at offset 0x2e8 contains 1 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000008  000300000001 R_X86_64_64       0000000000000000 .data + 10</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.eh_frame&#x27;</span> at offset 0x300 contains 1 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000020  000200000002 R_X86_64_PC32     0000000000000000 .text + 0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ readelf -r main.o</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.text&#x27;</span> at offset 0x238 contains 1 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">00000000000f  000a00000002 R_X86_64_PC32     0000000000000000 foo - 4</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.eh_frame&#x27;</span> at offset 0x250 contains 1 entries:</span><br><span class="line">  Offset          <span class="builtin-name">Info</span>          <span class="built_in"> Type </span>          Sym. Value    Sym. Name + Addend</span><br><span class="line">000000000020  000200000002 R_X86_64_PC32     0000000000000000 .text + 0</span><br></pre></td></tr></table></figure>
+
+<p>offset 欄位表示需要 relocate 的 instrcution 所在位置，如 <code>foo.o</code> 的 <code>0x14</code> 是需要 <code>sum</code> address 的位置。</p>
+<p>修正 address 的方式依據 instruction 而定。簡單分成<strong>相對定址</strong>跟<strong>絕對定址</strong>，可由 relocation entry 的 type 知道是哪種定址模式。相對定址填入相對下一個指令 address 的 offset，絕對定址填入 symbol 的絕對 address，所以執行檔中有以 offset 跟絕對 address 得到 symbol address 的 instruction。<code>R_X86_64_PC32</code> 屬於相對定址，<code>R_X86_64_32S</code> 屬於絕對定址。看看 link 後會 instruction 怎麼改變：</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ objdump -d foo.o</span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line"><span class="number">0000000000000000</span> &lt;foo&gt;:</span><br><span class="line">   <span class="number">0</span>:   <span class="number">55</span>                      push   %rbp</span><br><span class="line">   <span class="number">1</span>:   <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">   <span class="number">4</span>:   <span class="number">89</span> <span class="number">7</span>d fc                mov    %edi,<span class="number">-0x4</span>(%rbp)</span><br><span class="line">   <span class="number">7</span>:   <span class="number">89</span> <span class="number">75</span> f8                mov    %esi,<span class="number">-0x8</span>(%rbp)</span><br><span class="line">   a:   <span class="number">8</span>b <span class="number">55</span> fc                mov    <span class="number">-0x4</span>(%rbp),%edx</span><br><span class="line">   d:   <span class="number">8</span>b <span class="number">45</span> f8                mov    <span class="number">-0x8</span>(%rbp),%eax</span><br><span class="line">  <span class="number">10</span>:   <span class="number">01</span> d0                   add    %edx,%eax</span><br><span class="line">  <span class="number">12</span>:   <span class="number">89</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>       mov    %eax,<span class="number">0x0</span>(%rip)        # <span class="number">18</span> &lt;foo+<span class="number">0x18</span>&gt;</span><br><span class="line">  <span class="number">18</span>:   <span class="number">48</span> c7 <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    movq   $<span class="number">0x0</span>,<span class="number">0x0</span>(%rip)        # <span class="number">23</span> &lt;foo+<span class="number">0x23</span>&gt;</span><br><span class="line">  <span class="number">1f</span>:   <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line">  <span class="number">23</span>:   <span class="number">5</span>d                      pop    %rbp</span><br><span class="line">  <span class="number">24</span>:   c3                      retq   </span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">$ objdump -d main.o</span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line"><span class="number">0000000000000000</span> &lt;main&gt;:</span><br><span class="line">   <span class="number">0</span>:   <span class="number">55</span>                      push   %rbp</span><br><span class="line">   <span class="number">1</span>:   <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">   <span class="number">4</span>:   be <span class="number">03</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x3</span>,%esi</span><br><span class="line">   <span class="number">9</span>:   bf <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x5</span>,%edi</span><br><span class="line">   e:   e8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          callq  <span class="number">13</span> &lt;main+<span class="number">0x13</span>&gt;</span><br><span class="line">  <span class="number">13</span>:   b8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x0</span>,%eax</span><br><span class="line">  <span class="number">18</span>:   <span class="number">5</span>d                      pop    %rbp</span><br><span class="line">  <span class="number">19</span>:   c3                      retq   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ objdump -d foo</span><br><span class="line"></span><br><span class="line">Disassembly of section .text:</span><br><span class="line"></span><br><span class="line"><span class="number">00000000004000e8</span> &lt;foo&gt;:</span><br><span class="line">  <span class="number">4000e8</span>:       <span class="number">55</span>                      push   %rbp</span><br><span class="line">  <span class="number">4000e9</span>:       <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">  <span class="number">4000</span>ec:       <span class="number">89</span> <span class="number">7</span>d fc                mov    %edi,<span class="number">-0x4</span>(%rbp)</span><br><span class="line">  <span class="number">4000</span>ef:       <span class="number">89</span> <span class="number">75</span> f8                mov    %esi,<span class="number">-0x8</span>(%rbp)</span><br><span class="line">  <span class="number">4000f</span>2:       <span class="number">8</span>b <span class="number">55</span> fc                mov    <span class="number">-0x4</span>(%rbp),%edx</span><br><span class="line">  <span class="number">4000f</span>5:       <span class="number">8</span>b <span class="number">45</span> f8                mov    <span class="number">-0x8</span>(%rbp),%eax</span><br><span class="line">  <span class="number">4000f</span>8:       <span class="number">01</span> d0                   add    %edx,%eax</span><br><span class="line">  <span class="number">4000f</span>a:       <span class="number">89</span> <span class="number">05</span> <span class="number">94</span> <span class="number">00</span> <span class="number">20</span> <span class="number">00</span>       mov    %eax,<span class="number">0x200094</span>(%rip)        # <span class="number">600194</span> &lt;sum&gt;</span><br><span class="line">  <span class="number">400100</span>:       <span class="number">48</span> c7 <span class="number">05</span> <span class="number">7</span>d <span class="number">00</span> <span class="number">20</span> <span class="number">00</span>    movq   $<span class="number">0x600194</span>,<span class="number">0x20007d</span>(%rip)        # <span class="number">600188</span> &lt;p<span class="number">.1749</span>&gt;</span><br><span class="line">  <span class="number">400107</span>:       <span class="number">94</span> <span class="number">01</span> <span class="number">60</span> <span class="number">00</span> </span><br><span class="line">  <span class="number">40010</span>b:       <span class="number">5</span>d                      pop    %rbp</span><br><span class="line">  <span class="number">40010</span>c:       c3                      retq   </span><br><span class="line"></span><br><span class="line"><span class="number">000000000040010</span>d &lt;main&gt;:</span><br><span class="line">  <span class="number">40010</span>d:       <span class="number">55</span>                      push   %rbp</span><br><span class="line">  <span class="number">40010</span>e:       <span class="number">48</span> <span class="number">89</span> e5                mov    %rsp,%rbp</span><br><span class="line">  <span class="number">400111</span>:       be <span class="number">03</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x3</span>,%esi</span><br><span class="line">  <span class="number">400116</span>:       bf <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x5</span>,%edi</span><br><span class="line">  <span class="number">40011</span>b:       e8 c8 ff ff ff          callq  <span class="number">4000e8</span> &lt;foo&gt;</span><br><span class="line">  <span class="number">400120</span>:       b8 <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          mov    $<span class="number">0x0</span>,%eax</span><br><span class="line">  <span class="number">400125</span>:       <span class="number">5</span>d                      pop    %rbp</span><br><span class="line">  <span class="number">400126</span>:       c3                      retq   </span><br></pre></td></tr></table></figure>
+
+<p>compile <code>foo.c</code> 跟 <code>main.c</code> 時 compiler 不知道 reference 到外部 symbol 的 address，在 instruction 中填入 0，link 才填入真正的 address。</p>
+<p><code>foo.o</code> 的 instruction 從</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">12</span>:   <span class="number">89</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>       mov    %eax,<span class="number">0</span>x<span class="number">0</span>(%rip)        # <span class="number">18</span> &lt;foo+<span class="number">0</span>x<span class="number">18</span>&gt;</span><br><span class="line"><span class="attribute">18</span>:   <span class="number">48</span> c<span class="number">7</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    movq   $<span class="number">0</span>x<span class="number">0</span>,<span class="number">0</span>x<span class="number">0</span>(%rip)        # <span class="number">23</span> &lt;foo+<span class="number">0</span>x<span class="number">23</span>&gt;</span><br><span class="line"><span class="attribute">1f</span>:   <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br></pre></td></tr></table></figure>
+
+<p>變成</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">4000fa</span>:       <span class="number">89</span> <span class="number">05</span> <span class="number">94</span> <span class="number">00</span> <span class="number">20</span> <span class="number">00</span>       mov    %eax,<span class="number">0</span>x<span class="number">200094</span>(%rip)        # <span class="number">600194</span> &lt;sum&gt;</span><br><span class="line"><span class="attribute">400100</span>:       <span class="number">48</span> c<span class="number">7</span> <span class="number">05</span> <span class="number">7</span>d <span class="number">00</span> <span class="number">20</span> <span class="number">00</span>    movq   $<span class="number">0</span>x<span class="number">600194</span>,<span class="number">0</span>x<span class="number">20007</span>d(%rip)        # <span class="number">600188</span> &lt;p.<span class="number">1749</span>&gt;</span><br><span class="line"><span class="attribute">400107</span>:       <span class="number">94</span> <span class="number">01</span> <span class="number">60</span> <span class="number">00</span> </span><br></pre></td></tr></table></figure>
+
+<p><code>mov</code> 使用相對定址 access <code>sum (0x600194)</code>，將下一個 instruction 的 address <code>0x400100</code> 加上 <code>0x200094</code> 得到 <code>sum</code> 的 address，可從 symbol table 驗證。<code>movq</code> 使用絕對定址，由上 <code>0x400107</code> 可以看到 <code>sum</code> 的 address 直接寫進 instruction 了。之所以在 instruction 中數值看起來是反過來的，是因為 intel x86 CPU 使用 little-endian（<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Endianness">Endianness wiki</a>）。</p>
+<p><code>main.o</code> 則是</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">e</span>:   e<span class="number">8</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>          callq  <span class="number">13</span> &lt;main+<span class="number">0</span>x<span class="number">13</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>變成</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">40011b</span>:       e<span class="number">8</span> c<span class="number">8</span> ff ff ff          callq  <span class="number">4000</span>e<span class="number">8</span> &lt;foo&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>callq</code> 指令要 call <code>foo()</code>，其中 <code>e8</code> 是指令本身，<code>ffffffc8</code> 是 offset，以二的補數來看是十進位 <code>-56</code>，所以 <code>0x400120 - 0x38 = 0x4000e8</code>，就是 <code>foo()</code> 的 address 啦。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《程式設計師的自我修養》 ch 4</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Endianness">Endianness wiki</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1141,113 +1304,6 @@
 <p>我覺得如果遇到關鍵字跟常見做法可以直接套用已知觀念，相對來說就會快很多，因為不需要特別再看實作去理解這部分在做什麼。有時候需要看實作是因為拼湊其他線索後還是不知道那段在幹嘛，只好透過實作細節重新抽象化成概念。</p>
 <p>至於如何找 code？find all 與 <code>grep --color -nr *</code> 萬歲！(欸)</p>
 <p>PS：寫這個是想知道自己怎麼 trace code 的，但怎麼寫一寫好像還是有點像要心領神會的難以言喻……Orz……</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch5-note/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/API-Design-for-Cpp-ch5-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch5 API Style</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-08-11 20:24:07" itemprop="dateCreated datePublished" datetime="2015-08-11T20:24:07+08:00">2015-08-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/API-Design-for-Cpp-ch5-note/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="API-Design-for-Cpp-ch5-note/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>API 分很多種 style，各有優缺跟取捨。</p>
-<ul>
-<li>C style</li>
-<li>Object Oriented C++ style</li>
-<li>Template style</li>
-<li>Data driven style</li>
-</ul>
-<p>這種分類方式是以 C/C++ 系列區分，但我覺得在其他語言方面也有類似概念。</p>
-<h2 id="C-style"><a href="#C-style" class="headerlink" title="C style"></a>C style</h2><p>一般 C function 們，通常會用 struct 跟一些命名規則來區別不同功能跟 component 等等。</p>
-<p>類似的東西：PHP 那些 <code>mysql_</code> 開頭的 function 們。</p>
-<h3 id="讓-C-可以-call-C-API"><a href="#讓-C-可以-call-C-API" class="headerlink" title="讓 C++ 可以 call C API"></a>讓 C++ 可以 call C API</h3><p>有時候使用者是用 C++ 開發，而 C style 的 API 希望能給這樣的使用者使用。在此狀況下，C style API 需要：</p>
-<ol>
-<li>C API 可以用 C++ compiler 編過</li>
-<li>用 <code>extern &quot;C&quot;</code> 處理 C++ 與 C 之間 linkage 的問題<br>同樣的 function 在 C compiler 跟 C++ 的 compiler 產生的 object file 中會以不同方式呈現，例如 C++ 有 <code>name decoration</code>，但 C 沒有。因此 C API 得用 extern “C” 包起來，讓 C++ compiler 知道這段應該要用 C style 的 link 方式。</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C API declaration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>實例：<a href="/Cpp-uses-C-library-example">C++ uses C library example</a></p>
-<h2 id="Object-Oriented-C-style"><a href="#Object-Oriented-C-style" class="headerlink" title="Object Oriented C++ style"></a>Object Oriented C++ style</h2><p>以物件導向為基礎的寫法。</p>
-<p>類似的東西：PHP 的 <code>mysqli</code> 物件。</p>
-<h2 id="Template-style"><a href="#Template-style" class="headerlink" title="Template style"></a>Template style</h2><p>以 template 於 compile time 達到 static polymorphism──相同 interface 可支援多種 type，例如 STL。</p>
-<p>相對物件導向的多型是在 runtime 做，使用 template 有較高的執行效率，但 compile 出來的檔案會比較大。因此，相對 code 大小較著重執行效能時可用 template，反之可用物件導向。</p>
-<p>缺點之一是 template 的定義得放在 header，導致使用的程式需一起 compile template 的 header，但仍有些方式可以將 template 定義藏在 .cpp。另外，template 的 compile error 訊息很複雜，無論自己開發有什麼問題或者使用者使用時有何問題，複雜的 error message 讓人蠻頭大的。<em>被害過…但至今還是沒搞懂…(欸)</em></p>
-<h2 id="Data-driven-style"><a href="#Data-driven-style" class="headerlink" title="Data driven style"></a>Data driven style</h2><p>interface 提供非常 general 的 function，實際上做什麼事由 input 決定。interface 大概像這樣：</p>
-<p><code>Result DoCommand(string cmd, ArgList args)</code></p>
-<p><code>Command()</code> 內部 implement 會依據 <code>cmd</code> 決定要做什麼，<code>args</code> 則是對應 command 的參數，<code>Result</code> 則是回傳值。</p>
-<p>例如 web service，使用者丟想做的命令跟參數給 web service，web service 再依據命令及參數回應。</p>
-<p>由於 interface 非常 general，需要相對應的 general 的參數型態來傳這些參數，像上面的 <code>Result</code>。在不強調 data type 的語言（weakly type language）像 python 中很好處理，但在 C++ 裡就要自己寫或用其他 library 提供的了，如 Qt 的 QVariant。</p>
-<p>好處是 API 修改非常彈性，幾乎不需要動到 interface。壞處是單從 interface 看不出 API 提供的功能，因為太 general 了，這時候只能靠文件。</p>
 
       
     </div>
