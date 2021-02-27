@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,20 +15,21 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 <meta property="og:title" content="cjwind&#39;s note">
 <meta property="og:url" content="http://www.cjwind.idv.tw/page/15/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="cjwind">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/15/">
 
@@ -40,8 +43,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>cjwind's note</title>
+<title>cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -52,8 +54,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -97,14 +97,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -118,6 +117,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -130,37 +130,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -171,8 +147,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -181,12 +156,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -195,9 +170,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -215,40 +190,41 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -264,38 +240,249 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner index posts-expand">
 
-        <div class="content index posts-expand">
-          
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/change-search-for-octopress/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/change-search-for-octopress/" class="post-title-link" itemprop="url">更換 Octopress 的搜尋功能</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-26 20:45:13" itemprop="dateCreated datePublished" datetime="2014-04-26T20:45:13+08:00">2014-04-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2014-04-28 20:45:00" itemprop="dateModified" datetime="2014-04-28T20:45:00+08:00">2014-04-28</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/change-search-for-octopress/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="change-search-for-octopress/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>發現兩個問題：Tapir 不支援中文、換過 permalink 會怪怪的。</p>
+<p><em>2014/4/28 updated</em></p>
+<hr>
+<p>Octopress 預設的 search 功能是 Google search，一搜尋就會導到 Google 的頁面。不太喜歡這種方式，把 search 換成 <a target="_blank" rel="noopener" href="http://tapirgo.com/">Tapir</a>，可以在自己站內找。</p>
+<p>Tapir 的原理是它每 15 分鐘會掃一次網站的 RSS，再透過他們的 API 達到以 RSS 為 base 的搜尋功能。要注意的是，沒在 RSS 中的文章是不會被 search 到的。</p>
+<h2 id="修改方式"><a href="#修改方式" class="headerlink" title="修改方式"></a>修改方式</h2><p>先到 <a target="_blank" rel="noopener" href="http://tapirgo.com/">Tapir</a> 輸入 RSS feed 跟 mail，會得到一組 key，這裡只需要用到 public key。</p>
+<p>到 <a target="_blank" rel="noopener" href="https://github.com/blimey85/octopress-tapir">Octopress Tapir plugin</a> 下載所需檔案並放到對應資料夾。</p>
+<ul>
+<li>source/search.html</li>
+<li>source/javascripts/jquery_tapir.js</li>
+<li>source/images/loading.gif</li>
+</ul>
+<p>修改 <code>_config.yml</code>：</p>
+<ul>
+<li>註解掉 <code>simple_search</code></li>
+<li>加入 <code>tapir_token: [your public key from Tapir]</code></li>
+</ul>
+<p>修改 <code>source/_includes/navigation.html</code>，在 <code>include custom/navigation.html</code> 前面加入：</p>
+
+    {% if site.tapir_token %}
+    <form method="get" action="{{ root_url }}/search.html">
+    <fieldset role="search">
+	  <input class="search" name="query" type="text" placeholder="Search..." x-webkit-speech />
+    </fieldset>
+    </form>
+    {% endif %}
+
+
+<p>修改 <code>source/atom.xml</code>，拿掉 <code>for post in site.posts limit: 20</code> 的 <code>limit: 20</code>，讓所有 post 都會出現在 RSS feed 。另一個可能的做法是複製 <code>source/atom.xml</code> 為 <code>source/atomForSearch.xml</code>，<code>rake generate</code> 後將這個 XML 的 URL 丟給 Tapir 當作 search 的 base。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://tapirgo.com/">http://tapirgo.com/</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/blimey85/octopress-tapir">https://github.com/blimey85/octopress-tapir</a></li>
+<li><a target="_blank" rel="noopener" href="http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/">http://minizatic.github.io/blog/2013/08/08/installing-octopress-plugins/</a></li>
+</ul>
+
       
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-google-code-jam-round-1a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2014-google-code-jam-round-1a/" class="post-title-link" itemprop="url">2014 Google Code Jam Round 1A</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-26 12:09:26" itemprop="dateCreated datePublished" datetime="2014-04-26T12:09:26+08:00">2014-04-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2014-google-code-jam-round-1a/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014-google-code-jam-round-1a/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>掛蛋啦哈哈哈哈哈哈哈哈…….Orz…..</p>
+<p>早上八點半爬起來，弄一弄我只剩十分鐘清醒，所以一開始整個沒醒。看了 A 的題目，十幾二十分鐘後，中華電信來弄網路跟 MOD，弄完就十點了，我實在有點想跟他說 MOD 放著不用裝了，依照我們的習性大概也沒人會去開來看。網路弄完，醒了但也只剩 1.5 小時。</p>
+<p>稍微想一下 A，只想到計算 0 跟 1 的個數可以判斷是不是 possible，但是計算次數的部分就還沒想到。後來去看 B，整個覺得我好久沒看這種東西，沒想清楚題目，自以為邊只有三種情況，寫了條件很多的 BFS，寫完 WA 到天邊去，反正掛蛋也沒有 penalty 問題…..(欸)</p>
+<p>平常沒在練習，掛蛋也不是什麼很稀奇的事。下一場 1B 的時間對我來說太爛了（我是作息時間不太工程師的工程師），只好 1C 再戰。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/toy-gpxconcat/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -307,32 +494,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/toy-gpxconcat/" class="post-title-link" itemprop="url">[Toy] GpxConcat</a>
+          <a href="/toy-gpxconcat/" class="post-title-link" itemprop="url">[Toy] GpxConcat</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-25 23:21:50" itemprop="dateCreated datePublished" datetime="2014-04-25T23:21:50+08:00">2014-04-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-25 23:21:50" itemprop="dateCreated datePublished" datetime="2014-04-25T23:21:50+08:00">2014-04-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -347,6 +532,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -371,18 +557,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/qt4-sequential-container/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -394,32 +587,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/qt4-sequential-container/" class="post-title-link" itemprop="url">Qt4 Sequential Container</a>
+          <a href="/qt4-sequential-container/" class="post-title-link" itemprop="url">Qt4 Sequential Container</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-21 23:23:29" itemprop="dateCreated datePublished" datetime="2014-04-21T23:23:29+08:00">2014-04-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-21 23:23:29" itemprop="dateCreated datePublished" datetime="2014-04-21T23:23:29+08:00">2014-04-21</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -434,6 +625,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -457,18 +649,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/libcurl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -480,32 +679,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/libcurl/" class="post-title-link" itemprop="url">libcurl - HTTP usage</a>
+          <a href="/libcurl/" class="post-title-link" itemprop="url">libcurl - HTTP usage</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-17 22:31:25" itemprop="dateCreated datePublished" datetime="2014-04-17T22:31:25+08:00">2014-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2014-10-15 20:52:00" itemprop="dateModified" datetime="2014-10-15T20:52:00+08:00">2014-10-15</time>
-              </span>
+      <time title="Created: 2014-04-17 22:31:25" itemprop="dateCreated datePublished" datetime="2014-04-17T22:31:25+08:00">2014-04-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2014-10-15 20:52:00" itemprop="dateModified" datetime="2014-10-15T20:52:00+08:00">2014-10-15</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -520,6 +717,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -531,7 +729,6 @@
           <p>libcurl 是處理收送網路 request、response 的 library，可用來收送 HTTP 的 request 及 response。</p>
 <p>libcurl 收到 response 時會 call callback function，由 callback function 處理收到的資料。callback function 可自行撰寫，其 prototype 如下：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">func</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, <span class="keyword">void</span> *userdata)</span></span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>ptr 指向收到的資料</li>
 <li>nmemb 為收到資料的大小</li>
@@ -544,17 +741,14 @@
 <p>2.  Set HTTP header data</p>
 <p>設 HTTP header，如指定 Content-type：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span>* <span class="title">headers</span>;</span></span><br><span class="line"><span class="built_in">memset</span>(header, <span class="number">0</span>, <span class="keyword">sizeof</span>(headers));</span><br><span class="line">headers = curl_slist_append(headers, <span class="string">&quot;Content-type: application/json&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>call <code>curl_slist_append()</code> 會不斷加資訊到 headers 這個資料結構中。</p>
 <p>3. Set options</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);                <span class="comment">// 以 POST 傳送資料</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);    <span class="comment">// 指定 header</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_URL, url.c_str());       <span class="comment">// 指定 url</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);   <span class="comment">// 指定 data，將 postdata 當作 POST data 傳給 server</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);    <span class="comment">// 指定處理 HTTP header 的 callback function 為 parseHeader</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;rescode);          <span class="comment">// 指定 parseHeader 的 userdata</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponse);     <span class="comment">// 指定處理 data 的 callback function 為 getResponse</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEDATA, &amp;response);           <span class="comment">// 指定 getResponse 的 userdata</span></span><br></pre></td></tr></table></figure>
-
 <p>4. 傳送 request</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_perform(curl);</span><br></pre></td></tr></table></figure>
-
 <p>以 blocking 的方式傳送 request。</p>
 <p>5. clean up</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_slist_free_all(headers);    <span class="comment">// 清掉 headers 裡的東西</span></span><br><span class="line">curl_easy_cleanup(curl);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_slist_free_all(headers);	<span class="comment">// 清掉 headers 裡的東西</span></span><br><span class="line">curl_easy_cleanup(curl);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/libcurl/#more" rel="contents">
@@ -569,18 +763,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/phpexcel/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -592,32 +793,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/phpexcel/" class="post-title-link" itemprop="url">PHPExcel</a>
+          <a href="/phpexcel/" class="post-title-link" itemprop="url">PHPExcel</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-16 13:16:10" itemprop="dateCreated datePublished" datetime="2014-04-16T13:16:10+08:00">2014-04-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-16 13:16:10" itemprop="dateCreated datePublished" datetime="2014-04-16T13:16:10+08:00">2014-04-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -632,6 +831,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -643,28 +843,33 @@
           <p>官方網站：<a target="_blank" rel="noopener" href="http://phpexcel.codeplex.com/">http://phpexcel.codeplex.com/</a></p>
 <p>用來讀取、產生 Excel 的 PHP class。</p>
 <p>下載回來後解壓縮 Classes，在要使用的 PHP 檔案中 include。</p>
-<h2 id="產生-Excel"><a href="#產生-Excel" class="headerlink" title="產生 Excel"></a>產生 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// include PHPExcel 相關檔案</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel.php&quot;</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel/Writer/Excel2007.php&quot;</span>);    <span class="comment">// Excel 2007 格式</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel/IOFactory.php&quot;</span>);           <span class="comment">// 放置圖片</span></span><br><span class="line"></span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line">$objPHPExcel = <span class="keyword">new</span> PHPExcel(); </span><br><span class="line">$objPHPExcel-&gt;setActiveSheetIndex(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定儲存格的內容，中文要用 iconv() 轉換，不然會顯示不出來</span></span><br><span class="line">$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">&#x27;A1&#x27;</span>, iconv(<span class="string">&quot;big5&quot;</span>, <span class="string">&quot;utf-8&quot;</span>, <span class="string">&quot;測試&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以用指定 column 跟 row 的方式設定內容，column 是從 0 開始編號，row 是從 1 開始編號</span></span><br><span class="line">$objPHPExcel-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(<span class="number">0</span>, <span class="number">1</span>, iconv(<span class="string">&#x27;big5&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>, <span class="string">&#x27;哈囉&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自動設定欄寬</span></span><br><span class="line">$objPHPExcel-&gt;getActiveSheet()-&gt;getColumnDimension(<span class="string">&#x27;A&#x27;</span>)-&gt;setAutoSize(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Excel 中放圖片</span></span><br><span class="line">$objDrawing = <span class="keyword">new</span> PHPExcel_Worksheet_Drawing();</span><br><span class="line">$objDrawing-&gt;setName(<span class="string">&#x27;cat&#x27;</span>);                        <span class="comment">// 圖片名稱</span></span><br><span class="line">$objDrawing-&gt;setDescription(<span class="string">&#x27;cat&#x27;</span>);                 <span class="comment">// 圖片描述</span></span><br><span class="line">$objDrawing-&gt;setPath(<span class="string">&#x27;cat.jpg&#x27;</span>);                    <span class="comment">// 圖片檔案路徑，支援JPG及PNG格式</span></span><br><span class="line">$objDrawing-&gt;setWidth(<span class="number">1000</span>);                        <span class="comment">// 圖片寬</span></span><br><span class="line">$objDrawing-&gt;setCoordinates(<span class="string">&quot;A2&quot;</span>);                  <span class="comment">// 圖片放置的儲存格位置</span></span><br><span class="line">$objDrawing-&gt;setOffsetX(<span class="number">30</span>);                        <span class="comment">// X偏移量</span></span><br><span class="line">$objDrawing-&gt;setWorksheet($objPHPExcel-&gt;getActiveSheet());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 儲存 Excel 檔，這裡會存成 .xlsx 格式</span></span><br><span class="line">$objWriter = <span class="keyword">new</span> PHPExcel_Writer_Excel2007($objPHPExcel);</span><br><span class="line">$objWriter-&gt;save(str_replace(<span class="string">&#x27;.php&#x27;</span>, <span class="string">&#x27;.xlsx&#x27;</span>, <span class="keyword">__FILE__</span>));    <span class="comment">// Excel 檔案路徑</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="讀取-Excel"><a href="#讀取-Excel" class="headerlink" title="讀取 Excel"></a>讀取 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span>(<span class="string">&#x27;includes/PHPExcel/IOFactory.php&#x27;</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// read excel</span></span><br><span class="line">$filename = <span class="string">&quot;test.xlsx&quot;</span>;</span><br><span class="line">$objPHPExcel = PHPExcel_IOFactory::createReader(<span class="string">&#x27;Excel5&#x27;</span>);    <span class="comment">// 與舊版相容</span></span><br><span class="line">$objPHPExcel = PHPExcel_IOFactory::load($filename);</span><br><span class="line">$objWorksheet = $objPHPExcel-&gt;getSheet(<span class="number">0</span>);                  <span class="comment">// 讀取第一個工作表</span></span><br><span class="line">$data = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 iterator 依序讀取 rows, columns, 並將資料存到 $data</span></span><br><span class="line"><span class="keyword">foreach</span> ( $objWorksheet-&gt;getRowIterator() <span class="keyword">as</span> $rowidx =&gt; $row ) &#123;</span><br><span class="line">    $cellIterator = $row-&gt;getCellIterator();     </span><br><span class="line">    $cellIterator-&gt;setIterateOnlyExistingCells(<span class="literal">false</span>);      <span class="comment">// 讀入整行, 若為空回傳 null</span></span><br><span class="line">    <span class="keyword">foreach</span> ( $cellIterator <span class="keyword">as</span> $cellidx =&gt; $cell ) &#123;  </span><br><span class="line">        $data[$rowidx][$cellidx] = $cell-&gt;getValue(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="產生-Excel"><a href="#產生-Excel" class="headerlink" title="產生 Excel"></a>產生 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// include PHPExcel 相關檔案</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel.php&quot;</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel/Writer/Excel2007.php&quot;</span>);    <span class="comment">// Excel 2007 格式</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel/IOFactory.php&quot;</span>);           <span class="comment">// 放置圖片</span></span><br><span class="line"></span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line"><span class="variable">$objPHPExcel</span> = <span class="keyword">new</span> PHPExcel(); </span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;setActiveSheetIndex(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定儲存格的內容，中文要用 iconv() 轉換，不然會顯示不出來</span></span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">&#x27;A1&#x27;</span>, iconv(<span class="string">&quot;big5&quot;</span>, <span class="string">&quot;utf-8&quot;</span>, <span class="string">&quot;測試&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以用指定 column 跟 row 的方式設定內容，column 是從 0 開始編號，row 是從 1 開始編號</span></span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(<span class="number">0</span>, <span class="number">1</span>, iconv(<span class="string">&#x27;big5&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>, <span class="string">&#x27;哈囉&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自動設定欄寬</span></span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;getActiveSheet()-&gt;getColumnDimension(<span class="string">&#x27;A&#x27;</span>)-&gt;setAutoSize(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Excel 中放圖片</span></span><br><span class="line"><span class="variable">$objDrawing</span> = <span class="keyword">new</span> PHPExcel_Worksheet_Drawing();</span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setName(<span class="string">&#x27;cat&#x27;</span>);                        <span class="comment">// 圖片名稱</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setDescription(<span class="string">&#x27;cat&#x27;</span>);                 <span class="comment">// 圖片描述</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setPath(<span class="string">&#x27;cat.jpg&#x27;</span>);                    <span class="comment">// 圖片檔案路徑，支援JPG及PNG格式</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setWidth(<span class="number">1000</span>);                        <span class="comment">// 圖片寬</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setCoordinates(<span class="string">&quot;A2&quot;</span>);                  <span class="comment">// 圖片放置的儲存格位置</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setOffsetX(<span class="number">30</span>);                        <span class="comment">// X偏移量</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setWorksheet(<span class="variable">$objPHPExcel</span>-&gt;getActiveSheet());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 儲存 Excel 檔，這裡會存成 .xlsx 格式</span></span><br><span class="line"><span class="variable">$objWriter</span> = <span class="keyword">new</span> PHPExcel_Writer_Excel2007(<span class="variable">$objPHPExcel</span>);</span><br><span class="line"><span class="variable">$objWriter</span>-&gt;save(str_replace(<span class="string">&#x27;.php&#x27;</span>, <span class="string">&#x27;.xlsx&#x27;</span>, <span class="keyword">__FILE__</span>));    <span class="comment">// Excel 檔案路徑</span></span><br></pre></td></tr></table></figure>
+<h2 id="讀取-Excel"><a href="#讀取-Excel" class="headerlink" title="讀取 Excel"></a>讀取 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span>(<span class="string">&#x27;includes/PHPExcel/IOFactory.php&#x27;</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// read excel</span></span><br><span class="line"><span class="variable">$filename</span> = <span class="string">&quot;test.xlsx&quot;</span>;</span><br><span class="line"><span class="variable">$objPHPExcel</span> = PHPExcel_IOFactory::createReader(<span class="string">&#x27;Excel5&#x27;</span>);	<span class="comment">// 與舊版相容</span></span><br><span class="line"><span class="variable">$objPHPExcel</span> = PHPExcel_IOFactory::load(<span class="variable">$filename</span>);</span><br><span class="line"><span class="variable">$objWorksheet</span> = <span class="variable">$objPHPExcel</span>-&gt;getSheet(<span class="number">0</span>);                  <span class="comment">// 讀取第一個工作表</span></span><br><span class="line"><span class="variable">$data</span> = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 iterator 依序讀取 rows, columns, 並將資料存到 $data</span></span><br><span class="line"><span class="keyword">foreach</span> ( <span class="variable">$objWorksheet</span>-&gt;getRowIterator() <span class="keyword">as</span> <span class="variable">$rowidx</span> =&gt; <span class="variable">$row</span> ) &#123;</span><br><span class="line">    <span class="variable">$cellIterator</span> = <span class="variable">$row</span>-&gt;getCellIterator();     </span><br><span class="line">    <span class="variable">$cellIterator</span>-&gt;setIterateOnlyExistingCells(<span class="literal">false</span>);      <span class="comment">// 讀入整行, 若為空回傳 null</span></span><br><span class="line">    <span class="keyword">foreach</span> ( <span class="variable">$cellIterator</span> <span class="keyword">as</span> <span class="variable">$cellidx</span> =&gt; <span class="variable">$cell</span> ) &#123;  </span><br><span class="line">        <span class="variable">$data</span>[<span class="variable">$rowidx</span>][<span class="variable">$cellidx</span>] = <span class="variable">$cell</span>-&gt;getValue(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/design-a-new-c-plus-plus-class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -676,32 +881,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/design-a-new-c-plus-plus-class/" class="post-title-link" itemprop="url">設計 C++ class</a>
+          <a href="/design-a-new-c-plus-plus-class/" class="post-title-link" itemprop="url">設計 C++ class</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-13 15:40:02" itemprop="dateCreated datePublished" datetime="2014-04-13T15:40:02+08:00">2014-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-13 15:40:02" itemprop="dateCreated datePublished" datetime="2014-04-13T15:40:02+08:00">2014-04-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -716,6 +919,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -773,18 +977,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/mysql-plus-plus/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -796,32 +1007,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/mysql-plus-plus/" class="post-title-link" itemprop="url">MySQL++</a>
+          <a href="/mysql-plus-plus/" class="post-title-link" itemprop="url">MySQL++</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-13 12:40:51" itemprop="dateCreated datePublished" datetime="2014-04-13T12:40:51+08:00">2014-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-13 12:40:51" itemprop="dateCreated datePublished" datetime="2014-04-13T12:40:51+08:00">2014-04-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -836,6 +1045,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -847,14 +1057,11 @@
           <p>供 C++ 使用的 MySQL library。</p>
 <h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>in Fedora</p>
 <figure class="highlight brainfuck"><table><tr><td class="code"><pre><span class="line"><span class="comment">$</span> <span class="comment">sudo</span> <span class="comment">yum</span> <span class="comment">install</span> <span class="comment">mysql</span> <span class="comment">mysql</span><span class="literal">-</span><span class="comment">devel</span> <span class="comment">mysql</span>++<span class="literal">-</span><span class="comment">devel</span></span><br></pre></td></tr></table></figure>
-
 <p>in Ubuntu</p>
 <figure class="highlight q"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="built_in">get</span> install libmysql++-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
 
-
 <h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h2><p>include file and namespace</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mysql++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> mysqlpp;</span><br></pre></td></tr></table></figure>
-
 <p>compile</p>
 <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">g++ -o &lt;obj <span class="keyword">file</span>&gt; &lt;<span class="keyword">source</span> <span class="keyword">file</span>&gt; -I<span class="regexp">/usr/i</span>nclude<span class="regexp">/mysql++ -I/u</span>sr<span class="regexp">/include/my</span>sql -lmysqlpp -lmysqlclient</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -871,18 +1078,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-google-code-jam-qualification-round/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -894,32 +1108,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2014-google-code-jam-qualification-round/" class="post-title-link" itemprop="url">2014 Google Code Jam Qualification Round</a>
+          <a href="/2014-google-code-jam-qualification-round/" class="post-title-link" itemprop="url">2014 Google Code Jam Qualification Round</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-13 12:05:07" itemprop="dateCreated datePublished" datetime="2014-04-13T12:05:07+08:00">2014-04-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-13 12:05:07" itemprop="dateCreated datePublished" datetime="2014-04-13T12:05:07+08:00">2014-04-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -934,6 +1146,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -962,18 +1175,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/set-up-existing-octopress-blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -985,32 +1205,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/set-up-existing-octopress-blog/" class="post-title-link" itemprop="url">Clone 已有 Octopress blog</a>
+          <a href="/set-up-existing-octopress-blog/" class="post-title-link" itemprop="url">Clone 已有 Octopress blog</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 23:57:35" itemprop="dateCreated datePublished" datetime="2014-04-05T23:57:35+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 23:57:35" itemprop="dateCreated datePublished" datetime="2014-04-05T23:57:35+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -1025,6 +1243,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -1035,15 +1254,12 @@
     <div class="post-body" itemprop="articleBody">
           <p>Octopress 的後端就是自己的電腦，有多台電腦時需要在其他電腦再建立 Octopress 的撰寫環境，並且拿 Github 上面的 repos 下來繼續寫。</p>
 <h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>基本環境：<a target="_blank" rel="noopener" href="http://msysgit.github.io/">Git for Windows</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">RubyInstaller 1.9.3</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">Ruby Development kit</a>。如果用到 code highlight，要裝 <a target="_blank" rel="noopener" href="https://www.python.org/">Python 2</a>，否則 <code>rake generate</code> 會生出空白頁。安裝完 Ruby 跟 Python 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑以及 Python 的安裝路徑，如 <code>C:\Ruby193\bin</code> 及 <code>C:\Python27</code>。</p>
-<h2 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h2><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone -b source <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io octopress</span><br><span class="line"></span><br><span class="line">$ cd octopress</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io <span class="emphasis">_deploy</span></span><br></pre></td></tr></table></figure>
-
+<h2 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h2><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone -b source <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io octopress</span><br><span class="line"></span><br><span class="line">$ cd octopress</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io _deploy</span><br></pre></td></tr></table></figure>
 <p>Octopress 將 master branch 放在 <code>_deploy/</code>。</p>
 <h2 id="Rake-installation-and-configuration"><a href="#Rake-installation-and-configuration" class="headerlink" title="Rake installation and configuration"></a>Rake installation and configuration</h2><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gem <span class="keyword">install </span><span class="keyword">bundler</span></span><br><span class="line"><span class="keyword">$ </span><span class="keyword">bundle </span><span class="keyword">install</span></span><br><span class="line"><span class="keyword">$ </span>rake setup_github_pages</span><br></pre></td></tr></table></figure>
-
 <p>最後一個指令會要求輸入 Github 的 repository URL。</p>
 <h2 id="Pull-repository"><a href="#Pull-repository" class="headerlink" title="Pull repository"></a>Pull repository</h2><p>有多台電腦編輯時，開始前要記得將 local repository 更新到最新。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin <span class="built_in">source</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> _deploy</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull origin master</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
 </ul>
@@ -1054,198 +1270,21 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/move-posts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/move-posts/" class="post-title-link" itemprop="url">搬筆記到 Octopress</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 13:32:05" itemprop="dateCreated datePublished" datetime="2014-04-05T13:32:05+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/move-posts/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="move-posts/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>用想放空的假期把寫在 Dokuwiki 上的筆記搬到 Octopress 來。原本因為可以自己任意編排，加上寫給自己看的筆記是用 Dokuwiki，就繼續沿用 Dokuwiki。漸漸發現要找資料的時候都直接用搜尋功能，沒怎麼在用原本的分類頁。越來越覺得那樣編排可能沒有必要，似乎有搜尋跟標籤就可以了。</p>
-<p>好一陣子前 survey 過 Octopress，當時好像因為不習慣網頁上沒有管理的功能，暫且不用。可能最近有點轉性，覺得網頁上沒管理功能好像也還好。本來就喜歡用 Notepad++ 寫東西，配合 Git Bash 讓我覺得在 Windows 上用 command line 沒那麼卡，再加上有 Github 可以放，乾脆搬來了。</p>
-<p>目前讓我比較困擾的是這 blog 的 repos 只有在我的桌機上，所以只能從桌機寫，之後要看怎麼在另一台電腦上建立同樣的環境。這是網頁不直接提供管理功能的缺點，可是我在用的電腦就那幾台，也不太可能用手機寫這類的文章，只要幾個環境架起來之後應該還好。</p>
-<p>這 blog 主要拿來放 Computer Science 的筆記，之後慢慢寫些小程式應該也會把相關的東西放上來吧。</p>
-<p><em>一邊搬筆記一邊稍微看一下，真心覺得我有些用句很怪，看起來有點像英文文法的中文。XD</em></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/dokuwiki-tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/dokuwiki-tips/" class="post-title-link" itemprop="url">Dokuwiki Tips</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 13:07:30" itemprop="dateCreated datePublished" datetime="2014-04-05T13:07:30+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/dokuwiki-tips/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="dokuwiki-tips/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="清除特定頁面-cache"><a href="#清除特定頁面-cache" class="headerlink" title="清除特定頁面 cache"></a>清除特定頁面 cache</h2><p>在該頁面網址後面加上</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">?<span class="attribute">purge</span>=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</div>
 
 
-<h2 id="clean-cache-script"><a href="#clean-cache-script" class="headerlink" title="clean cache script"></a>clean cache script</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cleanup</span></span>() &#123;</span><br><span class="line">  <span class="comment"># $1 ... full path to data directory of wiki</span></span><br><span class="line">  <span class="comment"># $2 ... number of days after which old files are to be removed</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># purge files older than $2 days from attic and media_attic (old revisions)</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/&#123;media_,&#125;attic/ -<span class="built_in">type</span> f -mtime +<span class="variable">$2</span> -print0 | xargs -0r rm -f</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove stale lock files (files which are 1-2 days old)</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/locks/ -name <span class="string">&#x27;*.lock&#x27;</span> -<span class="built_in">type</span> f -mtime +1 -print0 | xargs -0r rm -f</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove empty directories</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/&#123;attic,cache,index,locks,media,media_attic,media_meta,meta,pages,tmp&#125;/ \</span><br><span class="line">    -mindepth 1 -<span class="built_in">type</span> d -empty -print0 | xargs -0r rmdir</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove files older than $2 days from the cache</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/cache/?/ -<span class="built_in">type</span> f -mtime +<span class="variable">$2</span> -print0 | xargs -0r rm -f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用方式：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ ./cleanwiki.sh <span class="tag">&lt;<span class="name">path</span> <span class="attr">of</span> <span class="attr">dokuwiki</span>&gt;</span>/data <span class="tag">&lt;<span class="name">天數</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://www.dokuwiki.org/tips:maintenance">https://www.dokuwiki.org/tips:maintenance</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
-
-
-        </div>
-        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1254,7 +1293,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1263,23 +1302,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1290,32 +1325,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -1325,16 +1340,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

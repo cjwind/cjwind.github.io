@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,20 +15,21 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 <meta property="og:title" content="cjwind&#39;s note">
 <meta property="og:url" content="http://www.cjwind.idv.tw/page/10/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="cjwind">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/10/">
 
@@ -40,8 +43,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>cjwind's note</title>
+<title>cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -52,8 +54,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -97,14 +97,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -118,6 +117,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -130,37 +130,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -171,8 +147,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -181,12 +156,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -195,9 +170,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -215,40 +190,41 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -264,38 +240,273 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner index posts-expand">
 
-        <div class="content index posts-expand">
-          
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Strong-Symbol-and-Weak-Symbol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Strong-Symbol-and-Weak-Symbol/" class="post-title-link" itemprop="url">Strong Symbol and Weak Symbol</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-12-13 15:27:20" itemprop="dateCreated datePublished" datetime="2015-12-13T15:27:20+08:00">2015-12-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Strong-Symbol-and-Weak-Symbol/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Strong-Symbol-and-Weak-Symbol/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>symbol 的 definition 可分為 strong symbol 跟 weak symbol。C/C++ 的 compiler 預設 function 及有初始化的 global variable 為 strong symbol，未初始化的 global variable 為 weak symbol。strong &amp; weak symbol 跟處理 symbol 重複定義有關：</p>
+<ol>
+<li>不允許 strong symbol 重複定義，有的話會 link error。</li>
+<li>如果一個 symbol 在某個 object file 中是 strong symbol，其他都是 weak symbol，選 strong symbol。</li>
+<li>如果都是 weak symbol，選 type size 最大的。</li>
+</ol>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>GCC 中可用 <code>__attribute__((weak))</code> 來定義一個 strong symbol 為 weak symbol：</p>
+<figure class="highlight c++"><figcaption><span>weaksym.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line">__attribute__((weak)) <span class="keyword">int</span> x = <span class="number">2</span>;	<span class="comment">// weak symbol</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x = <span class="number">123</span>;	<span class="comment">// strong symbol</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; x &lt;&lt; <span class="built_in">endl</span>;		<span class="comment">// result is 123</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>weak symbol 可以在 link time 置換 function。一開始給個預設 implementation 並設為 weak symbol，使用者可以寫 function 編成 object file 去 link。由於使用者寫的是 strong symbol 會蓋掉原本的 default implementation，達到 link 階段換 implementation。</p>
+<figure class="highlight c++"><figcaption><span>weakfoo.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> __<span class="title">attribute__</span> <span class="params">((weak))</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;default foo&quot;</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    foo();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>foo.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;custom foo&quot;</span> &lt;&lt; <span class="built_in">endl</span>; &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt; g++ -c weakfoo.cpp -o weakfoo.o</span><br><span class="line">&gt; g++ -c foo.cpp -o foo.o</span><br><span class="line">&gt; g++ weakfoo.o</span><br><span class="line">&gt; .&#x2F;a.out</span><br><span class="line">default foo</span><br><span class="line">&gt; g++ weakfoo.o foo.o</span><br><span class="line">&gt; .&#x2F;a.out</span><br><span class="line">custom foo</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《程式設計師的自我修養》3.5.5</li>
+<li><a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Function-Attributes.html">https://gcc.gnu.org/onlinedocs/gcc-4.1.2/gcc/Function-Attributes.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Weak_symbol">https://en.wikipedia.org/wiki/Weak_symbol</a></li>
+</ul>
+
       
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/DLL-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/DLL-usage/" class="post-title-link" itemprop="url">DLL usage</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-11-22 15:56:35" itemprop="dateCreated datePublished" datetime="2015-11-22T15:56:35+08:00">2015-11-22</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/DLL-usage/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="DLL-usage/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>link DLL 分成 implicit link 及 explicit link。</p>
+<h2 id="Implicit-link"><a href="#Implicit-link" class="headerlink" title="Implicit link"></a>Implicit link</h2><p>DLL library 需要 export 出 symbol，使用 DLL 的程式則需要 import symbol。VC 裡透過 <code>__declspec(export)</code> 來標示要 export 的  symbol，以及 <code>__declspec(import)</code> 標示要從外面 import 的 symbol。如果要讓 C++ 的 symbol 跟 C 相容，需要加 <code>extern &quot;C&quot;</code>（不做 C++ 名稱修飾）。</p>
+<p>使用 library 的程式需要：</p>
+<ul>
+<li>compile 時需要 library export 的 symbol 的 header file</li>
+<li>需 link library 的 <code>.lib</code>，<code>.lib</code> 會在 build DLL 時一起 build 出來</li>
+<li>執行時需 <code>.dll</code></li>
+</ul>
+<p>build DLL 產生的 <code>.lib</code> 跟 static library 的不一樣，DLL 的 <code>.lib</code> 只是告訴使用的程式去哪找到 DLL，不會包含實際功能，所以檔案比較小。使用 implicitly link DLL 的程式必須要在 load 時可以找到 DLL，否則會跳錯誤訊息而且無法繼續執行。</p>
+<p>作為 library 的 project 需在 VC 的 project properties→General→Configuration Type 設為 <code>Dynamic Library (.dll)</code>、Target Extension 設為 <code>.dll</code>。另外，如果 code 實際上沒有 export symbol，build DLL 時不會生出 <code>.lib</code>。</p>
+<h3 id="Sample"><a href="#Sample" class="headerlink" title="Sample"></a>Sample</h3><h4 id="Foo-library"><a href="#Foo-library" class="headerlink" title="Foo library"></a>Foo library</h4><p>compile 時需 define <code>FOO_DLL_EXPORTS</code>。</p>
+<figure class="highlight c++"><figcaption><span>Foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> FOO_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOO_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> FOO_DLL_EXPORTS</span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> FOO_API __declspec(dllexport)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="meta">#<span class="meta-keyword">define</span> FOO_API __declspec(dllimport)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">FOO_API <span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function">FOO_API <span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><figcaption><span>Foo.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Foo.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a + b); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Sub</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> (a - b); &#125;</span><br></pre></td></tr></table></figure>
+<p><code>dumpbin</code> 要從 VC 的 command prompt 才叫得出來。</p>
+<figure class="highlight text"><figcaption><span>export symbol</span></figcaption><table><tr><td class="code"><pre><span class="line">D:\tmp\FooLibrary\Debug&gt;dumpbin /EXPORTS FooLibrary.dll</span><br><span class="line">Dump of file FooLibrary.dll</span><br><span class="line"></span><br><span class="line">File Type: DLL</span><br><span class="line"></span><br><span class="line">  Section contains the following exports for FooLibrary.dll</span><br><span class="line"></span><br><span class="line">    00000000 characteristics</span><br><span class="line">    56507D3B time date stamp Sat Nov 21 22:18:35 2015</span><br><span class="line">        0.00 version</span><br><span class="line">           1 ordinal base</span><br><span class="line">           2 number of functions</span><br><span class="line">           2 number of names</span><br><span class="line"></span><br><span class="line">    ordinal hint RVA      name</span><br><span class="line"></span><br><span class="line">          1    0 0001107D ?Add@@YAHHH@Z = @ILT+120(?Add@@YAHHH@Z)</span><br><span class="line">          2    1 000110FA Sub = @ILT+245(_Sub)</span><br></pre></td></tr></table></figure>
+<h4 id="Test-program"><a href="#Test-program" class="headerlink" title="Test program"></a>Test program</h4><p>project 的 include file 中須包含 <code>Foo.h</code>，link library 需有 <code>FooLibrary.lib</code>，執行檔旁則需放 <code>FooLibrary.dll</code>。</p>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Foo.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; Add(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; <span class="string">&quot;, &quot;</span> &lt;&lt; Sub(<span class="number">1</span>, <span class="number">2</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Explicit-link"><a href="#Explicit-link" class="headerlink" title="Explicit link"></a>Explicit link</h2><p>在 runtime 時才 load DLL。因為 runtime 才 load，即使 load DLL 失敗也可以在程式裡處理錯誤並繼續執行下去。</p>
+<p>使用 library 的程式需要：</p>
+<ul>
+<li>call <code>LoadLibrary()</code> load DLL</li>
+<li>call <code>GetProcAddress()</code> 取得想要的 function 的 address</li>
+<li>用完 library 需 call <code>FreeLibrary()</code></li>
+<li>程式 compile 時不一定需要 library 的 header file（但需要知道要 call 的 function 的 prototype），link 時不需要 <code>.lib</code>，僅在執行時需要 <code>.dll</code></li>
+</ul>
+<p>用 <code>GetProcAddress()</code> 需指定的 function name 是 library export 出來的 symbol，不是 library source code 裡的 function name。經過 C++ 名稱修飾，需要指定的 function name 會變得難以理解，這種 interface 應該沒人想用。除了 <code>__declspec(dllexport)</code> 外，export function symbol 的另一個做法是使用 <code>.def</code> 模組定義檔來宣告名稱。實際上是指定 alias 給原本的 symbol。</p>
+<h3 id="Sample-load-DLL"><a href="#Sample-load-DLL" class="headerlink" title="Sample load DLL"></a>Sample load DLL</h3><p>library source code 同上。</p>
+<p>有加 <code>extern &quot;C&quot;</code> 的 <code>Sub()</code> 因為沒經過 C++ 名稱修飾，所以能直接用 function name，但 <code>Add()</code> 就得寫出 C++ 修飾後的 symbol name 才拿得到 function pointer。</p>
+<figure class="highlight c++"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*pfn)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    HINSTANCE dllHandle = LoadLibrary(<span class="string">&quot;FooLibrary.dll&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dllHandle != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Get address of function</span></span><br><span class="line">        pfn pSubFunc = (pfn)GetProcAddress(dllHandle, <span class="string">&quot;Sub&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!pSubFunc)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Load Sub() fail&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;  <span class="comment">// handle the error</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; pSubFunc(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; <span class="comment">// call the function</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        pfn pAddFunc = (pfn)GetProcAddress(dllHandle, <span class="string">&quot;?Add@@YAHHH@Z&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!pAddFunc)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Load Add() fail&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; pAddFunc(<span class="number">2</span>, <span class="number">3</span>) &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        FreeLibrary(dllHandle);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;Load FooLibrary.dll fail&quot;</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sample-模組定義檔"><a href="#Sample-模組定義檔" class="headerlink" title="Sample 模組定義檔"></a>Sample 模組定義檔</h3><p>刪掉 <code>Foo.h</code> 裡的 <code>__declspec(dllexport)</code>。</p>
+<figure class="highlight text"><figcaption><span>Foo.def</span></figcaption><table><tr><td class="code"><pre><span class="line">LIBRARY FooLibrary</span><br><span class="line">EXPORTS</span><br><span class="line">Add</span><br><span class="line">Sub</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="code"><pre><span class="line">D:\tmp\FooLibrary\Debug&gt;dumpbin /EXPORTS FooLibrary.dll</span><br><span class="line">Dump of file FooLibrary.dll</span><br><span class="line"></span><br><span class="line">File Type: DLL</span><br><span class="line"></span><br><span class="line">  Section contains the following exports for FooLibrary.dll</span><br><span class="line"></span><br><span class="line">    00000000 characteristics</span><br><span class="line">    56516FE9 time date stamp Sun Nov 22 15:34:01 2015</span><br><span class="line">        0.00 version</span><br><span class="line">           1 ordinal base</span><br><span class="line">           2 number of functions</span><br><span class="line">           2 number of names</span><br><span class="line"></span><br><span class="line">    ordinal hint RVA      name</span><br><span class="line"></span><br><span class="line">          1    0 0001107D Add = @ILT+120(?Add@@YAHHH@Z)</span><br><span class="line">          2    1 000110FA Sub = @ILT+245(_Sub)</span><br></pre></td></tr></table></figure>
+<p><code>main.cpp</code> 的 <code>GetProcAddress()</code> 可以直接寫 <code>Add</code> 跟 <code>Sub</code>。</p>
+<p><del>其實這是小實驗筆記吧…</del></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-tw/library/d14wsce5%28v=vs.120%29.aspx">https://msdn.microsoft.com/zh-tw/library/d14wsce5%28v=vs.120%29.aspx</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-tw/library/784bt7z7%28v=vs.120%29.aspx">https://msdn.microsoft.com/zh-tw/library/784bt7z7%28v=vs.120%29.aspx</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-tw/library/zzk20sxw%28v=vs.120%29.aspx">https://msdn.microsoft.com/zh-tw/library/zzk20sxw%28v=vs.120%29.aspx</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms684175%28v=vs.85%29.aspx">https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms684175%28v=vs.85%29.aspx</a></li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms683212%28v=vs.85%29.aspx">https://msdn.microsoft.com/zh-tw/library/windows/desktop/ms683212%28v=vs.85%29.aspx</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-trace-code/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -307,32 +518,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Murmur-trace-code/" class="post-title-link" itemprop="url">trace code</a>
+          <a href="/Murmur-trace-code/" class="post-title-link" itemprop="url">trace code</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-30 17:07:57" itemprop="dateCreated datePublished" datetime="2015-08-30T17:07:57+08:00">2015-08-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-08-30 17:07:57" itemprop="dateCreated datePublished" datetime="2015-08-30T17:07:57+08:00">2015-08-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -347,6 +556,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -403,18 +613,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch5-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -426,32 +643,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/API-Design-for-Cpp-ch5-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch5 API Style</a>
+          <a href="/API-Design-for-Cpp-ch5-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch5 API Style</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-11 20:24:07" itemprop="dateCreated datePublished" datetime="2015-08-11T20:24:07+08:00">2015-08-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-08-11 20:24:07" itemprop="dateCreated datePublished" datetime="2015-08-11T20:24:07+08:00">2015-08-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -466,6 +681,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -490,7 +706,6 @@
 <li>用 <code>extern &quot;C&quot;</code> 處理 C++ 與 C 之間 linkage 的問題<br>同樣的 function 在 C compiler 跟 C++ 的 compiler 產生的 object file 中會以不同方式呈現，例如 C++ 有 <code>name decoration</code>，但 C 沒有。因此 C API 得用 extern “C” 包起來，讓 C++ compiler 知道這段應該要用 C style 的 link 方式。</li>
 </ol>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C API declaration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
 <p>實例：<a href="/Cpp-uses-C-library-example">C++ uses C library example</a></p>
 <h2 id="Object-Oriented-C-style"><a href="#Object-Oriented-C-style" class="headerlink" title="Object Oriented C++ style"></a>Object Oriented C++ style</h2><p>以物件導向為基礎的寫法。</p>
 <p>類似的東西：PHP 的 <code>mysqli</code> 物件。</p>
@@ -510,18 +725,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cpp-uses-C-library-example/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -533,32 +755,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Cpp-uses-C-library-example/" class="post-title-link" itemprop="url">C++ uses C library example</a>
+          <a href="/Cpp-uses-C-library-example/" class="post-title-link" itemprop="url">C++ uses C library example</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-09 17:50:01" itemprop="dateCreated datePublished" datetime="2015-08-09T17:50:01+08:00">2015-08-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-08-09 17:50:01" itemprop="dateCreated datePublished" datetime="2015-08-09T17:50:01+08:00">2015-08-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -573,6 +793,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -591,32 +812,36 @@
 <figure class="highlight cpp"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="comment">// main.cpp</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;C++ main&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    foo();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><code>foo.o</code> 的 symbol：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&gt; gcc -c foo.c</span><br><span class="line">&gt; readelf -s foo.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 11 entries:</span><br><span class="line">   Num:    Value  Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 00000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS foo.c</span><br><span class="line">     2: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1</span><br><span class="line">     3: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3</span><br><span class="line">     4: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4</span><br><span class="line">     5: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5</span><br><span class="line">     6: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   7</span><br><span class="line">     7: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8</span><br><span class="line">     8: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6</span><br><span class="line">     9: 00000000    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 foo</span><br><span class="line">    10: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND puts</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">&gt; gcc -c foo.c</span><br><span class="line">&gt; readelf -s foo.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> <span class="keyword">contains</span> <span class="number">11</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>  <span class="built_in">Size</span> <span class="keyword">Type</span>    <span class="keyword">Bind</span>   Vis      Ndx <span class="keyword">Name</span></span><br><span class="line">     <span class="number">0</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>  UND</span><br><span class="line">     <span class="number">1</span>: <span class="number">00000000</span>     <span class="number">0</span> <span class="keyword">FILE</span>    <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>  <span class="built_in">ABS</span> foo.c</span><br><span class="line">     <span class="number">2</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span></span><br><span class="line">     <span class="number">3</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">3</span></span><br><span class="line">     <span class="number">4</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">4</span></span><br><span class="line">     <span class="number">5</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">5</span></span><br><span class="line">     <span class="number">6</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">7</span></span><br><span class="line">     <span class="number">7</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">8</span></span><br><span class="line">     <span class="number">8</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">6</span></span><br><span class="line">     <span class="number">9</span>: <span class="number">00000000</span>    <span class="number">20</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>    <span class="number">1</span> foo</span><br><span class="line">    <span class="number">10</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND puts</span><br></pre></td></tr></table></figure>
 <p>一般狀況的 <code>main.o</code> symbol（重點在 18）：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&gt; g++ -c main.cpp</span><br><span class="line">&gt; readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 23 entries:</span><br><span class="line">   Num:    Value  Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 00000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS main.cpp</span><br><span class="line">     2: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1</span><br><span class="line">     3: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3</span><br><span class="line">     4: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4</span><br><span class="line">     5: 00000000     1 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   4 _ZStL8__ioinit</span><br><span class="line">     6: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5</span><br><span class="line">     7: 00000039    64 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _Z41__static_initializati</span><br><span class="line">     8: 00000079    28 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _GLOBAL__sub_I_main</span><br><span class="line">     9: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6</span><br><span class="line">    10: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   9</span><br><span class="line">    11: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10</span><br><span class="line">    12: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8</span><br><span class="line">    13: 00000000    57 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 main</span><br><span class="line">    14: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4cout</span><br><span class="line">    15: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZStlsISt11char_traitsIcE</span><br><span class="line">    16: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4endlIcSt11char_trait</span><br><span class="line">    17: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSolsEPFRSoS_E</span><br><span class="line">    18: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _Z3foov</span><br><span class="line">    19: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitC1Ev</span><br><span class="line">    20: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitD1Ev</span><br><span class="line">    21: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __dso_handle</span><br><span class="line">    22: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __cxa_atexit</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">&gt; g++ -c main.cpp</span><br><span class="line">&gt; readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains <span class="number">23</span> entries:</span><br><span class="line">   Num:    Value  <span class="built_in">Size</span> <span class="built_in">Type</span>    Bind   Vis      Ndx <span class="built_in">Name</span></span><br><span class="line">     <span class="number">0</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>  UND</span><br><span class="line">     <span class="number">1</span>: <span class="number">00000000</span>     <span class="number">0</span> FILE    <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>  <span class="built_in">ABS</span> main.cpp</span><br><span class="line">     <span class="number">2</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span></span><br><span class="line">     <span class="number">3</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">3</span></span><br><span class="line">     <span class="number">4</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">4</span></span><br><span class="line">     <span class="number">5</span>: <span class="number">00000000</span>     <span class="number">1</span> OBJECT  <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">4</span> <span class="variable">_ZStL8__ioinit</span></span><br><span class="line">     <span class="number">6</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">5</span></span><br><span class="line">     <span class="number">7</span>: <span class="number">00000039</span>    <span class="number">64</span> FUNC    <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span> <span class="variable">_Z41__static_initializati</span></span><br><span class="line">     <span class="number">8</span>: <span class="number">00000079</span>    <span class="number">28</span> FUNC    <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span> <span class="variable">_GLOBAL__sub_I_main</span></span><br><span class="line">     <span class="number">9</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">6</span></span><br><span class="line">    <span class="number">10</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">9</span></span><br><span class="line">    <span class="number">11</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>   <span class="number">10</span></span><br><span class="line">    <span class="number">12</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">8</span></span><br><span class="line">    <span class="number">13</span>: <span class="number">00000000</span>    <span class="number">57</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>    <span class="number">1</span> main</span><br><span class="line">    <span class="number">14</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZSt4cout</span></span><br><span class="line">    <span class="number">15</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZStlsISt11char_traitsIcE</span></span><br><span class="line">    <span class="number">16</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZSt4endlIcSt11char_trait</span></span><br><span class="line">    <span class="number">17</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZNSolsEPFRSoS_E</span></span><br><span class="line">    <span class="number">18</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_Z3foov</span></span><br><span class="line">    <span class="number">19</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZNSt8ios_base4InitC1Ev</span></span><br><span class="line">    <span class="number">20</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZNSt8ios_base4InitD1Ev</span></span><br><span class="line">    <span class="number">21</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">__dso_handle</span></span><br><span class="line">    <span class="number">22</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">__cxa_atexit</span></span><br></pre></td></tr></table></figure>
 <p><code>foo.h</code> 有 <code>extern &quot;C&quot;</code> 的 <code>main.o</code> symbol：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&gt;readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 23 entries:</span><br><span class="line">   Num:    Value  Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 00000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 00000000     0 FILE    LOCAL <span class="built_in"> DEFAULT </span> ABS main.cpp</span><br><span class="line">     2: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   1</span><br><span class="line">     3: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   3</span><br><span class="line">     4: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   4</span><br><span class="line">     5: 00000000     1 OBJECT  LOCAL <span class="built_in"> DEFAULT </span>   4 _ZStL8__ioinit</span><br><span class="line">     6: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   5</span><br><span class="line">     7: 00000039    64 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _Z41__static_initializati</span><br><span class="line">     8: 00000079    28 FUNC    LOCAL <span class="built_in"> DEFAULT </span>   1 _GLOBAL__sub_I_main</span><br><span class="line">     9: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   6</span><br><span class="line">    10: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   9</span><br><span class="line">    11: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10</span><br><span class="line">    12: 00000000     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>   8</span><br><span class="line">    13: 00000000    57 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>   1 main</span><br><span class="line">    14: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4cout</span><br><span class="line">    15: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZStlsISt11char_traitsIcE</span><br><span class="line">    16: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZSt4endlIcSt11char_trait</span><br><span class="line">    17: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSolsEPFRSoS_E</span><br><span class="line">    18: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br><span class="line">    19: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitC1Ev</span><br><span class="line">    20: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND _ZNSt8ios_base4InitD1Ev</span><br><span class="line">    21: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __dso_handle</span><br><span class="line">    22: 00000000     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span> UND __cxa_atexit</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sqf"><table><tr><td class="code"><pre><span class="line">&gt;readelf -s main.o</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains <span class="number">23</span> entries:</span><br><span class="line">   Num:    Value  <span class="built_in">Size</span> <span class="built_in">Type</span>    Bind   Vis      Ndx <span class="built_in">Name</span></span><br><span class="line">     <span class="number">0</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>  UND</span><br><span class="line">     <span class="number">1</span>: <span class="number">00000000</span>     <span class="number">0</span> FILE    <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>  <span class="built_in">ABS</span> main.cpp</span><br><span class="line">     <span class="number">2</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span></span><br><span class="line">     <span class="number">3</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">3</span></span><br><span class="line">     <span class="number">4</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">4</span></span><br><span class="line">     <span class="number">5</span>: <span class="number">00000000</span>     <span class="number">1</span> OBJECT  <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">4</span> <span class="variable">_ZStL8__ioinit</span></span><br><span class="line">     <span class="number">6</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">5</span></span><br><span class="line">     <span class="number">7</span>: <span class="number">00000039</span>    <span class="number">64</span> FUNC    <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span> <span class="variable">_Z41__static_initializati</span></span><br><span class="line">     <span class="number">8</span>: <span class="number">00000079</span>    <span class="number">28</span> FUNC    <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">1</span> <span class="variable">_GLOBAL__sub_I_main</span></span><br><span class="line">     <span class="number">9</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">6</span></span><br><span class="line">    <span class="number">10</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">9</span></span><br><span class="line">    <span class="number">11</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>   <span class="number">10</span></span><br><span class="line">    <span class="number">12</span>: <span class="number">00000000</span>     <span class="number">0</span> SECTION <span class="built_in">LOCAL</span>  <span class="keyword">DEFAULT</span>    <span class="number">8</span></span><br><span class="line">    <span class="number">13</span>: <span class="number">00000000</span>    <span class="number">57</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>    <span class="number">1</span> main</span><br><span class="line">    <span class="number">14</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZSt4cout</span></span><br><span class="line">    <span class="number">15</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZStlsISt11char_traitsIcE</span></span><br><span class="line">    <span class="number">16</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZSt4endlIcSt11char_trait</span></span><br><span class="line">    <span class="number">17</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZNSolsEPFRSoS_E</span></span><br><span class="line">    <span class="number">18</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND foo</span><br><span class="line">    <span class="number">19</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZNSt8ios_base4InitC1Ev</span></span><br><span class="line">    <span class="number">20</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">_ZNSt8ios_base4InitD1Ev</span></span><br><span class="line">    <span class="number">21</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">__dso_handle</span></span><br><span class="line">    <span class="number">22</span>: <span class="number">00000000</span>     <span class="number">0</span> NOTYPE  GLOBAL <span class="keyword">DEFAULT</span>  UND <span class="variable">__cxa_atexit</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch2-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -628,32 +853,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/API-Design-for-Cpp-ch2-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch2 Qualities</a>
+          <a href="/API-Design-for-Cpp-ch2-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch2 Qualities</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-08 16:40:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:40:55+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-08-08 16:40:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:40:55+08:00">2015-08-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -668,6 +891,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -741,18 +965,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Consistent-API-Design/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -764,32 +995,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Consistent-API-Design/" class="post-title-link" itemprop="url">API 設計的一致性</a>
+          <a href="/Consistent-API-Design/" class="post-title-link" itemprop="url">API 設計的一致性</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-08 16:38:37" itemprop="dateCreated datePublished" datetime="2015-08-08T16:38:37+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-08-08 16:38:37" itemprop="dateCreated datePublished" datetime="2015-08-08T16:38:37+08:00">2015-08-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -804,6 +1033,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -825,18 +1055,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Core-API-and-convenient-API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -848,32 +1085,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Core-API-and-convenient-API/" class="post-title-link" itemprop="url">API 的基本功能性及便利性</a>
+          <a href="/Core-API-and-convenient-API/" class="post-title-link" itemprop="url">API 的基本功能性及便利性</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-08-08 16:37:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:37:55+08:00">2015-08-08</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-08-08 16:37:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:37:55+08:00">2015-08-08</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -888,6 +1123,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -906,18 +1142,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/vim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -929,32 +1172,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vim/" class="post-title-link" itemprop="url">vim 常用功能</a>
+          <a href="/vim/" class="post-title-link" itemprop="url">vim 常用功能</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-07-14 21:01:27" itemprop="dateCreated datePublished" datetime="2015-07-14T21:01:27+08:00">2015-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2016-06-05 18:00:11" itemprop="dateModified" datetime="2016-06-05T18:00:11+08:00">2016-06-05</time>
-              </span>
+      <time title="Created: 2015-07-14 21:01:27" itemprop="dateCreated datePublished" datetime="2015-07-14T21:01:27+08:00">2015-07-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2016-06-05 18:00:11" itemprop="dateModified" datetime="2016-06-05T18:00:11+08:00">2016-06-05</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -969,6 +1210,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -1002,7 +1244,6 @@
 <p>到 <a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=273">http://www.vim.org/scripts/script.php?script_id=273</a> 抓 <code>taglist_45.zip</code>，解開後將 <code>taglist.vim</code> 放到 <code>~/vim/plugin</code>。</p>
 <p><code>~/.vimrc</code> 加入相關設定：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Tlist_Ctags_Cmd = <span class="string">&#x27;/usr/bin/ctags&#x27;</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Auto_Open = <span class="number">1</span>     <span class="comment">&quot; 讓 Tlist 自動開啟</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Show_One_File = <span class="number">1</span>             <span class="comment">&quot; 不同時顯示多個文件的tag，只顯示當前文件的</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Exit_OnlyWindow = <span class="number">1</span>           <span class="comment">&quot; 如果taglist窗口是最後一個窗口，則退出vim</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Use_Right_Window = <span class="number">1</span>          <span class="comment">&quot; 在右側窗口中顯示taglist窗口</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;silent&gt;</span> <span class="symbol">&lt;F8&gt;</span> :TlistToggle<span class="symbol">&lt;CR&gt;</span> <span class="comment">&quot; F8 為開啟/關閉 Tlist 的快速鍵</span></span><br></pre></td></tr></table></figure>
-
 <p><code>ctrl + w</code> 再加方向鍵可以切換 window，例如加右鍵就是跳到右邊的 window。</p>
 <h3 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h3><p>有時候切換 tab 會出現 error <code>Taglist error: Error detected while processing function &lt;SNR&gt;29_Tlist_Refresh_Folds</code>，可用 <a target="_blank" rel="noopener" href="http://vim.1045645.n5.nabble.com/attachment/3321902/0/taglist.diff">patch</a> 解決：<code>$ patch -p0 ~/.vim/plugin/taglist.vim taglist.diff</code></p>
 <h2 id="cscope"><a href="#cscope" class="headerlink" title="cscope"></a>cscope</h2><p><code>$ sudo apt-get install cscope</code></p>
@@ -1011,10 +1252,8 @@
 <p>之後用 vim 開啟 source code，可用 <code>:cs</code> 指令使用 cscope 的功能。也可以在 <code>~/.vim/plugin</code> 中放 <a target="_blank" rel="noopener" href="http://cscope.sourceforge.net/cscope_maps.vim">cscope_map.vim</a> 加快捷鍵：</p>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">ctrl+<span class="string">\</span> s <span class="string">&quot;s表Symbol，列出所有參考到游標所在字串的地方，包含定義和呼叫。</span></span><br><span class="line"><span class="string">ctrl+\ g &quot;</span>Find <span class="built_in">this</span> definition</span><br><span class="line">ctrl+<span class="string">\</span> c <span class="string">&quot;c表Call，列出所有以游標所在字串當函數名的地方。</span></span><br><span class="line"><span class="string">ctrl+\ t &quot;</span>t表Text，列出專案中所有出現游標所在字串的地方。</span><br><span class="line">ctrl+<span class="string">\</span> f <span class="string">&quot;f表File，以游標所在字串當檔名，開啟之。</span></span><br><span class="line"><span class="string">ctrl+\ i &quot;</span>i表Include，以游標所在字串當檔名，列出所有include此檔的檔案。</span><br><span class="line">ctrl+<span class="string">\</span> d <span class="string">&quot;d表calleD，以游標所在字串當函式名，列出所有此函式呼叫的函式。</span></span><br></pre></td></tr></table></figure>
 
-
 <h2 id="自動-highlight"><a href="#自動-highlight" class="headerlink" title="自動 highlight"></a>自動 highlight</h2><p>在 <code>.vim/plugin</code> 加入 <code>autohighlight.vim</code>：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="comment">&quot; Highlight all instances of word under cursor, when idle.</span></span><br><span class="line"><span class="comment">&quot; Useful when studying strange source code.</span></span><br><span class="line"><span class="comment">&quot; Type z/ to toggle highlighting on/off.</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="keyword">z</span>/ :<span class="keyword">if</span> AutoHighlightToggle()<span class="symbol">&lt;Bar&gt;</span><span class="keyword">set</span> hls<span class="symbol">&lt;Bar&gt;</span><span class="keyword">endif</span><span class="symbol">&lt;CR&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">AutoHighlightToggle</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">let</span> @/ = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">exists</span>(<span class="string">&#x27;#auto_highlight&#x27;</span>)</span><br><span class="line">    au! auto_highlight</span><br><span class="line">    augroup! auto_highlight</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">4000</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;Highlight current word: off&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">augroup</span> auto_highlight</span><br><span class="line">      au!</span><br><span class="line">      <span class="keyword">au</span> CursorHold * <span class="keyword">let</span> @/ = <span class="string">&#x27;\V\&lt;&#x27;</span>.<span class="built_in">escape</span>(<span class="built_in">expand</span>(<span class="string">&#x27;&lt;cword&gt;&#x27;</span>), <span class="string">&#x27;\&#x27;</span>).<span class="string">&#x27;\&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">augroup</span> end</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">500</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;Highlight current word: ON&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">endif</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
-
 <p>輸入 <code>z/</code> 可開關自動 highlight 的功能。</p>
 <p><a target="_blank" rel="noopener" href="http://vim.wikia.com/wiki/Auto_highlight_current_word_when_idle">reference here</a></p>
 <h2 id="a-vim"><a href="#a-vim" class="headerlink" title="a.vim"></a>a.vim</h2><p>在 header 及 source 之間切換。<a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=31">script</a></p>
@@ -1031,18 +1270,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Murmur-Agile-concept/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1054,32 +1300,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Murmur-Agile-concept/" class="post-title-link" itemprop="url">對 agile 精神的理解</a>
+          <a href="/Murmur-Agile-concept/" class="post-title-link" itemprop="url">對 agile 精神的理解</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-07-13 23:45:17" itemprop="dateCreated datePublished" datetime="2015-07-13T23:45:17+08:00">2015-07-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2015-07-13 23:45:17" itemprop="dateCreated datePublished" datetime="2015-07-13T23:45:17+08:00">2015-07-13</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -1094,6 +1338,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -1115,227 +1360,21 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Observer-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Observer-Pattern/" class="post-title-link" itemprop="url">Observer Pattern</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-09 23:30:12" itemprop="dateCreated datePublished" datetime="2015-07-09T23:30:12+08:00">2015-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2015-08-06 23:32:00" itemprop="dateModified" datetime="2015-08-06T23:32:00+08:00">2015-08-06</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Observer-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Observer-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
-<p>定義物件間一對多的關係，當一個物件改變狀態，其他相依者都會收到通知並自動被更新。</p>
-</blockquote>
-<h2 id="適用場合"><a href="#適用場合" class="headerlink" title="適用場合"></a>適用場合</h2><p>某個物件擁有某些 state，還有一堆其他物件很在乎這些 state 有沒有改變，這些物件在 state 改變時需要做些事情。這邊的 state 是抽象概念，舉凡一個 button 被 click、load data 的 progress、load data 完成與否、畫面是否被修改等等都可以看作 state。另外，一個 object 可能會有很多種 state。</p>
-<p>網路上很喜歡用的說法：observer 是一種訂報紙的概念。簡言之，有間報社（subject or observable），要訂報紙的人（observer）跟報社說他要訂報紙，之後報社有新報紙了（狀態改變）就會通知這些訂戶，訂戶拿到報紙後或許拿來看、或許拿來墊便當(?)，想幹嘛就幹嘛。如果一個訂戶不想收到新報紙了，就跟報社說一聲退出訂閱，之後報社就不會再通知他了。</p>
-<p>再舉另一個例子：UI 操作上滑鼠點了某個東西，程式其他部分需要因應點選做些事情時也適用 observer pattern。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/observer_pattern.jpg" alt="Observer Pattern"></p>
-<p>Observable 中會有些 state，state 變化時 call NotifyXXX() 通知 observer 們 update。一種做法是 NotifyXXX() call observer 的 update()，而 obsever 會在各自的 update() 中 implement observable 狀態改變時要做的事。</p>
-<h2 id="observer-如何取得-observable-的資料？"><a href="#observer-如何取得-observable-的資料？" class="headerlink" title="observer 如何取得 observable 的資料？"></a>observer 如何取得 observable 的資料？</h2><p>observer 拿 observable 的資料有兩種方式：</p>
-<ul>
-<li>push：由 observable 在通知時一起傳給 observer。</li>
-<li>pull：observer 用 observable 提供的 getter 取得資料。</li>
-</ul>
-<p><em>我是還感覺不出來兩種方式的好壞啦……</em></p>
-<h2 id="有的沒的"><a href="#有的沒的" class="headerlink" title="有的沒的"></a>有的沒的</h2><ul>
-<li>observer 在 update 時不可以依賴被 notify 的順序，因為不同的 observable 實作可能導致結果不同。</li>
-<li>Java 裡有現成的 observer pattern API。</li>
-<li>Java 的 ActionListener 機制是種 observer pattern 的實作──當某件事發生時會 call ActionListener 相應的 function。</li>
-</ul>
-<h2 id="Qt-signal-slot-轉成-native-寫法"><a href="#Qt-signal-slot-轉成-native-寫法" class="headerlink" title="Qt signal-slot 轉成 native 寫法"></a>Qt signal-slot 轉成 native 寫法</h2><p>Qt 的 signal-slot 在用途是特定的狀況下，例如某些 signal-slot 是特別針對某個操作時，可以改成自己實作 observer 並取代之。什麼時候會這麼做？不想用 Qt 做某些 notify 甚至不想用 Qt 的時候…</p>
-<p>我覺得 observer 跟 listener 差不太多，這裡說的 listener 是稍微簡化的 observer，不會有如上述的 observable interface，而是 listenable 的 class 各自自行增加 listener 相關 member 及 function。</p>
-<p>如何將 Qt 的 signal-slot 改成 native 的 listener 寫法、自己處理 notify 呢？</p>
-<ol>
-<li>看懂原本 notify 的流程，區分誰是 listener 誰是 listenable。一般來說 signal 的 sender 是 listenable，signal 的 receiver 是 listener。確認要改哪些 signal、slot、connect()、disconnect()。</li>
-<li>在 listenable class 增加 listener list、add 跟 remove listener function。</li>
-<li>在 listener interface 增加 update function，也就是當某件事發生時會被 call 的 function。</li>
-<li>修改 listenable class 的 emit signal，改為 call listener 的 update function 或 NotifyXXX()，由 NotifyXXX() 再 call listener 的 update function。如果有多處需要通知 listener，建議寫成 NotifyXXX()。如果只有一個地方需要通知，也可以不用 NotifyXXX()。</li>
-<li>listener class 繼承 listener interface 並 implement update function。將原本的 slot 改為一般 function，接著看要由 update function call 還是直接 rename 為 update function。如果原本是 auto 或 queued connection 要注意 thread issue。</li>
-<li>修改 listener class，將 connect() 及 disconnect() 改為 call add 及 remove observer。</li>
-<li>需注意 listener 及 listenable object 的生命週期，如果 listenable 活得比 listener 久，listener 死之前要將自己從 listenable 的 listener list 中移除。</li>
-</ol>
-<p>Qt 的 signal connection 有些特殊功能也要一併處理：</p>
-<ul>
-<li>queued connection 可能隱含換 thread，需釐清原本程式是否意圖使用換 thread 機制。<br>如果有換 thread 就不是單純 observer pattern 可以處理的，可能要改用 thread + event loop，或 listener 的部分可以使用 Qt 則在 listener 以 signal-slot 換 thread。</li>
-<li>direct connection 幾乎等同直接 call function，不需要額外處理。</li>
-<li>unique connection 代換作法之一是在 register observer 時做 filter，已經是 observer 的 object 就不再加入 observer list。</li>
-</ul>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《深入淺出設計模式》ch 2</li>
-<li><a target="_blank" rel="noopener" href="http://openhome.cc/Gossip/DesignPattern/ObserverPattern.htm">http://openhome.cc/Gossip/DesignPattern/ObserverPattern.htm</a></li>
-<li><a target="_blank" rel="noopener" href="http://kgsprogrammer.pixnet.net/blog/post/27955277-design-pattern----observer">http://kgsprogrammer.pixnet.net/blog/post/27955277-design-pattern----observer</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/About-note-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/About-note-2/" class="post-title-link" itemprop="url">關於筆記</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2015-07-07 22:23:04" itemprop="dateCreated datePublished" datetime="2015-07-07T22:23:04+08:00">2015-07-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/About-note-2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="About-note-2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>今天看到<a target="_blank" rel="noopener" href="http://www.buffettism88.com/2015/07/notetoaction.html">這篇文章</a>，加上近日對於整理筆記之厭倦，在想到底寫筆記是寫來幹嘛的？</p>
-<p>那篇文章表示不用寫「資訊」，但以學習知識來說，我還是需要一點「重點整理」方便日後查找，尤其是一些從書上看來、稍微消化過但也還沒熟到整個記下來的部分。資訊的確幾乎都可以找 google 大神，但是重新 google 到的資訊可能跟我的印象有出入，還有一些眉眉角角不見得記得，有個地方作為資訊的集中地對我還是有用的。</p>
-<p>只不過，有時候似乎會趨向小時候在課堂上抄寫筆記的狀況，像在抄書。這感覺就怪怪的，有時候分不清楚自己是在抄書還是那真是重點（好吧，我猜如果覺得很厭倦的話大概就是在抄書或者已經不需要寫了）。想著想著發現原來今年初寫過<a href="/Murmur-about-note">筆記這回事</a>。</p>
-<p>以上是跟專業、學習知識有關的「筆記」。至於看其他書啊、聽演講啊之類的，我比較會寫心得感想，像那篇文章所說的第二種筆記。在專業有關的學習上，這種感想會在書裡變眉批，這裡一句、那裡一段的，有時候是疑問，有時候是吐槽(欸?)，但這種亂七八糟的心得就不太會去整理了。</p>
-<p>可能會慢慢增加對於專業領域的想法吧，我對時事或一些事情會有某些想法，但很奇怪，對於自身專業卻不太有自己的想法。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+</div>
 
 
-  
+
+
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
-
-
-        </div>
-        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1344,7 +1383,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1353,23 +1392,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1380,32 +1415,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -1415,16 +1430,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

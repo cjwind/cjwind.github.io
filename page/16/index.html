@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,20 +15,21 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 <meta property="og:title" content="cjwind&#39;s note">
 <meta property="og:url" content="http://www.cjwind.idv.tw/page/16/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="cjwind">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/16/">
 
@@ -40,8 +43,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>cjwind's note</title>
+<title>cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -52,8 +54,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -97,14 +97,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -118,6 +117,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -130,37 +130,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -171,8 +147,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -181,12 +156,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -195,9 +170,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -215,40 +190,41 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -264,38 +240,226 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner index posts-expand">
 
-        <div class="content index posts-expand">
-          
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/move-posts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/move-posts/" class="post-title-link" itemprop="url">搬筆記到 Octopress</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-05 13:32:05" itemprop="dateCreated datePublished" datetime="2014-04-05T13:32:05+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/move-posts/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="move-posts/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>用想放空的假期把寫在 Dokuwiki 上的筆記搬到 Octopress 來。原本因為可以自己任意編排，加上寫給自己看的筆記是用 Dokuwiki，就繼續沿用 Dokuwiki。漸漸發現要找資料的時候都直接用搜尋功能，沒怎麼在用原本的分類頁。越來越覺得那樣編排可能沒有必要，似乎有搜尋跟標籤就可以了。</p>
+<p>好一陣子前 survey 過 Octopress，當時好像因為不習慣網頁上沒有管理的功能，暫且不用。可能最近有點轉性，覺得網頁上沒管理功能好像也還好。本來就喜歡用 Notepad++ 寫東西，配合 Git Bash 讓我覺得在 Windows 上用 command line 沒那麼卡，再加上有 Github 可以放，乾脆搬來了。</p>
+<p>目前讓我比較困擾的是這 blog 的 repos 只有在我的桌機上，所以只能從桌機寫，之後要看怎麼在另一台電腦上建立同樣的環境。這是網頁不直接提供管理功能的缺點，可是我在用的電腦就那幾台，也不太可能用手機寫這類的文章，只要幾個環境架起來之後應該還好。</p>
+<p>這 blog 主要拿來放 Computer Science 的筆記，之後慢慢寫些小程式應該也會把相關的東西放上來吧。</p>
+<p><em>一邊搬筆記一邊稍微看一下，真心覺得我有些用句很怪，看起來有點像英文文法的中文。XD</em></p>
+
       
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/dokuwiki-tips/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/dokuwiki-tips/" class="post-title-link" itemprop="url">Dokuwiki Tips</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-05 13:07:30" itemprop="dateCreated datePublished" datetime="2014-04-05T13:07:30+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/dokuwiki-tips/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="dokuwiki-tips/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="清除特定頁面-cache"><a href="#清除特定頁面-cache" class="headerlink" title="清除特定頁面 cache"></a>清除特定頁面 cache</h2><p>在該頁面網址後面加上</p>
+<figure class="highlight ruby"><table><tr><td class="code"><pre><span class="line"><span class="string">?p</span>urge=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="clean-cache-script"><a href="#clean-cache-script" class="headerlink" title="clean cache script"></a>clean cache script</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">cleanup</span></span>() &#123;</span><br><span class="line">  <span class="comment"># $1 ... full path to data directory of wiki</span></span><br><span class="line">  <span class="comment"># $2 ... number of days after which old files are to be removed</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># purge files older than $2 days from attic and media_attic (old revisions)</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/&#123;media_,&#125;attic/ -<span class="built_in">type</span> f -mtime +<span class="variable">$2</span> -print0 | xargs -0r rm -f</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove stale lock files (files which are 1-2 days old)</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/locks/ -name <span class="string">&#x27;*.lock&#x27;</span> -<span class="built_in">type</span> f -mtime +1 -print0 | xargs -0r rm -f</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove empty directories</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/&#123;attic,cache,index,locks,media,media_attic,media_meta,meta,pages,tmp&#125;/ \</span><br><span class="line">    -mindepth 1 -<span class="built_in">type</span> d -empty -print0 | xargs -0r rmdir</span><br><span class="line"></span><br><span class="line">  <span class="comment"># remove files older than $2 days from the cache</span></span><br><span class="line">  find <span class="string">&quot;<span class="variable">$1</span>&quot;</span>/cache/?/ -<span class="built_in">type</span> f -mtime +<span class="variable">$2</span> -print0 | xargs -0r rm -f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用方式：</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ .<span class="regexp">/cleanwiki.sh &lt;path of dokuwiki&gt;/</span>data &lt;天數&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.dokuwiki.org/tips:maintenance">https://www.dokuwiki.org/tips:maintenance</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/eclipse-theme/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -307,32 +471,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/eclipse-theme/" class="post-title-link" itemprop="url">Eclipse Theme</a>
+          <a href="/eclipse-theme/" class="post-title-link" itemprop="url">Eclipse Theme</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 13:06:00" itemprop="dateCreated datePublished" datetime="2014-04-05T13:06:00+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 13:06:00" itemprop="dateCreated datePublished" datetime="2014-04-05T13:06:00+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -347,6 +509,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -368,18 +531,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/git-plus-github-in-linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -391,32 +561,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/git-plus-github-in-linux/" class="post-title-link" itemprop="url">Git + github in Linux</a>
+          <a href="/git-plus-github-in-linux/" class="post-title-link" itemprop="url">Git + github in Linux</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 12:48:24" itemprop="dateCreated datePublished" datetime="2014-04-05T12:48:24+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 12:48:24" itemprop="dateCreated datePublished" datetime="2014-04-05T12:48:24+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -431,6 +599,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -445,24 +614,19 @@
 <h2 id="安裝-git"><a href="#安裝-git" class="headerlink" title="安裝 git"></a>安裝 git</h2><p>看是在哪種 Linux distribution 上，通常可以直接裝套件（Fedora 用 <code>yum</code>，Ubuntu 用 <code>apt</code>，Gentoo 用 <code>emerge</code>，可參考<a target="_blank" rel="noopener" href="http://git-scm.com/download/linux">這裡</a>）。</p>
 <h2 id="設定-ssh-key"><a href="#設定-ssh-key" class="headerlink" title="設定 ssh key"></a>設定 ssh key</h2><p>為了方便跟 github 傳輸資料，要設 ssh 的 public/private key：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
-
 <p>產生一組 key，預設放在 <code>~/.ssh/</code>。</p>
 <p>Enter passphrase 是每次存取這把 key 時要輸入的密碼，有輸入的話每次用 git 指令 access github 都要打一次密碼。</p>
 <p>到 github Account Setting 中的 SSH KEYS 增加 key，把剛產生的 public key（預設是 <code>~/.ssh/id_rsa.pub</code>）貼上去。</p>
 <h2 id="在-github-新增-repository"><a href="#在-github-新增-repository" class="headerlink" title="在 github 新增 repository"></a>在 github 新增 repository</h2><p>照著網頁按，幾乎只要輸入 repository name 就可以了。</p>
 <h2 id="將現有的-git-repository-上傳（push）至-github"><a href="#將現有的-git-repository-上傳（push）至-github" class="headerlink" title="將現有的 git repository 上傳（push）至 github"></a>將現有的 git repository 上傳（push）至 github</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> mygit</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git remote add origin git@github.com:[userid]/[rep<span class="string">&#x27;s name].git</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin master</span></span><br></pre></td></tr></table></figure>
-
 <p>[userid] 是 github 上的帳號。[rep’s name] 是 repository name。</p>
 <h2 id="下載（clone）github-上的-repository-到-local-端"><a href="#下載（clone）github-上的-repository-到-local-端" class="headerlink" title="下載（clone）github 上的 repository 到 local 端"></a>下載（clone）github 上的 repository 到 local 端</h2><p>初次下載，在 Git 稱為 clone。</p>
 <p>抓自己或其他人的皆可。</p>
 <figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone git@github.com:[userid]/[rep&#x27;s name].git [local dir name]</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">userid</span>]/[rep&#x27;s name].git [local dir name]</span><br></pre></td></tr></table></figure>
-
 <p>使用兩種不同 protocol clone。</p>
 <h2 id="將自己的修改傳上-github"><a href="#將自己的修改傳上-github" class="headerlink" title="將自己的修改傳上 github"></a>將自己的修改傳上 github</h2><figure class="highlight avrasm"><table><tr><td class="code"><pre><span class="line">$ git <span class="keyword">push</span></span><br></pre></td></tr></table></figure>
 
-
 <h2 id="將-github-上較新的-code-抓下來"><a href="#將-github-上較新的-code-抓下來" class="headerlink" title="將 github 上較新的 code 抓下來"></a>將 github 上較新的 code 抓下來</h2><figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>git pull</span><br></pre></td></tr></table></figure>
-
 
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://billy3321.blogspot.com/2009/02/github-howto.html">http://billy3321.blogspot.com/2009/02/github-howto.html</a></li>
@@ -477,18 +641,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-interface-inheritance-and-implement-inheritance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -500,32 +671,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-interface-inheritance-and-implement-inheritance/" class="post-title-link" itemprop="url">C++ Interface inheritance and Implement inheritance</a>
+          <a href="/c-plus-plus-interface-inheritance-and-implement-inheritance/" class="post-title-link" itemprop="url">C++ Interface inheritance and Implement inheritance</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 12:44:46" itemprop="dateCreated datePublished" datetime="2014-04-05T12:44:46+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2014-07-05 17:14:00" itemprop="dateModified" datetime="2014-07-05T17:14:00+08:00">2014-07-05</time>
-              </span>
+      <time title="Created: 2014-04-05 12:44:46" itemprop="dateCreated datePublished" datetime="2014-04-05T12:44:46+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2014-07-05 17:14:00" itemprop="dateModified" datetime="2014-07-05T17:14:00+08:00">2014-07-05</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -540,6 +709,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -573,18 +743,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -596,32 +773,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/" class="post-title-link" itemprop="url">C++ 應避免在 constructor 及 destructor 中 call virtual function</a>
+          <a href="/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/" class="post-title-link" itemprop="url">C++ 應避免在 constructor 及 destructor 中 call virtual function</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 12:42:21" itemprop="dateCreated datePublished" datetime="2014-04-05T12:42:21+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 12:42:21" itemprop="dateCreated datePublished" datetime="2014-04-05T12:42:21+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -636,6 +811,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -659,18 +835,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-const-member-function/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -682,32 +865,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/c-plus-plus-const-member-function/" class="post-title-link" itemprop="url">C++ const member function</a>
+          <a href="/c-plus-plus-const-member-function/" class="post-title-link" itemprop="url">C++ const member function</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 12:37:19" itemprop="dateCreated datePublished" datetime="2014-04-05T12:37:19+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 12:37:19" itemprop="dateCreated datePublished" datetime="2014-04-05T12:37:19+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -722,6 +903,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -733,7 +915,6 @@
           <p>不能修改 class non-static member data 也不能 call 其他非 const member function 的 member function。</p>
 <p>宣告 function 時在最後面加個 const 的 function，ex：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">GetIndex</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>Declaring a member function with the const keyword specifies that the function is a “read-only” function that does not modify the object for which it is called. A constant member function cannot modify any non-static data members or call any member functions that aren’t constant.</p>
 </blockquote>
@@ -750,18 +931,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/read-write-lock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -773,32 +961,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/read-write-lock/" class="post-title-link" itemprop="url">Read-Write Lock</a>
+          <a href="/read-write-lock/" class="post-title-link" itemprop="url">Read-Write Lock</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 12:34:17" itemprop="dateCreated datePublished" datetime="2014-04-05T12:34:17+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 12:34:17" itemprop="dateCreated datePublished" datetime="2014-04-05T12:34:17+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -813,6 +999,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -832,18 +1019,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/linux-process-exit-status/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -855,32 +1049,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/linux-process-exit-status/" class="post-title-link" itemprop="url">Linux Process Exit Status</a>
+          <a href="/linux-process-exit-status/" class="post-title-link" itemprop="url">Linux Process Exit Status</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 12:05:16" itemprop="dateCreated datePublished" datetime="2014-04-05T12:05:16+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 12:05:16" itemprop="dateCreated datePublished" datetime="2014-04-05T12:05:16+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -895,6 +1087,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -926,18 +1119,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/phpunit/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -949,32 +1149,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/phpunit/" class="post-title-link" itemprop="url">PHPUnit</a>
+          <a href="/phpunit/" class="post-title-link" itemprop="url">PHPUnit</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-05 00:21:54" itemprop="dateCreated datePublished" datetime="2014-04-05T00:21:54+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2014-04-05 00:21:54" itemprop="dateCreated datePublished" datetime="2014-04-05T00:21:54+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -989,6 +1187,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -1003,19 +1202,15 @@
 </blockquote>
 <p>test 要是 independent。一個 test 的 result 不能 depend 其他 test 的 result。</p>
 <h2 id="Install-on-Ubuntu-12-04"><a href="#Install-on-Ubuntu-12-04" class="headerlink" title="Install on Ubuntu 12.04"></a>Install on Ubuntu 12.04</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> sudo apt-get remove phpunit    <span class="comment">// 應該是前面有先用 apt-get install 裝了才需要</span></span><br><span class="line"><span class="symbol">$</span> sudo pear upgrade pear         <span class="comment">// pear 只要裝了 php 就有</span></span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover pear.phpunit.de</span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover pear.symfony-project.com</span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover components.ez.<span class="keyword">no</span></span><br><span class="line"><span class="symbol">$</span> sudo pear update-channels</span><br><span class="line"><span class="symbol">$</span> sudo pear upgrade-<span class="keyword">all</span></span><br><span class="line"><span class="symbol">$</span> sudo pear install -alldeps phpunit/PHPUnit</span><br><span class="line"><span class="symbol">$</span> sudo pear uninstall phpunit/PHPUnit</span><br><span class="line"><span class="symbol">$</span> sudo pear install phpunit/PHPUnit</span><br></pre></td></tr></table></figure>
-
 <p>最後兩個指令看起來很好笑，好像是 pear 的 script 有問題。用倒數第三行裝完之後，又會說找不到 <code>PHP_CodeCoverage_Filter::getInstance()</code>，後來做這兩行就動了。</p>
 <h3 id="失敗的安裝"><a href="#失敗的安裝" class="headerlink" title="失敗的安裝"></a>失敗的安裝</h3><p>不能直接用</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install phpunit</span><br></pre></td></tr></table></figure>
-
 <p>不然 run 的時候會該找不到 PHP Code Coverage。</p>
 <h2 id="Run-test"><a href="#Run-test" class="headerlink" title="Run test"></a>Run test</h2><p>run all tests</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>phpunit</span><br><span class="line"><span class="variable">$ </span>phpunit --stderr</span><br></pre></td></tr></table></figure>
-
 <p>PHPUnit 在一些系統上會有 header already sent 的錯誤，加 <code>--stderr</code> 可以避免 PHPUnit 把這視為測試錯誤。</p>
 <p>執行單一測試，指定某測試檔做測試。</p>
 <figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ phpunit --stderr &lt;<span class="keyword">test</span> <span class="keyword">file</span> path&gt;</span><br></pre></td></tr></table></figure>
-
 
 <h2 id="Basic-conventions"><a href="#Basic-conventions" class="headerlink" title="Basic conventions"></a>Basic conventions</h2><ol>
 <li>class “Class” 的 test 放在 class “ClassTest”</li>
@@ -1032,13 +1227,10 @@
 <p>舉例說明：</p>
 <p>這是 project directory：</p>
 <figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span>/</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">MyStack</span>.</span></span>php</span><br></pre></td></tr></table></figure>
-
 <p>這是 test directory：</p>
 <figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">tests/</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">MyStackTest</span>.</span></span>php</span><br></pre></td></tr></table></figure>
-
 <p>PHPUnit 會在 test dir（上例的 tests/）底下找 *Test.php 來做測試。</p>
 <h3 id="執行-test-suite"><a href="#執行-test-suite" class="headerlink" title="執行 test suite"></a>執行 test suite</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">$ phpunit --stderr &lt;test <span class="built_in">dir</span> <span class="built_in">path</span>&gt;</span><br></pre></td></tr></table></figure>
-
 
 <h2 id="寫-test-就是…"><a href="#寫-test-就是…" class="headerlink" title="寫 test 就是…"></a>寫 test 就是…</h2><ol>
 <li>生一些 testcase（input 及預期的 output）</li>
@@ -1055,240 +1247,21 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pthread-condition-variable/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/pthread-condition-variable/" class="post-title-link" itemprop="url">Pthread Condition Variable</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-05 00:11:38" itemprop="dateCreated datePublished" datetime="2014-04-05T00:11:38+08:00">2014-04-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/pthread-condition-variable/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="pthread-condition-variable/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>man page 對 condition variable 的說明：</p>
-<blockquote>
-<p>A condition (short for ``condition variable’’) is a synchronization device that allows threads to suspend execution and relinquish the processors  until some predicate on shared data is satisfied. The basic operations on conditions are: signal the condition (when the predicate becomes true), and wait for the condition, suspending the thread execution until another thread signals the condition.</p>
-</blockquote>
-<p>讓某些 thread suspend 起來，等某個條件成立才繼續往下執行。而另外有些 thread 則會更動條件中變數的值，並在該條件成立時 “signal condition” 叫起在 wait 的 thread 來執行。</p>
-<blockquote>
-<p>A condition variable must always be associated with a mutex, to avoid the race condition where a thread prepares to  wait  on  a  condition variable and another thread signals the condition just before the first thread actually waits on it.</p>
-</blockquote>
-<p>condition variable 必須搭配 mutex，避免 race condition：thread A 在 thread B signal condition 後才 wait 這個 condition variable，這種狀況可能讓 thread A 永遠在 sleep（如果沒有人會再 signal 這個 condition variable）。</p>
-<p>如果所有 thread 在 signal condition variable 之前都 lock mutex，就能保證 condition 不會在 thread lock mutex 跟 wait condition variable 之間被 signal。或者說是不會在 check 過 condition 到 call wait function 以前其他 thread 就 signal condition variable。</p>
-<p><code>pthread_cond_signal()</code> 會叫起一個正在 wait condition variable 的 thread 來 run。如果沒有 thread 正在 wait，什麼事都不會發生。</p>
-<p><code>pthread_cond_wait()</code> 會 atomically unlcok mutex 並讓 calling thread wait condition variable（suspend 此 thread，suspend 的 thread 不會使用任何 CPU time）。這兩個動作是 atomically 執行的，不會被打斷。</p>
-<p>進入 <code>pthread_cond_wait()</code> 前必須先 lock mutex。而 <code>pthread_cond_wait()</code> 在 return（可以 return 是因為有人 signal condition variable）前，會重新 lock 住 mutex。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/pthread-mutex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/pthread-mutex/" class="post-title-link" itemprop="url">Pthread Mutex</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2014-04-04 23:55:51" itemprop="dateCreated datePublished" datetime="2014-04-04T23:55:51+08:00">2014-04-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/pthread-mutex/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="pthread-mutex/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>mutex 用來保護多個 thread 共享（shared）的資料，避免 concurrent modification 造成問題。</p>
-<p>lock mutex =&gt; modify shared data =&gt; unlock mutex</p>
-<p>mutex 有三種 type：</p>
-<ol>
-<li>fast</li>
-<li>recursive</li>
-<li>error check</li>
-</ol>
-<p>操作 mutex 的 function 會依照 type 不同而可能有不同的操作方式。</p>
-<h2 id="Initialize-Mutex"><a href="#Initialize-Mutex" class="headerlink" title="Initialize Mutex"></a>Initialize Mutex</h2><p>initial 時，可以用 pthread_mutex_init() 或直接 assign const 指定 mutex 的 type。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pthread_mutex_init</span><span class="params">(<span class="keyword">pthread_mutex_t</span> *mutex, <span class="keyword">const</span> <span class="keyword">pthread_mutexattr_t</span> *mutexattr)</span></span>;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 直接 assign const</span></span><br><span class="line"><span class="keyword">pthread_mutex_t</span> fastmutex = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> recmutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;</span><br><span class="line"><span class="keyword">pthread_mutex_t</span> errchkmutex = PTHREAD_ERRORCHECK_MUTEX_INITIALIZER_NP;</span><br></pre></td></tr></table></figure>
+</div>
 
 
-<h2 id="Lock-Mutex"><a href="#Lock-Mutex" class="headerlink" title="Lock Mutex"></a>Lock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_lock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<p>如果 mutex 是 unlock 狀態，則 lock 該 mutex 且讓該 mutex 為 call phread_mutex_lock() 的 thread 擁有，做完這些後立刻 return。</p>
-<p>如果 mutex 正被 lock 住，此 function 會依照不同 type 的 mutex 有不同動作：</p>
-<ol>
-<li><p>fast</p>
-<p>calling thread 會 suspend，直到 mutex unlock。沒寫好的話可能造成 deadlock。</p>
-</li>
-<li><p>recursive</p>
-<p>成功並立刻 return。這種 mutex 會記錄它被 lock 幾次，也就是一個 thread 可以 lock 這種 mutex 很多次。要 unlock 這種 mutex 時，也必須 call 相應 lock 次數的 unlock function 才能真正 unlock。</p>
-</li>
-<li><p>error check</p>
-<p>立刻 return，但 errno = EDEADLK。<em>真是個會讓人誤會的 errno 名稱…</em></p>
-<p>EDEADLK 在 man page 的解釋：</p>
-<blockquote>
-<p>the mutex is already locked by the calling thread (``error checking’’ mutexes only).</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="Try-Lock-Mutex"><a href="#Try-Lock-Mutex" class="headerlink" title="Try Lock Mutex"></a>Try Lock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_trylock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<p>跟 pthread_mutex_lock() 差不多，差別是這個不會 block 住。</p>
-<p>操作 fast mutex 時，trylock() 會立刻 return，而 errno 為 EBUSY。</p>
-<h2 id="Unlock-Mutex"><a href="#Unlock-Mutex" class="headerlink" title="Unlock Mutex"></a>Unlock Mutex</h2><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">pthread_mutex_unlock</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
-
-<p>進入此 function 前，mutex 應為 locked 且被 calling thread 擁有。</p>
-<p>fast mutex 會直接被 unlock。recursive mutex 需 call 相同於 lock 次數的 unlock 才會真正 unlock。</p>
-<p>error check 跟 recursive 的 mutex 會檢查兩個條件：此 mutex 是否為 locked 且被 calling thread 擁有。若有一條件不符合，則不會 unlock，會 return error code。fast mutex 不會做此檢查，所以非擁有此 mutex 的 thread 也可以 unlock 它（這當然不好）。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>Linux pthread_mutex man page<ul>
-<li>PS：Ubuntu 上要裝 glic-doc 才有 pthread 的 man page</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
 
-  
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
-
-
-        </div>
-        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1297,7 +1270,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1306,23 +1279,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1333,32 +1302,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -1368,16 +1317,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

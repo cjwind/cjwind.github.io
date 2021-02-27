@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="Static Linking 的問題static link 拆分了可執行檔，讓不同人或組織可以開發自己的 module，最後再 link 成執行檔。隨著系統變複雜，OS 裡有多個 process 在執行，當多個 process 以 static linking 連結相同的 library 時，例如擁有 printf() 的 standard library，memory 會有多份類似的 libra">
+<meta name="description" content="Static Linking 的問題static link 拆分了可執行檔，讓不同人或組織可以開發自己的 module，最後再 link 成執行檔。隨著系統變複雜，OS 裡有多個 process 在執行，當多個 process 以 static linking 連結相同的 library 時，例如擁有 printf() 的 standard library，memory 會有多份類似的 libra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dynamic Linking Basic">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Dynamic-Linking-Basic/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="System Software">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/Dynamic-Linking-Basic/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Dynamic Linking Basic | cjwind's note</title>
+<title>Dynamic Linking Basic | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Linking-%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">Static Linking 的問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Linking-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Linking 基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage-in-Linux"><span class="nav-number">3.</span> <span class="nav-text">Usage in Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#source-code"><span class="nav-number">3.1.</span> <span class="nav-text">source code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compile-amp-link"><span class="nav-number">3.2.</span> <span class="nav-text">compile &amp; link</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-memory-space"><span class="nav-number">3.3.</span> <span class="nav-text">virtual memory space</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts-amp-Ref"><span class="nav-number">4.</span> <span class="nav-text">Related posts &amp; Ref</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Static-Linking-%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">Static Linking 的問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-Linking-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Linking 基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage-in-Linux"><span class="nav-number">3.</span> <span class="nav-text">Usage in Linux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#source-code"><span class="nav-number">3.1.</span> <span class="nav-text">source code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compile-amp-link"><span class="nav-number">3.2.</span> <span class="nav-text">compile &amp; link</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#virtual-memory-space"><span class="nav-number">3.3.</span> <span class="nav-text">virtual memory space</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts-amp-Ref"><span class="nav-number">4.</span> <span class="nav-text">Related posts &amp; Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dynamic-Linking-Basic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Dynamic Linking Basic
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-03-05 21:41:52" itemprop="dateCreated datePublished" datetime="2017-03-05T21:41:52+08:00">2017-03-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-03-18 22:47:00" itemprop="dateModified" datetime="2017-03-18T22:47:00+08:00">2017-03-18</time>
-              </span>
+      <time title="Created: 2017-03-05 21:41:52" itemprop="dateCreated datePublished" datetime="2017-03-05T21:41:52+08:00">2017-03-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2017-03-18 22:47:00" itemprop="dateModified" datetime="2017-03-18T22:47:00+08:00">2017-03-18</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -369,35 +350,24 @@
 <p>Linux 稱 ELF 動態連結檔為 Dynamic Shared Objects（DSO），簡稱 shared object，通常以 <code>.so</code> 為副檔名。Windows 則稱為 Dynamical Linking Library，以 <code>.dll</code> 為副檔名。這系列筆記會混用 DSO、shared object、shared library、module 等詞，皆指動態連結檔。</p>
 <h2 id="Usage-in-Linux"><a href="#Usage-in-Linux" class="headerlink" title="Usage in Linux"></a>Usage in Linux</h2><p>先用簡單範例看看 Linux 上如何使用 dynamic link。</p>
 <h3 id="source-code"><a href="#source-code" class="headerlink" title="source code"></a>source code</h3><figure class="highlight c"><figcaption><span>foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _LIB_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _LIB_H</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (a + b);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;lib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    foo(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="compile-amp-link"><a href="#compile-amp-link" class="headerlink" title="compile &amp; link"></a>compile &amp; link</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ gcc -fPIC -shared -o lib<span class="selector-class">.so</span> lib.c</span><br><span class="line">$ gcc -o main<span class="selector-class">.dyn</span> main<span class="selector-class">.c</span> ./lib.so</span><br></pre></td></tr></table></figure>
-
+<h3 id="compile-amp-link"><a href="#compile-amp-link" class="headerlink" title="compile &amp; link"></a>compile &amp; link</h3><figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ gcc -fPIC -shared -o lib<span class="selector-class">.so</span> lib.c</span><br><span class="line">$ gcc -o <span class="selector-tag">main</span><span class="selector-class">.dyn</span> <span class="selector-tag">main</span><span class="selector-class">.c</span> ./lib.so</span><br></pre></td></tr></table></figure>
 <p><code>-shared</code> 表示要編出 shared object。link 出 <code>main.dyn</code> 時，linker 會看 <code>foo()</code> 是定義在其他 static object file 還是在 DSO 裡，如果在 DSO 裡就會標示這個 symbol 為 dynamic linking，等到 load 才進行 symbol relocation。上面第二行要寫 <code>./lib.so</code> 是為了讓 linker 知道 <code>foo()</code> 是在 DSO 裡，而且 <code>main.dyn</code> 也會記錄 <code>lib.so</code> 的路徑。</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd main.dyn </span><br><span class="line">linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fff29986000</span>)</span><br><span class="line">./lib.so (<span class="number">0x00007febdc1b6000</span>)</span><br><span class="line">libc.so<span class="number">.6</span> =&gt; /lib/x86_64-linux-gnu/libc.so<span class="number">.6</span> (<span class="number">0x00007febdbe0b000</span>)</span><br><span class="line">/lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span> (<span class="number">0x00007febdc3b7000</span>)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ ldd <span class="selector-tag">main</span><span class="selector-class">.dyn</span> </span><br><span class="line">linux-vdso<span class="selector-class">.so</span>.<span class="number">1</span> (<span class="number">0</span>x00007fff29986000)</span><br><span class="line">./lib<span class="selector-class">.so</span> (<span class="number">0</span>x00007febdc1b6000)</span><br><span class="line">libc<span class="selector-class">.so</span>.<span class="number">6</span> =&gt; /lib/x86_64-linux-gnu/libc<span class="selector-class">.so</span>.<span class="number">6</span> (<span class="number">0</span>x00007febdbe0b000)</span><br><span class="line">/lib64/ld-linux-x86-<span class="number">64</span><span class="selector-class">.so</span>.<span class="number">2</span> (<span class="number">0</span>x00007febdc3b7000)</span><br></pre></td></tr></table></figure>
 <p>比較常用的寫法是 <code>-l</code> 指定 library、<code>-L</code> 指定找 library 的 path，例如 <code>-lfoo -L./</code> 會找 <code>libfoo.so</code> 來 link，尋找順序則是先找目前目錄再找系統預設目錄。這種寫法在 <code>main.dyn</code> 裡只會記錄 <code>lib.so</code>、不會有路徑，執行時會從系統以及相關參數所設的路徑找 library，如果找不到會跳 error。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -h lib.so | grep Type</span><br><span class="line">  Type:                              DYN (Shared object file)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s lib.so</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 13 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     <span class="built_in">..</span>.</span><br><span class="line">     8: 0000000000000660    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  11 foo</span><br><span class="line">     <span class="built_in">..</span>.</span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 53 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">    <span class="built_in">..</span>.</span><br><span class="line">    46: 0000000000000660    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  11 foo</span><br><span class="line">    <span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">$ readelf -h lib.so | grep <span class="keyword">Type</span></span><br><span class="line">  <span class="keyword">Type</span>:                              DYN (<span class="keyword">Shared</span> object <span class="keyword">file</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">$ readelf -s lib.so</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">13</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          <span class="built_in">Size</span> <span class="keyword">Type</span>    <span class="keyword">Bind</span>   Vis      Ndx <span class="keyword">Name</span></span><br><span class="line">     ...</span><br><span class="line">     <span class="number">8</span>: <span class="number">0000000000000660</span>    <span class="number">20</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>   <span class="number">11</span> foo</span><br><span class="line">     ...</span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> <span class="keyword">contains</span> <span class="number">53</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          <span class="built_in">Size</span> <span class="keyword">Type</span>    <span class="keyword">Bind</span>   Vis      Ndx <span class="keyword">Name</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="number">46</span>: <span class="number">0000000000000660</span>    <span class="number">20</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>   <span class="number">11</span> foo</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 <p><code>lib.so</code> 的 symbol table 有給 dynamic link 用的 <code>.dynsym</code> section 跟一般的 <code>.symtab</code> section。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -s main.dyn</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 12 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     <span class="built_in">..</span>.</span><br><span class="line">     4: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> contains 65 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">    <span class="built_in">..</span>.</span><br><span class="line">    56: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight fortran"><table><tr><td class="code"><pre><span class="line">$ readelf -s main.dyn</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">12</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          <span class="built_in">Size</span> <span class="keyword">Type</span>    <span class="keyword">Bind</span>   Vis      Ndx <span class="keyword">Name</span></span><br><span class="line">     ...</span><br><span class="line">     <span class="number">4</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>  UND foo</span><br><span class="line">Symbol table <span class="string">&#x27;.symtab&#x27;</span> <span class="keyword">contains</span> <span class="number">65</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          <span class="built_in">Size</span> <span class="keyword">Type</span>    <span class="keyword">Bind</span>   Vis      Ndx <span class="keyword">Name</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="number">56</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    GLOBAL <span class="keyword">DEFAULT</span>  UND foo</span><br></pre></td></tr></table></figure>
 <p>重點來啦，<code>main.dyn</code> 是 dynamic link <code>lib.so</code> 的可執行檔，它的 symbol table 標示了 <code>foo</code> 仍然是 undefined，而且在 <code>.dynsym</code> 裡也有這個 symbol。<code>.dynsym</code> section 不會出現在其他 object file 裡的 symbol。</p>
 <h3 id="virtual-memory-space"><a href="#virtual-memory-space" class="headerlink" title="virtual memory space"></a>virtual memory space</h3><p>編出 static linking 版本的執行檔：<code>ld -e main main.o lib.o -o main.st</code> 。執行後 <code>cat /proc/&lt;pid&gt;/maps</code> 可以看到 process 的 virtual memory space：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409244</span>                           /home/cjw/source/dynamic-link/main.st</span><br><span class="line"><span class="attribute">7ffeaa7bb000</span>-<span class="number">7</span>ffeaa<span class="number">7</span>dc<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [stack]</span></span><br><span class="line"><span class="attribute">7ffeaa7ed000</span>-<span class="number">7</span>ffeaa<span class="number">7</span>ef<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vdso]</span></span><br><span class="line"><span class="attribute">7ffeaa7ef000</span>-<span class="number">7</span>ffeaa<span class="number">7</span>f<span class="number">1000</span> r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vvar]</span></span><br><span class="line"><span class="attribute">ffffffffff600000</span>-ffffffffff<span class="number">601000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                 <span class="meta"> [vsyscall]</span></span><br></pre></td></tr></table></figure>
-
 <p>簡單明瞭 load 進 <code>main.st</code>，比較 dynamic linking 的 <code>main.dyn</code>：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409246</span>                           /home/cjw/source/dynamic-link/main.dyn</span><br><span class="line"><span class="attribute">00600000</span>-<span class="number">00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409246</span>                           /home/cjw/source/dynamic-link/main.dyn</span><br><span class="line"><span class="attribute">7fdee17b3000</span>-<span class="number">7</span>fdee<span class="number">1954000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1954000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">54000</span> ---p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1b54000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">58000</span> r--p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1b58000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">5</span>a<span class="number">000</span> rw-p <span class="number">001</span>a<span class="number">5000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1b5a000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">5</span>e<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fdee1b5e000</span>-<span class="number">7</span>fdee<span class="number">1</span>b<span class="number">5</span>f<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409245</span>                   /home/cjw/source/dynamic-link/lib.so</span><br><span class="line"><span class="attribute">7fdee1b5f000</span>-<span class="number">7</span>fdee<span class="number">1</span>d<span class="number">5</span>e<span class="number">000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409245</span>                   /home/cjw/source/dynamic-link/lib.so</span><br><span class="line"><span class="attribute">7fdee1d5e000</span>-<span class="number">7</span>fdee<span class="number">1</span>d<span class="number">5</span>f<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409245</span>                   /home/cjw/source/dynamic-link/lib.so</span><br><span class="line"><span class="attribute">7fdee1d5f000</span>-<span class="number">7</span>fdee<span class="number">1</span>d<span class="number">7</span>f<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1f5e000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">61000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fdee1f7d000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">7</span>f<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fdee1f7f000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">80000</span> r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1f80000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">81000</span> rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fdee1f81000</span>-<span class="number">7</span>fdee<span class="number">1</span>f<span class="number">82000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="attribute">7fffbbf58000</span>-<span class="number">7</span>fffbbf<span class="number">79000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [stack]</span></span><br><span class="line"><span class="attribute">7fffbbfce000</span>-<span class="number">7</span>fffbbfd<span class="number">0000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vdso]</span></span><br><span class="line"><span class="attribute">7fffbbfd0000</span>-<span class="number">7</span>fffbbfd<span class="number">2000</span> r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vvar]</span></span><br><span class="line"><span class="attribute">ffffffffff600000</span>-ffffffffff<span class="number">601000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                 <span class="meta"> [vsyscall]</span></span><br></pre></td></tr></table></figure>
-
 <p>除了 <code>main.dyn</code> 跟 <code>lib.so</code> 之外也 load 進 C Runtime <code>/lib/x86_64-linux-gnu/libc-2.19.so</code> 以及動態連結器 <code>/lib/x86_64-linux-gnu/ld-2.19.so</code>。</p>
 <p>那麼 DSO 會 load 到哪呢？從下面 <code>lib.so</code> 的 segment 來看，它會被 load 到的 address 是 <code>0x00000000</code>，但顯然這個 address 不合法。compile time 無法知道 DSO 會被 load 去哪，是在 runtime 才決定（最簡單的想法是 OS 找到一塊放得下 DSO 的 memory 放）。這也是可以想像的，如果 DSO 跟 executable file 一樣編譯時就決定自己要 load 到某個 address，多個 DSO 在系統裡可能會互撞。kill 掉原本的 <code>main.dyn</code> 再跑一次會發現 load <code>lib.so</code> 的 address 不一樣。</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="string">$</span> <span class="string">readelf</span> <span class="string">-l</span> <span class="string">lib.so</span></span><br><span class="line"></span><br><span class="line"><span class="string">Elf</span> <span class="string">file</span> <span class="string">type</span> <span class="string">is</span> <span class="string">DYN</span> <span class="string">(Shared</span> <span class="string">object</span> <span class="string">file)</span></span><br><span class="line"><span class="string">Entry</span> <span class="string">point</span> <span class="number">0x560</span></span><br><span class="line"><span class="string">There</span> <span class="string">are</span> <span class="number">6</span> <span class="string">program</span> <span class="string">headers,</span> <span class="string">starting</span> <span class="string">at</span> <span class="string">offset</span> <span class="number">64</span></span><br><span class="line"></span><br><span class="line"><span class="attr">Program Headers:</span></span><br><span class="line">  <span class="string">Type</span>           <span class="string">Offset</span>             <span class="string">VirtAddr</span>           <span class="string">PhysAddr</span></span><br><span class="line">                 <span class="string">FileSiz</span>            <span class="string">MemSiz</span>              <span class="string">Flags</span>  <span class="string">Align</span></span><br><span class="line">  <span class="string">LOAD</span>           <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span></span><br><span class="line">                 <span class="number">0x0000000000000704</span> <span class="number">0x0000000000000704</span>  <span class="string">R</span> <span class="string">E</span>    <span class="number">200000</span></span><br><span class="line">  <span class="string">LOAD</span>           <span class="number">0x0000000000000708</span> <span class="number">0x0000000000200708</span> <span class="number">0x0000000000200708</span></span><br><span class="line">                 <span class="number">0x0000000000000230</span> <span class="number">0x0000000000000238</span>  <span class="string">RW</span>     <span class="number">200000</span></span><br><span class="line">  <span class="string">DYNAMIC</span>        <span class="number">0x0000000000000720</span> <span class="number">0x0000000000200720</span> <span class="number">0x0000000000200720</span></span><br><span class="line">                 <span class="number">0x00000000000001c0</span> <span class="number">0x00000000000001c0</span>  <span class="string">RW</span>     <span class="number">8</span></span><br><span class="line">  <span class="string">NOTE</span>           <span class="number">0x0000000000000190</span> <span class="number">0x0000000000000190</span> <span class="number">0x0000000000000190</span></span><br><span class="line">                 <span class="number">0x0000000000000024</span> <span class="number">0x0000000000000024</span>  <span class="string">R</span>      <span class="number">4</span></span><br><span class="line">  <span class="string">GNU_EH_FRAME</span>   <span class="number">0x0000000000000680</span> <span class="number">0x0000000000000680</span> <span class="number">0x0000000000000680</span></span><br><span class="line">                 <span class="number">0x000000000000001c</span> <span class="number">0x000000000000001c</span>  <span class="string">R</span>      <span class="number">4</span></span><br><span class="line">  <span class="string">GNU_STACK</span>      <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span></span><br><span class="line">                 <span class="number">0x0000000000000000</span> <span class="number">0x0000000000000000</span>  <span class="string">RW</span>     <span class="number">10</span></span><br><span class="line"></span><br><span class="line"> <span class="attr">Section to Segment mapping:</span></span><br><span class="line">  <span class="string">Segment</span> <span class="string">Sections...</span></span><br><span class="line">   <span class="number">00</span>     <span class="string">.note.gnu.build-id</span> <span class="string">.gnu.hash</span> <span class="string">.dynsym</span> <span class="string">.dynstr</span> <span class="string">.gnu.version</span> <span class="string">.gnu.version_r</span> <span class="string">.rela.dyn</span> <span class="string">.rela.plt</span> <span class="string">.init</span> <span class="string">.plt</span> <span class="string">.text</span> <span class="string">.fini</span> <span class="string">.eh_frame_hdr</span> <span class="string">.eh_frame</span></span><br><span class="line">   <span class="number">01</span>     <span class="string">.init_array</span> <span class="string">.fini_array</span> <span class="string">.jcr</span> <span class="string">.dynamic</span> <span class="string">.got</span> <span class="string">.got.plt</span> <span class="string">.data</span> <span class="string">.bss</span></span><br><span class="line">   <span class="number">02</span>     <span class="string">.dynamic</span></span><br><span class="line">   <span class="number">03</span>     <span class="string">.note.gnu.build-id</span></span><br><span class="line">   <span class="number">04</span>     <span class="string">.eh_frame_hdr</span></span><br><span class="line">   <span class="number">05</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ readelf -l lib.so</span><br><span class="line"></span><br><span class="line">Elf file type is DYN (Shared <span class="selector-tag">object</span> file)</span><br><span class="line">Entry point <span class="number">0</span>x560</span><br><span class="line">There are <span class="number">6</span> program headers, starting at offset <span class="number">64</span></span><br><span class="line"></span><br><span class="line">Program Headers:</span><br><span class="line">  Type           Offset             VirtAddr           PhysAddr</span><br><span class="line">                 FileSiz            MemSiz              Flags  Align</span><br><span class="line">  LOAD           <span class="number">0</span>x0000000000000000 <span class="number">0</span>x0000000000000000 <span class="number">0</span>x0000000000000000</span><br><span class="line">                 <span class="number">0</span>x0000000000000704 <span class="number">0</span>x0000000000000704  R E    <span class="number">200000</span></span><br><span class="line">  LOAD           <span class="number">0</span>x0000000000000708 <span class="number">0</span>x0000000000200708 <span class="number">0</span>x0000000000200708</span><br><span class="line">                 <span class="number">0</span>x0000000000000230 <span class="number">0</span>x0000000000000238  RW     <span class="number">200000</span></span><br><span class="line">  DYNAMIC        <span class="number">0</span>x0000000000000720 <span class="number">0</span>x0000000000200720 <span class="number">0</span>x0000000000200720</span><br><span class="line">                 <span class="number">0</span>x00000000000001c0 <span class="number">0</span>x00000000000001c0  RW     <span class="number">8</span></span><br><span class="line">  NOTE           <span class="number">0</span>x0000000000000190 <span class="number">0</span>x0000000000000190 <span class="number">0</span>x0000000000000190</span><br><span class="line">                 <span class="number">0</span>x0000000000000024 <span class="number">0</span>x0000000000000024  R      <span class="number">4</span></span><br><span class="line">  GNU_EH_FRAME   <span class="number">0</span>x0000000000000680 <span class="number">0</span>x0000000000000680 <span class="number">0</span>x0000000000000680</span><br><span class="line">                 <span class="number">0</span>x000000000000001c <span class="number">0</span>x000000000000001c  R      <span class="number">4</span></span><br><span class="line">  GNU_STACK      <span class="number">0</span>x0000000000000000 <span class="number">0</span>x0000000000000000 <span class="number">0</span>x0000000000000000</span><br><span class="line">                 <span class="number">0</span>x0000000000000000 <span class="number">0</span>x0000000000000000  RW     <span class="number">10</span></span><br><span class="line"></span><br><span class="line"> Section to Segment mapping:</span><br><span class="line">  Segment Sections...</span><br><span class="line">   <span class="number">00</span>     <span class="selector-class">.note</span><span class="selector-class">.gnu</span><span class="selector-class">.build-id</span> <span class="selector-class">.gnu</span><span class="selector-class">.hash</span> <span class="selector-class">.dynsym</span> <span class="selector-class">.dynstr</span> <span class="selector-class">.gnu</span><span class="selector-class">.version</span> <span class="selector-class">.gnu</span><span class="selector-class">.version_r</span> <span class="selector-class">.rela</span><span class="selector-class">.dyn</span> <span class="selector-class">.rela</span><span class="selector-class">.plt</span> <span class="selector-class">.init</span> <span class="selector-class">.plt</span> <span class="selector-class">.text</span> <span class="selector-class">.fini</span> <span class="selector-class">.eh_frame_hdr</span> .eh_frame</span><br><span class="line">   <span class="number">01</span>     <span class="selector-class">.init_array</span> <span class="selector-class">.fini_array</span> <span class="selector-class">.jcr</span> <span class="selector-class">.dynamic</span> <span class="selector-class">.got</span> <span class="selector-class">.got</span><span class="selector-class">.plt</span> <span class="selector-class">.data</span> .bss</span><br><span class="line">   <span class="number">02</span>     .dynamic</span><br><span class="line">   <span class="number">03</span>     <span class="selector-class">.note</span><span class="selector-class">.gnu</span>.build-id</span><br><span class="line">   <span class="number">04</span>     .eh_frame_hdr</span><br><span class="line">   <span class="number">05</span></span><br></pre></td></tr></table></figure>
 <h2 id="Related-posts-amp-Ref"><a href="#Related-posts-amp-Ref" class="headerlink" title="Related posts &amp; Ref"></a>Related posts &amp; Ref</h2><ul>
 <li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
 <li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
@@ -415,7 +385,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Linux/" rel="tag"># Linux</a>
               <a href="/tags/System-Software/" rel="tag"># System Software</a>
@@ -423,34 +393,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/Linux-Desktop-Nvidia-driver/" rel="prev" title="Linux Desktop 1 Install Nvidia driver">
-      <i class="fa fa-chevron-left"></i> Linux Desktop 1 Install Nvidia driver
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Dynamic-Linking-PIC/" rel="next" title="Dynamic Linking Position-independent Code（PIC）">
-      Dynamic Linking Position-independent Code（PIC） <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Linux-Desktop-Nvidia-driver/" rel="prev" title="Linux Desktop 1 Install Nvidia driver">
+                  <i class="fa fa-chevron-left"></i> Linux Desktop 1 Install Nvidia driver
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Dynamic-Linking-PIC/" rel="next" title="Dynamic Linking Position-independent Code（PIC）">
+                  Dynamic Linking Position-independent Code（PIC） <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -461,7 +427,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -470,23 +436,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -497,32 +459,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -532,16 +474,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

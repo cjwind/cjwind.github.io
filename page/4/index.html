@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,20 +15,21 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 <meta property="og:title" content="cjwind&#39;s note">
 <meta property="og:url" content="http://www.cjwind.idv.tw/page/4/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="cjwind">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="http://www.cjwind.idv.tw/page/4/">
 
@@ -40,8 +43,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>cjwind's note</title>
+<title>cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -52,8 +54,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -97,14 +97,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -118,6 +117,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -130,37 +130,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -171,8 +147,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -181,12 +156,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -195,9 +170,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -215,40 +190,41 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -264,38 +240,320 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner index posts-expand">
 
-        <div class="content index posts-expand">
-          
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-1-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/get-started-with-docker/part-1-2/" class="post-title-link" itemprop="url">Get started with Docker Part 1 & 2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-08-03 23:23:44" itemprop="dateCreated datePublished" datetime="2019-08-03T23:23:44+08:00">2019-08-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-02-08 15:30:38" itemprop="dateModified" datetime="2021-02-08T15:30:38+08:00">2021-02-08</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/get-started-with-docker/part-1-2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="get-started-with-docker/part-1-2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Dodkcer Get Started</a> 隨手記。</p>
+<h2 id="Part-1-Orientation-and-setup"><a href="#Part-1-Orientation-and-setup" class="headerlink" title="Part 1: Orientation and setup"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/">Part 1: Orientation and setup</a></h2><blockquote>
+<p>Docker is a platform for developers and sysadmins to <strong>develop, deploy, and run</strong> applications with containers.</p>
+</blockquote>
+<blockquote>
+<p>The use of Linux containers to deploy applications is called <em>containerization</em>.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/install/debian/">Install Docker Engine on Debian</a></p>
+<h3 id="Images-and-containers"><a href="#Images-and-containers" class="headerlink" title="Images and containers"></a>Images and containers</h3><blockquote>
+<p>An <strong>image</strong> is an executable package that includes everything needed to run an application–the code, a runtime, libraries, environment variables, and configuration files.</p>
+</blockquote>
+<blockquote>
+<p>A <strong>container</strong> is a runtime instance of an image–what the image becomes in memory when executed (that is, an image with state, or a user process).</p>
+</blockquote>
+<h3 id="Container-vs-VM"><a href="#Container-vs-VM" class="headerlink" title="Container vs VM"></a>Container vs VM</h3><blockquote>
+<p>A <strong>container</strong> runs natively on Linux and shares the kernel of the host machine with other containers. It runs a discrete process, taking no more memory than any other executable, making it lightweight.</p>
+</blockquote>
+<p>看起來 container 是 process level 的。</p>
+<blockquote>
+<p>a <strong>virtual machine</strong> (VM) runs a full-blown “guest” operating system with <em>virtual access</em> to host resources through a hypervisor. In general, VMs provide an environment with more resources than most applications need.</p>
+</blockquote>
+<p>用 Docker 可以把 application 需要的環境跟 code 等等包在 image 裡，以此 image 來開發跟 deploy，解決 application 的 system dependency 問題。因為整個環境都包在 Docker 裡了，application 可以在任何有 Docker 環境的地方執行（從 local 到 cloud 等等）。相較 VM，container 比較 light-weight 而且只有 application 需要的環境。</p>
+<h2 id="Part-2-Containers"><a href="#Part-2-Containers" class="headerlink" title="Part 2: Containers"></a><a target="_blank" rel="noopener" href="https://docs.docker.com/get-started/part2/">Part 2: Containers</a></h2><p>hierarchy 由高到低：</p>
+<ul>
+<li>Stack：define the interactions of all the services</li>
+<li>Services：defines how containers behave in production</li>
+<li>Container：a runtime instance of an image</li>
+</ul>
+<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><blockquote>
+<p><strong><code>Dockerfile</code></strong> defines what goes on in the environment inside your container.</p>
+</blockquote>
+<p>container 的網路跟 disk drive 是 virtualized、跟外界隔開的，所以要做 port mapping 以及指定哪些檔案要 copy 進 container。</p>
+<p>Dockerfile 指令 [<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/">Ref</a>]：</p>
+<ul>
+<li><code>FROM</code> 指定 parent image</li>
+<li><code>WORKDIR</code> 指定 container 內的 working dir</li>
+<li><code>COPY</code> copy 檔案到 container 裡</li>
+<li><code>RUN</code> 執行指令<ul>
+<li><blockquote>
+<p>The RUN instruction will execute any commands in a new layer on top of the current image and commit the results.</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><code>EXPOSE</code> 表示 container 會 listen 哪些 port<ul>
+<li>跟 <code>docker run -p</code> 做 port mapping 不同，不會真的 publish port</li>
+<li><blockquote>
+<p>The <code>EXPOSE</code> instruction does not actually publish the port. It functions as a type of documentation between the person who builds the image and the person who runs the container, about which ports are intended to be published.</p>
+</blockquote>
+</li>
+<li>寫不寫 <code>EXPOSE</code> 都可以 publish port，<code>EXPOSE</code> 是讓使用 image 的人知道 container 會 listen 哪個 port，好知道怎麼 publish port。</li>
+</ul>
+</li>
+<li><code>ENV</code> 設定環境變數</li>
+<li><code>CMD</code> container 開起來時要執行的指令</li>
+</ul>
+<h4 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h4><ul>
+<li>在 container 裡拿 hostname 會拿到 container ID</li>
+</ul>
+<h3 id="更多-docker-run"><a href="#更多-docker-run" class="headerlink" title="更多 docker run"></a>更多 <code>docker run</code></h3><ul>
+<li><code>-p &lt;host port&gt;:&lt;container port&gt;</code> publish port，做 host port 跟 container port 的 mapping。[<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/run/#expose-incoming-ports">Ref</a>]</li>
+<li><code>-d</code> 以 detach mode 執行 container，就是背景執行啦～</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://127.0.0.1:4000/PhpStorm-Docker-in-Win10/#Docker-Command-Line-Usage">基本 docker run 使用 Ref</a></p>
+<h3 id="Share-image"><a href="#Share-image" class="headerlink" title="Share image"></a>Share image</h3><blockquote>
+<p>A registry is a collection of repositories, and a repository is a collection of images</p>
+</blockquote>
+<p><code>docker</code> 預設使用的 registry 是 <a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>。</p>
+<p>tag 是用來給 image 版本的方式。</p>
+<ol>
+<li>幫 image 加上 registry 的 repository tag：</li>
+</ol>
+<figure class="highlight pf"><table><tr><td class="code"><pre><span class="line">$ docker <span class="keyword">tag</span> <span class="variable">&lt;image&gt;</span> <span class="variable">&lt;username&gt;</span>/<span class="variable">&lt;repository&gt;</span>:<span class="variable">&lt;tag&gt;</span></span><br><span class="line">$ docker <span class="keyword">tag</span> <span class="variable">&lt;imageID&gt;</span> cjwind/helloworld:<span class="number">0.1</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>publish image：</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker push <span class="tag">&lt;<span class="name">username</span>&gt;</span>/<span class="tag">&lt;<span class="name">repository</span>&gt;</span>:<span class="tag">&lt;<span class="name">tag</span>&gt;</span></span><br><span class="line">$ docker push cjwind/helloworld:0.1.0</span><br></pre></td></tr></table></figure>
+<p>如果是 private registry，要先執行 <code>docker login</code>。</p>
+<ol start="3">
+<li>pull and run image from remote repository：</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker <span class="builtin-name">run</span> &lt;username&gt;/&lt;repository&gt;:&lt;tag&gt;</span><br><span class="line">$ docker <span class="builtin-name">run</span> cjwind/helloworld:0.1.0</span><br></pre></td></tr></table></figure>
+<p>如果 local 不存在 image，Docker 會從 repository pull image 下來再執行。</p>
+
       
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/PhpStorm-Docker-in-Win10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/PhpStorm-Docker-in-Win10/" class="post-title-link" itemprop="url">PhpStorm + Docker in Win10</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-07-26 09:13:38" itemprop="dateCreated datePublished" datetime="2019-07-26T09:13:38+08:00">2019-07-26</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-11-21 22:51:16" itemprop="dateModified" datetime="2020-11-21T22:51:16+08:00">2020-11-21</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/PhpStorm-Docker-in-Win10/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PhpStorm-Docker-in-Win10/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>跟主題無關的 murmur：來嘗試一種筆記方式，以「解決某個問題」或「達到某個目標」為主，記錄中間的試驗跟操作等過程。因為是過程記錄，路途中可能歪掉(?)、出現好像有關但最後跟解決方式無關的東西。</p>
+<hr>
+<h2 id="目標"><a href="#目標" class="headerlink" title="目標"></a>目標</h2><p>目標是 Win10 下的 PhpStorm 可以用不同版本 PHP 執行程式。</p>
+<p>一個方式是裝多個版本的 PHP <del>（覺得把環境弄得很亂不蘇胡）</del>，既然 PhpStorm 的 CLI Interpreter 可以用 Docker，乾脆來玩一下 Docker～</p>
+<p>雖然是在 Win10，但除了安裝 Docker 的版本不同，其他 Docker 操作基本在 Linux 應該是可以用的（畢竟這沒有牽涉到更細節的什麼 linux container、windows container 之類的，我也不確定那有沒有關係）。</p>
+<h2 id="Win10-Docker-Installation"><a href="#Win10-Docker-Installation" class="headerlink" title="Win10 Docker Installation"></a>Win10 Docker Installation</h2><p>google it，裝完就忘了，大概是 Hyper-V 要開、Win10 要某個版本之後，然後去裝 Docker for Windows，可以參考<a target="_blank" rel="noopener" href="http://marcus116.blogspot.com/2019/01/docker-docker-for-windows.html">這篇</a>。</p>
+<h2 id="Docker-的-Image-amp-Container-極簡概念"><a href="#Docker-的-Image-amp-Container-極簡概念" class="headerlink" title="Docker 的 Image &amp; Container 極簡概念"></a>Docker 的 Image &amp; Container 極簡概念</h2><ul>
+<li>image：類似 VM image 的東西，而且 image 可以一層層疊起來。</li>
+<li>container：依據 image 開起來的 instance，container 的環境是互相隔離的。</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/PhpStorm-Docker-in-Win10/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/C-stringify/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -307,32 +565,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/C-stringify/" class="post-title-link" itemprop="url">C 語言 stringify 技巧</a>
+          <a href="/C-stringify/" class="post-title-link" itemprop="url">C 語言 stringify 技巧</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-06-29 23:19:12" itemprop="dateCreated datePublished" datetime="2019-06-29T23:19:12+08:00">2019-06-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2019-06-29 23:19:12" itemprop="dateCreated datePublished" datetime="2019-06-29T23:19:12+08:00">2019-06-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -347,6 +603,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -359,24 +616,18 @@
 <figure class="highlight php"><figcaption><span>php</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;Hello world&quot;</span>;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ECHO(str) printf(<span class="meta-string">&quot;%s\n&quot;</span>, str)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    ECHO(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>經過 preprocess：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">$ cpp stringify.c</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>如果在 parameter 前加 <code>#</code>，preprocessor 會把 actual argument 變成字串，稱為 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html">Stringizing</a>。用個例子說明：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ECHO(str) printf(<span class="meta-string">&quot;%s\n&quot;</span>, #str)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    ECHO(s);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>經過 preprocess（只是例子，code 本身不太 make sense）：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> s[] = <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, <span class="string">&quot;s&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>Linux kernel 使用這個技巧將 macro 展開成字串。</p>
 <p><code>__stringify</code> 定義在 <a target="_blank" rel="noopener" href="https://elixir.bootlin.com/linux/v4.19/source/include/linux/stringify.h"><code>include/linux/stringify.h</code></a>：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...)    #x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)    __stringify_1(x)</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...)	#x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)	__stringify_1(x)</span></span><br></pre></td></tr></table></figure>
 <p>為什麼 <code>__stringify</code> 要 define 兩次呢？</p>
 <p>在 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/cpp/Argument-Prescan.html">Argument Prescan</a> 提到 macro 的參數如果也是 macro，一般在被替換進 macro body 前就會被展開，但如果是 stringized 則不會被展開。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify_1(x...) #x</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __stringify(x...)   __stringify_1(x)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FOO bar</span></span><br><span class="line"></span><br><span class="line">__stringify_1(FOO)        <span class="comment">// become &quot;FOO&quot;</span></span><br><span class="line">__stringify(FOO)          <span class="comment">// become &quot;bar&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>這例子裡 <code>__stringify_1(FOO)</code> 因為是 stringized 的 macro 參數，所以 <code>FOO</code> 不會被展開，macro 替換後最後變成 <code>&quot;FOO&quot;</code>。而 <code>__stringify(FOO)</code> 會先展開 <code>FOO</code> 並替換，變成 <code>__stringify_1(bar)</code>，接著再 scan 一次將 macro 展開為 <code>&quot;bar&quot;</code>。</p>
 <p><code>__stringify</code> define 兩次是為了讓參數可以使用 macro。像上面的例子，通常期望 <code>__stringify(FOO)</code> 得到 <code>&quot;bar&quot;</code> 而非 <code>&quot;FOO&quot;</code>。</p>
 <p><code>...</code> 是跟 function 一樣的不定參數，可參考 <a target="_blank" rel="noopener" href="https://gcc.gnu.org/onlinedocs/cpp/Variadic-Macros.html">Variadic Macros</a>。</p>
@@ -387,18 +638,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Codeception-module-yii2-event-tester/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -410,32 +668,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Codeception-module-yii2-event-tester/" class="post-title-link" itemprop="url">Codeception module yii2 event tester</a>
+          <a href="/Codeception-module-yii2-event-tester/" class="post-title-link" itemprop="url">Codeception module yii2 event tester</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-20 22:30:17" itemprop="dateCreated datePublished" datetime="2019-04-20T22:30:17+08:00">2019-04-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2019-04-20 22:30:17" itemprop="dateCreated datePublished" datetime="2019-04-20T22:30:17+08:00">2019-04-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -450,6 +706,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -469,18 +726,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/config-travis-and-github-with-composer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -492,32 +756,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/config-travis-and-github-with-composer/" class="post-title-link" itemprop="url">Travis 設定 Github Access Token</a>
+          <a href="/config-travis-and-github-with-composer/" class="post-title-link" itemprop="url">Travis 設定 Github Access Token</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-15 22:27:51" itemprop="dateCreated datePublished" datetime="2019-04-15T22:27:51+08:00">2019-04-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2019-04-15 22:27:51" itemprop="dateCreated datePublished" datetime="2019-04-15T22:27:51+08:00">2019-04-15</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -532,6 +794,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -542,7 +805,6 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a>Problem</h2><p>Travis 在 run <code>composer install</code> 會出現類似以下錯誤：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">Failed <span class="built_in">to</span> clone <span class="keyword">the</span> git@github.com:jquery/jquery-dist.git repository, <span class="keyword">try</span> running <span class="keyword">in</span> interactive mode so that you can enter your GitHub credentials</span><br><span class="line"></span><br><span class="line">  [Composer\Repository\InvalidRepositoryException]</span><br><span class="line">  No valid bower.json was found <span class="keyword">in</span> <span class="keyword">any</span> branch <span class="keyword">or</span> tag <span class="keyword">of</span> <span class="keyword">https</span>://github.com/jq</span><br><span class="line">  uery/jquery-dist.git, could <span class="keyword">not</span> <span class="built_in">load</span> <span class="keyword">a</span> package <span class="built_in">from</span> <span class="keyword">it</span>.</span><br></pre></td></tr></table></figure>
-
 <p>失敗的 repository 不一定，可能這次 jquery 下次別的。</p>
 <p>找了一陣，說是踩到 Github 的 <a target="_blank" rel="noopener" href="https://developer.github.com/v3/#rate-limiting">rate limit</a>（我理解是 <code>composer install</code> 會一直從 github 抓東西所以容易踩到），但又有文章說這個問題已經被修正。<del>我還是踩到了啊</del></p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><ol>
@@ -560,18 +822,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/test-event/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -583,32 +852,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/test-event/" class="post-title-link" itemprop="url">如何測試 event</a>
+          <a href="/test-event/" class="post-title-link" itemprop="url">如何測試 event</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-04-07 16:01:04" itemprop="dateCreated datePublished" datetime="2019-04-07T16:01:04+08:00">2019-04-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2019-04-07 16:01:04" itemprop="dateCreated datePublished" datetime="2019-04-07T16:01:04+08:00">2019-04-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -623,6 +890,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -649,18 +917,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Add-system-call-to-linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -672,32 +947,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Add-system-call-to-linux/" class="post-title-link" itemprop="url">Linux kernel 5.0 增加 System Call</a>
+          <a href="/Add-system-call-to-linux/" class="post-title-link" itemprop="url">Linux kernel 5.0 增加 System Call</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-02-05 22:08:57" itemprop="dateCreated datePublished" datetime="2019-02-05T22:08:57+08:00">2019-02-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2019-02-05 22:08:57" itemprop="dateCreated datePublished" datetime="2019-02-05T22:08:57+08:00">2019-02-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -712,6 +985,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -722,10 +996,8 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="Download-kernel-source-code"><a href="#Download-kernel-source-code" class="headerlink" title="Download kernel source code"></a>Download kernel source code</h2><p>我用的 kernel source code 是從 <code>https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</code> clone 的，寫這篇的版本是 <code>5.0.0-rc3</code>。</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ git clone https:<span class="regexp">//gi</span>t.kernel.org<span class="regexp">/pub/</span>scm<span class="regexp">/linux/</span>kernel<span class="regexp">/git/</span>stable/linux.git linux-stable</span><br></pre></td></tr></table></figure>
-
 <h2 id="Add-system-call"><a href="#Add-system-call" class="headerlink" title="Add system call"></a>Add system call</h2><p>首先在 kernel source code root 建立一個資料夾 <code>mysyscall/</code>：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">cd</span> linux<span class="literal">-stable</span></span><br><span class="line"><span class="variable">$</span> mkdir mysyscall</span><br></pre></td></tr></table></figure>
-
 <p>新增 <code>mysyscall/hello.c</code>、加入新的 system call <code>sys_hello()</code>（不可免俗的來 hello world 一下）：</p>
 <figure class="highlight c"><figcaption><span>mysyscall/hello.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_hello</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">&quot;Hello Kernel World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
@@ -742,18 +1014,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-and-Override/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -765,32 +1044,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Extract-and-Override/" class="post-title-link" itemprop="url">Dependency Injection - Extract and Override</a>
+          <a href="/Dependency-Injection-Extract-and-Override/" class="post-title-link" itemprop="url">Dependency Injection - Extract and Override</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-30 17:15:05" itemprop="dateCreated datePublished" datetime="2018-12-30T17:15:05+08:00">2018-12-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2018-12-30 17:15:05" itemprop="dateCreated datePublished" datetime="2018-12-30T17:15:05+08:00">2018-12-30</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -805,6 +1082,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -832,18 +1110,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Constructor-and-Setter-Injection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -855,32 +1140,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Constructor-and-Setter-Injection/" class="post-title-link" itemprop="url">Dependency Injection - Constructor and Setter Injection</a>
+          <a href="/Dependency-Injection-Constructor-and-Setter-Injection/" class="post-title-link" itemprop="url">Dependency Injection - Constructor and Setter Injection</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-23 16:51:52" itemprop="dateCreated datePublished" datetime="2018-12-23T16:51:52+08:00">2018-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2018-12-23 16:51:52" itemprop="dateCreated datePublished" datetime="2018-12-23T16:51:52+08:00">2018-12-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -895,6 +1178,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -919,18 +1203,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-Dependency-Object/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -942,32 +1233,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dependency-Injection-Extract-Dependency-Object/" class="post-title-link" itemprop="url">Dependency Injection - Extract Dependency Object</a>
+          <a href="/Dependency-Injection-Extract-Dependency-Object/" class="post-title-link" itemprop="url">Dependency Injection - Extract Dependency Object</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-17 21:20:10" itemprop="dateCreated datePublished" datetime="2018-12-17T21:20:10+08:00">2018-12-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2018-12-17 21:20:10" itemprop="dateCreated datePublished" datetime="2018-12-17T21:20:10+08:00">2018-12-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -982,6 +1271,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -1016,209 +1306,21 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Stub-in-test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Stub-in-test/" class="post-title-link" itemprop="url">Stub</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-02 23:32:31" itemprop="dateCreated datePublished" datetime="2018-12-02T23:32:31+08:00">2018-12-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Stub-in-test/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Stub-in-test/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>External Dependency 是系統中與被測試程式互動但你無法掌控的物件。互動就是有 call 啊、使用回傳值之類的。</p>
-<p>stub 是在系統中產生一個可以控制的替代 object 來取代 external dependency object。</p>
-<p>使用 stub 可以解決直接相依帶來的測試問題：無法控制相依物件的行為及回傳值（例如每次 call third party API 得到的結果不同）或者相依物件不穩定，而難以有穩定的環境（固定的 input 及 output）測試要測試的程式邏輯。</p>
-<p>一種典型的 stub 是回傳假資料，藉由假造不同的回傳值來測試程式在不同情境下的運作，例如假造其他 function 的各種可能的回傳值。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/vscode/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/vscode/" class="post-title-link" itemprop="url">Visual Studio Code</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-11-07 23:48:00" itemprop="dateCreated datePublished" datetime="2018-11-07T23:48:00+08:00">2018-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/vscode/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="vscode/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Build-amp-Debug-C"><a href="#Build-amp-Debug-C" class="headerlink" title="Build &amp; Debug C++"></a>Build &amp; Debug C++</h2><p>安裝 extension <code>C/C++</code> (<code>ms-vscode.cpptools</code>)。</p>
-<h3 id="Build"><a href="#Build" class="headerlink" title="Build"></a>Build</h3><p><code>ctrl + ship + p</code> 輸入 <code>tasks</code>，選擇 <code>Configure Task</code>，選個 template 來改。或者直接在 <code>.vscode/</code> 下新增 <code>tasks.json</code>：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// See https://go.microsoft.com/fwlink/?LinkId=733558</span></span><br><span class="line">    <span class="comment">// for the documentation about the tasks.json format</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;2.0.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;tasks&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;label&quot;</span>: <span class="string">&quot;build&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;shell&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;command&quot;</span>: <span class="string">&quot;make&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;args&quot;</span>: [</span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">&quot;group&quot;</span>: <span class="string">&quot;build&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;presentation&quot;</span>: &#123;</span><br><span class="line">                <span class="attr">&quot;reveal&quot;</span>: <span class="string">&quot;silent&quot;</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">&quot;problemMatcher&quot;</span>: [</span><br><span class="line">                <span class="string">&quot;$gcc&quot;</span></span><br><span class="line">            ]</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這是有 <code>Makefile</code> 的設定方式，<code>command</code> 也可以用 <code>g++</code> 配合 <code>args</code>。</p>
-<h3 id="Debug"><a href="#Debug" class="headerlink" title="Debug"></a>Debug</h3><p>左邊切到 Debug 按上面的齒輪可以設定 <code>launch.json</code>，也可以直接在 <code>.vscode/</code> 下新增設定檔。</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Use IntelliSense to learn about possible attributes.</span></span><br><span class="line">    <span class="comment">// Hover to view descriptions of existing attributes.</span></span><br><span class="line">    <span class="comment">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;0.2.0&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;(gdb) Launch&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;cppdbg&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;request&quot;</span>: <span class="string">&quot;launch&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;program&quot;</span>: <span class="string">&quot;$&#123;workspaceFolder&#125;/a.out&quot;</span>,        <span class="comment">// 指定執行檔</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span>: [],</span><br><span class="line">            <span class="attr">&quot;stopAtEntry&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">            <span class="attr">&quot;cwd&quot;</span>: <span class="string">&quot;$&#123;workspaceFolder&#125;&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;environment&quot;</span>: [],</span><br><span class="line">            <span class="attr">&quot;externalConsole&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">&quot;MIMode&quot;</span>: <span class="string">&quot;gdb&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;setupCommands&quot;</span>: [</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="attr">&quot;description&quot;</span>: <span class="string">&quot;Enable pretty-printing for gdb&quot;</span>,</span><br><span class="line">                    <span class="attr">&quot;text&quot;</span>: <span class="string">&quot;-enable-pretty-printing&quot;</span>,</span><br><span class="line">                    <span class="attr">&quot;ignoreFailures&quot;</span>: <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">&quot;preLaunchTask&quot;</span>: <span class="string">&quot;build&quot;</span>        <span class="comment">// debug 前要執行的 task, 對應 tasks.json 的 taskName</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>設定好之後按 F5 就可以 Debug 囉～</p>
-<p>breakpoint 只要在 code line number 左邊按出紅點點就可以啦～（<code>g++</code> 要記得 <code>-g</code>）</p>
-<h2 id="Extension"><a href="#Extension" class="headerlink" title="Extension"></a>Extension</h2><h3 id="workspace-推薦-extension"><a href="#workspace-推薦-extension" class="headerlink" title="workspace 推薦 extension"></a>workspace 推薦 extension</h3><p>在 <code>.vscode/</code> 底下加入 <code>extensions.json</code>，可以在裡面列推薦跟不推薦的 extension。</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">// See http://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.</span></span><br><span class="line">    <span class="comment">// Extension identifier format: $&#123;publisher&#125;.$&#123;name&#125;. Example: vscode.csharp</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// List of extensions which should be recommended for users of this workspace.</span></span><br><span class="line">    <span class="attr">&quot;recommendations&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;ms-vscode.cpptools&quot;</span>,</span><br><span class="line">        <span class="string">&quot;donjayamanne.githistory&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="comment">// List of extensions recommended by VS Code that should not be recommended for users of this workspace.</span></span><br><span class="line">    <span class="attr">&quot;unwantedRecommendations&quot;</span>: [</span><br><span class="line"></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Git-History"><a href="#Git-History" class="headerlink" title="Git History"></a>Git History</h3><p><code>ctrl + shift + p</code> 後打 <code>git h</code> 可以看 git log、file 跟 line history。</p>
-<p>選一個 commit 點下面的修改檔案還可以看 diff。</p>
-<h3 id="Sublime-Text-Keymap-and-Settings-Importer"><a href="#Sublime-Text-Keymap-and-Settings-Importer" class="headerlink" title="Sublime Text Keymap and Settings Importer"></a>Sublime Text Keymap and Settings Importer</h3><p>如果習慣 sublime 的 keymap 可以用這個 extension，其他還有 Visual Studio、Eclipse 等等的 keymap。</p>
-<h2 id="Troubleshooting"><a href="#Troubleshooting" class="headerlink" title="Troubleshooting"></a>Troubleshooting</h2><h3 id="檔案太多-vscode-無法-watch-changes"><a href="#檔案太多-vscode-無法-watch-changes" class="headerlink" title="檔案太多 vscode 無法 watch changes"></a>檔案太多 vscode 無法 watch changes</h3><p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc">這裡</a>說可以修改 <code>/etc/sysctl.conf</code>，加上：</p>
-<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">fs.inotify.max_user_watches</span>=<span class="number">524288</span></span><br></pre></td></tr></table></figure>
-
-<p>然後下 <code>sudo sysctl -p</code> load 進設定。</p>
-<p>也可以設定 vscode 的 <code>files.watcherExclude</code> 來 exclude 一些不想 watch changes 的 folder。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/tasks">Integrate with External Tools via Tasks</a></li>
-<li><a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10190235">https://ithelp.ithome.com.tw/articles/10190235</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+</div>
 
 
-  
+
+
   <nav class="pagination">
     <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
-
-
-        </div>
-        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1227,7 +1329,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1236,23 +1338,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1263,32 +1361,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -1298,16 +1376,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

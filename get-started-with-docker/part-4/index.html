@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="Dodkcer Get Started 隨手記。 Part 4: Swarms這個 part 會 deploy app 到 cluster 並執行在多個 machine 上。 Linux 要先安裝 Docker Machine。 Swarm A swarm is a group of machines that are running Docker and joined into a cluste">
+<meta name="description" content="Dodkcer Get Started 隨手記。 Part 4: Swarms這個 part 會 deploy app 到 cluster 並執行在多個 machine 上。 Linux 要先安裝 Docker Machine。 Swarm A swarm is a group of machines that are running Docker and joined into a cluste">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Get started with Docker Part 4: Swarms">
 <meta property="og:url" content="http://www.cjwind.idv.tw/get-started-with-docker/part-4/index.html">
@@ -35,6 +37,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/UPiyTkX.png">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/get-started-with-docker/part-4/">
 
 
@@ -47,8 +50,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Get started with Docker Part 4: Swarms | cjwind's note</title>
+<title>Get started with Docker Part 4: Swarms | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -59,8 +61,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -104,14 +104,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -125,6 +124,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -137,37 +137,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -178,8 +154,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -188,12 +163,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -202,9 +177,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -222,41 +197,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-4-Swarms"><span class="nav-number">1.</span> <span class="nav-text">Part 4: Swarms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swarm"><span class="nav-number">1.1.</span> <span class="nav-text">Swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-up-swarm"><span class="nav-number">1.2.</span> <span class="nav-text">Set up swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-machine-shell"><span class="nav-number">1.3.</span> <span class="nav-text">docker-machine shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-swarm-manager-%E4%B8%8A-deploy-app"><span class="nav-number">1.4.</span> <span class="nav-text">在 swarm manager 上 deploy app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#access-swarm-%E4%B8%8A%E7%9A%84-app"><span class="nav-number">1.5.</span> <span class="nav-text">access swarm 上的 app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scale-up-in-cluster"><span class="nav-number">1.6.</span> <span class="nav-text">scale up in cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cleanup"><span class="nav-number">1.7.</span> <span class="nav-text">Cleanup</span></a></li></ol></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-4-Swarms"><span class="nav-number">1.</span> <span class="nav-text">Part 4: Swarms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Swarm"><span class="nav-number">1.1.</span> <span class="nav-text">Swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-up-swarm"><span class="nav-number">1.2.</span> <span class="nav-text">Set up swarm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-machine-shell"><span class="nav-number">1.3.</span> <span class="nav-text">docker-machine shell</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8-swarm-manager-%E4%B8%8A-deploy-app"><span class="nav-number">1.4.</span> <span class="nav-text">在 swarm manager 上 deploy app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#access-swarm-%E4%B8%8A%E7%9A%84-app"><span class="nav-number">1.5.</span> <span class="nav-text">access swarm 上的 app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scale-up-in-cluster"><span class="nav-number">1.6.</span> <span class="nav-text">scale up in cluster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cleanup"><span class="nav-number">1.7.</span> <span class="nav-text">Cleanup</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -272,39 +248,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/get-started-with-docker/part-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -316,40 +297,39 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Get started with Docker Part 4: Swarms
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-08-06 09:24:50" itemprop="dateCreated datePublished" datetime="2019-08-06T09:24:50+08:00">2019-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
-                </span>
-            </span>
+      <time title="Created: 2019-08-06 09:24:50" itemprop="dateCreated datePublished" datetime="2019-08-06T09:24:50+08:00">2019-08-06</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Get-started-with-Docker/" itemprop="url" rel="index"><span itemprop="name">Get started with Docker</span></a>
+        </span>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -364,6 +344,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -390,35 +371,26 @@
 <p>因為用 VM，Linux 上要先裝 <a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>。</p>
 <p>使用 <code>docker-machine</code> 產生兩台 VM：</p>
 <figure class="highlight livecodeserver"><table><tr><td class="code"><pre><span class="line">$ docker-machine <span class="built_in">create</span> <span class="comment">--driver virtualbox myvm1</span></span><br><span class="line">$ docker-machine <span class="built_in">create</span> <span class="comment">--driver virtualbox myvm2</span></span><br></pre></td></tr></table></figure>
-
 <p>列出 VM：</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   -        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.100</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.101</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br></pre></td></tr></table></figure>
-
 <p>接下來讓 <code>myvm1</code> 當 swarm manager、<code>myvm2</code> 當 worker。</p>
 <p>透過 <code>docker-machine ssh &lt;vm&gt; &quot;&lt;command&gt;&quot;</code> 可以在 VM 上執行指令：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">&quot;docker swarm init --advertise-addr &lt;myvm1 ip&gt;&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>上面指令會得到將 worker 加入此 swarm 的 command，到 <code>myvm2</code> 上執行：</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">$ docker-machine ssh myvm2 &quot;docker swarm join --token <span class="tag">&lt;<span class="name">token</span>&gt;</span> <span class="tag">&lt;<span class="name">swarm</span> <span class="attr">manager</span> <span class="attr">ip</span>&gt;</span>:<span class="tag">&lt;<span class="name">port</span>&gt;</span>&quot;</span><br></pre></td></tr></table></figure>
-
 <p>port 預設是 2377。</p>
 <p>從 <code>myvm1</code> 看 node：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm1 <span class="string">&quot;docker node ls&quot;</span></span><br></pre></td></tr></table></figure>
-
 <p>最後 node 離開 swarm：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>docker-machine ssh myvm2 <span class="string">&quot;docker swarm leave&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="docker-machine-shell"><a href="#docker-machine-shell" class="headerlink" title="docker-machine shell"></a><code>docker-machine</code> shell</h3><p><code>docker-machine ssh</code> 打起來很長，VM 也無法 access VM host 的檔案。用 <code>docker-machine env &lt;machine&gt;</code> 設定可以讓 shell 直接跟 VM 溝通：</p>
 <figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ docker-machine env myvm1</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_TLS_VERIFY</span>=<span class="string">&quot;1&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_HOST</span>=<span class="string">&quot;tcp://192.168.99.100:2376&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_CERT_PATH</span>=<span class="string">&quot;/home/cjw/.docker/machine/machines/myvm1&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">DOCKER_MACHINE_NAME</span>=<span class="string">&quot;myvm1&quot;</span></span><br><span class="line"><span class="comment"># Run this command to configure your shell:</span></span><br><span class="line"><span class="comment"># eval $(docker-machine env myvm1)</span></span><br></pre></td></tr></table></figure>
-
 <p>執行 <code>eval $(docker-machine env myvm1)</code>，接著用 <code>docker-machine ls</code> 確認目前 shell active 的 machine（<code>ACTIVE</code> column）：</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ docker-machine ls</span><br><span class="line">NAME    ACTIVE   DRIVER       STATE     URL                         SWARM   DOCKER     ERRORS</span><br><span class="line">myvm1   *        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.100</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br><span class="line">myvm2   -        virtualbox   Running   tcp:<span class="regexp">//</span><span class="number">192.168</span>.<span class="number">99.101</span>:<span class="number">2376</span>           v19.<span class="number">03.1</span></span><br></pre></td></tr></table></figure>
-
 <p>之後執行 docker 指令都是在 <code>myvm1</code> 上執行囉！比較方便而且可以 access 到 VM host 的檔案。要換到別的 machine 就再執行一次 <code>docker-machine env &lt;machine&gt;</code> 把 <code>&lt;machine&gt;</code> 換掉即可。</p>
 <h3 id="在-swarm-manager-上-deploy-app"><a href="#在-swarm-manager-上-deploy-app" class="headerlink" title="在 swarm manager 上 deploy app"></a>在 swarm manager 上 deploy app</h3><p>跟 part 3 一樣，只是 part 3 是把本機直接變成 swarm manager，現在 swarm manager 是 <code>myvm1</code>（把它當作遠端）。</p>
 <p>一樣用 <code>docker stack deploy -c docker-compose.yml &lt;stack_name&gt;</code> 來 deploy app。跟 part 3 不同的是現在 service 會分別開在 <code>myvm1</code> 跟 <code>myvm2</code> 上：</p>
-<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line">$ <span class="string">docker </span><span class="string">service </span><span class="string">ps </span><span class="string">getstartedlab_web</span></span><br><span class="line"><span class="string">ID </span>                 <span class="string">NAME </span>                 <span class="string">IMAGE </span>                     <span class="string">NODE </span>               <span class="string">DESIRED </span><span class="string">STATE </span>      <span class="string">CURRENT </span><span class="string">STATE </span>           <span class="string">ERROR </span>              <span class="string">PORTS</span></span><br><span class="line"><span class="string">hprga9r6s5se </span>       <span class="string">getstartedlab_web.</span>1   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm2 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">n1bc2c2xosal </span>       <span class="string">getstartedlab_web.</span>2   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm1 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">rbkv7bctikfq </span>       <span class="string">getstartedlab_web.</span>3   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm2 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">mr1o60i52f6u </span>       <span class="string">getstartedlab_web.</span>4   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm2 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br><span class="line"><span class="string">4k7ehhz2nzl3 </span>       <span class="string">getstartedlab_web.</span>5   <span class="string">cjwind/</span><span class="built_in">get-started:part2</span>   <span class="string">myvm1 </span>              <span class="string">Running </span>            <span class="string">Running </span><span class="string">18 </span><span class="string">minutes </span><span class="string">ago</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line">$ <span class="string">docker</span> <span class="string">service</span> <span class="string">ps</span> <span class="string">getstartedlab_web</span></span><br><span class="line"><span class="string">ID</span>                  <span class="string">NAME</span>                  <span class="string">IMAGE</span>                      <span class="string">NODE</span>                <span class="string">DESIRED</span> <span class="string">STATE</span>       <span class="string">CURRENT</span> <span class="string">STATE</span>            <span class="string">ERROR</span>               <span class="string">PORTS</span></span><br><span class="line"><span class="string">hprga9r6s5se</span>        <span class="string">getstartedlab_web</span>.<span class="string">1</span>   <span class="string">cjwind</span>/<span class="built_in">get-started:part2</span>   <span class="string">myvm2</span>               <span class="string">Running</span>             <span class="string">Running</span> <span class="string">18</span> <span class="string">minutes</span> <span class="string">ago</span></span><br><span class="line"><span class="string">n1bc2c2xosal</span>        <span class="string">getstartedlab_web</span>.<span class="string">2</span>   <span class="string">cjwind</span>/<span class="built_in">get-started:part2</span>   <span class="string">myvm1</span>               <span class="string">Running</span>             <span class="string">Running</span> <span class="string">18</span> <span class="string">minutes</span> <span class="string">ago</span></span><br><span class="line"><span class="string">rbkv7bctikfq</span>        <span class="string">getstartedlab_web</span>.<span class="string">3</span>   <span class="string">cjwind</span>/<span class="built_in">get-started:part2</span>   <span class="string">myvm2</span>               <span class="string">Running</span>             <span class="string">Running</span> <span class="string">18</span> <span class="string">minutes</span> <span class="string">ago</span></span><br><span class="line"><span class="string">mr1o60i52f6u</span>        <span class="string">getstartedlab_web</span>.<span class="string">4</span>   <span class="string">cjwind</span>/<span class="built_in">get-started:part2</span>   <span class="string">myvm2</span>               <span class="string">Running</span>             <span class="string">Running</span> <span class="string">18</span> <span class="string">minutes</span> <span class="string">ago</span></span><br><span class="line"><span class="string">4k7ehhz2nzl3</span>        <span class="string">getstartedlab_web</span>.<span class="string">5</span>   <span class="string">cjwind</span>/<span class="built_in">get-started:part2</span>   <span class="string">myvm1</span>               <span class="string">Running</span>             <span class="string">Running</span> <span class="string">18</span> <span class="string">minutes</span> <span class="string">ago</span></span><br></pre></td></tr></table></figure>
 <p>到這裡完成了將 app deploy 到 cluster 上，並且 service 有 load-balanced！</p>
 <h3 id="access-swarm-上的-app"><a href="#access-swarm-上的-app" class="headerlink" title="access swarm 上的 app"></a>access swarm 上的 app</h3><p>可以透過 swarm 中任何一個 node 的 IP 去 access app。這是藉由讓 node 在 ingress routing mesh 裡達到。</p>
 <img src="https://i.imgur.com/UPiyTkX.png" width="800">
@@ -428,51 +400,45 @@
 <h3 id="scale-up-in-cluster"><a href="#scale-up-in-cluster" class="headerlink" title="scale up in cluster"></a>scale up in cluster</h3><p>要讓 service 使用更多 node，只要先用 <code>docker swarm join</code> 增加 node，再 <code>docker stack deploy</code>，service 就能使用增加的 node。</p>
 <h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="Cleanup"></a>Cleanup</h3><p>清掉 <code>docker-machine</code> 的環境變數：</p>
 <figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">$ eval <span class="constructor">$(<span class="params">docker</span>-<span class="params">machine</span> <span class="params">env</span> -<span class="params">u</span>)</span></span><br></pre></td></tr></table></figure>
-
 <p>結束 stack 的所有 service、刪掉 stack：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> docker stack <span class="built_in">rm</span> &lt;stack_name&gt;</span><br></pre></td></tr></table></figure>
-
     </div>
 
     
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Docker/" rel="tag"># Docker</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/get-started-with-docker/part-3/" rel="prev" title="Get started with Docker Part 3: Services">
-      <i class="fa fa-chevron-left"></i> Get started with Docker Part 3: Services
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/get-started-with-docker/part-5-6/" rel="next" title="Get started with Docker Part 5 & 6">
-      Get started with Docker Part 5 & 6 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/get-started-with-docker/part-3/" rel="prev" title="Get started with Docker Part 3: Services">
+                  <i class="fa fa-chevron-left"></i> Get started with Docker Part 3: Services
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/get-started-with-docker/part-5-6/" rel="next" title="Get started with Docker Part 5 & 6">
+                  Get started with Docker Part 5 & 6 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -483,7 +449,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -492,23 +458,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -519,32 +481,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -554,16 +496,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

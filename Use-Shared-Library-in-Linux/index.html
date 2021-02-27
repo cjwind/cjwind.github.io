@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="執行檔如何尋找 shared libraryELF 將依賴的 shared library 存在 .dynamic section 的 DT_NEED 欄位。 $ readelf -d mainDynamic section at offset 0x868 contains 26 entries:  Tag        Type                         Name&#x2F;Valu">
+<meta name="description" content="執行檔如何尋找 shared libraryELF 將依賴的 shared library 存在 .dynamic section 的 DT_NEED 欄位。 $ readelf -d mainDynamic section at offset 0x868 contains 26 entries:  Tag        Type                         Name&#x2F;Valu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Use Shared Library in Linux">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Use-Shared-Library-in-Linux/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="System Software">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/Use-Shared-Library-in-Linux/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Use Shared Library in Linux | cjwind's note</title>
+<title>Use Shared Library in Linux | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%AA%94%E5%A6%82%E4%BD%95%E5%B0%8B%E6%89%BE-shared-library"><span class="nav-number">1.</span> <span class="nav-text">執行檔如何尋找 shared library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8"><span class="nav-number">2.</span> <span class="nav-text">環境變數</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-LIBRARY-PATH"><span class="nav-number">2.1.</span> <span class="nav-text">LD_LIBRARY_PATH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-PRELOAD"><span class="nav-number">2.2.</span> <span class="nav-text">LD_PRELOAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-DEBUG"><span class="nav-number">2.3.</span> <span class="nav-text">LD_DEBUG</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-amp-%E5%AE%89%E8%A3%9D-shared-library"><span class="nav-number">3.</span> <span class="nav-text">建立 &amp; 安裝 shared library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Posts-amp-Ref"><span class="nav-number">4.</span> <span class="nav-text">Related Posts &amp; Ref</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%AA%94%E5%A6%82%E4%BD%95%E5%B0%8B%E6%89%BE-shared-library"><span class="nav-number">1.</span> <span class="nav-text">執行檔如何尋找 shared library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8"><span class="nav-number">2.</span> <span class="nav-text">環境變數</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-LIBRARY-PATH"><span class="nav-number">2.1.</span> <span class="nav-text">LD_LIBRARY_PATH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-PRELOAD"><span class="nav-number">2.2.</span> <span class="nav-text">LD_PRELOAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LD-DEBUG"><span class="nav-number">2.3.</span> <span class="nav-text">LD_DEBUG</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B-amp-%E5%AE%89%E8%A3%9D-shared-library"><span class="nav-number">3.</span> <span class="nav-text">建立 &amp; 安裝 shared library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-Posts-amp-Ref"><span class="nav-number">4.</span> <span class="nav-text">Related Posts &amp; Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Use-Shared-Library-in-Linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Use Shared Library in Linux
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-04-14 22:25:09" itemprop="dateCreated datePublished" datetime="2017-04-14T22:25:09+08:00">2017-04-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2017-04-14 22:25:09" itemprop="dateCreated datePublished" datetime="2017-04-14T22:25:09+08:00">2017-04-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -363,8 +344,7 @@
     
     <div class="post-body" itemprop="articleBody">
         <h2 id="執行檔如何尋找-shared-library"><a href="#執行檔如何尋找-shared-library" class="headerlink" title="執行檔如何尋找 shared library"></a>執行檔如何尋找 shared library</h2><p>ELF 將依賴的 shared library 存在 <code>.dynamic</code> section 的 <code>DT_NEED</code> 欄位。</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line"></span><br><span class="line">Dynamic section at offset 0x868 contains 26 entries:</span><br><span class="line">  Tag       <span class="built_in"> Type </span>                        Name/Value</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [./libfoo.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [./libbar.so]</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight vhdl"><table><tr><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line"></span><br><span class="line">Dynamic section at offset <span class="number">0</span>x868 contains <span class="number">26</span> entries:</span><br><span class="line">  Tag        <span class="keyword">Type</span>                         Name/Value</span><br><span class="line"> <span class="number">0</span>x0000000000000001 (NEEDED)             <span class="keyword">Shared</span> <span class="keyword">library</span>: [./libfoo.so]</span><br><span class="line"> <span class="number">0</span>x0000000000000001 (NEEDED)             <span class="keyword">Shared</span> <span class="keyword">library</span>: [./libbar.so]</span><br><span class="line"> <span class="number">0</span>x0000000000000001 (NEEDED)             <span class="keyword">Shared</span> <span class="keyword">library</span>: [libc.so.<span class="number">6</span>]</span><br></pre></td></tr></table></figure>
 <p>如果是絕對路徑， dynamic linker 直接去該路徑存取 shared library。如果是相對路徑，則會依照以下順序到不同路徑下找 library：</p>
 <ul>
 <li><code>LD_LIBRARY_PATH</code> 環境變數指定的路徑</li>
@@ -377,18 +357,14 @@
 <h2 id="環境變數"><a href="#環境變數" class="headerlink" title="環境變數"></a>環境變數</h2><p>幾個跟 dynamic linking 有關的常用環境變數。</p>
 <h3 id="LD-LIBRARY-PATH"><a href="#LD-LIBRARY-PATH" class="headerlink" title="LD_LIBRARY_PATH"></a>LD_LIBRARY_PATH</h3><p>臨時改變 shared library 的搜尋路徑，開發跟 debug 的時候很好用。</p>
 <figure class="highlight arcade"><table><tr><td class="code"><pre><span class="line">$ LD_LIBRARY_PATH=<span class="regexp">/home/</span>foo ls</span><br></pre></td></tr></table></figure>
-
 <h3 id="LD-PRELOAD"><a href="#LD-PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h3><p>可以指定預先 load 的 shared library 或 object file，無論執行檔或使用的 shared library 有沒有依賴它。因為會使用先 load 的 shared library 的 symbol，所以可以用來改掉原本執行檔使用的 shared library，例如 standard C library。</p>
 <figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ LD_PRELOAD=.<span class="regexp">/libfoo.so ./m</span>ain</span><br></pre></td></tr></table></figure>
-
 <h3 id="LD-DEBUG"><a href="#LD-DEBUG" class="headerlink" title="LD_DEBUG"></a>LD_DEBUG</h3><p>可以看 dynamic linker 的 debug 訊息，設成 <code>help</code> 可以看可設定的值。</p>
 <h2 id="建立-amp-安裝-shared-library"><a href="#建立-amp-安裝-shared-library" class="headerlink" title="建立 &amp; 安裝 shared library"></a>建立 &amp; 安裝 shared library</h2><p>build 出 shared library：</p>
 <figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ gcc -<span class="keyword">shared</span> -fPIC -Wl,-soname,mysoname -o library_name sources</span><br></pre></td></tr></table></figure>
-
 <p><code>-shared</code> 表示輸出 shared library，<code>-fPIC</code> 表示使用 <a href="/Dynamic-Linking-PIC/">PIC</a>。<code>-Wl</code> 可以將參數傳給 linker。<code>-soname</code> 是指定 SO-NAME，如果不指定，shared library 預設沒有 SO-NAME，即無法用 <code>ldconfig</code> 建 soft link。shared library 的 SO-NAME 可以用 <code>readelf -d</code> 查看。</p>
 <p>去除 symbol 資訊可以讓 shared library 檔案變小，常用在 release 時：</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>strip libfoo.so</span><br></pre></td></tr></table></figure>
-
 <p>安裝 shared library 通常是放到系統相關的路徑下，例如 <code>/lib</code>、<code>/usr/lib</code> 等，然後執行 <code>ldconfig</code> 更新 soft link。不過通常安裝會用 <code>make install</code> 之類的指令，不需要手動 copy 跟 <code>ldconfig</code>。</p>
 <h2 id="Related-Posts-amp-Ref"><a href="#Related-Posts-amp-Ref" class="headerlink" title="Related Posts &amp; Ref"></a>Related Posts &amp; Ref</h2><ul>
 <li>ld-linux manual</li>
@@ -406,7 +382,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Linux/" rel="tag"># Linux</a>
               <a href="/tags/System-Software/" rel="tag"># System Software</a>
@@ -414,34 +390,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/Shared-Library-Versioning/" rel="prev" title="Shared Library Versioning">
-      <i class="fa fa-chevron-left"></i> Shared Library Versioning
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Open-Street-Map-API/" rel="next" title="Open Street Map API">
-      Open Street Map API <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Shared-Library-Versioning/" rel="prev" title="Shared Library Versioning">
+                  <i class="fa fa-chevron-left"></i> Shared Library Versioning
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Open-Street-Map-API/" rel="next" title="Open Street Map API">
+                  Open Street Map API <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -452,7 +424,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -461,23 +433,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -488,32 +456,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -523,16 +471,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

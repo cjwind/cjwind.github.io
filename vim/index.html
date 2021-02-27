@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="常用功能的 plugin 及快捷鍵：  游標停在字上的時候會自動 highlight 同樣的字開啟 vim 後輸入 z&#x2F;，目前還沒找到怎麼一開 vim 就啟動自動 highlight。 跳到游標所在 variable 或 function 的宣告 在 .cpp 跟 .h 之間切換a.vim (:A) 跳到游標所在的 function 的定義cscope (ctrl+\ g)ctags (g] or">
+<meta name="description" content="常用功能的 plugin 及快捷鍵：  游標停在字上的時候會自動 highlight 同樣的字開啟 vim 後輸入 z&#x2F;，目前還沒找到怎麼一開 vim 就啟動自動 highlight。 跳到游標所在 variable 或 function 的宣告 在 .cpp 跟 .h 之間切換a.vim (:A) 跳到游標所在的 function 的定義cscope (ctrl+\ g)ctags (g] or">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vim 常用功能">
 <meta property="og:url" content="http://www.cjwind.idv.tw/vim/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="Tip">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/vim/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>vim 常用功能 | cjwind's note</title>
+<title>vim 常用功能 | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags-taglist"><span class="nav-number">1.</span> <span class="nav-text">ctags taglist</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#patch"><span class="nav-number">1.1.</span> <span class="nav-text">patch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8B%95-highlight"><span class="nav-number">3.</span> <span class="nav-text">自動 highlight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-vim"><span class="nav-number">4.</span> <span class="nav-text">a.vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E8%A3%9C%E6%8B%AC%E8%99%9F"><span class="nav-number">5.</span> <span class="nav-text">自動補括號</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ctags-taglist"><span class="nav-number">1.</span> <span class="nav-text">ctags taglist</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#patch"><span class="nav-number">1.1.</span> <span class="nav-text">patch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cscope"><span class="nav-number">2.</span> <span class="nav-text">cscope</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8B%95-highlight"><span class="nav-number">3.</span> <span class="nav-text">自動 highlight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#a-vim"><span class="nav-number">4.</span> <span class="nav-text">a.vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8B%95%E8%A3%9C%E6%8B%AC%E8%99%9F"><span class="nav-number">5.</span> <span class="nav-text">自動補括號</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/vim/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           vim 常用功能
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2015-07-14 21:01:27" itemprop="dateCreated datePublished" datetime="2015-07-14T21:01:27+08:00">2015-07-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2016-06-05 18:00:11" itemprop="dateModified" datetime="2016-06-05T18:00:11+08:00">2016-06-05</time>
-              </span>
+      <time title="Created: 2015-07-14 21:01:27" itemprop="dateCreated datePublished" datetime="2015-07-14T21:01:27+08:00">2015-07-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2016-06-05 18:00:11" itemprop="dateModified" datetime="2016-06-05T18:00:11+08:00">2016-06-05</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -387,7 +368,6 @@
 <p>到 <a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=273">http://www.vim.org/scripts/script.php?script_id=273</a> 抓 <code>taglist_45.zip</code>，解開後將 <code>taglist.vim</code> 放到 <code>~/vim/plugin</code>。</p>
 <p><code>~/.vimrc</code> 加入相關設定：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> Tlist_Ctags_Cmd = <span class="string">&#x27;/usr/bin/ctags&#x27;</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Auto_Open = <span class="number">1</span>     <span class="comment">&quot; 讓 Tlist 自動開啟</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Show_One_File = <span class="number">1</span>             <span class="comment">&quot; 不同時顯示多個文件的tag，只顯示當前文件的</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Exit_OnlyWindow = <span class="number">1</span>           <span class="comment">&quot; 如果taglist窗口是最後一個窗口，則退出vim</span></span><br><span class="line"><span class="keyword">let</span> Tlist_Use_Right_Window = <span class="number">1</span>          <span class="comment">&quot; 在右側窗口中顯示taglist窗口</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="symbol">&lt;silent&gt;</span> <span class="symbol">&lt;F8&gt;</span> :TlistToggle<span class="symbol">&lt;CR&gt;</span> <span class="comment">&quot; F8 為開啟/關閉 Tlist 的快速鍵</span></span><br></pre></td></tr></table></figure>
-
 <p><code>ctrl + w</code> 再加方向鍵可以切換 window，例如加右鍵就是跳到右邊的 window。</p>
 <h3 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h3><p>有時候切換 tab 會出現 error <code>Taglist error: Error detected while processing function &lt;SNR&gt;29_Tlist_Refresh_Folds</code>，可用 <a target="_blank" rel="noopener" href="http://vim.1045645.n5.nabble.com/attachment/3321902/0/taglist.diff">patch</a> 解決：<code>$ patch -p0 ~/.vim/plugin/taglist.vim taglist.diff</code></p>
 <h2 id="cscope"><a href="#cscope" class="headerlink" title="cscope"></a>cscope</h2><p><code>$ sudo apt-get install cscope</code></p>
@@ -396,10 +376,8 @@
 <p>之後用 vim 開啟 source code，可用 <code>:cs</code> 指令使用 cscope 的功能。也可以在 <code>~/.vim/plugin</code> 中放 <a target="_blank" rel="noopener" href="http://cscope.sourceforge.net/cscope_maps.vim">cscope_map.vim</a> 加快捷鍵：</p>
 <figure class="highlight livescript"><table><tr><td class="code"><pre><span class="line">ctrl+<span class="string">\</span> s <span class="string">&quot;s表Symbol，列出所有參考到游標所在字串的地方，包含定義和呼叫。</span></span><br><span class="line"><span class="string">ctrl+\ g &quot;</span>Find <span class="built_in">this</span> definition</span><br><span class="line">ctrl+<span class="string">\</span> c <span class="string">&quot;c表Call，列出所有以游標所在字串當函數名的地方。</span></span><br><span class="line"><span class="string">ctrl+\ t &quot;</span>t表Text，列出專案中所有出現游標所在字串的地方。</span><br><span class="line">ctrl+<span class="string">\</span> f <span class="string">&quot;f表File，以游標所在字串當檔名，開啟之。</span></span><br><span class="line"><span class="string">ctrl+\ i &quot;</span>i表Include，以游標所在字串當檔名，列出所有include此檔的檔案。</span><br><span class="line">ctrl+<span class="string">\</span> d <span class="string">&quot;d表calleD，以游標所在字串當函式名，列出所有此函式呼叫的函式。</span></span><br></pre></td></tr></table></figure>
 
-
 <h2 id="自動-highlight"><a href="#自動-highlight" class="headerlink" title="自動 highlight"></a>自動 highlight</h2><p>在 <code>.vim/plugin</code> 加入 <code>autohighlight.vim</code>：</p>
 <figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="comment">&quot; Highlight all instances of word under cursor, when idle.</span></span><br><span class="line"><span class="comment">&quot; Useful when studying strange source code.</span></span><br><span class="line"><span class="comment">&quot; Type z/ to toggle highlighting on/off.</span></span><br><span class="line"><span class="keyword">nnoremap</span> <span class="keyword">z</span>/ :<span class="keyword">if</span> AutoHighlightToggle()<span class="symbol">&lt;Bar&gt;</span><span class="keyword">set</span> hls<span class="symbol">&lt;Bar&gt;</span><span class="keyword">endif</span><span class="symbol">&lt;CR&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">function</span>! <span class="title">AutoHighlightToggle</span><span class="params">()</span></span></span><br><span class="line">  <span class="keyword">let</span> @/ = <span class="string">&#x27;&#x27;</span></span><br><span class="line">  <span class="keyword">if</span> <span class="built_in">exists</span>(<span class="string">&#x27;#auto_highlight&#x27;</span>)</span><br><span class="line">    au! auto_highlight</span><br><span class="line">    augroup! auto_highlight</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">4000</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;Highlight current word: off&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">augroup</span> auto_highlight</span><br><span class="line">      au!</span><br><span class="line">      <span class="keyword">au</span> CursorHold * <span class="keyword">let</span> @/ = <span class="string">&#x27;\V\&lt;&#x27;</span>.<span class="built_in">escape</span>(<span class="built_in">expand</span>(<span class="string">&#x27;&lt;cword&gt;&#x27;</span>), <span class="string">&#x27;\&#x27;</span>).<span class="string">&#x27;\&gt;&#x27;</span></span><br><span class="line">    <span class="keyword">augroup</span> end</span><br><span class="line">    <span class="keyword">setl</span> updatetime=<span class="number">500</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;Highlight current word: ON&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">endif</span></span><br><span class="line"><span class="keyword">endfunction</span></span><br></pre></td></tr></table></figure>
-
 <p>輸入 <code>z/</code> 可開關自動 highlight 的功能。</p>
 <p><a target="_blank" rel="noopener" href="http://vim.wikia.com/wiki/Auto_highlight_current_word_when_idle">reference here</a></p>
 <h2 id="a-vim"><a href="#a-vim" class="headerlink" title="a.vim"></a>a.vim</h2><p>在 header 及 source 之間切換。<a target="_blank" rel="noopener" href="http://www.vim.org/scripts/script.php?script_id=31">script</a></p>
@@ -416,7 +394,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Linux/" rel="tag"># Linux</a>
               <a href="/tags/Tip/" rel="tag"># Tip</a>
@@ -424,34 +402,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/Murmur-Agile-concept/" rel="prev" title="對 agile 精神的理解">
-      <i class="fa fa-chevron-left"></i> 對 agile 精神的理解
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Core-API-and-convenient-API/" rel="next" title="API 的基本功能性及便利性">
-      API 的基本功能性及便利性 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Murmur-Agile-concept/" rel="prev" title="對 agile 精神的理解">
+                  <i class="fa fa-chevron-left"></i> 對 agile 精神的理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Core-API-and-convenient-API/" rel="next" title="API 的基本功能性及便利性">
+                  API 的基本功能性及便利性 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -462,7 +436,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -471,23 +445,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -498,32 +468,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -533,16 +483,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

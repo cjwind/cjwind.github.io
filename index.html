@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,20 +15,21 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta property="og:type" content="website">
+<meta property="og:type" content="website">
 <meta property="og:title" content="cjwind&#39;s note">
 <meta property="og:url" content="http://www.cjwind.idv.tw/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="cjwind">
 <meta name="twitter:card" content="summary">
+
 
 <link rel="canonical" href="http://www.cjwind.idv.tw/">
 
@@ -40,8 +43,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>cjwind's note</title>
+<title>cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -52,8 +54,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -97,14 +97,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -118,6 +117,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -130,37 +130,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -171,8 +147,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -181,12 +156,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -195,9 +170,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -215,40 +190,41 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -264,38 +240,363 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner index posts-expand">
 
-        <div class="content index posts-expand">
-          
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Designing-Web-APIs-ch2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Designing-Web-APIs-ch2/" class="post-title-link" itemprop="url">ch2 API Paradigms</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
       
+
+      <time title="Created: 2021-02-27 18:27:28 / Modified: 18:28:46" itemprop="dateCreated datePublished" datetime="2021-02-27T18:27:28+08:00">2021-02-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Designing-Web-Apis/" itemprop="url" rel="index"><span itemprop="name">Designing Web Apis</span></a>
+        </span>
+    </span>
+
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Designing-Web-APIs-ch2/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Designing-Web-APIs-ch2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>An API paradigmdefines the interface exposing backend data of a service to otherapplications.</p>
+</blockquote>
+<h2 id="Request-Response-API"><a href="#Request-Response-API" class="headerlink" title="Request-Response API"></a>Request-Response API</h2><p>Request-Response API 通常透過 HTTP web server 來公開 interface。</p>
+<p>這種 API 會定義一些 endpoints，client 對這些 endpoints 發出 HTTP request 來索取資料，server 則給予 response。response 通常是 JSON 或 XML 格式。</p>
+<p>Request-Response API 有三種：</p>
+<ul>
+<li>REST</li>
+<li>RPC</li>
+<li>GraphQL</li>
+</ul>
+<h3 id="REST-Representational-State-Transfer"><a href="#REST-Representational-State-Transfer" class="headerlink" title="REST (Representational State Transfer)"></a>REST (Representational State Transfer)</h3><blockquote>
+<p>REST is all about <em>resource</em>.</p>
+</blockquote>
+<p>resource 是可以在 web 上被 identify、named、addressed 或 handled 的 entity。</p>
+<p>REST API 將資料當成 resource 來 expose 出去，並使用 standard HTTP method 表示 CRUD 的動作。</p>
+<p>REST API 遵循的一般規則：</p>
+<ul>
+<li>resource 是 URL 的一部分，例如 <code>/users</code></li>
+<li>每個 resource 通常有兩個 URL。一個表示 collection，例如 <code>/users</code>。一個表示特定元素，例如 <code>/users/U123</code>。</li>
+<li>resource 使用名詞而非動詞，例如用 <code>/users/U123</code>，而不是 <code>/getUserInfo/U123</code>。</li>
+<li>用 <code>GET</code>、<code>POST</code>、<code>UPDATE</code> 跟 <code>DELETE</code> 等 HTTP method 來告訴 server 要執行的動作。<ul>
+<li>Create<ul>
+<li>用 <code>POST</code> 建立新 resource</li>
+</ul>
+</li>
+<li>Read<ul>
+<li>用 <code>GET</code> 讀取 resource</li>
+<li><code>GET</code> request 永遠不會改變 resource 的狀態，不會有 side effect</li>
+<li><code>GET</code> method 有 read-only 的意思</li>
+<li><code>GET</code> 是 idempotent</li>
+</ul>
+</li>
+<li>Update<ul>
+<li>用 <code>PUT</code> 來 replace resource。</li>
+<li>用 <code>PATCH</code> 來對現有 resource 做部份 update。<a target="_blank" rel="noopener" href="http://tools.ietf.org/html/rfc5789">RFC 5789</a></li>
+</ul>
+</li>
+<li>Delete<ul>
+<li>以 <code>DELETE</code> 來刪除現有 resource。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>server 回傳標準的 HTTP response status code 來表示成功或失敗<ul>
+<li>2XX 代表成功</li>
+<li>3XX 代表 resource 已被移除</li>
+<li>4XX 代表 client 端錯誤</li>
+<li>5XX 代表 server 端錯誤</li>
+</ul>
+</li>
+<li>REST API 可回傳 JSON 或 XML 格式</li>
+</ul>
+<h4 id="Showing-relationships"><a href="#Showing-relationships" class="headerlink" title="Showing relationships"></a>Showing relationships</h4><p>盡量用 subresource 表示只屬於其他 resource 的 resource，不要用 top-level resource 表示它，這樣可以讓使用 API 的 developer 知道它們之間的關係。</p>
+<p>例如 Github 的 API：<code>POST /repos/:owner/:repo/issues</code> 是在某個人的某個 repository 底下建立一個 issue。</p>
+<h4 id="非-CRUD-操作"><a href="#非-CRUD-操作" class="headerlink" title="非 CRUD 操作"></a>非 CRUD 操作</h4><p>有時候 REST API 需要表示非 CRUD 的操作，常見作法如下：</p>
+<ul>
+<li>以 resource 的部份欄位來表示動作（action）<ul>
+<li>例如 Github 要把 repository archive 起來是用 entry <code>PATCH /repos/:owner/:repo</code> 然後 data body 是 <code>&#123;&quot;archived&quot;: true&#125;</code>。因為 <code>PATCH</code> entry 的 request  data body 是 resource 要被更新的欄位，所以才說是以「resource 的部份欄位」來表示動作。</li>
+</ul>
+</li>
+<li>將操作視為 subresource<ul>
+<li>例如 Github 的 lock issue 是 <code>PUT /repos/:owner/:repo/issues/:number/lock</code></li>
+</ul>
+</li>
+<li>有些操作難以用 REST 模式，例如搜尋，這時候通常會在 API URL 直接使用操作的動詞。<ul>
+<li>例如在 Github 中尋找符合 query 的檔案：<code>GET /search/code?q=:query:</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Remote-Procedure-Call-RPC"><a href="#Remote-Procedure-Call-RPC" class="headerlink" title="Remote Procedure Call (RPC)"></a>Remote Procedure Call (RPC)</h3><p>REST 跟 resource 有關，RPC 則跟動作（action）有關。</p>
+<p>RPC 的 client 會在 server 上執行一段 code。client 通常會傳 method name 跟 argument 給 server，然後得到 JSON 或 XML。</p>
+<p>RPC API 通常遵循兩個規則：</p>
+<ul>
+<li>endpoint 含有準備執行的 action 的名稱</li>
+<li>API call 是用最適合的 HTTP verb 來執行：<code>GET</code> 是 read-only request，<code>POST</code> 則是其他。</li>
+</ul>
+<blockquote>
+<p>當 API 公開的動作比 CRUD 封裝的還要細膩且複雜，或是存在與眼前的「資源」無關的 side effect 時，很適合使用 RPC。RPC style 的 API 也可以配合複雜的 resource model，或針對多種類型的 resource 執行的動作。</p>
+</blockquote>
+<p>RPC style 的 API 除了用 HTTP 外也可以用其他 protocol，包括 <a target="_blank" rel="noopener" href="https://thrift.apache.org">Apache Thrift</a> 跟 <a target="_blank" rel="noopener" href="https://grpc.io/docs/guides/index.html">gRPC</a>。</p>
+<h3 id="GraphQL"><a href="#GraphQL" class="headerlink" title="GraphQL"></a>GraphQL</h3><p><a target="_blank" rel="noopener" href="https://graphql.org">https://graphql.org</a></p>
+<p>GraphQL 可以讓 client 端定義需要的 data structure，讓 server 以那個 structure 回傳資料。例如以下是送給 Github API 的 GraphQL query 及其 response：</p>
+<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    user(<span class="name">login:</span> <span class="string">&quot;saurabhsahni&quot;</span>) &#123;</span><br><span class="line">        id</span><br><span class="line">        name</span><br><span class="line">        company</span><br><span class="line">        createdAt</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>response：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;user&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;id&quot;</span>: <span class="string">&quot;MDQ6VXNlcjY1MDIS&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;Saurabh Sahni&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;company&quot;</span>: <span class="string">&quot;Slack&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;createdAt&quot;</span>: <span class="string">&quot;2009-03-19T21:00:06Z&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>GraphQL 只需要一個 URL endpoint，而且不需要用不同的 HTTP verb 描述操作，只要在 JSON 內容中寫要做的動作就可以了。</p>
+<h4 id="GraphQL-的優點"><a href="#GraphQL-的優點" class="headerlink" title="GraphQL 的優點"></a>GraphQL 的優點</h4><p>跟 REST 及 RPC 比起來，GraphQL 的優點：</p>
+<ul>
+<li>節省多次 round trip<ul>
+<li>client 可以用 nested query 以一個 request 從多個 resource 取得資料</li>
+<li>以 REST 來說，要取得多個 resource 資料可能需要很多個 request</li>
+</ul>
+</li>
+<li>不需要 versioning<ul>
+<li>在 GraphQL API 增加新的欄位跟 type 不會影響既有的 query</li>
+<li>要 deprecate 一個欄位也很容易：可以用 log 分析 client 用了哪些欄位，在工具中隱藏某些欄位，並且在沒人用的時候移除它們。</li>
+</ul>
+</li>
+<li>較小的 payload<ul>
+<li>因為 client 可以明確指定要什麼資料，所以 payload 可以比較小。</li>
+<li>REST 跟 RPC 常常回傳 client 永遠用不到的資料。</li>
+</ul>
+</li>
+<li>Strongly typed<ul>
+<li>GraphQL 是 strongly typed，它的 type checking 會確保 query 的語法是正確且有效的。</li>
+</ul>
+</li>
+<li>Introspection<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/graphql/graphiql">GraphiQL</a> 這個瀏覽器 IDE 可以寫 GraphQL query 來試驗跟了解 GraphQL API <em>（就是可以直接玩 API 啦）</em></li>
+</ul>
+</li>
+</ul>
+<h4 id="GraphQL-的缺點"><a href="#GraphQL-的缺點" class="headerlink" title="GraphQL 的缺點"></a>GraphQL 的缺點</h4><p>對提供 GraphQL API 的提供者來說，GraphQL 增加了複雜性，server 需要做額外的工作來解析複雜的 query 跟驗證參數。最佳化 GraphQL query 的效能也很麻煩。</p>
+<h3 id="REST-vs-RPC-vs-GraphQL"><a href="#REST-vs-RPC-vs-GraphQL" class="headerlink" title="REST vs RPC vs GraphQL"></a>REST vs RPC vs GraphQL</h3><img src="/images/designing-web-apis/ch2-1.jpg" class="" width="620">
+
+<img src="/images/designing-web-apis/ch2-2.jpg" class="" width="620">
+
+<h2 id="Event-Driven-API"><a href="#Event-Driven-API" class="headerlink" title="Event-Driven API"></a>Event-Driven API</h2><p>如果 service 的資料常常會改變，用 request-response API 的作法 response 很快會過時，這時候使用 API 的 developer 通常會以 polling 來確保得到最新的資料。但如果 polling 頻率太低，可能會在需要即時更新的狀況下無法即時更新 。而 polling 頻率太高則會浪費資源，因為大部分 request 都不會有新資料。</p>
+<p>要即時分享 event 資料，有三種方式：WebHook、WebSocket 跟 HTTP Streaming。</p>
+<h3 id="WebHook"><a href="#WebHook" class="headerlink" title="WebHook"></a>WebHook</h3><p><strong>WebHook 是個接收 HTTP POST（或 GET、PUT 或 DELETE）的 URL。</strong> 實作 WebHook 的 API provider 會在某些事情發生時 POST 一個訊息給使用者設置好的 URL，例如信用卡授權的 postback。</p>
+<p>提供 WebHook 會引入的複雜性：</p>
+<ul>
+<li>Failures and retries：為了確保資訊成功 deliver，須建立發生錯誤時的 retry 機制。</li>
+<li>Security：使用 WebHook 時，API 使用者要驗證從 WebHook 收到的資料，以確保資料是合法的。</li>
+<li>Firewall：在防火牆後的 app 很難用 WebHook 收資料，得在防火牆上打洞。</li>
+<li>Noise 雜訊：通常一個 WebHook call 都代表一個 event。如果有成千上萬個 event 在短時間內發生而且必須透過單一 WebHook 來傳送，可能會產生雜訊。</li>
+</ul>
+<h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><blockquote>
+<p>WebSocket is a protocol used to establish a two-way streaming communication channel over a single Transport Control Protocol (TCP) connection.</p>
+</blockquote>
+<p>WebSocket 這個 protocol 通常用在 web client 跟 server 間，有時也會被用來做 server 對 server 的通訊。WebSocket 可以在比較低的 overhead 的情況下開啟 full-duplex 通訊（server 跟 client 可以同時跟對方通訊）。</p>
+<p>WebSocket 是運作在 port 80 或 443 上，所以不用在防火牆上另外開 port 來進行連線與通訊。而且使用 WebSocket 也不像 WebHook 得對 internet 打開一個 HTTP endpoint 來接收 event，相對來說比較安全。</p>
+<p>WebSocket 適合快速、live 的 streaming 以及長時間（long-lived）的 connection。但不見得適合用在行動裝置或者網路不穩定的地方，因為 client 必須有能力維持 connection，connection 斷了 client 就得重新啟動它。</p>
+<h3 id="HTTP-Streaming"><a href="#HTTP-Streaming" class="headerlink" title="HTTP Streaming"></a>HTTP Streaming</h3><p>在 request-response 形式的 HTTP API 裡，client 送出 request 後，會收到一包有限長度的 response。而使用 HTTP Streaming，server 可以透過 client 開啟的 long-lived connection 來持續推送新資料。</p>
+<img src="/images/designing-web-apis/ch2-3.png" class="" width="620">
+
+<blockquote>
+<p>To  transmit  data  over  a  persistent  connection  from  server  to  client, there  are  two  options.  The  first  option  is  for  the  server  to  set  the Transfer-Encoding header to chunked. This indicates to clients that data will be arriving in chunks of newline-delimited strings. For typ‐ical application developers, this is easy to parse.<br>Another  option  is  to  stream  data  via  server-sent  events  (SSE).  This option  is  great  for  clients  consuming  these  events  in  a  browser because they can use the standardized EventSource API.</p>
+</blockquote>
+<blockquote>
+<p>HTTP  Streaming  is  easy  to  consume.  However,  one  of  the  issues with  it  is  related  to  buffering.  Clients  and  proxies  often  have  bufferlimits. They might not start rendering data to the application until a threshold is met. Also, if clients want to frequently change what kind of events they listen to, HTTP Streaming might not be ideal because it requires reconnections.</p>
+</blockquote>
+<h3 id="Event-Driven-API-的比較"><a href="#Event-Driven-API-的比較" class="headerlink" title="Event-Driven API 的比較"></a>Event-Driven API 的比較</h3><img src="/images/designing-web-apis/ch2-4.png" class="" width="620">
+
+<img src="/images/designing-web-apis/ch2-5.png" class="" width="620">
+
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>沒有一體適用的 API paradigm。每種 API paradigm 只適合特定類型的 use case，所以在實際狀況下有可能需要支援多種 paradigm。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Atomic-Habits/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Atomic-Habits/" class="post-title-link" itemprop="url">《原子習慣》</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-02-16 18:01:51" itemprop="dateCreated datePublished" datetime="2021-02-16T18:01:51+08:00">2021-02-16</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-02-26 09:18:35" itemprop="dateModified" datetime="2021-02-26T09:18:35+08:00">2021-02-26</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Atomic-Habits/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Atomic-Habits/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p><img src="/images/atomic_habits_mindmap1.png" alt=""></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Docker-command-snippet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -307,26 +608,24 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Docker-command-snippet/" class="post-title-link" itemprop="url">Docker command snippet</a>
+          <a href="/Docker-command-snippet/" class="post-title-link" itemprop="url">Docker command snippet</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
 
-              <time title="Created: 2021-02-09 20:02:56 / Modified: 20:19:00" itemprop="dateCreated datePublished" datetime="2021-02-09T20:02:56+08:00">2021-02-09</time>
-            </span>
+      <time title="Created: 2021-02-09 20:02:56 / Modified: 20:19:00" itemprop="dateCreated datePublished" datetime="2021-02-09T20:02:56+08:00">2021-02-09</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -341,6 +640,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -357,18 +657,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Readmoo-API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -380,26 +687,24 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Readmoo-API/" class="post-title-link" itemprop="url">Readmoo API Go Package</a>
+          <a href="/Readmoo-API/" class="post-title-link" itemprop="url">Readmoo API Go Package</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
 
-              <time title="Created: 2021-02-09 16:51:05 / Modified: 17:30:46" itemprop="dateCreated datePublished" datetime="2021-02-09T16:51:05+08:00">2021-02-09</time>
-            </span>
+      <time title="Created: 2021-02-09 16:51:05 / Modified: 17:30:46" itemprop="dateCreated datePublished" datetime="2021-02-09T16:51:05+08:00">2021-02-09</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -414,6 +719,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -433,18 +739,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/PhpStorm-shortcut/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -456,25 +769,23 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/PhpStorm-shortcut/" class="post-title-link" itemprop="url">PhpStorm 快捷鍵</a>
+          <a href="/PhpStorm-shortcut/" class="post-title-link" itemprop="url">PhpStorm 快捷鍵</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-02-05 23:57:41" itemprop="dateCreated datePublished" datetime="2021-02-05T23:57:41+08:00">2021-02-05</time>
-            </span>
+      <time title="Created: 2021-02-05 23:57:41" itemprop="dateCreated datePublished" datetime="2021-02-05T23:57:41+08:00">2021-02-05</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -489,6 +800,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -519,18 +831,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/You-should-know-these-running-data/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -542,32 +861,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/You-should-know-these-running-data/" class="post-title-link" itemprop="url">《跑者都該懂的跑步關鍵數據》跑步技術</a>
+          <a href="/You-should-know-these-running-data/" class="post-title-link" itemprop="url">《跑者都該懂的跑步關鍵數據》跑步技術</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2021-02-04 23:23:08" itemprop="dateCreated datePublished" datetime="2021-02-04T23:23:08+08:00">2021-02-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-02-09 23:36:33" itemprop="dateModified" datetime="2021-02-09T23:36:33+08:00">2021-02-09</time>
-              </span>
+      <time title="Created: 2021-02-04 23:23:08" itemprop="dateCreated datePublished" datetime="2021-02-04T23:23:08+08:00">2021-02-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2021-02-26 09:18:35" itemprop="dateModified" datetime="2021-02-26T09:18:35+08:00">2021-02-26</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -582,6 +899,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -590,9 +908,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h2 id="Mindmap-v1"><a href="#Mindmap-v1" class="headerlink" title="Mindmap v1"></a>Mindmap v1</h2><iframe src="https://www.xmind.net/embed/sHHqzS/" width="1000" height="600" frameborder="0" loading="lazy" allowfullscreen></iframe>
-
-<h2 id="Mindmap-v2"><a href="#Mindmap-v2" class="headerlink" title="Mindmap v2"></a>Mindmap v2</h2><iframe src="https://www.xmind.net/embed/fHfFNB/" width="1000" height="600" frameborder="0" loading="lazy" allowfullscreen></iframe>
+          <h2 id="Mindmap-v1"><a href="#Mindmap-v1" class="headerlink" title="Mindmap v1"></a>Mindmap v1</h2><p><img src="/images/20210204_%E3%80%8A%E8%B7%91%E8%80%85%E9%83%BD%E8%A9%B2%E6%87%82%E7%9A%84%E9%97%9C%E9%8D%B5%E6%95%B8%E6%93%9A%E3%80%8B%E8%B7%91%E6%AD%A5%E6%8A%80%E8%A1%93_v1.png" alt=""></p>
+<h2 id="Mindmap-v2"><a href="#Mindmap-v2" class="headerlink" title="Mindmap v2"></a>Mindmap v2</h2><p><img src="/images/20210209_%E3%80%8A%E8%B7%91%E8%80%85%E9%83%BD%E8%A9%B2%E6%87%82%E7%9A%84%E9%97%9C%E9%8D%B5%E6%95%B8%E6%93%9A%E3%80%8B%E8%B7%91%E6%AD%A5%E6%8A%80%E8%A1%93_v2.png" alt=""></p>
 
       
     </div>
@@ -600,18 +917,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Go-Module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -623,26 +947,24 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Go-Module/" class="post-title-link" itemprop="url">Go Module</a>
+          <a href="/Go-Module/" class="post-title-link" itemprop="url">Go Module</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
 
-              <time title="Created: 2021-01-24 17:34:34 / Modified: 17:35:40" itemprop="dateCreated datePublished" datetime="2021-01-24T17:34:34+08:00">2021-01-24</time>
-            </span>
+      <time title="Created: 2021-01-24 17:34:34 / Modified: 17:35:40" itemprop="dateCreated datePublished" datetime="2021-01-24T17:34:34+08:00">2021-01-24</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -657,6 +979,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -668,10 +991,8 @@
           <p>Go 從 1.13 開始支援 Go Module，可以在 <code>GOPATH</code> 以外的地方建立 go project 並進行套件管理。<em>一直覺得 source code 只能放在 <code>GOPATH</code> 裡超阿雜…</em></p>
 <h2 id="建立-project"><a href="#建立-project" class="headerlink" title="建立 project"></a>建立 project</h2><p>在 <code>GOPATH</code> 以外的地方建立一個 directory，並且在其中執行 <code>go mod init</code>：</p>
 <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">$ mkdir <span class="keyword">project</span></span><br><span class="line">$ cd <span class="keyword">project</span></span><br><span class="line">$ go mod init github.com<span class="regexp">/cjwind/</span><span class="keyword">project</span></span><br></pre></td></tr></table></figure>
-
 <p>會產生 <code>go.mod</code> 檔案，它會記錄 Go module 與使用的 Go 版本：</p>
 <figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">module github.com<span class="regexp">/cjwind/</span><span class="keyword">project</span></span><br><span class="line"></span><br><span class="line">go <span class="number">1.15</span></span><br></pre></td></tr></table></figure>
-
 <p>接下來在這個 directory 裡進行開發跟 build 就都一樣，重點是現在 source code 不用非得放在 <code>GOPATH</code> 裡啦～</p>
 <h2 id="套件管理"><a href="#套件管理" class="headerlink" title="套件管理"></a>套件管理</h2><p>用 <code>go get</code> 安裝 package 後，會發現在 <code>go.mod</code> 多了一行 <code>require [package] [version]</code>，就表示目前使用的 package 及其 version。</p>
 <p>另外可能會出現 <code>require [package] [version] // indirect</code>，這表示是我們使用的 package 所需要的 package。</p>
@@ -687,18 +1008,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dockerfile/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -710,25 +1038,23 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Dockerfile/" class="post-title-link" itemprop="url">Dockerfile</a>
+          <a href="/Dockerfile/" class="post-title-link" itemprop="url">Dockerfile</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-11-21 22:49:58" itemprop="dateCreated datePublished" datetime="2020-11-21T22:49:58+08:00">2020-11-21</time>
-            </span>
+      <time title="Created: 2020-11-21 22:49:58" itemprop="dateCreated datePublished" datetime="2020-11-21T22:49:58+08:00">2020-11-21</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -743,6 +1069,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -754,10 +1081,8 @@
           <h2 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h2><p><code>COPY</code> 如果 source 是 directory，會 copy directory 的內容，但是 directory 本身不會 copy。</p>
 <p>假設有個資料夾叫 <code>css/</code>，底下有兩個 file <code>foo.css</code> 跟 <code>bar.css</code>。</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./css /workspace/</span></span><br></pre></td></tr></table></figure>
-
 <p>這樣在 container 裡會變成 <code>/workspace/</code> 底下有 <code>foo.css</code> 跟 <code>bar.css</code>，而不是 <code>/workspace/css/</code> 底下有 <code>foo.css</code> 跟 <code>bar.css</code>。想要是 <code>/workspace/css/</code> 底下有兩個 file 得這樣寫：</p>
 <figure class="highlight dockerfile"><table><tr><td class="code"><pre><span class="line"><span class="keyword">COPY</span><span class="bash"> ./css /workspace/css</span></span><br></pre></td></tr></table></figure>
-
 <p>Ref：<a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/builder/#copy">https://docs.docker.com/engine/reference/builder/#copy</a></p>
 
       
@@ -766,18 +1091,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Go-json-and-embedded-struct/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -789,26 +1121,24 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Go-json-and-embedded-struct/" class="post-title-link" itemprop="url">Go json and embedded struct</a>
+          <a href="/Go-json-and-embedded-struct/" class="post-title-link" itemprop="url">Go json and embedded struct</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
 
-              <time title="Created: 2020-11-15 22:00:46 / Modified: 22:09:42" itemprop="dateCreated datePublished" datetime="2020-11-15T22:00:46+08:00">2020-11-15</time>
-            </span>
+      <time title="Created: 2020-11-15 22:00:46 / Modified: 22:09:42" itemprop="dateCreated datePublished" datetime="2020-11-15T22:00:46+08:00">2020-11-15</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -823,6 +1153,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -833,15 +1164,11 @@
     <div class="post-body" itemprop="articleBody">
           <p>使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。</p>
 <h2 id="使用-embedded-struct"><a href="#使用-embedded-struct" class="headerlink" title="使用 embedded struct"></a>使用 embedded struct</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Serving <span class="keyword">struct</span> &#123;</span><br><span class="line">    Amount <span class="keyword">float64</span></span><br><span class="line">    Unit   <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Food <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Serving    <span class="comment">// embedded struct</span></span><br><span class="line">    NutritionInfo</span><br><span class="line">    Comment <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>marshal 結果：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;Name&quot;</span>:<span class="string">&quot;Banana&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Amount&quot;</span>:<span class="number">100</span>,</span><br><span class="line">  <span class="attr">&quot;Unit&quot;</span>:<span class="string">&quot;g&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Calorie&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Carb&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Fat&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Protein&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span>:<span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="不使用-embedded-struct"><a href="#不使用-embedded-struct" class="headerlink" title="不使用 embedded struct"></a>不使用 embedded struct</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Food <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Serving Serving    <span class="comment">// not embedded struct</span></span><br><span class="line">    NutritionInfo</span><br><span class="line">    Comment <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>marshal 結果：</p>
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;Name&quot;</span>:<span class="string">&quot;Banana&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Serving&quot;</span>:</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;Amount&quot;</span>:<span class="number">100</span>,</span><br><span class="line">    <span class="attr">&quot;Unit&quot;</span>:<span class="string">&quot;g&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;Calorie&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Carb&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Fat&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Protein&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span>:<span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>不用 embeded struct 就會有一層 <code>Serving</code>，用 embedded struct 就會省略 <code>Serving</code> 這層。</p>
 
       
@@ -850,18 +1177,25 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Git-submodule/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -873,25 +1207,23 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Git-submodule/" class="post-title-link" itemprop="url">Git submodule</a>
+          <a href="/Git-submodule/" class="post-title-link" itemprop="url">Git submodule</a>
         </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2020-10-08 23:12:57" itemprop="dateCreated datePublished" datetime="2020-10-08T23:12:57+08:00">2020-10-08</time>
-            </span>
+      <time title="Created: 2020-10-08 23:12:57" itemprop="dateCreated datePublished" datetime="2020-10-08T23:12:57+08:00">2020-10-08</time>
+    </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -906,6 +1238,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -918,17 +1251,13 @@
 <p>git 的 submodule 是記錄一個指到別人 repo 某個 commit 的指標。對主 repo 來說，記錄的只是一個 submodule commit hash。</p>
 <p>切到 submodule 的目錄時做 git 操作會是在操作另一個 repo。</p>
 <h2 id="加入-submodule"><a href="#加入-submodule" class="headerlink" title="加入 submodule"></a>加入 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule add &lt;repo path&gt;</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="clone-含有-submodule-的-repos"><a href="#clone-含有-submodule-的-repos" class="headerlink" title="clone 含有 submodule 的 repos"></a>clone 含有 submodule 的 repos</h2><p>clone 含有 submodule 的 repos 後，submodule 的目錄會是空的，要做以下動作來初始化：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update</span></span><br></pre></td></tr></table></figure>
-
 <p><code>git submodule update</code> 會讓 submodule 的內容回到記錄的 commit。</p>
 <h2 id="更新-submodule"><a href="#更新-submodule" class="headerlink" title="更新 submodule"></a>更新 submodule</h2><p>submodule 的 repo 更新或者想用不同版本（commit）的 submodule 時，要做以下操作：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull    </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ..</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git a submodule_dir        <span class="comment"># 更新主 repo 記錄的 submodule commit hash</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git ci</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull</span>	</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ..</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git a submodule_dir		<span class="comment"># 更新主 repo 記錄的 submodule commit hash</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git ci</span></span><br></pre></td></tr></table></figure>
 <p>概念是把 submodule 的 repo 更新或者 checkout 到想要的 commit，再在主 repo 更新記錄的 submodule commit hash。</p>
-<h2 id="移除-submodule"><a href="#移除-submodule" class="headerlink" title="移除 submodule"></a>移除 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -rf submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim .git/config        <span class="comment"># 移掉 submodule 相關設定</span></span></span><br></pre></td></tr></table></figure>
-
+<h2 id="移除-submodule"><a href="#移除-submodule" class="headerlink" title="移除 submodule"></a>移除 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -rf submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim .git/config		<span class="comment"># 移掉 submodule 相關設定</span></span></span><br></pre></td></tr></table></figure>
 <h2 id="gitmodules"><a href="#gitmodules" class="headerlink" title=".gitmodules"></a>.gitmodules</h2><p>檔案 <code>.gitmodules</code> 會記錄有哪些 submodule。</p>
 
       
@@ -937,248 +1266,21 @@
     
     
     
-      <footer class="post-footer">
+
+    <footer class="post-footer">
         <div class="post-eof"></div>
-      </footer>
+      
+    </footer>
   </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Golang-init-func/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Golang-init-func/" class="post-title-link" itemprop="url">Go init() function</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-08-29 17:48:15 / Modified: 17:48:56" itemprop="dateCreated datePublished" datetime="2020-08-29T17:48:15+08:00">2020-08-29</time>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Golang-init-func/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Golang-init-func/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>任何檔案可以擁有任意數量的 <code>init()</code> function：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>init()</code> 會在程式啟動時自動以宣告的順序執行，但不能被 call 或參考。</p>
-<p>假設有以下兩個 go 檔案：</p>
-<figure class="highlight go"><figcaption><span>foo.go</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;foo.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><figcaption><span>main.go</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go second init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 <code>go run</code> 以不同的順序指定 source file 會有不同結果：</p>
-<figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">go</span> run foo.<span class="built_in">go</span> main.<span class="built_in">go</span></span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">go</span> run main.<span class="built_in">go</span> foo.<span class="built_in">go</span></span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line"></span><br><span class="line"># 不指定 file</span><br><span class="line">$ <span class="built_in">go</span> run .</span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br></pre></td></tr></table></figure>
-
-<p>不指定 file 的話 <code>go</code> 會將 file 以其名稱排序。</p>
-<p>如果嘗試直接 call <code>init()</code>：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    init()  <span class="comment">// compile error: undefined: init</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-
-    
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/" class="post-title-link" itemprop="url">ch10 I Can't Run This Method in a Test Harness</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-08-29 15:35:09" itemprop="dateCreated datePublished" datetime="2020-08-29T15:35:09+08:00">2020-08-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-09-19 13:07:56" itemprop="dateModified" datetime="2020-09-19T13:07:56+08:00">2020-09-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Working-Effectively-with-Legacy-Code/" itemprop="url" rel="index"><span itemprop="name">Working Effectively with Legacy Code</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Working-Effectively-with-Legacy-Code/ch10-I-Can-t-Run-This-Method-in-a-Test-Harness/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>要為一段 code 寫測試，首先要在測試中建立它所屬的 class 的 instance，接著為要修改的 method 寫測試。這章要解決的是「難以在測試中執行要測試的 method」的情境。為一個 method 寫測試可能會遇到的問題：</p>
-<ul>
-<li>無法在測試中 access 那個 method，例如它可能是 private 的或是有其他存取限制。</li>
-<li>很難建立所需參數，導致很難 call method，例如參數是一包 XML。</li>
-<li>要測試的 method 可能產生糟糕的 side effect，例如修改 DB、發射飛彈等等，所以無法在測試中執行它。</li>
-<li>需要透過該 method 使用的 object 進行 sense，才能知道這個 method 做了什麼事。</li>
-</ul>
-<h1 id="The-Case-of-the-Hidden-Method"><a href="#The-Case-of-the-Hidden-Method" class="headerlink" title="The Case of the Hidden Method"></a>The Case of the Hidden Method</h1><p>假設我們要修改的是一個 private method，想要測試它，該怎麼辦呢？</p>
-<p>首先，能透過 public method 來測試它嗎？如果可以，就這麼幹吧～用 public method 去測試，就是按照程式中 private method 如何被使用的方式去測試它。如果有天要把 private method 改成 public，把它變成 public 的人應該寫一系列的測試說明這個 method 的用途以及 caller 該如何使用它。</p>
-<p>這邊有提到一點 method 設計實作上的小概念：</p>
-<blockquote>
-<p>雖然 general 的 method 對 caller 來說蠻有用的，但每個 method 的功能應該剛好可以滿足 caller 並且易於理解與修改。</p>
-</blockquote>
-<p>有時候呢，我們就是想直接為 private method 寫測試（任性），可能是因為我們想用測試來知道如何使用 private method，或者用 public method 來測試它實在太難太痛苦啦～</p>
-<p>例如一個擁有商業邏輯並且會 call third-party API 的 class 做的事情是：call API 取得一包 XML 資料，parse XML 得到商業邏輯需要的資料，再做商業邏輯上的計算或操作。我們想知道 parse XML 的 private method 是否正確，但它埋在整個流程裡，而用 public method 做整個的 call API、parsing、商業邏輯的測試難以只測試到 parse XML 的部份。</p>
-<p>所以，想為 private method 寫測試時該怎麼辦呢？</p>
-<blockquote>
-<p>如果需要測試一個 private method，就該把它設成 public。</p>
-</blockquote>
-<p>看到書上這句話我蠻驚恐的，想著：「等等等，不是吧？就這樣直接把 private method 變成 public 好嗎？這不會在 class 上開出看起來突兀或者不知如何使用的 method 嗎？」</p>
-<blockquote>
-<p>如果不方便將其設為 public，大多數情況下意味著我們的 class 做太多事了，應該進行調整。</p>
-</blockquote>
-<p>喔～原來是這樣～這倒是真的～像上面那個例子，一個 class 既 call third-party API 又 parse XML 又做商業邏輯，太多事情了。</p>
-<p>如果我們想測試一個 private method，首先看它是不是個適合在這個 class 當作 public 的 method？如果是，直接改成 public。否則看看是不是這個 class 做太多事了，有些事可以交由另一個 class 處理。例如我們把 parse XML 有關的 method 放到另一個 parser class，這些 method 到了新 class 會變成 public，原本的 class 就能 new 一個 parser 出來做事。</p>
-<blockquote>
-<p>好的設計應當是可測試的，不具可測試性的設計是糟糕的。</p>
-</blockquote>
-<p>如果我們遇到上面這樣的狀況，想拆解 class、將職責分開，卻沒有多少現成測試呢？假設我們想拆解這個包山包海的 class，但它本身卻沒有什麼測試，而 refactor 應當要有測試保護，雞生蛋蛋生雞的問題出現啦～</p>
-<p>又或許，我們正在開發週期的後期，軟體已經接近 deploy，我們沒有多少時間去做拆解的 refactor，而且沒有測試又讓 refactor 的風險大幅提昇。儘管 refactor 可以改善程式結構、有好處，但需要考慮目前處於開發週期的哪個階段、時間多寡與風險高低，才能決定要不要 refactor 以及 refactor 到什麼程度。</p>
-<p>時間不夠或風險太高的時，我們無法拆解 class。退而求其次，至少幫我們要修改的 private method 加上測試，讓這個 class 開始有測試保護也是好的。</p>
-<p>想為 private method 加上測試，表示要能在測試中直接 call 到這個 method，要怎麼做呢？</p>
-<p>又用到 Extract and Override 了～<em>這招也太萬用…</em></p>
-<p>假設我們有個與機票搜尋、訂購有關的 class：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">$searchParams</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// call third party api and get response as xml</span></span><br><span class="line">    $searchResults = <span class="keyword">$this</span>-&gt;parseSearchResponse($xml);</span><br><span class="line">    <span class="comment">// other impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSearchResponse</span>(<span class="params">$xml</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">booking</span>(<span class="params">$bookingParams</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// other methods</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在 <code>search()</code> 裡先用 http client 向 third party API 送 request 並收 response，response 是一包 XML，我們想 parse 出其中需要的資料而 call <code>parseSearchResponse()</code>。因為 XML 相當複雜，我們希望能單獨確認 parsing 結果是否正確。</p>
-<p>這個 class 除了 search、booking、parse 各種 XML 之外還會做許多事情，它的職責太多了，如果我們現在沒有時間去拆解它，卻想測試 <code>parseSearchResponse()</code> 的結果該怎麼做？</p>
-<p>首先將 <code>parseSearchResponse()</code> 從 <code>private</code> 變成 <code>protected</code>：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Flight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">$searchParams</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// call third party api and get response as xml</span></span><br><span class="line">    $searchResults = <span class="keyword">$this</span>-&gt;parseSearchResponse($xml);</span><br><span class="line">    <span class="comment">// other impl.</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 變成 protected</span></span><br><span class="line">  <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSearchResponse</span>(<span class="params">$xml</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// impl.</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>接著在測試中繼承它：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlightForTest</span> <span class="keyword">extends</span> <span class="title">Flight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">parseSearchResponse</span>(<span class="params">$xml</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">parent</span>::parseSearchResponse($xml);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這樣就能在測試 call 到 <code>parseSearchResponse()</code> 進行測試了：</p>
-<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FlightTest</span> <span class="keyword">extends</span> <span class="title">TestCase</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">testParseSearchResponse</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $target = <span class="keyword">new</span> FlightForTest();</span><br><span class="line">    $xml = <span class="string">&#x27;blabla&#x27;</span>;</span><br><span class="line">    $ret = $target-&gt;parseSearchResponse($xml);</span><br><span class="line">    <span class="comment">// assertions</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>這麼做雖然沒有立即改善 <code>Flight</code> 做太多事的問題，但至少幫修改的地方加上測試，確保目前的修改是正確的。並且為將來拆解 class 的 refactor 鋪路――因為加了些測試而減少之後 refactor 所需的 effort 跟時間，使之後 refactor 成為可能。</p>
-<h1 id="補充"><a href="#補充" class="headerlink" title="補充"></a>補充</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://dotblogs.com.tw/hatelove/2012/07/19/why-you-should-not-write-unit-test-with-private-and-protected-method">[測試]單元測試：是否針對非 public method 進行測試？</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+</div>
 
 
-  
+
+
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
-
-
-        </div>
-        
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1187,7 +1289,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -1196,23 +1298,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -1223,32 +1321,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -1258,16 +1336,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

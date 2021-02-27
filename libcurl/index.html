@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="libcurl 是處理收送網路 request、response 的 library，可用來收送 HTTP 的 request 及 response。 libcurl 收到 response 時會 call callback function，由 callback function 處理收到的資料。callback function 可自行撰寫，其 prototype 如下： size_t fun">
+<meta name="description" content="libcurl 是處理收送網路 request、response 的 library，可用來收送 HTTP 的 request 及 response。 libcurl 收到 response 時會 call callback function，由 callback function 處理收到的資料。callback function 可自行撰寫，其 prototype 如下： size_t fun">
 <meta property="og:type" content="article">
 <meta property="og:title" content="libcurl - HTTP usage">
 <meta property="og:url" content="http://www.cjwind.idv.tw/libcurl/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="Third Party">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/libcurl/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>libcurl - HTTP usage | cjwind's note</title>
+<title>libcurl - HTTP usage | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#callback-function"><span class="nav-number">2.</span> <span class="nav-text">callback function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%B3%E9%80%81-POST-%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">傳送 POST 資料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link-option"><span class="nav-number">4.</span> <span class="nav-text">Link option</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Usage"><span class="nav-number">1.</span> <span class="nav-text">Usage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#callback-function"><span class="nav-number">2.</span> <span class="nav-text">callback function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%82%B3%E9%80%81-POST-%E8%B3%87%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">傳送 POST 資料</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link-option"><span class="nav-number">4.</span> <span class="nav-text">Link option</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref"><span class="nav-number">6.</span> <span class="nav-text">Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/libcurl/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           libcurl - HTTP usage
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2014-04-17 22:31:25" itemprop="dateCreated datePublished" datetime="2014-04-17T22:31:25+08:00">2014-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2014-10-15 20:52:00" itemprop="dateModified" datetime="2014-10-15T20:52:00+08:00">2014-10-15</time>
-              </span>
+      <time title="Created: 2014-04-17 22:31:25" itemprop="dateCreated datePublished" datetime="2014-04-17T22:31:25+08:00">2014-04-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2014-10-15 20:52:00" itemprop="dateModified" datetime="2014-10-15T20:52:00+08:00">2014-10-15</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -365,7 +346,6 @@
         <p>libcurl 是處理收送網路 request、response 的 library，可用來收送 HTTP 的 request 及 response。</p>
 <p>libcurl 收到 response 時會 call callback function，由 callback function 處理收到的資料。callback function 可自行撰寫，其 prototype 如下：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">func</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, <span class="keyword">void</span> *userdata)</span></span></span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>ptr 指向收到的資料</li>
 <li>nmemb 為收到資料的大小</li>
@@ -378,34 +358,26 @@
 <p>2.  Set HTTP header data</p>
 <p>設 HTTP header，如指定 Content-type：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span>* <span class="title">headers</span>;</span></span><br><span class="line"><span class="built_in">memset</span>(header, <span class="number">0</span>, <span class="keyword">sizeof</span>(headers));</span><br><span class="line">headers = curl_slist_append(headers, <span class="string">&quot;Content-type: application/json&quot;</span>);</span><br></pre></td></tr></table></figure>
-
 <p>call <code>curl_slist_append()</code> 會不斷加資訊到 headers 這個資料結構中。</p>
 <p>3. Set options</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);                <span class="comment">// 以 POST 傳送資料</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);    <span class="comment">// 指定 header</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_URL, url.c_str());       <span class="comment">// 指定 url</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);   <span class="comment">// 指定 data，將 postdata 當作 POST data 傳給 server</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);    <span class="comment">// 指定處理 HTTP header 的 callback function 為 parseHeader</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;rescode);          <span class="comment">// 指定 parseHeader 的 userdata</span></span><br><span class="line"></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, getResponse);     <span class="comment">// 指定處理 data 的 callback function 為 getResponse</span></span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEDATA, &amp;response);           <span class="comment">// 指定 getResponse 的 userdata</span></span><br></pre></td></tr></table></figure>
-
 <p>4. 傳送 request</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_perform(curl);</span><br></pre></td></tr></table></figure>
-
 <p>以 blocking 的方式傳送 request。</p>
 <p>5. clean up</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_slist_free_all(headers);    <span class="comment">// 清掉 headers 裡的東西</span></span><br><span class="line">curl_easy_cleanup(curl);</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_slist_free_all(headers);	<span class="comment">// 清掉 headers 裡的東西</span></span><br><span class="line">curl_easy_cleanup(curl);</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 
 <h2 id="callback-function"><a href="#callback-function" class="headerlink" title="callback function"></a>callback function</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">parseHeader</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, <span class="built_in">string</span> *userdata)</span></span></span><br></pre></td></tr></table></figure>
-
 <p>指定以 <code>parseHeader()</code> 處理 header：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);</span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;data);        <span class="comment">// 指定 data 的 address 給 parseHeader() 的 userdata</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);</span><br><span class="line">curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;data);	    <span class="comment">// 指定 data 的 address 給 parseHeader() 的 userdata</span></span><br></pre></td></tr></table></figure>
 <p>userdata 是 void*，可以使用任何 type 或 structure 的 pointer。</p>
 <p>處理 data 的 option 是 <code>CURLOPT_WRITEFUNCTION</code> 跟 <code>CURLOPT_WRITEDATA</code>。</p>
 <h2 id="傳送-POST-資料"><a href="#傳送-POST-資料" class="headerlink" title="傳送 POST 資料"></a>傳送 POST 資料</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> postdata[] = <span class="string">&quot;&#123;\&quot;reboot\&quot;: &#123;\&quot;type\&quot; : \&quot;SOFT\&quot;&#125;&#125;&quot;</span>;</span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);</span><br><span class="line">curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);</span><br></pre></td></tr></table></figure>
-
 <p>在 postdata 放要傳的資料，用 set option 指定。<em>不太確定 postdata 的 type 是不是一定要用 char？</em></p>
 <h2 id="Link-option"><a href="#Link-option" class="headerlink" title="Link option"></a>Link option</h2><p>用 <code>curl-config --libs</code> 指令找到需要的 link option。</p>
 <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>要求 Openstack reboot 某台 VM：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">reboot</span><span class="params">(<span class="built_in">string</span> token, <span class="keyword">int</span> vmid)</span> </span>&#123;</span><br><span class="line">    CURL *curl;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span> *<span class="title">headers</span> = <span class="title">NULL</span>;</span></span><br><span class="line">    <span class="built_in">string</span> url = <span class="built_in">string</span>(APIURL) + <span class="string">&quot;/servers/&quot;</span> + int2string(vmid) + <span class="string">&quot;/action&quot;</span>;</span><br><span class="line">    <span class="keyword">char</span> postdata[] = <span class="string">&quot;&#123;\&quot;reboot\&quot;: &#123;\&quot;type\&quot; : \&quot;SOFT\&quot;&#125;&#125;&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> rescode;</span><br><span class="line"></span><br><span class="line">    curl = curl_easy_init();</span><br><span class="line">    <span class="keyword">if</span> ( curl ) &#123;</span><br><span class="line">        headers = curl_slist_append(headers, <span class="built_in">string</span>(<span class="string">&quot;X-Auth-Token: &quot;</span> + token).c_str());</span><br><span class="line">        headers = curl_slist_append(headers, <span class="string">&quot;Content-type: application/json&quot;</span>);</span><br><span class="line"></span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);   <span class="comment">// put POST data here</span></span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;rescode);  <span class="comment">// set userdata in callback function</span></span><br><span class="line"></span><br><span class="line">        curl_easy_perform(curl);</span><br><span class="line"></span><br><span class="line">        curl_slist_free_all(headers);</span><br><span class="line">        curl_easy_cleanup(curl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( rescode == <span class="string">&quot;202&quot;</span> ) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;reboot failed, response code is &quot;</span> &lt;&lt; rescode &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// parse http header</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">parseHeader</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, <span class="built_in">string</span> *userdata)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">strncmp</span>((<span class="keyword">char</span> *)ptr, <span class="string">&quot;X-Auth-Token:&quot;</span>, <span class="number">13</span>) == <span class="number">0</span> ) &#123; <span class="comment">// get Token</span></span><br><span class="line">        strtok((<span class="keyword">char</span> *)ptr, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        *userdata = <span class="built_in">string</span>(strtok(<span class="literal">NULL</span>, <span class="string">&quot; \n&quot;</span>));        <span class="comment">// token will be stored in userdata</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strncmp</span>((<span class="keyword">char</span> *)ptr, <span class="string">&quot;HTTP/1.1&quot;</span>, <span class="number">8</span>) == <span class="number">0</span> ) &#123;  <span class="comment">// get http response code</span></span><br><span class="line">        strtok((<span class="keyword">char</span> *)ptr, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        *userdata = <span class="built_in">string</span>(strtok(<span class="literal">NULL</span>, <span class="string">&quot; \n&quot;</span>));        <span class="comment">// http response code</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nmemb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">reboot</span><span class="params">(<span class="built_in">string</span> token, <span class="keyword">int</span> vmid)</span> </span>&#123;</span><br><span class="line">    CURL *curl;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">curl_slist</span> *<span class="title">headers</span> =</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="built_in">string</span> url = <span class="built_in">string</span>(APIURL) + <span class="string">&quot;/servers/&quot;</span> + int2string(vmid) + <span class="string">&quot;/action&quot;</span>;</span><br><span class="line">    <span class="keyword">char</span> postdata[] = <span class="string">&quot;&#123;\&quot;reboot\&quot;: &#123;\&quot;type\&quot; : \&quot;SOFT\&quot;&#125;&#125;&quot;</span>;</span><br><span class="line">    <span class="built_in">string</span> rescode;</span><br><span class="line"></span><br><span class="line">    curl = curl_easy_init();</span><br><span class="line">    <span class="keyword">if</span> ( curl ) &#123;</span><br><span class="line">        headers = curl_slist_append(headers, <span class="built_in">string</span>(<span class="string">&quot;X-Auth-Token: &quot;</span> + token).c_str());</span><br><span class="line">        headers = curl_slist_append(headers, <span class="string">&quot;Content-type: application/json&quot;</span>);</span><br><span class="line"></span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_POST, <span class="number">1</span>);</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata);   <span class="comment">// put POST data here</span></span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, parseHeader);</span><br><span class="line">        curl_easy_setopt(curl, CURLOPT_WRITEHEADER, &amp;rescode);  <span class="comment">// set userdata in callback function</span></span><br><span class="line"></span><br><span class="line">        curl_easy_perform(curl);</span><br><span class="line"></span><br><span class="line">        curl_slist_free_all(headers);</span><br><span class="line">        curl_easy_cleanup(curl);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( rescode == <span class="string">&quot;202&quot;</span> ) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;reboot failed, response code is &quot;</span> &lt;&lt; rescode &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// parse http header</span></span><br><span class="line"><span class="function"><span class="keyword">size_t</span> <span class="title">parseHeader</span><span class="params">(<span class="keyword">void</span> *ptr, <span class="keyword">size_t</span> size, <span class="keyword">size_t</span> nmemb, <span class="built_in">string</span> *userdata)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">strncmp</span>((<span class="keyword">char</span> *)ptr, <span class="string">&quot;X-Auth-Token:&quot;</span>, <span class="number">13</span>) == <span class="number">0</span> ) &#123; <span class="comment">// get Token</span></span><br><span class="line">        strtok((<span class="keyword">char</span> *)ptr, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        *userdata = <span class="built_in">string</span>(strtok(<span class="literal">NULL</span>, <span class="string">&quot; \n&quot;</span>));        <span class="comment">// token will be stored in userdata</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="built_in">strncmp</span>((<span class="keyword">char</span> *)ptr, <span class="string">&quot;HTTP/1.1&quot;</span>, <span class="number">8</span>) == <span class="number">0</span> ) &#123;  <span class="comment">// get http response code</span></span><br><span class="line">        strtok((<span class="keyword">char</span> *)ptr, <span class="string">&quot; &quot;</span>);</span><br><span class="line">        *userdata = <span class="built_in">string</span>(strtok(<span class="literal">NULL</span>, <span class="string">&quot; \n&quot;</span>));        <span class="comment">// http response code</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nmemb;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://curl.haxx.se/libcurl/">http://curl.haxx.se/libcurl/</a></li>
@@ -418,7 +390,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Programming/" rel="tag"># Programming</a>
               <a href="/tags/Third-Party/" rel="tag"># Third Party</a>
@@ -426,34 +398,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/phpexcel/" rel="prev" title="PHPExcel">
-      <i class="fa fa-chevron-left"></i> PHPExcel
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/qt4-sequential-container/" rel="next" title="Qt4 Sequential Container">
-      Qt4 Sequential Container <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/phpexcel/" rel="prev" title="PHPExcel">
+                  <i class="fa fa-chevron-left"></i> PHPExcel
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/qt4-sequential-container/" rel="next" title="Qt4 Sequential Container">
+                  Qt4 Sequential Container <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -464,7 +432,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -473,23 +441,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -500,32 +464,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -535,16 +479,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。 在程式碼裡指定了什麼時候要 load 哪個模組">
+<meta name="description" content="explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。 在程式碼裡指定了什麼時候要 load 哪個模組">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Explicit Runtime Linking">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="System Software">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Explicit Runtime Linking | cjwind's note</title>
+<title>Explicit Runtime Linking | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dlopen"><span class="nav-number">1.</span> <span class="nav-text">dlopen()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlsym"><span class="nav-number">2.</span> <span class="nav-text">dlsym()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlerror"><span class="nav-number">3.</span> <span class="nav-text">dlerror()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlclose"><span class="nav-number">4.</span> <span class="nav-text">dlclose()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts"><span class="nav-number">6.</span> <span class="nav-text">Related posts</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dlopen"><span class="nav-number">1.</span> <span class="nav-text">dlopen()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlsym"><span class="nav-number">2.</span> <span class="nav-text">dlsym()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlerror"><span class="nav-number">3.</span> <span class="nav-text">dlerror()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dlclose"><span class="nav-number">4.</span> <span class="nav-text">dlclose()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts"><span class="nav-number">6.</span> <span class="nav-text">Related posts</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Explicit Runtime Linking
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-02-19 23:21:48" itemprop="dateCreated datePublished" datetime="2017-02-19T23:21:48+08:00">2017-02-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2017-04-14 23:04:00" itemprop="dateModified" datetime="2017-04-14T23:04:00+08:00">2017-04-14</time>
-              </span>
+      <time title="Created: 2017-02-19 23:21:48" itemprop="dateCreated datePublished" datetime="2017-02-19T23:21:48+08:00">2017-02-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2017-04-14 23:04:00" itemprop="dateModified" datetime="2017-04-14T23:04:00+08:00">2017-04-14</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -385,35 +366,25 @@
 <p>成功 return 0，失敗 return 非 0 值。</p>
 <h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>簡單用個例子實作跟驗證。以下共有 <code>libfoo.so</code>、<code>libbar.so</code> 跟 <code>libkar.so</code> 三個 library，主程式 <code>main.c</code> 以 explicit runtime linking load <code>libfoo.so</code>，而 <code>libfoo.so</code> 依賴 <code>libbar.so</code> 以及 <code>libkar.so</code>，後兩者有相同名稱的 function。</p>
 <figure class="highlight c"><figcaption><span>bar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">&quot;bar() in bar.c\n&quot;</span>); &#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>kar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">&quot;bar() in kar.c\n&quot;</span>); &#125;</span><br></pre></td></tr></table></figure>
-
 <p>compile with </p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gcc -g -fPIC -<span class="keyword">shared </span>-o libbar.so <span class="keyword">bar.c</span></span><br><span class="line"><span class="keyword">$ </span>gcc -g -fPIC -<span class="keyword">shared </span>-o libkar.so kar.c</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> zoo = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> coo = <span class="number">5566</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;foo = %x, &amp;zoo = %x, &amp;coo = %x\n&quot;</span>, foo, &amp;zoo, &amp;coo);</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">koo</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n + coo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>compile with <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libbar.so ./libkar.so</code></p>
 <figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* handle = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(<span class="string">&quot;./libfoo.so&quot;</span>, RTLD_LAZY);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (handle == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Load library failed. error: %s\n&quot;</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> (*fn)(<span class="keyword">int</span>, <span class="keyword">int</span>) = <span class="literal">NULL</span>;</span><br><span class="line">    dlerror();  <span class="comment">// clear error condition</span></span><br><span class="line">    fn = dlsym(handle, <span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="comment">//    fn = dlsym(handle, &quot;koo&quot;);    // fail</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>* error = dlerror();</span><br><span class="line">    <span class="keyword">if</span> (error != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Load symbol failed. error: %s\n&quot;</span>, error);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fn = %x\n&quot;</span>, fn);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = fn(<span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;ret = %d\n&quot;</span>, ret);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// doesn&#x27;t check error</span></span><br><span class="line">    <span class="keyword">int</span>* p = <span class="literal">NULL</span>;</span><br><span class="line">    p = dlsym(handle, <span class="string">&quot;zoo&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;p = %x\n&quot;</span>, p);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>* c = <span class="literal">NULL</span>;</span><br><span class="line">    c = dlsym(handle, <span class="string">&quot;coo&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;c = %x, *c = %d\n&quot;</span>, c, *c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> (*bar)() = <span class="literal">NULL</span>;</span><br><span class="line">    bar = dlsym(handle, <span class="string">&quot;bar&quot;</span>);</span><br><span class="line">    bar();</span><br><span class="line"></span><br><span class="line">    getchar();  <span class="comment">// just pause process</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dlclose(handle) != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Close library fail. error: %s\n&quot;</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>compile with <code>gcc -g -o main main.c -ldl</code></p>
 <p>執行結果顯示拿到主程式 <code>libfoo.so</code> 裡 symbol 的 address，以及 load 到 <code>libbar.so</code> 裡的 <code>bar()</code>：</p>
 <figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">$ ./main </span><br><span class="line"><span class="attr">fn</span> = ef40f740</span><br><span class="line"><span class="attr">foo</span> = ef40f740, &amp;<span class="attr">zoo</span> = ef60faf0, &amp;<span class="attr">coo</span> = ef40f7a8</span><br><span class="line"><span class="attr">ret</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">p</span> = ef60faf0</span><br><span class="line"><span class="attr">c</span> = ef40f7a8, *<span class="attr">c</span> = <span class="number">5566</span></span><br><span class="line">bar() <span class="keyword">in</span> bar.c</span><br></pre></td></tr></table></figure>
-
 <p>process 的 address space：</p>
 <figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/explicit-load/main</span><br><span class="line"><span class="attribute">00600000</span>-<span class="number">00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/explicit-load/main</span><br><span class="line"><span class="attribute">02552000</span>-<span class="number">02573000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                 <span class="meta"> [heap]</span></span><br><span class="line"><span class="attribute">7fe9bee48000</span>-<span class="number">7</span>fe<span class="number">9</span>bee<span class="number">49000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/explicit-load/libkar.so</span><br><span class="line"><span class="attribute">7fe9bee49000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">048000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/explicit-load/libkar.so</span><br><span class="line"><span class="attribute">7fe9bf048000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">049000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/explicit-load/libkar.so</span><br><span class="line"><span class="attribute">7fe9bf049000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">04</span>a<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/explicit-load/libbar.so</span><br><span class="line"><span class="attribute">7fe9bf04a000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">249000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/explicit-load/libbar.so</span><br><span class="line"><span class="attribute">7fe9bf249000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">24</span>a<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/explicit-load/libbar.so</span><br><span class="line"><span class="attribute">7fe9bf24a000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">24</span>b<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/explicit-load/libfoo.so</span><br><span class="line"><span class="attribute">7fe9bf24b000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">44</span>a<span class="number">000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/explicit-load/libfoo.so</span><br><span class="line"><span class="attribute">7fe9bf44a000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">44</span>b<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/explicit-load/libfoo.so</span><br><span class="line"><span class="attribute">7fe9bf44b000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">5</span>ec<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf5ec000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>ec<span class="number">000</span> ---p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7ec000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">0000</span> r--p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7f0000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">2000</span> rw-p <span class="number">001</span>a<span class="number">5000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7f2000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">6000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7fe9bf7f6000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">9000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7f9000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">9</span>f<span class="number">8000</span> ---p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf9f8000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">9</span>f<span class="number">9000</span> r--p <span class="number">00002000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf9f9000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">9</span>fa<span class="number">000</span> rw-p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf9fa000</span>-<span class="number">7</span>fe<span class="number">9</span>bfa<span class="number">1</span>a<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bfbf9000</span>-<span class="number">7</span>fe<span class="number">9</span>bfbfc<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7fe9bfc16000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>a<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7fe9bfc1a000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>b<span class="number">000</span> r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bfc1b000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>c<span class="number">000</span> rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bfc1c000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>d<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7ffdd05ea000</span>-<span class="number">7</span>ffdd<span class="number">060</span>b<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [stack]</span></span><br><span class="line"><span class="attribute">7ffdd0755000</span>-<span class="number">7</span>ffdd<span class="number">0757000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vdso]</span></span><br><span class="line"><span class="attribute">7ffdd0757000</span>-<span class="number">7</span>ffdd<span class="number">0759000</span> r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vvar]</span></span><br><span class="line"><span class="attribute">ffffffffff600000</span>-ffffffffff<span class="number">601000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                 <span class="meta"> [vsyscall]</span></span><br></pre></td></tr></table></figure>
-
 <p>三個 library 都 load 進來啦～</p>
 <p>用 gdb 在 <code>_init</code> 跟 <code>_fini</code> 設 break point 可以看到在 <code>dlopen()</code> 跟 <code>dlclose()</code> 時會分別執行 <code>libfoo.so</code> 及其他 library 的 <code>_init</code> 及 <code>_fini</code>。同樣適用 GCC 提供的 shared library constructor 及 destructor，<a href="/Dynamic-Linking-Relocation/">Ref</a>。</p>
 <p>可以用 <code>ldd</code> 看 <code>libfoo.so</code> 的 dependency：</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.so </span><br><span class="line">        linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fffde785000</span>)</span><br><span class="line">        ./libbar.so (<span class="number">0x00007fdf77158000</span>)</span><br><span class="line">        ./libkar.so (<span class="number">0x00007fdf76f57000</span>)</span><br><span class="line">        libc.so<span class="number">.6</span> =&gt; /lib/x86_64-linux-gnu/libc.so<span class="number">.6</span> (<span class="number">0x00007fdf76bac000</span>)</span><br><span class="line">        /lib64/ld-linux-x86<span class="number">-64.</span>so<span class="number">.2</span> (<span class="number">0x00007fdf7755a000</span>)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.<span class="keyword">so</span> </span><br><span class="line">        linux-vdso.<span class="keyword">so</span>.1 (0x00007fffde785000)</span><br><span class="line">        ./libbar.<span class="keyword">so</span> (0x00007fdf77158000)</span><br><span class="line">        ./libkar.<span class="keyword">so</span> (0x00007fdf76f57000)</span><br><span class="line">        libc.<span class="keyword">so</span>.6 =&gt; /lib/x86_64-linux-gnu/libc.<span class="keyword">so</span>.6 (0x00007fdf76bac000)</span><br><span class="line">        /lib64/ld-linux-x86-64.<span class="keyword">so</span>.2 (0x00007fdf7755a000)</span><br></pre></td></tr></table></figure>
 <p>如果 compile <code>libfoo.so</code> 時改變 link 的 shared library 順序，變成 <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libkar.so ./libbar.so</code>，load 到的 <code>bar()</code> 會變成是 <code>libkar.so</code> 的。</p>
-<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ ./main</span><br><span class="line">fn = a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span></span><br><span class="line">foo = a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span>, &amp;zoo = a<span class="number">279</span>caf<span class="number">0</span>, &amp;coo = a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span></span><br><span class="line"><span class="keyword">ret</span> = <span class="number">8</span></span><br><span class="line">p = a<span class="number">279</span>caf<span class="number">0</span></span><br><span class="line"><span class="keyword">c</span> = a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span>, *<span class="keyword">c</span> = <span class="number">5566</span></span><br><span class="line">bar() in kar.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ ./main</span><br><span class="line">fn <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span></span><br><span class="line">foo <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span><span class="punctuation">,</span> &amp;zoo <span class="operator">=</span> a<span class="number">279</span>caf<span class="number">0</span><span class="punctuation">,</span> &amp;coo <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span></span><br><span class="line"><span class="keyword">ret</span> <span class="operator">=</span> <span class="number">8</span></span><br><span class="line">p <span class="operator">=</span> a<span class="number">279</span>caf<span class="number">0</span></span><br><span class="line"><span class="keyword">c</span> <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span><span class="punctuation">,</span> *<span class="keyword">c</span> <span class="operator">=</span> <span class="number">5566</span></span><br><span class="line">bar() in kar.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
 <p><code>ldd</code> 看到的順序也會變：</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.so </span><br><span class="line">        linux-vdso.so<span class="number">.1</span> (<span class="number">0x00007fff4db40000</span>)</span><br><span class="line">        ./libkar.so (<span class="number">0x00007f5b4ddb5000</span>)</span><br><span class="line">        ./libbar.so (<span class="number">0x00007f5b4dbb4000</span>)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.<span class="keyword">so</span> </span><br><span class="line">        linux-vdso.<span class="keyword">so</span>.1 (0x00007fff4db40000)</span><br><span class="line">        ./libkar.<span class="keyword">so</span> (0x00007f5b4ddb5000)</span><br><span class="line">        ./libbar.<span class="keyword">so</span> (0x00007f5b4dbb4000)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h2 id="Related-posts"><a href="#Related-posts" class="headerlink" title="Related posts"></a>Related posts</h2><ul>
 <li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
 <li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
@@ -428,7 +399,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Linux/" rel="tag"># Linux</a>
               <a href="/tags/System-Software/" rel="tag"># System Software</a>
@@ -436,34 +407,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/solve-servo-blank/" rel="prev" title="解決執行 Servo 只有白畫面問題">
-      <i class="fa fa-chevron-left"></i> 解決執行 Servo 只有白畫面問題
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Cargo-project-basic/" rel="next" title="Cargo project basic">
-      Cargo project basic <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/solve-servo-blank/" rel="prev" title="解決執行 Servo 只有白畫面問題">
+                  <i class="fa fa-chevron-left"></i> 解決執行 Servo 只有白畫面問題
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Cargo-project-basic/" rel="next" title="Cargo project basic">
+                  Cargo project basic <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -474,7 +441,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -483,23 +450,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -510,32 +473,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -545,16 +488,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="相容性問題使用 library 其中一個目標是不需要重新 compile 就能方便的升級程式的部份功能或者修正 bug。理想上，升級 library 只需要用新的檔案取代舊的。但是事情沒那麼美好，舊程式不見得能正常使用新 library，新舊程式間會有相容性問題。 依據舊程式能不能使用新 library，library 的更新分為相容更新與不相容更新。相容更新通常不修改 interface，可能只">
+<meta name="description" content="相容性問題使用 library 其中一個目標是不需要重新 compile 就能方便的升級程式的部份功能或者修正 bug。理想上，升級 library 只需要用新的檔案取代舊的。但是事情沒那麼美好，舊程式不見得能正常使用新 library，新舊程式間會有相容性問題。 依據舊程式能不能使用新 library，library 的更新分為相容更新與不相容更新。相容更新通常不修改 interface，可能只">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shared Library Versioning">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Shared-Library-Versioning/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="System Software">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/Shared-Library-Versioning/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Shared Library Versioning | cjwind's note</title>
+<title>Shared Library Versioning | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%AE%B9%E6%80%A7%E5%95%8F%E9%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">相容性問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E8%99%9F"><span class="nav-number">2.</span> <span class="nav-text">版號</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SO-NAME"><span class="nav-number">2.1.</span> <span class="nav-text">SO-NAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#link-name"><span class="nav-number">2.2.</span> <span class="nav-text">link name</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-Versioning"><span class="nav-number">3.</span> <span class="nav-text">Symbol Versioning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Versioning"><span class="nav-number">3.1.</span> <span class="nav-text">Versioning</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">3.1.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scoping"><span class="nav-number">3.2.</span> <span class="nav-text">Scoping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-%E5%B0%8D-symbol-version-%E7%9A%84%E6%93%B4%E5%85%85"><span class="nav-number">3.3.</span> <span class="nav-text">GCC 對 symbol version 的擴充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Semantic-Versioning"><span class="nav-number">4.</span> <span class="nav-text">Semantic Versioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts-amp-Ref"><span class="nav-number">5.</span> <span class="nav-text">Related posts &amp; Ref</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%AE%B9%E6%80%A7%E5%95%8F%E9%A1%8C"><span class="nav-number">1.</span> <span class="nav-text">相容性問題</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E8%99%9F"><span class="nav-number">2.</span> <span class="nav-text">版號</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SO-NAME"><span class="nav-number">2.1.</span> <span class="nav-text">SO-NAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#link-name"><span class="nav-number">2.2.</span> <span class="nav-text">link name</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbol-Versioning"><span class="nav-number">3.</span> <span class="nav-text">Symbol Versioning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Versioning"><span class="nav-number">3.1.</span> <span class="nav-text">Versioning</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example"><span class="nav-number">3.1.1.</span> <span class="nav-text">Example</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scoping"><span class="nav-number">3.2.</span> <span class="nav-text">Scoping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCC-%E5%B0%8D-symbol-version-%E7%9A%84%E6%93%B4%E5%85%85"><span class="nav-number">3.3.</span> <span class="nav-text">GCC 對 symbol version 的擴充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Semantic-Versioning"><span class="nav-number">4.</span> <span class="nav-text">Semantic Versioning</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Related-posts-amp-Ref"><span class="nav-number">5.</span> <span class="nav-text">Related posts &amp; Ref</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Shared-Library-Versioning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Shared Library Versioning
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2017-04-03 16:53:36" itemprop="dateCreated datePublished" datetime="2017-04-03T16:53:36+08:00">2017-04-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2017-04-03 16:53:36" itemprop="dateCreated datePublished" datetime="2017-04-03T16:53:36+08:00">2017-04-03</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -376,8 +357,7 @@
 <p>Linux 系統會建立檔名為 SO-NAME 並指向 major version 相同、最新 minor 及 release version 的 library 實體檔案的 soft link，例如 <code>/usr/lib/libcln.so.6</code> 指向 <code>/usr/lib/libcln.so.6.0.4</code>。這麼做的好處是系統中的程式只需要記錄 library 的 SO-NAME，再藉由 soft link 就能使用該 major version 最新的 library。</p>
 <p>記錄 SO-NAME 提供了一些彈性，讓 library 有一定的升級空間，不會讓程式只限定於某版本的 library。同時又能知道何種狀況是大幅度的更新，系統不應該自動使用新 major version 的 library，需保留舊版 library 讓使用的程式可以正常執行。當然，話是這麼說，版號只是個規則，還是需要由開發者判斷新版是否向後相容以決定如何升版號。</p>
 <p>ELF 在 <code>.dynamic</code> 以 SO-NAME 記錄所需的 shared library：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line">Dynamic section at offset 0x868 contains 26 entries:</span><br><span class="line">  Tag       <span class="built_in"> Type </span>                        Name/Value</span><br><span class="line"><span class="built_in">..</span>.</span><br><span class="line"> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">$ readelf -d main</span><br><span class="line"><span class="keyword">Dynamic</span> section at offset <span class="number">0</span>x868 contains <span class="number">26</span> entries:</span><br><span class="line">  Tag        <span class="keyword">Type</span>                         <span class="keyword">Name</span>/Value</span><br><span class="line">...</span><br><span class="line"> <span class="number">0</span>x0000000000000001 (NEEDED)             Shared <span class="keyword">library</span>: [libc.so.<span class="number">6</span>]</span><br></pre></td></tr></table></figure>
 <p>Linux 指令 <code>ldconfig</code> 用來更新上述 library 的 soft link，它會掃過所有預設 shared library directory，例如 <code>/lib</code>、<code>/usr/lib</code> 等，更新所有 soft link，將其指向目前系統中最新的 library 或為新 library 建立 soft link。安裝或更新 library 需要執行 <code>ldconfig</code>。</p>
 <h3 id="link-name"><a href="#link-name" class="headerlink" title="link name"></a>link name</h3><p>compile 時我們以 <code>-lXXX</code> 指定要 link 的 library，這個 <code>XXX</code> 稱為 link name。指定 link name 時省略了版號，compiler 會到系統相關的搜尋路徑中尋找最新版本的 <code>XXX</code> library。</p>
 <h2 id="Symbol-Versioning"><a href="#Symbol-Versioning" class="headerlink" title="Symbol Versioning"></a>Symbol Versioning</h2><p>SO-NAME 有升級彈性，但仍有問題──假設依賴的 library 是 <code>libfoo.2.3.1</code>，SO-NAME 是 <code>libfoo.2</code>，但執行環境中只有 <code>libfoo.2.2.1</code>，以 SO-NAME 來看是正確的，但卻可能不相容，因為程式可能使用 <code>libfoo.2.3.1</code> 才有的 interface，這在 <code>libfoo.2.2.1</code> 中找不到，因而執行錯誤。這個問題稱為 Minor-revision Rendezvous Problem。</p>
@@ -388,49 +368,33 @@
 <p>但 Solaris 2.5 的 symbol versioning 有個限制：在一個 shared library 中每個 symbol 只能有一個 version，也就是如果 symbol 是 <code>VERS_1.1</code> 就不能再是 <code>VERS_1.2</code>。這造成如果 interface 只有小修改，例如只加一個參數、依然向後相容（只是擴充，舊有功能不變），由於無法讓新版 library 標示該 symbol 為新版，只能透過增加 major version 來表示 interface 改變，有點小題大作。</p>
 <h4 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h4><p>source code</p>
 <figure class="highlight h"><figcaption><span>foo-1.0.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>foo-1.0.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> (x + y); &#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight h"><figcaption><span>foo-1.1.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>foo-1.1.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> (x + y); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> (x + x); &#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>main1.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo-1.0.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>main2.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo-1.1.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">2</span>, <span class="number">3</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo2(<span class="number">12</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><figcaption><span>foo.1.0.ver</span></figcaption><table><tr><td class="code"><pre><span class="line">VERS_1.0 &#123;</span><br><span class="line">    global:</span><br><span class="line">        foo;</span><br><span class="line">    local:</span><br><span class="line">        *;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><figcaption><span>foo.1.1.ver</span></figcaption><table><tr><td class="code"><pre><span class="line">VERS_1.0 &#123;</span><br><span class="line">    global:</span><br><span class="line">        foo;</span><br><span class="line">    local:</span><br><span class="line">        *;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">VERS_1.1 &#123;</span><br><span class="line">    global:</span><br><span class="line">        foo2;</span><br><span class="line">&#125; VERS_1.0;</span><br></pre></td></tr></table></figure>
-
 <p>library 版本更新的時候，可由新的 symbol 集合看出它的 interface 改動，例如上面 <code>1.1</code> 版繼承了 <code>1.0</code> 版、增加了 symbol <code>foo2</code>。</p>
 <figure class="highlight makefile"><figcaption><span>Makefile</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="section">1.0:</span></span><br><span class="line">        gcc -shared -fPIC foo-1.0.c -Xlinker --version-script foo.1.0.ver -o libfoo.1.0.so</span><br><span class="line">        rm -f libfoo.so</span><br><span class="line">        ln -s libfoo.1.0.so libfoo.so</span><br><span class="line">        gcc main1.c ./libfoo.so -o main1</span><br><span class="line"></span><br><span class="line"><span class="section">1.1:</span></span><br><span class="line">        gcc -shared -fPIC foo-1.1.c -Xlinker --version-script foo.1.1.ver -o libfoo.1.1.so</span><br><span class="line">        rm -f libfoo.so</span><br><span class="line">        ln -s libfoo.1.1.so libfoo.so</span><br><span class="line">        gcc main2.c ./libfoo.so -o main2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
 <p>看看 library 的 export symbol：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.0.so </span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 9 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 00000000000004b0     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10 </span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     4: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line">     6: 0000000000000000     0 FUNC    WEAK  <span class="built_in"> DEFAULT </span> UND __cxa_finalize@GLIBC_2.2.5 (3)</span><br><span class="line">     7: 0000000000000600    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.0</span><br><span class="line">     8: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms libfoo.1.1.so </span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 11 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000528     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10 </span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     4: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line">     6: 0000000000000000     0 FUNC    WEAK  <span class="built_in"> DEFAULT </span> UND __cxa_finalize@GLIBC_2.2.5 (4)</span><br><span class="line">     7: 0000000000000680    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.0</span><br><span class="line">     8: 0000000000000694    14 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo2@@VERS_1.1</span><br><span class="line">     9: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line">    10: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.1</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.0.so </span><br><span class="line"></span><br><span class="line">Symbol table &#x27;.dynsym&#x27; contains<span class="number"> 9 </span>entries:</span><br><span class="line">   Num:    Value          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     0:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  LOCAL  DEFAULT  UND </span><br><span class="line">     1: 00000000000004b0    <span class="number"> 0 </span>SECTION LOCAL  DEFAULT  <span class="number"> 10 </span></span><br><span class="line">     2:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND __gmon_start__</span><br><span class="line">     4:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses</span><br><span class="line">     5:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable</span><br><span class="line">     6:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>FUNC    WEAK   DEFAULT  UND __cxa_finalize@GLIBC_2.2.5 (3)</span><br><span class="line">     7:<span class="number"> 0000000000000600 </span>  <span class="number"> 20 </span>FUNC    GLOBAL DEFAULT  <span class="number"> 12 </span>foo@@VERS_1.0</span><br><span class="line">     8:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>OBJECT  GLOBAL DEFAULT  ABS VERS_1.0</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms libfoo.1.1.so </span><br><span class="line"></span><br><span class="line">Symbol table &#x27;.dynsym&#x27; contains<span class="number"> 11 </span>entries:</span><br><span class="line">   Num:    Value          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     0:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  LOCAL  DEFAULT  UND </span><br><span class="line">     1:<span class="number"> 0000000000000528 </span>   <span class="number"> 0 </span>SECTION LOCAL  DEFAULT  <span class="number"> 10 </span></span><br><span class="line">     2:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND __gmon_start__</span><br><span class="line">     4:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND _Jv_RegisterClasses</span><br><span class="line">     5:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>NOTYPE  WEAK   DEFAULT  UND _ITM_registerTMCloneTable</span><br><span class="line">     6:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>FUNC    WEAK   DEFAULT  UND __cxa_finalize@GLIBC_2.2.5 (4)</span><br><span class="line">     7:<span class="number"> 0000000000000680 </span>  <span class="number"> 20 </span>FUNC    GLOBAL DEFAULT  <span class="number"> 12 </span>foo@@VERS_1.0</span><br><span class="line">     8:<span class="number"> 0000000000000694 </span>  <span class="number"> 14 </span>FUNC    GLOBAL DEFAULT  <span class="number"> 12 </span>foo2@@VERS_1.1</span><br><span class="line">     9:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>OBJECT  GLOBAL DEFAULT  ABS VERS_1.0</span><br><span class="line">    10:<span class="number"> 0000000000000000 </span>   <span class="number"> 0 </span>OBJECT  GLOBAL DEFAULT  ABS VERS_1.1</span><br></pre></td></tr></table></figure>
 <p>兩個 library 的 symbol <code>foo</code> 後面加上 <code>VERS</code> 資訊。如果多個 symbol 集合裡有相同 symbol，第一次出現 symbol 的集合是該 symbol 的 version。另外，會被包含的集合必須先寫。也就是說 symbol version 的前後關係是由 version script 指定的，通常遵照數字順序寫（不然會誤導別人啦）。</p>
 <p>執行檔可以看到使用的 symbol 版本：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms main1</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 8 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     2: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo@VERS_1.0 (2)</span><br><span class="line">     3: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND printf@GLIBC_2.2.5 (3)</span><br><span class="line">     4: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND __libc_start_main@GLIBC_2.2.5 (3)</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     6: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     7: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms main2</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 9 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND </span><br><span class="line">     1: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo2@VERS_1.1 (2)</span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo@VERS_1.0 (3)</span><br><span class="line">     4: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND printf@GLIBC_2.2.5 (4)</span><br><span class="line">     5: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND __libc_start_main@GLIBC_2.2.5 (4)</span><br><span class="line">     6: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     7: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     8: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ readelf <span class="comment">--dyn-syms main1</span></span><br><span class="line"></span><br><span class="line">Symbol <span class="keyword">table</span> <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">8</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     <span class="number">0</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>  UND </span><br><span class="line">     <span class="number">1</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _ITM_deregisterTMCloneTab</span><br><span class="line">     <span class="number">2</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND foo<span class="variable">@VERS</span>_1<span class="number">.0</span> (<span class="number">2</span>)</span><br><span class="line">     <span class="number">3</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND printf<span class="variable">@GLIBC</span>_2<span class="number">.2</span><span class="number">.5</span> (<span class="number">3</span>)</span><br><span class="line">     <span class="number">4</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND __libc_start_main<span class="variable">@GLIBC</span>_2<span class="number">.2</span><span class="number">.5</span> (<span class="number">3</span>)</span><br><span class="line">     <span class="number">5</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND __gmon_start__</span><br><span class="line">     <span class="number">6</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _Jv_RegisterClasses</span><br><span class="line">     <span class="number">7</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _ITM_registerTMCloneTable</span><br><span class="line"></span><br><span class="line">$ readelf <span class="comment">--dyn-syms main2</span></span><br><span class="line"></span><br><span class="line">Symbol <span class="keyword">table</span> <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">9</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     <span class="number">0</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>  UND </span><br><span class="line">     <span class="number">1</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND foo2<span class="variable">@VERS</span>_1<span class="number">.1</span> (<span class="number">2</span>)</span><br><span class="line">     <span class="number">2</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _ITM_deregisterTMCloneTab</span><br><span class="line">     <span class="number">3</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND foo<span class="variable">@VERS</span>_1<span class="number">.0</span> (<span class="number">3</span>)</span><br><span class="line">     <span class="number">4</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND printf<span class="variable">@GLIBC</span>_2<span class="number">.2</span><span class="number">.5</span> (<span class="number">4</span>)</span><br><span class="line">     <span class="number">5</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND __libc_start_main<span class="variable">@GLIBC</span>_2<span class="number">.2</span><span class="number">.5</span> (<span class="number">4</span>)</span><br><span class="line">     <span class="number">6</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND __gmon_start__</span><br><span class="line">     <span class="number">7</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _Jv_RegisterClasses</span><br><span class="line">     <span class="number">8</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _ITM_registerTMCloneTable</span><br></pre></td></tr></table></figure>
 <p>修改 soft link <code>libfoo.so</code> 指向的 library，<code>main1</code> 依然可以正常使用 <code>1.1</code> 版的 library，但 <code>main2</code> 無法使用 <code>1.0</code> 版的 library，會跳 <code>./main2: ./libfoo.so: version &#39;VERS_1.1&#39; not found (required by ./main2)</code> 找不到 symbol 的 error。</p>
 <h3 id="Scoping"><a href="#Scoping" class="headerlink" title="Scoping"></a>Scoping</h3><p>在 symbol 集合裡，<code>local:</code> 的設置會將原本 global 的 symbol 變成 local 的，程式以及其他 shared library 無法使用到這些 symbol。這稱為 scoping 機制，算是補強 ELF 處理 C 的 global symbol scoping，因為 ELF 把所有 global symbol 當作 export symbol，這也是為什麼 Linux 下不需要特別指定哪些 global symbol 要 export 就能 export symbol（windows 就需要）。</p>
 <p>上面的例子裡如果把 <code>foo.1.0.ver</code> 裡 <code>local: *;</code> 拿掉，原本其他的 export symbol 就不會被設成 local：</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.0.so</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 14 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     0: 0000000000000000     0 NOTYPE  LOCAL <span class="built_in"> DEFAULT </span> UND</span><br><span class="line">     1: 0000000000000570     0 SECTION LOCAL <span class="built_in"> DEFAULT </span>  10</span><br><span class="line">     2: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_deregisterTMCloneTab</span><br><span class="line">     3: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND __gmon_start__</span><br><span class="line">     4: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _Jv_RegisterClasses</span><br><span class="line">     5: 0000000000000000     0 NOTYPE  WEAK  <span class="built_in"> DEFAULT </span> UND _ITM_registerTMCloneTable</span><br><span class="line">     6: 0000000000000000     0 FUNC    WEAK  <span class="built_in"> DEFAULT </span> UND __cxa_finalize@GLIBC_2.2.5 (3)</span><br><span class="line">     7: 00000000002009b8     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>  22 _edata</span><br><span class="line">     8: 00000000000006c0    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.0</span><br><span class="line">     9: 00000000002009c0     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>  23 _end</span><br><span class="line">    10: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line">    11: 00000000002009b8     0 NOTYPE  GLOBAL<span class="built_in"> DEFAULT </span>  23 __bss_start</span><br><span class="line">    12: 0000000000000570     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  10 _init</span><br><span class="line">    13: 00000000000006d4     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  13 _fini</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ readelf <span class="comment">--dyn-syms libfoo.1.0.so</span></span><br><span class="line"></span><br><span class="line">Symbol <span class="keyword">table</span> <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">14</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     <span class="number">0</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>  UND</span><br><span class="line">     <span class="number">1</span>: <span class="number">0000000000000570</span>     <span class="number">0</span> SECTION <span class="keyword">LOCAL</span>  <span class="keyword">DEFAULT</span>   <span class="number">10</span></span><br><span class="line">     <span class="number">2</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _ITM_deregisterTMCloneTab</span><br><span class="line">     <span class="number">3</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND __gmon_start__</span><br><span class="line">     <span class="number">4</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _Jv_RegisterClasses</span><br><span class="line">     <span class="number">5</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> NOTYPE  WEAK   <span class="keyword">DEFAULT</span>  UND _ITM_registerTMCloneTable</span><br><span class="line">     <span class="number">6</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    WEAK   <span class="keyword">DEFAULT</span>  UND __cxa_finalize<span class="variable">@GLIBC</span>_2<span class="number">.2</span><span class="number">.5</span> (<span class="number">3</span>)</span><br><span class="line">     <span class="number">7</span>: <span class="number">00000000002009</span>b8     <span class="number">0</span> NOTYPE  <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">22</span> _edata</span><br><span class="line">     <span class="number">8</span>: <span class="number">00000000000006</span>c0    <span class="number">20</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">12</span> foo@<span class="variable">@VERS</span>_1<span class="number">.0</span></span><br><span class="line">     <span class="number">9</span>: <span class="number">00000000002009</span>c0     <span class="number">0</span> NOTYPE  <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">23</span> _end</span><br><span class="line">    <span class="number">10</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> OBJECT  <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  ABS VERS_1<span class="number">.0</span></span><br><span class="line">    <span class="number">11</span>: <span class="number">00000000002009</span>b8     <span class="number">0</span> NOTYPE  <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">23</span> __bss_start</span><br><span class="line">    <span class="number">12</span>: <span class="number">0000000000000570</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">10</span> _init</span><br><span class="line">    <span class="number">13</span>: <span class="number">00000000000006</span>d4     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">13</span> _fini</span><br></pre></td></tr></table></figure>
 
 <h3 id="GCC-對-symbol-version-的擴充"><a href="#GCC-對-symbol-version-的擴充" class="headerlink" title="GCC 對 symbol version 的擴充"></a>GCC 對 symbol version 的擴充</h3><p>GCC 對於 symbol version 提供兩個擴充。第一個是可以指定 symbol 的 version，例如 <code>asm(&quot;.symver foo_new, foo@VERS_1.1&quot;);</code> 指定 <code>foo_new</code> 是 symbol <code>foo</code> 的 <code>1.1</code> 版。</p>
 <p>第二個擴充是允許同個 symbol 有多個版本，這補充了 Solaris 版本機制的限制。例如上面例子裡想在 1.1 版的 <code>foo()</code> 增加一個參數，但希望仍保留舊版功能好能向後相容，這時候就能以指定不同版本來達到。</p>
 <figure class="highlight c"><figcaption><span>foo-1.1.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">asm</span>(<span class="string">&quot;.symver foo_old, foo@VERS_1.0&quot;</span>);</span><br><span class="line"><span class="keyword">asm</span>(<span class="string">&quot;.symver foo_new, foo@@VERS_1.1&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo_old</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; <span class="keyword">return</span> x + y; &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo_new</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span> </span>&#123; <span class="keyword">return</span> (x + y + z); &#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> (x + x); &#125;</span><br></pre></td></tr></table></figure>
-
 <p>兩個 <code>.symver</code> 分別指定 <code>foo_old()</code> 是 <code>foo</code> 的版本 <code>1.0</code>，<code>foo_new()</code> 是版本 <code>1.1</code>。因為已經用 <code>.symver</code> 自訂 <code>foo</code> 這個 symbol，如果又寫 <code>foo()</code> link 時會有 <code>multiple definition</code> 錯誤。<code>foo@@VERS_1.1</code> 表示 <code>foo</code> 預設版本是 <code>1.1</code>，一個 symbol 的預設版號只能有一個，實驗看起來預設版號會影響 compile 執行檔時記錄的 symbol。由於仍然有 <code>1.0</code> 的 <code>foo</code>，<code>main1</code> 用新版 library 仍能正常執行。</p>
 <figure class="highlight h"><figcaption><span>foo-1.1.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> z)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight c"><figcaption><span>main2.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo-1.1.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, foo2(<span class="number">12</span>));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>header 跟 library 檔一起發佈，在 compile 執行檔時讓執行檔知道有什麼 symbol，所以必須要是新版 <code>foo</code> 的 prototype，而且 function name 也要是 <code>foo</code>，而非 <code>foo_new</code>。（我想還是有別的方式可以做到同樣的事情，甚至可以刻意使用舊版 symbol，這只是我認為合理的 library 發佈以及使用方式）</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ readelf --dyn-syms libfoo.1.1.so </span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 12 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     7: 0000000000000690    20 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@VERS_1.0</span><br><span class="line">     8: 00000000000006a4    28 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo@@VERS_1.1</span><br><span class="line">     9: 00000000000006c0    14 FUNC    GLOBAL<span class="built_in"> DEFAULT </span>  12 foo2@@VERS_1.1</span><br><span class="line">    10: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.0</span><br><span class="line">    11: 0000000000000000     0 OBJECT  GLOBAL<span class="built_in"> DEFAULT </span> ABS VERS_1.1</span><br><span class="line"></span><br><span class="line">$ readelf --dyn-syms main2</span><br><span class="line"></span><br><span class="line">Symbol table <span class="string">&#x27;.dynsym&#x27;</span> contains 9 entries:</span><br><span class="line">   Num:    Value          Size<span class="built_in"> Type </span>   Bind   Vis      Ndx Name</span><br><span class="line">     1: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo2@VERS_1.1 (2)</span><br><span class="line">     6: 0000000000000000     0 FUNC    GLOBAL<span class="built_in"> DEFAULT </span> UND foo@VERS_1.1 (2)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">$ readelf <span class="comment">--dyn-syms libfoo.1.1.so </span></span><br><span class="line"></span><br><span class="line">Symbol <span class="keyword">table</span> <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">12</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     <span class="number">7</span>: <span class="number">0000000000000690</span>    <span class="number">20</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">12</span> foo<span class="variable">@VERS</span>_1<span class="number">.0</span></span><br><span class="line">     <span class="number">8</span>: <span class="number">00000000000006</span>a4    <span class="number">28</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">12</span> foo@<span class="variable">@VERS</span>_1<span class="number">.1</span></span><br><span class="line">     <span class="number">9</span>: <span class="number">00000000000006</span>c0    <span class="number">14</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>   <span class="number">12</span> foo2@<span class="variable">@VERS</span>_1<span class="number">.1</span></span><br><span class="line">    <span class="number">10</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> OBJECT  <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  ABS VERS_1<span class="number">.0</span></span><br><span class="line">    <span class="number">11</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> OBJECT  <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  ABS VERS_1<span class="number">.1</span></span><br><span class="line"></span><br><span class="line">$ readelf <span class="comment">--dyn-syms main2</span></span><br><span class="line"></span><br><span class="line">Symbol <span class="keyword">table</span> <span class="string">&#x27;.dynsym&#x27;</span> <span class="keyword">contains</span> <span class="number">9</span> entries:</span><br><span class="line">   Num:    <span class="keyword">Value</span>          Size Type    Bind   Vis      Ndx Name</span><br><span class="line">     <span class="number">1</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND foo2<span class="variable">@VERS</span>_1<span class="number">.1</span> (<span class="number">2</span>)</span><br><span class="line">     <span class="number">6</span>: <span class="number">0000000000000000</span>     <span class="number">0</span> FUNC    <span class="keyword">GLOBAL</span> <span class="keyword">DEFAULT</span>  UND foo<span class="variable">@VERS</span>_1<span class="number">.1</span> (<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
 
 <h2 id="Semantic-Versioning"><a href="#Semantic-Versioning" class="headerlink" title="Semantic Versioning"></a>Semantic Versioning</h2><p>由 <a target="_blank" rel="noopener" href="http://tom.preston-werner.com/">Tom Preston-Werner</a> 提出的 <a target="_blank" rel="noopener" href="http://semver.org/">Semantic Versioning</a> 以 spec 的形式提供了版號規範，例如每個數字代表的意義、何時該增加版號、如何增加版號以及如何區分版本的新舊等等。它定義的版號包含 <code>MAJOR.MINOR.PATCH</code> 三個數字，並且可以加上如 <code>-alpha</code>、<code>-beta</code> 等 pre-release 資訊。概念與上面說的 library 版號類似，interface 有變更時需增加 major verion，增加向後相容的功能時要增加 minor version，修 bug 則增加 patch version，只是它以精準定義的方式描述這些規則。</p>
 <p>當然，它只定義了版號本身的規則，至於「什麼改變是有向後相容？是否更改的 interface？」等問題仍然要由開發者判斷。</p>
@@ -452,7 +416,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Linux/" rel="tag"># Linux</a>
               <a href="/tags/System-Software/" rel="tag"># System Software</a>
@@ -460,34 +424,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/Dynamic-Linking-Relocation/" rel="prev" title="Dynamic Linking Relocation">
-      <i class="fa fa-chevron-left"></i> Dynamic Linking Relocation
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Use-Shared-Library-in-Linux/" rel="next" title="Use Shared Library in Linux">
-      Use Shared Library in Linux <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Dynamic-Linking-Relocation/" rel="prev" title="Dynamic Linking Relocation">
+                  <i class="fa fa-chevron-left"></i> Dynamic Linking Relocation
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Use-Shared-Library-in-Linux/" rel="next" title="Use Shared Library in Linux">
+                  Use Shared Library in Linux <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -498,7 +458,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -507,23 +467,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -534,32 +490,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -569,16 +505,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

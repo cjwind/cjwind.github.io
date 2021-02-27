@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="接下來要 inject dependency object 啦～ Constructor &amp; Setter InjectionConstructor Injection在被測試 class 加新的 constructor 或在原本的 constructor 加新參數，傳進剛抽出來的 interface 的 object，將它存在被測試 class 的 member，被測試 class 裡的">
+<meta name="description" content="接下來要 inject dependency object 啦～ Constructor &amp; Setter InjectionConstructor Injection在被測試 class 加新的 constructor 或在原本的 constructor 加新參數，傳進剛抽出來的 interface 的 object，將它存在被測試 class 的 member，被測試 class 裡的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dependency Injection - Constructor and Setter Injection">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Dependency-Injection-Constructor-and-Setter-Injection/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="Design Pattern">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/Dependency-Injection-Constructor-and-Setter-Injection/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>Dependency Injection - Constructor and Setter Injection | cjwind's note</title>
+<title>Dependency Injection - Constructor and Setter Injection | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Constructor-amp-Setter-Injection"><span class="nav-number">1.</span> <span class="nav-text">Constructor &amp; Setter Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructor-Injection"><span class="nav-number">1.1.</span> <span class="nav-text">Constructor Injection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setter-Injection"><span class="nav-number">1.2.</span> <span class="nav-text">Setter Injection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%B8%AC%E8%A9%A6%E6%80%A7%E8%88%87-class-%E8%AA%9E%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">可測試性與 class 語意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5-factory-%E5%8F%96%E5%BE%97-dependency-object-%E7%9A%84-class"><span class="nav-number">2.</span> <span class="nav-text">以 factory 取得 dependency object 的 class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">系列文章</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Constructor-amp-Setter-Injection"><span class="nav-number">1.</span> <span class="nav-text">Constructor &amp; Setter Injection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructor-Injection"><span class="nav-number">1.1.</span> <span class="nav-text">Constructor Injection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Setter-Injection"><span class="nav-number">1.2.</span> <span class="nav-text">Setter Injection</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%B8%AC%E8%A9%A6%E6%80%A7%E8%88%87-class-%E8%AA%9E%E6%84%8F"><span class="nav-number">1.3.</span> <span class="nav-text">可測試性與 class 語意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5-factory-%E5%8F%96%E5%BE%97-dependency-object-%E7%9A%84-class"><span class="nav-number">2.</span> <span class="nav-text">以 factory 取得 dependency object 的 class</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B3%BB%E5%88%97%E6%96%87%E7%AB%A0"><span class="nav-number">3.</span> <span class="nav-text">系列文章</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Constructor-and-Setter-Injection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Dependency Injection - Constructor and Setter Injection
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2018-12-23 16:51:52" itemprop="dateCreated datePublished" datetime="2018-12-23T16:51:52+08:00">2018-12-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2018-12-23 16:51:52" itemprop="dateCreated datePublished" datetime="2018-12-23T16:51:52+08:00">2018-12-23</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -367,24 +348,16 @@
 <a id="more"></a>
 
 <figure class="highlight cpp"><figcaption><span>IFoo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IFoo</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="keyword">virtual</span> ~IFoo() = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">int</span> <span class="title">bar</span><span class="params">()</span> </span>= <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> IFoo::~IFoo() &#123; &#125;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>Foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;IFoo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> :</span> <span class="keyword">public</span> IFoo &#123;   <span class="comment">// implement IFoo</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">bar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// do something...</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>MyClass.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;IFoo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MyClass(IFoo *pFoo) : m_pFoo(pFoo) &#123;    <span class="comment">// 增加參數</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    ~MyClass() &#123;</span><br><span class="line">        <span class="keyword">delete</span> m_pFoo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        m_pFoo-&gt;bar();      <span class="comment">// 用 member 做事</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    IFoo *m_pFoo;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>FakeFoo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;IFoo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FakeFoo</span> :</span> <span class="keyword">public</span> IFoo &#123;   <span class="comment">// implement IFoo</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">bar</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;   <span class="comment">// fake something...</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;MyClass.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Foo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;FakeFoo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Production code</span></span><br><span class="line">    <span class="function">MyClass <span class="title">obj</span><span class="params">(<span class="keyword">new</span> Foo())</span></span>;</span><br><span class="line">    obj.DoSomething();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Test code</span></span><br><span class="line">    <span class="function">MyClass <span class="title">testObj</span><span class="params">(<span class="keyword">new</span> FakeFoo())</span></span>;</span><br><span class="line">    testObj.DoSomething();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>不同語言對 function 參數以及 constructor 的支援不一，例如 function 參數能不能有預設值、能不能不傳部份參數、constructor 可以有幾個等等，會影響 constructor injection 的實作方式。</p>
 <p>如果 function 參數可以有預設值，以 PHP 為例，實作可以變形成在 constructor 加一個預設值為 <code>null</code> 的參數，在 constructor 中判斷該參數是否為 <code>null</code>，是則產生 depedency object，否則使用傳進來的 object。如此在 production 程式中產生 object 可以不傳參數（假設沒有其他非傳的參數），只在測試中才傳 stub 進被測試 class。這個作法可以不動到 production code 已經使用的被測試 class，在已經寫了 production code 後才加測試很好用。當然這讓 constructor 的參數有 optional 的意思，而非產生 object 的必須參數。</p>
-<figure class="highlight php"><figcaption><span>MyClass.php</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Do sth.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> $foo;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">$foo = <span class="literal">null</span></span>) </span>&#123;  <span class="comment">// 預設 null</span></span><br><span class="line">        <span class="keyword">if</span> ($foo) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;foo = $foo;      <span class="comment">// injection</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;foo = <span class="keyword">new</span> Foo;   <span class="comment">// 沒 injection 時使用 dependency object</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">DoSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;foo-&gt;bar();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Production code</span></span><br><span class="line">$myObj = <span class="keyword">new</span> MyClass;       <span class="comment">// 不需傳參數</span></span><br><span class="line">$myObj-&gt;DoSomething();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Test code</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FakeFoo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Fake sth.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$testObj = <span class="keyword">new</span> MyClass(<span class="keyword">new</span> FakeFoo);    <span class="comment">// inject stub</span></span><br><span class="line">$testObj-&gt;DoSomething();</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight php"><figcaption><span>MyClass.php</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Do sth.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$foo</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$foo</span> = <span class="literal">null</span></span>) </span>&#123;  <span class="comment">// 預設 null</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$foo</span>) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;foo = <span class="variable">$foo</span>;      <span class="comment">// injection</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;foo = <span class="keyword">new</span> Foo;   <span class="comment">// 沒 injection 時使用 dependency object</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">DoSomething</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;foo-&gt;bar();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Production code</span></span><br><span class="line"><span class="variable">$myObj</span> = <span class="keyword">new</span> MyClass;       <span class="comment">// 不需傳參數</span></span><br><span class="line"><span class="variable">$myObj</span>-&gt;DoSomething();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Test code</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FakeFoo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// Fake sth.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$testObj</span> = <span class="keyword">new</span> MyClass(<span class="keyword">new</span> FakeFoo);    <span class="comment">// inject stub</span></span><br><span class="line"><span class="variable">$testObj</span>-&gt;DoSomething();</span><br></pre></td></tr></table></figure>
 <p>C++ 雖然也支援 function 參數預設值，但我不太喜歡用（它在繼承上沒寫好會有些問題），多個 constructor 的例子：</p>
 <figure class="highlight cpp"><figcaption><span>MyClass.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;IFoo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MyClass() : m_pFoo(<span class="keyword">new</span> Foo()) &#123;     <span class="comment">// 一般 constructor</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    MyClass(IFoo *pFoo) : m_pFoo(pFoo) &#123;    <span class="comment">// constructor injection</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    ~MyClass() &#123;</span><br><span class="line">        <span class="keyword">delete</span> m_pFoo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        m_pFoo-&gt;bar();</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    IFoo *m_pFoo;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;MyClass.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;FakeFoo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Production code</span></span><br><span class="line">    MyClass obj;</span><br><span class="line">    obj.DoSomething();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Test code</span></span><br><span class="line">    <span class="function">MyClass <span class="title">testObj</span><span class="params">(<span class="keyword">new</span> FakeFoo())</span></span>;</span><br><span class="line">    testObj.DoSomething();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>這可以看到 constructor injection 的一個問題：當有愈來愈多 dependency，在 constructor 加入參數或加新的 constructor 會變得愈來愈困難，過多的參數或 constructor 也會降低可讀性。constructor 有愈多參數，參數間如果也有 dependency 關係，constructor 本身的邏輯可能會變得比較複雜。解決這個問題有幾種方式：用 parameter object refactoring 或 Inversion of Control (IoC) container。不過我比較喜歡從設計上就讓 class 間的相依關係不那麼複雜。</p>
 <h3 id="Setter-Injection"><a href="#Setter-Injection" class="headerlink" title="Setter Injection"></a>Setter Injection</h3><p>使用被測試 class 的 setter 來 inject 假物件。</p>
 <p>就……就是用 setter，有點懶得寫例子了。(欸</p>
@@ -394,14 +367,10 @@
 <p>由於 factory 用了 static member（讓 setter 存 inject 的 object），test case 的前或後（setup 或 teardown）要還原 factory 的狀態，不然測試間可能會互相干擾。</p>
 <p>繼續用例子來看，一般使用 factory 取得 dependency object 的情況：</p>
 <figure class="highlight cpp"><figcaption><span>FooFactory.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> IFoo* <span class="title">createFoo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Foo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>MyClass.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;IFoo.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;FooFactory.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    MyClass() &#123;</span><br><span class="line">        m_pFoo = FooFactory::createFoo();   <span class="comment">// 直接 call static function 難以 constructor injection</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    ~MyClass() &#123;</span><br><span class="line">        <span class="keyword">delete</span> m_pFoo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">DoSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        m_pFoo-&gt;bar();</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    IFoo *m_pFoo;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
 <p>加 setter 的 factory：</p>
 <figure class="highlight cpp"><figcaption><span>FooFactory.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;Foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooFactory</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">static</span> IFoo* <span class="title">createFoo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (m_pFoo) &#123;</span><br><span class="line">            <span class="keyword">return</span> m_pFoo;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Foo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SetFoo</span><span class="params">(IFoo *foo)</span> </span>&#123;</span><br><span class="line">        m_pFoo = foo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">static</span> IFoo *m_pFoo;    <span class="comment">// static member</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">IFoo* FooFactory::m_pFoo = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight cpp"><figcaption><span>main.cpp</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;MyClass.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;FakeFoo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Test</span></span><br><span class="line">    FooFactory::SetFoo(<span class="keyword">new</span> FakeFoo());  <span class="comment">// inject</span></span><br><span class="line">    MyClass obj;</span><br><span class="line">    obj.DoSomething();</span><br><span class="line">    FooFactory::SetFoo(<span class="literal">NULL</span>);       <span class="comment">// reset factory (使用 test framework 可以用 teardown 機制)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Production</span></span><br><span class="line">    MyClass obj2;</span><br><span class="line">    obj2.DoSomething();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
 <li><a href="/Dependency-Injection-Extract-Dependency-Object/">Dependency Injection - Extract Dependency Object</a></li>
 <li><a href="/Dependency-Injection-Constructor-and-Setter-Injection/">Dependency Injection - Constructor and Setter Injection</a></li>
@@ -414,7 +383,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/Unit-Test/" rel="tag"># Unit Test</a>
               <a href="/tags/Design-Pattern/" rel="tag"># Design Pattern</a>
@@ -422,34 +391,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/Dependency-Injection-Extract-Dependency-Object/" rel="prev" title="Dependency Injection - Extract Dependency Object">
-      <i class="fa fa-chevron-left"></i> Dependency Injection - Extract Dependency Object
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Dependency-Injection-Extract-and-Override/" rel="next" title="Dependency Injection - Extract and Override">
-      Dependency Injection - Extract and Override <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Dependency-Injection-Extract-Dependency-Object/" rel="prev" title="Dependency Injection - Extract Dependency Object">
+                  <i class="fa fa-chevron-left"></i> Dependency Injection - Extract Dependency Object
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Dependency-Injection-Extract-and-Override/" rel="next" title="Dependency Injection - Extract and Override">
+                  Dependency Injection - Extract and Override <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -460,7 +425,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -469,23 +434,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -496,32 +457,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -531,16 +472,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {

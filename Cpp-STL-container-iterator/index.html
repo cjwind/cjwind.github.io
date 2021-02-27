@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.2">
+<meta name="generator" content="Hexo 5.3.0">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,14 +15,14 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","scheme":"Gemini","version":"8.0.0-rc.5","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"path":"search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-
-  <meta name="description" content="trace 聽說比較好讀的 LLVM libcxx。寫法是 template 所以 implementation 都在 header file 裡，這裡以 list 為例。 LLVM libcxx：http:&#x2F;&#x2F;libcxx.llvm.org&#x2F;index.html 首先，class list 繼承 __list_imp。 523 template &lt;class _Tp, class _All">
+<meta name="description" content="trace 聽說比較好讀的 LLVM libcxx。寫法是 template 所以 implementation 都在 header file 裡，這裡以 list 為例。 LLVM libcxx：http:&#x2F;&#x2F;libcxx.llvm.org&#x2F;index.html 首先，class list 繼承 __list_imp。 523 template &lt;class _Tp, class _All">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++ STL container interator">
 <meta property="og:url" content="http://www.cjwind.idv.tw/Cpp-STL-container-iterator/index.html">
@@ -34,6 +36,7 @@
 <meta property="article:tag" content="STL">
 <meta name="twitter:card" content="summary">
 
+
 <link rel="canonical" href="http://www.cjwind.idv.tw/Cpp-STL-container-iterator/">
 
 
@@ -46,8 +49,7 @@
     lang   : 'en'
   };
 </script>
-
-  <title>C++ STL container interator | cjwind's note</title>
+<title>C++ STL container interator | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -58,8 +60,6 @@
         gtag('config', 'UA-62800351-2');
       }
     </script>
-
-
 
 
 
@@ -103,14 +103,13 @@
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container">
-    <div class="headband"></div>
+  <div class="headband"></div>
 
-    <main class="main">
-      <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-        <div class="header-inner"><div class="site-brand-container">
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
         <span class="toggle-line"></span>
@@ -124,6 +123,7 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
+      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -136,37 +136,13 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
-
-  </li>
-        <li class="menu-item menu-item-projects">
-
-    <a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a>
-
-  </li>
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+        <li class="menu-item menu-item-projects"><a href="/projects/" rel="section"><i class="fa fa-code fa-fw"></i>Projects</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
         </a>
@@ -177,8 +153,7 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
@@ -187,12 +162,12 @@
            placeholder="Searching..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
     <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
@@ -201,9 +176,9 @@
   </div>
 
 </div>
-          
+        
   
-  <div class="toggle sidebar-toggle">
+  <div class="toggle sidebar-toggle" role="button">
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
     <span class="toggle-line"></span>
@@ -221,41 +196,42 @@
         </li>
       </ul>
 
-      <!--noindex-->
-      <section class="post-toc-wrap sidebar-panel">
-          <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%B3%87%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">其他資料</span></a></li></ol></div>
-      </section>
-      <!--/noindex-->
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%B3%87%E6%96%99"><span class="nav-number">1.</span> <span class="nav-text">其他資料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
 
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">cjwind</p>
   <div class="site-description" itemprop="description"></div>
 </div>
-<div class="site-state-wrap animated">
+<div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
-  <div class="links-of-author animated">
+  <div class="links-of-author site-overview-item animated">
       <span class="links-of-author-item">
         <a href="https://github.com/cjwind" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;cjwind" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
       </span>
@@ -271,39 +247,44 @@
       <span class="links-of-author-item">
         <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
       </span>
+      <span class="links-of-author-item">
+        <a href="https://ko-fi.com/C0C812X69" title="Donate → https:&#x2F;&#x2F;ko-fi.com&#x2F;C0C812X69" rel="noopener" target="_blank"><i class="fas fa-donate fa-fw"></i>Donate</a>
+      </span>
   </div>
 
 
 
-      </section>
+        </div>
+      </div>
     </div>
   </aside>
-  <div id="sidebar-dimmer"></div>
+  <div class="sidebar-dimmer"></div>
 
 
-      </header>
+    </header>
 
-      
-  <div class="back-to-top">
+    
+  <div class="back-to-top" role="button">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
 <noscript>
-  <div id="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
 
 
-      <div class="main-inner">
-        
+    <div class="main-inner post posts-expand">
 
-        <div class="content post posts-expand">
-          
 
-    
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
     <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cpp-STL-container-iterator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -315,31 +296,30 @@
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="cjwind's note">
     </span>
-
-    
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           C++ STL container interator
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2016-11-01 23:16:36" itemprop="dateCreated datePublished" datetime="2016-11-01T23:16:36+08:00">2016-11-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-              </span>
+      <time title="Created: 2016-11-01 23:16:36" itemprop="dateCreated datePublished" datetime="2016-11-01T23:16:36+08:00">2016-11-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
 
-          
+  
   
   <span class="post-meta-item">
     
@@ -354,6 +334,7 @@
   </span>
   
   
+</div>
 
         </div>
       </header>
@@ -365,26 +346,20 @@
         <p>trace 聽說比較好讀的 LLVM libcxx。寫法是 template 所以 implementation 都在 header file 裡，這裡以 list 為例。</p>
 <p>LLVM libcxx：<a target="_blank" rel="noopener" href="http://libcxx.llvm.org/index.html">http://libcxx.llvm.org/index.html</a></p>
 <p>首先，class <code>list</code> 繼承 <code>__list_imp</code>。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">523</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class">524 <span class="title">class</span> __<span class="title">list_imp</span></span></span><br><span class="line"><span class="class">525 &#123;</span></span><br><span class="line"><span class="number">526</span>     __list_imp(<span class="keyword">const</span> __list_imp&amp;);</span><br><span class="line"><span class="number">527</span>     __list_imp&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> __list_imp&amp;);</span><br><span class="line"><span class="number">528</span> <span class="keyword">protected</span>:</span><br><span class="line"><span class="number">529</span>     <span class="keyword">typedef</span> _Tp                                                     value_type;</span><br><span class="line"><span class="number">533</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::void_pointer                   __void_pointer;</span><br><span class="line"><span class="number">534</span>     <span class="keyword">typedef</span> __list_iterator&lt;value_type, __void_pointer&gt;             iterator;</span><br><span class="line"><span class="number">536</span>     <span class="keyword">typedef</span> __list_node_base&lt;value_type, __void_pointer&gt;            __node_base;</span><br><span class="line">...</span><br><span class="line"><span class="number">552</span>     __node_base __end_;</span><br><span class="line">...</span><br><span class="line"><span class="number">587</span>     <span class="function">iterator <span class="title">begin</span><span class="params">()</span> _NOEXCEPT</span></span><br><span class="line"><span class="function">588     </span>&#123;</span><br><span class="line"><span class="number">589</span> <span class="meta">#<span class="meta-keyword">if</span> _LIBCPP_DEBUG_LEVEL &gt;= 2</span></span><br><span class="line"><span class="number">590</span>         <span class="keyword">return</span> iterator(__end_.__next_, <span class="keyword">this</span>);</span><br><span class="line"><span class="number">591</span> <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="number">592</span>         <span class="keyword">return</span> iterator(__end_.__next_);</span><br><span class="line"><span class="number">593</span> <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="number">594</span>     &#125;</span><br><span class="line">...</span><br><span class="line"><span class="number">805</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span> /*= <span class="title">allocator</span>&lt;_Tp&gt;*/&gt;</span></span><br><span class="line"><span class="class">806 <span class="title">class</span> _<span class="title">LIBCPP_TYPE_VIS_ONLY</span> <span class="title">list</span></span></span><br><span class="line"><span class="class">807     :</span> <span class="keyword">private</span> __list_imp&lt;_Tp, _Alloc&gt;</span><br><span class="line"><span class="number">808</span> &#123;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">523</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="number">524</span> <span class="class"><span class="keyword">class</span> __<span class="title">list_imp</span></span></span><br><span class="line"><span class="class">525 &#123;</span></span><br><span class="line"><span class="number">526</span>     __list_imp(<span class="keyword">const</span> __list_imp&amp;);</span><br><span class="line"><span class="number">527</span>     __list_imp&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> __list_imp&amp;);</span><br><span class="line"><span class="number">528</span> <span class="keyword">protected</span>:</span><br><span class="line"><span class="number">529</span>     <span class="keyword">typedef</span> _Tp                                                     value_type;</span><br><span class="line"><span class="number">533</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> __alloc_traits::void_pointer                   __void_pointer;</span><br><span class="line"><span class="number">534</span>     <span class="keyword">typedef</span> __list_iterator&lt;value_type, __void_pointer&gt;             iterator;</span><br><span class="line"><span class="number">536</span>     <span class="keyword">typedef</span> __list_node_base&lt;value_type, __void_pointer&gt;            __node_base;</span><br><span class="line">...</span><br><span class="line"><span class="number">552</span>     __node_base __end_;</span><br><span class="line">...</span><br><span class="line"><span class="number">587</span>     <span class="function">iterator <span class="title">begin</span><span class="params">()</span> _NOEXCEPT</span></span><br><span class="line"><span class="function">588     </span>&#123;</span><br><span class="line"><span class="number">589</span> <span class="meta">#<span class="meta-keyword">if</span> _LIBCPP_DEBUG_LEVEL &gt;= 2</span></span><br><span class="line"><span class="number">590</span>         <span class="keyword">return</span> iterator(__end_.__next_, <span class="keyword">this</span>);</span><br><span class="line"><span class="number">591</span> <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="number">592</span>         <span class="keyword">return</span> iterator(__end_.__next_);</span><br><span class="line"><span class="number">593</span> <span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="number">594</span>     &#125;</span><br><span class="line">...</span><br><span class="line"><span class="number">805</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">Alloc</span> /*=</span> allocator&lt;_Tp&gt;*/&gt;</span><br><span class="line"><span class="number">806</span> <span class="class"><span class="keyword">class</span> _<span class="title">LIBCPP_TYPE_VIS_ONLY</span> <span class="title">list</span></span></span><br><span class="line"><span class="class">807     :</span> <span class="keyword">private</span> __list_imp&lt;_Tp, _Alloc&gt;</span><br><span class="line"><span class="number">808</span> &#123;</span><br></pre></td></tr></table></figure>
 <p>從 <code>__list_imp::begin()</code> 開始，<code>iterator</code> 在 line 534 被定義為 <code>__list_iterator&lt;value_type, __void_pointer&gt;</code>，<code>__list_iterator</code> 是個 class：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">273</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">VoidPtr</span>&gt;</span></span><br><span class="line"><span class="class">274 <span class="title">class</span> _<span class="title">LIBCPP_TYPE_VIS_ONLY</span> __<span class="title">list_iterator</span></span></span><br><span class="line"><span class="class">275 &#123;</span></span><br><span class="line"><span class="number">276</span>     <span class="keyword">typedef</span> __list_node_pointer_traits&lt;_Tp, _VoidPtr&gt; _NodeTraits;</span><br><span class="line"><span class="number">277</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__link_pointer __link_pointer;</span><br><span class="line"><span class="number">278</span> </span><br><span class="line"><span class="number">279</span>     __link_pointer __ptr_;</span><br><span class="line"><span class="number">280</span> </span><br><span class="line"><span class="number">281</span> <span class="meta">#<span class="meta-keyword">if</span> _LIBCPP_DEBUG_LEVEL &gt;= 2</span></span><br><span class="line"><span class="number">282</span>     _LIBCPP_INLINE_VISIBILITY</span><br><span class="line"><span class="number">283</span>     <span class="keyword">explicit</span> __list_iterator(__link_pointer __p, <span class="keyword">const</span> <span class="keyword">void</span>* __c) _NOEXCEPT</span><br><span class="line"><span class="number">284</span>         : __ptr_(__p)</span><br><span class="line"><span class="number">285</span>     &#123;</span><br><span class="line"><span class="number">286</span>         __get_db()-&gt;__insert_ic(<span class="keyword">this</span>, __c);</span><br><span class="line"><span class="number">287</span>     &#125;</span><br><span class="line"><span class="number">288</span> <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="number">289</span>     _LIBCPP_INLINE_VISIBILITY</span><br><span class="line"><span class="number">290</span>     <span class="keyword">explicit</span> __list_iterator(__link_pointer __p) _NOEXCEPT : __ptr_(__p) &#123;&#125;</span><br><span class="line"><span class="number">291</span> <span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">273</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">VoidPtr</span>&gt;</span></span><br><span class="line"><span class="number">274</span> <span class="class"><span class="keyword">class</span> _<span class="title">LIBCPP_TYPE_VIS_ONLY</span> __<span class="title">list_iterator</span></span></span><br><span class="line"><span class="class">275 &#123;</span></span><br><span class="line"><span class="number">276</span>     <span class="keyword">typedef</span> __list_node_pointer_traits&lt;_Tp, _VoidPtr&gt; _NodeTraits;</span><br><span class="line"><span class="number">277</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__link_pointer __link_pointer;</span><br><span class="line"><span class="number">278</span> </span><br><span class="line"><span class="number">279</span>     __link_pointer __ptr_;</span><br><span class="line"><span class="number">280</span> </span><br><span class="line"><span class="number">281</span> <span class="meta">#<span class="meta-keyword">if</span> _LIBCPP_DEBUG_LEVEL &gt;= 2</span></span><br><span class="line"><span class="number">282</span>     _LIBCPP_INLINE_VISIBILITY</span><br><span class="line"><span class="number">283</span>     <span class="keyword">explicit</span> __list_iterator(__link_pointer __p, <span class="keyword">const</span> <span class="keyword">void</span>* __c) _NOEXCEPT</span><br><span class="line"><span class="number">284</span>         : __ptr_(__p)</span><br><span class="line"><span class="number">285</span>     &#123;</span><br><span class="line"><span class="number">286</span>         __get_db()-&gt;__insert_ic(<span class="keyword">this</span>, __c);</span><br><span class="line"><span class="number">287</span>     &#125;</span><br><span class="line"><span class="number">288</span> <span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="number">289</span>     _LIBCPP_INLINE_VISIBILITY</span><br><span class="line"><span class="number">290</span>     <span class="keyword">explicit</span> __list_iterator(__link_pointer __p) _NOEXCEPT : __ptr_(__p) &#123;&#125;</span><br><span class="line"><span class="number">291</span> <span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 <p>在 <code>__list_iterator</code> constructor 存下傳進來的 <code>__link_pointer</code>，也就是 <code>__list_imp::__end_.__next_</code>。<code>__list_node_pointer_traits</code> 是個 struct，裡面定義了 type <code>__link_pointer</code>，然後這東西追下去有點沒完沒了，照字面意思當它是個 pointer 吧。</p>
 <p><code>__end_</code> 是個 <code>__node_base</code>，也就是 <code>__list_node_base&lt;value_type, __void_pointer&gt;</code>：</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">228</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">VoidPtr</span>&gt;</span></span><br><span class="line"><span class="class">229 <span class="title">struct</span> __<span class="title">list_node_base</span></span></span><br><span class="line"><span class="class">230 &#123;</span></span><br><span class="line"><span class="number">231</span>     <span class="keyword">typedef</span> __list_node_pointer_traits&lt;_Tp, _VoidPtr&gt; _NodeTraits;</span><br><span class="line"><span class="number">232</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__node_pointer __node_pointer;</span><br><span class="line"><span class="number">233</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__base_pointer __base_pointer;</span><br><span class="line"><span class="number">234</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__link_pointer __link_pointer;</span><br><span class="line"><span class="number">235</span> </span><br><span class="line"><span class="number">236</span>     __link_pointer __prev_;</span><br><span class="line"><span class="number">237</span>     __link_pointer __next_;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">228</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">VoidPtr</span>&gt;</span></span><br><span class="line"><span class="number">229</span> <span class="class"><span class="keyword">struct</span> __<span class="title">list_node_base</span></span></span><br><span class="line"><span class="class">230 &#123;</span></span><br><span class="line"><span class="number">231</span>     <span class="keyword">typedef</span> __list_node_pointer_traits&lt;_Tp, _VoidPtr&gt; _NodeTraits;</span><br><span class="line"><span class="number">232</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__node_pointer __node_pointer;</span><br><span class="line"><span class="number">233</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__base_pointer __base_pointer;</span><br><span class="line"><span class="number">234</span>     <span class="keyword">typedef</span> <span class="keyword">typename</span> _NodeTraits::__link_pointer __link_pointer;</span><br><span class="line"><span class="number">235</span> </span><br><span class="line"><span class="number">236</span>     __link_pointer __prev_;</span><br><span class="line"><span class="number">237</span>     __link_pointer __next_;</span><br></pre></td></tr></table></figure>
 <p>那麼 <code>__end_</code> 又是做什麼用的呢？我猜它跟 list 的最後一個 node 之類的有關係，所以看看 <code>push_back()</code> 是不是會動到它。</p>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">1537</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class">1538 <span class="title">void</span></span></span><br><span class="line"><span class="class">1539 <span class="title">list</span>&lt;_Tp, _Alloc&gt;:</span>:push_front(<span class="keyword">const</span> value_type&amp; __x)</span><br><span class="line"><span class="number">1540</span> &#123;</span><br><span class="line"><span class="number">1541</span>     __node_allocator&amp; __na = base::__node_alloc();</span><br><span class="line"><span class="number">1542</span>     <span class="keyword">typedef</span> __allocator_destructor&lt;__node_allocator&gt; _Dp;</span><br><span class="line"><span class="number">1543</span>     <span class="built_in">unique_ptr</span>&lt;__node, _Dp&gt; __hold(__node_alloc_traits::allocate(__na, <span class="number">1</span>), _Dp(__na, <span class="number">1</span>));</span><br><span class="line"><span class="number">1544</span>     __node_alloc_traits::construct(__na, _VSTD::addressof(__hold-&gt;__value_), __x);</span><br><span class="line"><span class="number">1545</span>     __link_pointer __nl = __hold-&gt;__as_link();</span><br><span class="line"><span class="number">1546</span>     __link_nodes_at_front(__nl, __nl);</span><br><span class="line"><span class="number">1547</span>     ++base::__sz();</span><br><span class="line"><span class="number">1548</span>     __hold.release();</span><br><span class="line"><span class="number">1549</span> &#125;</span><br><span class="line"><span class="number">1550</span> </span><br><span class="line"><span class="number">1551</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class">1552 <span class="title">void</span></span></span><br><span class="line"><span class="class">1553 <span class="title">list</span>&lt;_Tp, _Alloc&gt;:</span>:push_back(<span class="keyword">const</span> value_type&amp; __x)</span><br><span class="line"><span class="number">1554</span> &#123;</span><br><span class="line"><span class="number">1555</span>     __node_allocator&amp; __na = base::__node_alloc();</span><br><span class="line"><span class="number">1556</span>     <span class="keyword">typedef</span> __allocator_destructor&lt;__node_allocator&gt; _Dp;</span><br><span class="line"><span class="number">1557</span>     <span class="built_in">unique_ptr</span>&lt;__node, _Dp&gt; __hold(__node_alloc_traits::allocate(__na, <span class="number">1</span>), _Dp(__na, <span class="number">1</span>));</span><br><span class="line"><span class="number">1558</span>     __node_alloc_traits::construct(__na, _VSTD::addressof(__hold-&gt;__value_), __x);</span><br><span class="line"><span class="number">1559</span>     __link_nodes_at_back(__hold.get()-&gt;__as_link(), __hold.get()-&gt;__as_link());</span><br><span class="line"><span class="number">1560</span>     ++base::__sz();</span><br><span class="line"><span class="number">1561</span>     __hold.release();</span><br><span class="line"><span class="number">1562</span> &#125;</span><br><span class="line">...</span><br><span class="line"><span class="number">1099</span> <span class="comment">// Link in nodes [__f, __l] at the front of the list</span></span><br><span class="line"><span class="number">1100</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class">1101 <span class="title">inline</span></span></span><br><span class="line"><span class="class">1102 <span class="title">void</span></span></span><br><span class="line"><span class="class">1103 <span class="title">list</span>&lt;_Tp, _Alloc&gt;:</span>:__link_nodes_at_front(__link_pointer __f, __link_pointer __l)</span><br><span class="line"><span class="number">1104</span> &#123;</span><br><span class="line"><span class="number">1105</span>     __f-&gt;__prev_ = base::__end_as_link();</span><br><span class="line"><span class="number">1106</span>     __l-&gt;__next_ = base::__end_.__next_;</span><br><span class="line"><span class="number">1107</span>     __l-&gt;__next_-&gt;__prev_ = __l;</span><br><span class="line"><span class="number">1108</span>     base::__end_.__next_ = __f;</span><br><span class="line"><span class="number">1109</span> &#125;</span><br><span class="line"><span class="number">1110</span> </span><br><span class="line"><span class="number">1111</span> <span class="comment">// Link in nodes [__f, __l] at the front of the list</span></span><br><span class="line"><span class="number">1112</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="title">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="class">1113 <span class="title">inline</span></span></span><br><span class="line"><span class="class">1114 <span class="title">void</span></span></span><br><span class="line"><span class="class">1115 <span class="title">list</span>&lt;_Tp, _Alloc&gt;:</span>:__link_nodes_at_back(__link_pointer __f, __link_pointer __l)</span><br><span class="line"><span class="number">1116</span> &#123;</span><br><span class="line"><span class="number">1117</span>     __l-&gt;__next_ = base::__end_as_link();</span><br><span class="line"><span class="number">1118</span>     __f-&gt;__prev_ = base::__end_.__prev_;</span><br><span class="line"><span class="number">1119</span>     __f-&gt;__prev_-&gt;__next_ = __f;</span><br><span class="line"><span class="number">1120</span>     base::__end_.__prev_ = __l;</span><br><span class="line"><span class="number">1121</span> &#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">1537</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="number">1538</span> <span class="keyword">void</span></span><br><span class="line"><span class="number">1539</span> <span class="built_in">list</span>&lt;_Tp, _Alloc&gt;::push_front(<span class="keyword">const</span> value_type&amp; __x)</span><br><span class="line"><span class="number">1540</span> &#123;</span><br><span class="line"><span class="number">1541</span>     __node_allocator&amp; __na = base::__node_alloc();</span><br><span class="line"><span class="number">1542</span>     <span class="keyword">typedef</span> __allocator_destructor&lt;__node_allocator&gt; _Dp;</span><br><span class="line"><span class="number">1543</span>     <span class="built_in">unique_ptr</span>&lt;__node, _Dp&gt; __hold(__node_alloc_traits::allocate(__na, <span class="number">1</span>), _Dp(__na, <span class="number">1</span>));</span><br><span class="line"><span class="number">1544</span>     __node_alloc_traits::construct(__na, _VSTD::addressof(__hold-&gt;__value_), __x);</span><br><span class="line"><span class="number">1545</span>     __link_pointer __nl = __hold-&gt;__as_link();</span><br><span class="line"><span class="number">1546</span>     __link_nodes_at_front(__nl, __nl);</span><br><span class="line"><span class="number">1547</span>     ++base::__sz();</span><br><span class="line"><span class="number">1548</span>     __hold.release();</span><br><span class="line"><span class="number">1549</span> &#125;</span><br><span class="line"><span class="number">1550</span> </span><br><span class="line"><span class="number">1551</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="number">1552</span> <span class="keyword">void</span></span><br><span class="line"><span class="number">1553</span> <span class="built_in">list</span>&lt;_Tp, _Alloc&gt;::push_back(<span class="keyword">const</span> value_type&amp; __x)</span><br><span class="line"><span class="number">1554</span> &#123;</span><br><span class="line"><span class="number">1555</span>     __node_allocator&amp; __na = base::__node_alloc();</span><br><span class="line"><span class="number">1556</span>     <span class="keyword">typedef</span> __allocator_destructor&lt;__node_allocator&gt; _Dp;</span><br><span class="line"><span class="number">1557</span>     <span class="built_in">unique_ptr</span>&lt;__node, _Dp&gt; __hold(__node_alloc_traits::allocate(__na, <span class="number">1</span>), _Dp(__na, <span class="number">1</span>));</span><br><span class="line"><span class="number">1558</span>     __node_alloc_traits::construct(__na, _VSTD::addressof(__hold-&gt;__value_), __x);</span><br><span class="line"><span class="number">1559</span>     __link_nodes_at_back(__hold.get()-&gt;__as_link(), __hold.get()-&gt;__as_link());</span><br><span class="line"><span class="number">1560</span>     ++base::__sz();</span><br><span class="line"><span class="number">1561</span>     __hold.release();</span><br><span class="line"><span class="number">1562</span> &#125;</span><br><span class="line">...</span><br><span class="line"><span class="number">1099</span> <span class="comment">// Link in nodes [__f, __l] at the front of the list</span></span><br><span class="line"><span class="number">1100</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="number">1101</span> <span class="keyword">inline</span></span><br><span class="line"><span class="number">1102</span> <span class="keyword">void</span></span><br><span class="line"><span class="number">1103</span> <span class="built_in">list</span>&lt;_Tp, _Alloc&gt;::__link_nodes_at_front(__link_pointer __f, __link_pointer __l)</span><br><span class="line"><span class="number">1104</span> &#123;</span><br><span class="line"><span class="number">1105</span>     __f-&gt;__prev_ = base::__end_as_link();</span><br><span class="line"><span class="number">1106</span>     __l-&gt;__next_ = base::__end_.__next_;</span><br><span class="line"><span class="number">1107</span>     __l-&gt;__next_-&gt;__prev_ = __l;</span><br><span class="line"><span class="number">1108</span>     base::__end_.__next_ = __f;</span><br><span class="line"><span class="number">1109</span> &#125;</span><br><span class="line"><span class="number">1110</span> </span><br><span class="line"><span class="number">1111</span> <span class="comment">// Link in nodes [__f, __l] at the front of the list</span></span><br><span class="line"><span class="number">1112</span> <span class="keyword">template</span> &lt;<span class="class"><span class="keyword">class</span> _<span class="title">Tp</span>, <span class="keyword">class</span> _<span class="title">Alloc</span>&gt;</span></span><br><span class="line"><span class="number">1113</span> <span class="keyword">inline</span></span><br><span class="line"><span class="number">1114</span> <span class="keyword">void</span></span><br><span class="line"><span class="number">1115</span> <span class="built_in">list</span>&lt;_Tp, _Alloc&gt;::__link_nodes_at_back(__link_pointer __f, __link_pointer __l)</span><br><span class="line"><span class="number">1116</span> &#123;</span><br><span class="line"><span class="number">1117</span>     __l-&gt;__next_ = base::__end_as_link();</span><br><span class="line"><span class="number">1118</span>     __f-&gt;__prev_ = base::__end_.__prev_;</span><br><span class="line"><span class="number">1119</span>     __f-&gt;__prev_-&gt;__next_ = __f;</span><br><span class="line"><span class="number">1120</span>     base::__end_.__prev_ = __l;</span><br><span class="line"><span class="number">1121</span> &#125;</span><br></pre></td></tr></table></figure>
 <p><code>list</code> 繼承 <code>__list_imp</code>，所以 <code>__link_nodes_at_front()</code> 的 <code>base::__end_</code> 是 <code>__list_imp</code> 的 <code>__end_</code>。從上面四個 function 看起來，<code>__end_.__prev_</code> 指到 list 的最後一個 node，<code>__end_.__next_</code> 指向 list 第一個 node。也就是說，<code>__end_</code> 是用來記錄 list 的第一個及最後一個 node。</p>
 <p>到這裡回頭看 <code>begin()</code>，它生了個 <code>__list_iterator</code> 並把 <code>list</code> 第一個 node 的 address 丟給 <code>__list_iterator</code>，<code>__list_iterator</code> 將 address 記在 <code>__ptr_</code>。</p>
 <p>最後，iterator 如何取值跟移動。</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">350</span>     _LIBCPP_INLINE_VISIBILITY</span><br><span class="line"><span class="number">351</span>     pointer <span class="keyword">operator</span>-&gt;() <span class="keyword">const</span></span><br><span class="line"><span class="number">352</span>     &#123;</span><br><span class="line"><span class="number">357</span>         <span class="keyword">return</span> pointer_traits&lt;pointer&gt;::pointer_to(__ptr_-&gt;__as_node()-&gt;__value_);</span><br><span class="line"><span class="number">358</span>     &#125;</span><br></pre></td></tr></table></figure>
-
 <p>就是直接拿 value。XD</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="number">360</span>     _LIBCPP_INLINE_VISIBILITY</span><br><span class="line"><span class="number">361</span>     __list_iterator&amp; <span class="keyword">operator</span>++()</span><br><span class="line"><span class="number">362</span>     &#123;</span><br><span class="line"><span class="number">367</span>         __ptr_ = __ptr_-&gt;__next_;</span><br><span class="line"><span class="number">368</span>         <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line"><span class="number">369</span>     &#125;</span><br></pre></td></tr></table></figure>
-
 <p>透過 <code>__next_</code> 移到下一個 node。</p>
 <p>略過很多太細節的 struct，只是想知道 STL 的 iterator 大致是如何取值以及如何做「下一個」的動作的。總結，<code>__list_iterator</code> 是透過 pointer 去 access <code>__list_imp</code> 的內部資料。</p>
 <h2 id="其他資料"><a href="#其他資料" class="headerlink" title="其他資料"></a>其他資料</h2><ul>
@@ -397,7 +372,7 @@
     
     
 
-      <footer class="post-footer">
+    <footer class="post-footer">
           <div class="post-tags">
               <a href="/tags/C/" rel="tag"># C++</a>
               <a href="/tags/STL/" rel="tag"># STL</a>
@@ -405,34 +380,30 @@
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/Composite-Pattern/" rel="prev" title="Composite Pattern">
-      <i class="fa fa-chevron-left"></i> Composite Pattern
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/Design-Principle/" rel="next" title="Design Principle">
-      Design Principle <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/Composite-Pattern/" rel="prev" title="Composite Pattern">
+                  <i class="fa fa-chevron-left"></i> Composite Pattern
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/Design-Principle/" rel="next" title="Design Principle">
+                  Design Principle <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
+</div>
 
 
 
-        </div>
-        
+
+
+
     
-  <div class="comments">
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-    </div>
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
   </div>
   
 
@@ -443,7 +414,7 @@
       activeClass = localStorage.getItem('comments_active') || activeClass;
     }
     if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
       if (activeTab) {
         activeTab.click();
       }
@@ -452,23 +423,19 @@
   if (CONFIG.comments.storage) {
     window.addEventListener('tabs:click', event => {
       if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
+      const commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
   }
 </script>
+</div>
+  </main>
 
-      </div>
-    </main>
+  <footer class="footer">
+    <div class="footer-inner">
 
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
 
 <div class="copyright">
-  
   &copy; 
   <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
@@ -479,32 +446,12 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
   </div>
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
   
-  <script src="/lib/anime.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-  
-
-
-
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
 
   
 <script src="/js/local-search.js"></script>
@@ -514,16 +461,11 @@
 
 
 
-
-
-
-
-
-
-
   
 
-  
+
+
+
 
 <script>
   function loadCount() {
