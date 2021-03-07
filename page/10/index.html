@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,93 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/select/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/select/" class="post-title-link" itemprop="url">select()</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-03-27 15:16:20" itemprop="dateCreated datePublished" datetime="2016-03-27T15:16:20+08:00">2016-03-27</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/select/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="select/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>由 kernel 注意某些 fd 是否 active（readable、writable 及有 error），有則 return 讓 application process 對 active 的 fd 做相應的處理。用 <code>select()</code> 可避免 application process 去 polling 看各個 socket 是否 active、浪費 CPU 資源。如果沒有 fd active、沒設 timeout、沒有 signal 打斷，<code>select()</code> 是 blocking。</p>
+<p>正常狀況下 <code>select()</code> return 三個 fdset 共有多少 fd active。timeout 時 return 0。收到 signal return -1 且 errno 設為 <code>EINTR</code>，不會測試 fd 也不會修改 fd_set，所以不能用 fd 判斷是否 active。<code>select()</code> 之所以在被 signal 打斷時不修改 fd_set，是為了避免 <code>select()</code> 跟 signal handler 不斷修改同一個 flag 造成 infinite loop。例如 <code>select()</code> 發現某 flag 是 0 會將 flag 設為 1，而某個 signal handler 遇到 flag 是 1 又把 flag 設為 0，沒完沒了。</p>
+<p><code>pselect()</code> 可設定擋住哪些 signal，讓這些 signal 不打斷 <code>pselect()</code>。</p>
+<h2 id="Sample-Code"><a href="#Sample-Code" class="headerlink" title="Sample Code"></a>Sample Code</h2><figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXBUF 1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreateListenSock</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">run</span>(<span class="number">8899</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fd_set afdset, rfdset, wfdset, efdset;</span><br><span class="line">    <span class="keyword">int</span> listenfd = CreateListenSock(listenPort, qlen);</span><br><span class="line">    <span class="keyword">int</span> maxfd = listenfd;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; fds;</span><br><span class="line">    <span class="keyword">bool</span> bNeedWrite = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    FD_ZERO(&amp;afdset); FD_ZERO(&amp;rfdset); FD_ZERO(&amp;wfdset); FD_ZERO(&amp;efdset);</span><br><span class="line">    FD_SET(listenfd, &amp;afdset);</span><br><span class="line"></span><br><span class="line">    fds.insert(listenfd);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> iActive = <span class="number">0</span>;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">timeout</span>;</span></span><br><span class="line"></span><br><span class="line">        rfdset = afdset;</span><br><span class="line">        efdset = afdset;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (bNeedWrite)</span><br><span class="line">        &#123;</span><br><span class="line">            wfdset = afdset;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            FD_ZERO(&amp;wfdset);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        timeout.tv_sec = <span class="number">3</span>;</span><br><span class="line">        timeout.tv_usec = <span class="number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> ((iActive = select(maxfd + <span class="number">1</span>, &amp;rfdset, &amp;wfdset, &amp;efdset, &amp;timeout)) == <span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// handle error</span></span><br><span class="line">            <span class="keyword">if</span> (errno == EINTR)</span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> iHandled = <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;::iterator fdIter = fds.<span class="built_in">begin</span>();</span><br><span class="line">            <span class="keyword">for</span> (; fdIter != fds.<span class="built_in">end</span>() &amp;&amp; iHandled &lt; iActive; ++fdIter)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> fd = *fdIter;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;rfdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (fd == listenfd)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// handle new connection</span></span><br><span class="line">                        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cliaddr</span>;</span></span><br><span class="line">                        <span class="keyword">socklen_t</span> cliaddrlen = <span class="keyword">sizeof</span>(cliaddr);</span><br><span class="line"></span><br><span class="line">                        bzero((<span class="keyword">char</span> *)&amp;cliaddr, <span class="keyword">sizeof</span>(cliaddr));</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">int</span> connfd = accept(listenfd, (struct sockaddr *)&amp;cliaddr, &amp;cliaddrlen);</span><br><span class="line"></span><br><span class="line">                        fds.insert(connfd);</span><br><span class="line">                        FD_SET(connfd, &amp;afdset);</span><br><span class="line">                        <span class="keyword">if</span> (connfd &gt; maxfd)</span><br><span class="line">                        &#123;</span><br><span class="line">                            maxfd = connfd;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// handle read</span></span><br><span class="line">                        <span class="keyword">char</span> readBuf[MAXBUF];</span><br><span class="line">                        <span class="keyword">int</span> iRead = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                        bzero(readBuf, MAXBUF);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> ((iRead = <span class="built_in">read</span>(fd, &amp;readBuf, MAXBUF - <span class="number">1</span>)) &gt; <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            readBuf[iRead] = <span class="number">0</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span> <span class="keyword">if</span> (iRead == <span class="number">0</span>)</span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="built_in">close</span>(fd);</span><br><span class="line">                            FD_CLR(fd, &amp;afdset);</span><br><span class="line">                            fds.erase(fd);</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">else</span></span><br><span class="line">                        &#123;</span><br><span class="line">                            <span class="comment">// handle read error</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;wfdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle write</span></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (FD_ISSET(fd, &amp;efdset))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// handle error</span></span><br><span class="line">                    iHandled++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CreateListenSock</span><span class="params">(<span class="keyword">int</span> listenPort, <span class="keyword">int</span> qlen)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servAddr</span>;</span></span><br><span class="line">    <span class="keyword">int</span> listenfd = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ((listenfd = socket(AF_INET, SOCK_STREAM, <span class="number">0</span>)) &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;Create socket failed&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bzero((<span class="keyword">char</span> *)&amp;servAddr, <span class="keyword">sizeof</span>(servAddr));</span><br><span class="line">    servAddr.sin_family = AF_INET;</span><br><span class="line">    servAddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line">    servAddr.sin_port = htons(listenPort);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bind(listenfd, (struct sockaddr *)&amp;servAddr, <span class="keyword">sizeof</span>(servAddr)) &lt; <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cerr</span> &lt;&lt; <span class="string">&quot;Bind socket failed&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">listen</span>(listenfd, qlen);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> listenfd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1228,93 +1315,6 @@
 <p>舉個 argument 不一致的例子：<code>fscanf()</code> 跟 <code>fgets()</code>，它們分別長這樣：</p>
 <p><code>int fscanf(FILE* stream, const char* format, ...);</code><br><code>char* fgets(char* str, int num, FILE* stream);</code></p>
 <p>兩個類似的 function，<code>FILE* stream</code> 參數卻是一個在第一個、一個在最後一個，讓我太久沒用就得回頭瞄一下文件……</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Core-API-and-convenient-API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Core-API-and-convenient-API/" class="post-title-link" itemprop="url">API 的基本功能性及便利性</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-08-08 16:37:55" itemprop="dateCreated datePublished" datetime="2015-08-08T16:37:55+08:00">2015-08-08</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Core-API-and-convenient-API/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Core-API-and-convenient-API/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>API 的功能可以是比較 atomic、比較基本的，讓外部使用這些基本功能組合出它想要的東西。也可以是 API 本身即組合一些基本功能、提供較方便的功能給外部使用。這兩種特性雖然互相衝突，但都是作為 API 希望滿足的。</p>
-<p>滿足這兩種特性的方式是將僅提供基本功能的 core API 及較方便的 API 分開。可能是以 class 或檔案區隔，甚至直接拆成不同 library。重點是較方便的 API 是使用 core API 的 public interface，就像在 core API 外再包一層，而不會 access 到 core API 的內部結構。</p>
-<p>如此使用者就能有方便使用的 API 也能在想自行組合功能的時候使用進階的 core API。這概念類似於 UI 設計上常有的「進階」按鈕──平常設定頁只會有基本設定，按進階按鈕後才會顯示更細部的設定。</p>
 
       
     </div>

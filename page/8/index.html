@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,139 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Explicit-Runtime-Linking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Explicit-Runtime-Linking/" class="post-title-link" itemprop="url">Explicit Runtime Linking</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-02-19 23:21:48" itemprop="dateCreated datePublished" datetime="2017-02-19T23:21:48+08:00">2017-02-19</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2017-04-14 23:04:00" itemprop="dateModified" datetime="2017-04-14T23:04:00+08:00">2017-04-14</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Explicit-Runtime-Linking/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Explicit-Runtime-Linking/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>explicit runtime linking 讓程式可以在執行過程中控制 load 及 unload 模組。這種方式讓載入模組變得更靈活，可以在程式需要時才載入某個模組，載入什麼模組也可以依執行狀況決定。因為不需要在一開始載入所有模組，所以可以減少啟動時間跟記憶體用量。另外，因為可以在執行期才載入，也就能在不關閉程式的情況下新增、刪除及更新模組。</p>
+<p>在程式碼裡指定了什麼時候要 load 哪個模組，對程式來說它就「知道」要有載入模組的動作。如果是以 dynamic linker 來 load 跟 link，模組跟 library 對程式是透明的，它不知道它用了什麼。兩者的差別即在手動或自動 load shared library，以及load 的時機。</p>
+<p>另一方面，如果需要知道一個程式依賴哪些模組，例如移植時要將所有相關模組移植到其他平台以確保所有功能正常。這時以 explicit runtime linking 載入的模組可能增加檢查 dependency 的難度，因為無法用 <code>ldd</code> 得知依賴的模組，可能要等到用到某個功能時才當掉或無法使用。當然這問題並不是太大的缺點，可以透過適當管理 dependency library 以及以一致的方式撰寫 explicit linking 程式碼來避免。</p>
+<p>linux 以四個 function 來達到 explicit runtime linking，分別是 <code>dlopen()</code>、<code>dlsym()</code>、<code>dlerror()</code> 以及 <code>dlclose()</code>，它們宣告在 <code>&lt;dlfcn.h&gt;</code>，link 時須 <code>-ldl</code>。</p>
+<h2 id="dlopen"><a href="#dlopen" class="headerlink" title="dlopen()"></a>dlopen()</h2><p><code>dlopen()</code> 開啟一個 dynamic library，將其 load 到 process 的 adddress space，並完成初始化。</p>
+<p><code>void *dlopen(const char *filename, int flag);</code></p>
+<p>第一個參數 <code>filename</code> 很簡單，就是 dynamic library 的路徑。如果是絕對路徑就能直接打開 dynamic library，如果是相對路徑則會依照某個順序尋找 library，詳細的順序可參考 <code>man dlopen</code>。</p>
+<p><code>flag</code> 必須指定 <code>RTLD_LAZY</code> 或 <code>RTLD_NOW</code> 之一，<code>RTLD_LAZY</code> 表示 lazy binding，也就是 symbol 在第一次被用到的時候才 resolve。lazy binding 只用於 function，variable 會在 library load 時就 bind 好。<code>RTLD_NOW</code> 當然就是在 load library 的時候就會把所有 symbol 都 resolve。除了 <code>RTLD_LAZY</code> 跟 <code>RTLD_NOW</code> 之外，還有 <code>RTLD_GLOBAL</code> 可以跟他們一起使用，表示之後載入的 library 都可以使用這個 library 的 symbol。其他更多 flag 就參考 manual 囉。</p>
+<p><code>dlopen()</code> return 一個 handle，之後的操作要傳這個 handle 給其他 function。如果 load 失敗，會 return NULL。如果要 load 的 library 之前已經 load 過，會 return 跟之前相同的 handle。</p>
+<p>如果 load 進來的 library 依賴其他 shared library（link 時指定，非 explicit runtime linking），<code>dlopen()</code> 會自動 load 那些 shared library。</p>
+<h2 id="dlsym"><a href="#dlsym" class="headerlink" title="dlsym()"></a>dlsym()</h2><p>讓我們可以找到 library 的 symbol。</p>
+<p><code>void *dlsym(void *handle, const char *symbol);</code></p>
+<p><code>handle</code> 是剛剛 <code>dlopen()</code> return 的 handle。</p>
+<p><code>symbol</code> 是要找的 symbol 的名字，如果找不到 symbol 會 return NULL。找到 symbol 會 return 該 symbol 的 address。根據 manual，return 值是 NULL 無法當作找不到 symbol 的判斷，因為 return 值有可能真的是 NULL<em>（不過我想不到這種狀況的例子…）</em>，須配合 <code>dlerror()</code> 才能確認是不是有找到 symbol：首先 call <code>dlerror()</code> 清掉前面的 error，接著 call <code>dlsym()</code> 找 symbol，再 call <code>dlerror()</code> 看是否有 error 來判斷是否找到 symbol。</p>
+<p>如果多個 library 有相同的 symbol 會用哪個？<code>dlsym()</code> 會以 BFS 找 library 的 dependency tree，直到找到 symbol 或完全找不到為止。也就是說 load 順序會決定 symbol 同名時使用到誰，先 load 會先用。</p>
+<h2 id="dlerror"><a href="#dlerror" class="headerlink" title="dlerror()"></a>dlerror()</h2><p>call <code>dlopen()</code>、<code>dlsym()</code> 跟 <code>dlclose()</code> 之後可以 call <code>dlerror()</code> 看上次呼叫有沒有成功。如果成功 <code>dlerror()</code> 會 return NULL，反之則 return error 相關資訊。</p>
+<p><code>char *dlerror(void);</code></p>
+<h2 id="dlclose"><a href="#dlclose" class="headerlink" title="dlclose()"></a>dlclose()</h2><p>用來 unload library。</p>
+<p><code>int dlclose(void *handle);</code></p>
+<p>系統會用 counter 紀錄一個 library load 的次數，也就是 <code>dlopen()</code> 時加一，<code>dlclose()</code> 則減一，當 counter 變成 0 時 library 才會真的被 unload 掉。unload 的順序跟 load 相反，會先執行 <code>.finit</code> section 的程式碼，接著從 symbol table 中移除相關 symbol，取消 process address space 跟 library 的 memory mapping，最後關閉 library 檔案。</p>
+<p>成功 return 0，失敗 return 非 0 值。</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p>簡單用個例子實作跟驗證。以下共有 <code>libfoo.so</code>、<code>libbar.so</code> 跟 <code>libkar.so</code> 三個 library，主程式 <code>main.c</code> 以 explicit runtime linking load <code>libfoo.so</code>，而 <code>libfoo.so</code> 依賴 <code>libbar.so</code> 以及 <code>libkar.so</code>，後兩者有相同名稱的 function。</p>
+<figure class="highlight c"><figcaption><span>bar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">&quot;bar() in bar.c\n&quot;</span>); &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>kar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="built_in">printf</span>(<span class="string">&quot;bar() in kar.c\n&quot;</span>); &#125;</span><br></pre></td></tr></table></figure>
+<p>compile with </p>
+<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gcc -g -fPIC -<span class="keyword">shared </span>-o libbar.so <span class="keyword">bar.c</span></span><br><span class="line"><span class="keyword">$ </span>gcc -g -fPIC -<span class="keyword">shared </span>-o libkar.so kar.c</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> zoo = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> coo = <span class="number">5566</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;foo = %x, &amp;zoo = %x, &amp;coo = %x\n&quot;</span>, foo, &amp;zoo, &amp;coo);</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">koo</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n + coo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>compile with <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libbar.so ./libkar.so</code></p>
+<figure class="highlight c"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;dlfcn.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span>* handle = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    handle = dlopen(<span class="string">&quot;./libfoo.so&quot;</span>, RTLD_LAZY);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (handle == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Load library failed. error: %s\n&quot;</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> (*fn)(<span class="keyword">int</span>, <span class="keyword">int</span>) = <span class="literal">NULL</span>;</span><br><span class="line">    dlerror();  <span class="comment">// clear error condition</span></span><br><span class="line">    fn = dlsym(handle, <span class="string">&quot;foo&quot;</span>);</span><br><span class="line"><span class="comment">//    fn = dlsym(handle, &quot;koo&quot;);    // fail</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span>* error = dlerror();</span><br><span class="line">    <span class="keyword">if</span> (error != <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Load symbol failed. error: %s\n&quot;</span>, error);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;fn = %x\n&quot;</span>, fn);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> ret = fn(<span class="number">3</span>, <span class="number">5</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;ret = %d\n&quot;</span>, ret);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// doesn&#x27;t check error</span></span><br><span class="line">    <span class="keyword">int</span>* p = <span class="literal">NULL</span>;</span><br><span class="line">    p = dlsym(handle, <span class="string">&quot;zoo&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;p = %x\n&quot;</span>, p);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span>* c = <span class="literal">NULL</span>;</span><br><span class="line">    c = dlsym(handle, <span class="string">&quot;coo&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;c = %x, *c = %d\n&quot;</span>, c, *c);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> (*bar)() = <span class="literal">NULL</span>;</span><br><span class="line">    bar = dlsym(handle, <span class="string">&quot;bar&quot;</span>);</span><br><span class="line">    bar();</span><br><span class="line"></span><br><span class="line">    getchar();  <span class="comment">// just pause process</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dlclose(handle) != <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Close library fail. error: %s\n&quot;</span>, dlerror());</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>compile with <code>gcc -g -o main main.c -ldl</code></p>
+<p>執行結果顯示拿到主程式 <code>libfoo.so</code> 裡 symbol 的 address，以及 load 到 <code>libbar.so</code> 裡的 <code>bar()</code>：</p>
+<figure class="highlight nix"><table><tr><td class="code"><pre><span class="line">$ ./main </span><br><span class="line"><span class="attr">fn</span> = ef40f740</span><br><span class="line"><span class="attr">foo</span> = ef40f740, &amp;<span class="attr">zoo</span> = ef60faf0, &amp;<span class="attr">coo</span> = ef40f7a8</span><br><span class="line"><span class="attr">ret</span> = <span class="number">8</span></span><br><span class="line"><span class="attr">p</span> = ef60faf0</span><br><span class="line"><span class="attr">c</span> = ef40f7a8, *<span class="attr">c</span> = <span class="number">5566</span></span><br><span class="line">bar() <span class="keyword">in</span> bar.c</span><br></pre></td></tr></table></figure>
+<p>process 的 address space：</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="attribute">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/explicit-load/main</span><br><span class="line"><span class="attribute">00600000</span>-<span class="number">00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409326</span>                           /home/cjw/source/explicit-load/main</span><br><span class="line"><span class="attribute">02552000</span>-<span class="number">02573000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                                 <span class="meta"> [heap]</span></span><br><span class="line"><span class="attribute">7fe9bee48000</span>-<span class="number">7</span>fe<span class="number">9</span>bee<span class="number">49000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/explicit-load/libkar.so</span><br><span class="line"><span class="attribute">7fe9bee49000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">048000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/explicit-load/libkar.so</span><br><span class="line"><span class="attribute">7fe9bf048000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">049000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409316</span>                   /home/cjw/source/explicit-load/libkar.so</span><br><span class="line"><span class="attribute">7fe9bf049000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">04</span>a<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/explicit-load/libbar.so</span><br><span class="line"><span class="attribute">7fe9bf04a000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">249000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/explicit-load/libbar.so</span><br><span class="line"><span class="attribute">7fe9bf249000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">24</span>a<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409324</span>                   /home/cjw/source/explicit-load/libbar.so</span><br><span class="line"><span class="attribute">7fe9bf24a000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">24</span>b<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/explicit-load/libfoo.so</span><br><span class="line"><span class="attribute">7fe9bf24b000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">44</span>a<span class="number">000</span> ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/explicit-load/libfoo.so</span><br><span class="line"><span class="attribute">7fe9bf44a000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">44</span>b<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">11409329</span>                   /home/cjw/source/explicit-load/libfoo.so</span><br><span class="line"><span class="attribute">7fe9bf44b000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">5</span>ec<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf5ec000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>ec<span class="number">000</span> ---p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7ec000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">0000</span> r--p <span class="number">001</span>a<span class="number">1000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7f0000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">2000</span> rw-p <span class="number">001</span>a<span class="number">5000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864382</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libc-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7f2000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">6000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7fe9bf7f6000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">7</span>f<span class="number">9000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf7f9000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">9</span>f<span class="number">8000</span> ---p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf9f8000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">9</span>f<span class="number">9000</span> r--p <span class="number">00002000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf9f9000</span>-<span class="number">7</span>fe<span class="number">9</span>bf<span class="number">9</span>fa<span class="number">000</span> rw-p <span class="number">00003000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864385</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/libdl-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bf9fa000</span>-<span class="number">7</span>fe<span class="number">9</span>bfa<span class="number">1</span>a<span class="number">000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bfbf9000</span>-<span class="number">7</span>fe<span class="number">9</span>bfbfc<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7fe9bfc16000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>a<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7fe9bfc1a000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>b<span class="number">000</span> r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bfc1b000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>c<span class="number">000</span> rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">01</span> <span class="number">7864371</span>                    /lib/x<span class="number">86</span>_<span class="number">64</span>-linux-gnu/ld-<span class="number">2</span>.<span class="number">19</span>.so</span><br><span class="line"><span class="attribute">7fe9bfc1c000</span>-<span class="number">7</span>fe<span class="number">9</span>bfc<span class="number">1</span>d<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span> </span><br><span class="line"><span class="attribute">7ffdd05ea000</span>-<span class="number">7</span>ffdd<span class="number">060</span>b<span class="number">000</span> rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [stack]</span></span><br><span class="line"><span class="attribute">7ffdd0755000</span>-<span class="number">7</span>ffdd<span class="number">0757000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vdso]</span></span><br><span class="line"><span class="attribute">7ffdd0757000</span>-<span class="number">7</span>ffdd<span class="number">0759000</span> r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                         <span class="meta"> [vvar]</span></span><br><span class="line"><span class="attribute">ffffffffff600000</span>-ffffffffff<span class="number">601000</span> r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                 <span class="meta"> [vsyscall]</span></span><br></pre></td></tr></table></figure>
+<p>三個 library 都 load 進來啦～</p>
+<p>用 gdb 在 <code>_init</code> 跟 <code>_fini</code> 設 break point 可以看到在 <code>dlopen()</code> 跟 <code>dlclose()</code> 時會分別執行 <code>libfoo.so</code> 及其他 library 的 <code>_init</code> 及 <code>_fini</code>。同樣適用 GCC 提供的 shared library constructor 及 destructor，<a href="/Dynamic-Linking-Relocation/">Ref</a>。</p>
+<p>可以用 <code>ldd</code> 看 <code>libfoo.so</code> 的 dependency：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.<span class="keyword">so</span> </span><br><span class="line">        linux-vdso.<span class="keyword">so</span>.1 (0x00007fffde785000)</span><br><span class="line">        ./libbar.<span class="keyword">so</span> (0x00007fdf77158000)</span><br><span class="line">        ./libkar.<span class="keyword">so</span> (0x00007fdf76f57000)</span><br><span class="line">        libc.<span class="keyword">so</span>.6 =&gt; /lib/x86_64-linux-gnu/libc.<span class="keyword">so</span>.6 (0x00007fdf76bac000)</span><br><span class="line">        /lib64/ld-linux-x86-64.<span class="keyword">so</span>.2 (0x00007fdf7755a000)</span><br></pre></td></tr></table></figure>
+<p>如果 compile <code>libfoo.so</code> 時改變 link 的 shared library 順序，變成 <code>gcc -g -fPIC -shared -o libfoo.so foo.c ./libkar.so ./libbar.so</code>，load 到的 <code>bar()</code> 會變成是 <code>libkar.so</code> 的。</p>
+<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ ./main</span><br><span class="line">fn <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span></span><br><span class="line">foo <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">740</span><span class="punctuation">,</span> &amp;zoo <span class="operator">=</span> a<span class="number">279</span>caf<span class="number">0</span><span class="punctuation">,</span> &amp;coo <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span></span><br><span class="line"><span class="keyword">ret</span> <span class="operator">=</span> <span class="number">8</span></span><br><span class="line">p <span class="operator">=</span> a<span class="number">279</span>caf<span class="number">0</span></span><br><span class="line"><span class="keyword">c</span> <span class="operator">=</span> a<span class="number">259</span><span class="keyword">c</span><span class="number">7</span>a<span class="number">8</span><span class="punctuation">,</span> *<span class="keyword">c</span> <span class="operator">=</span> <span class="number">5566</span></span><br><span class="line">bar() in kar.<span class="keyword">c</span></span><br></pre></td></tr></table></figure>
+<p><code>ldd</code> 看到的順序也會變：</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">$ ldd libfoo.<span class="keyword">so</span> </span><br><span class="line">        linux-vdso.<span class="keyword">so</span>.1 (0x00007fff4db40000)</span><br><span class="line">        ./libkar.<span class="keyword">so</span> (0x00007f5b4ddb5000)</span><br><span class="line">        ./libbar.<span class="keyword">so</span> (0x00007f5b4dbb4000)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="Related-posts"><a href="#Related-posts" class="headerlink" title="Related posts"></a>Related posts</h2><ul>
+<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
+<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
+<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
+<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1212,105 +1345,6 @@
 <p>透過 <code>q_func()</code> 拿到的 <code>q</code> 是轉型成 <code>QStandardItem*</code> 的 pointer。</p>
 <p>這個例子裡，因為 <code>QStandardItem</code> 跟 <code>QStandardItemPrivate</code> 沒有繼承別人，它們自己分別記錄了 <code>d_ptr</code> 跟 <code>q_ptr</code>，所以 <code>d_func()</code> 跟 <code>q_func()</code> 有沒有轉型根本沒差。但其他繼承 <code>QObjectPrivate</code> 的 class，<code>q_ptr</code> 是從 <code>QObjectData</code> 來的，type 是 <code>QObject*</code>，如果要直接使用 sub class 的 member 就得轉型，<code>d_ptr</code> 同理。除非用 virtual function 做多型，不過這個狀況用 virtual function 很怪，因為這樣 base class <code>QObject</code> 得有所有 sub class 會用到的 interface，這邊顯然不是這個意思，用 virtual function 不合理。</p>
 <p>這樣看過之後，對 Qt source code 的結構比較理解了，才不會每次看到 <code>Q_D()</code> 啊 <code>Q_Q()</code> 啊都想 Q_Q 了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS/STS1-04/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/STS/STS1-04/" class="post-title-link" itemprop="url">科技物有政治性嗎？</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-10-23 00:31:39" itemprop="dateCreated datePublished" datetime="2016-10-23T00:31:39+08:00">2016-10-23</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/STS/STS1-04/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS/STS1-04/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>《科技渴望社會》第四篇。這篇在說「技術物」如何對人及其生活方式產生影響，「技術物」指的是各種各樣具體的技術或系統，例如核能電廠、鐵路、各種通訊方式、公路網、飛機等等，將「技術」這個較為廣義的詞定義得比較狹義但具體。整篇常常提到政治性、權威、權力、社會組織，我理解為在試圖說明技術物對人的生活以及社會產生的影響。</p>
-<blockquote>
-<p>最偉大的權力不在於君臨天下的帝國威望，而在於權力內化成人們的「生活方式」而無法察覺，更因是生活方式而成為價值觀而為其辯護與效命，從而促成了權力的再生產。而權力的社會運作在於使人們無法思考「另類生活方式」的可能性。</p>
-</blockquote>
-<blockquote>
-<p>技術作為一種對內的控制性力量，就在於讓我們覺得「只有」一種生活方式。</p>
-</blockquote>
-<p>導讀以汽車作為一種生活方式、一種「必須」舉例。因為認為汽車是必須，所以道路規劃等等就以汽車為主，人們出門以考量汽車可及性與停車便利為主。汽車作為生活方式的一部分，於是很難想像以其他交通方式生活，例如芬蘭的單車與大眾運輸。即使有所想像，甚至會受限於當前硬體設施而較難實現其他交通方式。</p>
-<p>引入一個技術的原因不見得是表面上的原因，如引入新技術帶動進步，而可能是達到其他政治或操弄的目的……例如本篇文章提到的低架橋設計，高度故意不足以讓公車通過，使得較依靠公車作為交通手段的族群變得較難前往某些區域，達到了某個程度的隔離目的。</p>
-<p>以低架橋這個例子來說，我會認為這是人「刻意」將技術用於較壞的方向。我的想法偏向技術本身是中立的，可以用在好的方向，也可以用到壞的方向，技術本身並不帶有其原生的影響，是好是壞端看人如何使用。</p>
-<p>文章後面提到，有時候技術的影響並不見得是當事人的本意與意圖。當事人可能並無將技術用於好或壞的動機，但技術本身仍然帶來某些影響，或好或壞。例如早期公共設施較沒有無障礙設施，這不見得是誰特意為之，但結果讓身心障礙者較難以前往某些地方，而在某個程度上遭到排除。這觀點稍微改變了我認為技術是中立的想法。</p>
-<p>技術物甚至會影響圍繞其的社會組織結構與運作方式，例如有了自動化生產系統，原本員工做的事是生產、製造某個東西，但有自動化生產系統後，員工變成是去維護這個系統的運作，而可能為了配合機器而在工作上得要更制式、更機械化。講難聽點，人從做重複性的生產作業，變成機器系統的活零件。</p>
-<p>要維持一個龐大的系統順暢運作，組織上就變得需要有階層與管理，需要管理階層去確定每個部分都有人確實的做好維護與運作。但接著要問的是，維持一個系統，是否必然要使用中央集權式的方式予以管理才能有效率並安全的運作？又如，在這個資訊科技講究創新的時代，由上而下、中央集權式的階層管理是否還適用？看到這我有點訝異，雖然有淺淺的想過一項技術會帶來些影響，可是沒有想那麼深。</p>
-<p>而當「進步」成為主流，對於技術大多只考慮實用性時，拒絕技術之引進容易被扣上「反進步」的帽子，或許使技術的影響性反而變得不被考量。</p>
-<p>murmur：這其實是拉哩拉紮的整理跟心得，目前來說無法更有條理了。看這書大概有四五成是每個字都看得懂但整個句子看起來其實不懂那些字詞真正想表達的意義……</p>
 
       
     </div>

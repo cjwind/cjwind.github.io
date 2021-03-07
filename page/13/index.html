@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,123 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OOAD-Architecture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/OOAD-Architecture/" class="post-title-link" itemprop="url">設計架構</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-02-01 22:24:09" itemprop="dateCreated datePublished" datetime="2015-02-01T22:24:09+08:00">2015-02-01</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/OOAD-Architecture/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="OOAD-Architecture/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>Architecture is your <strong>design structure</strong>, and highlights the <strong>most important</strong> parts of your application, and the <strong>relationships</strong> between those parts.</p>
+</blockquote>
+<blockquote>
+<p>架構是系統的組織結構，包含分解開的各個元件、元件間的關係、互動機制，以及系統設計中使用的原則及決策。</p>
+</blockquote>
+<p>這次英文比中文好懂一點。</p>
+<p>就我的理解，architecture 是整個軟體的結構，有點像骨架。其他那些 requirement、class diagram、design pattern、use case 等等東西就像軟體的，呃，肉(?)，有骨架後就能把這些內容填進去。<del>（寫到這裡開始懷疑我到底是怎麼理解這些概念的…）</del></p>
+<p>設計 architecture 的階段會整理出那些 component 是重要的、建立處理順序，以及減少風險。</p>
+<h2 id="如何找出重要的事情？"><a href="#如何找出重要的事情？" class="headerlink" title="如何找出重要的事情？"></a>如何找出重要的事情？</h2><p>可以問幾個問題：</p>
+<ol>
+<li>它是系統本質的一部份嗎？<br>可以用「如果沒有這個功能，這系統還會是它應該是的東西嗎？」來思考。</li>
+<li>某個功能究竟是什麼意思？<br>理解功能真正的意思，不懂就問客戶，或者任何要你做這玩意的人。盡量避免你以為你知道那是什麼但其實你不知道的狀況（繞口令時間）。</li>
+<li>如何實作某個功能？<br>挑出最困難的部分。不過一項實作困難程度會因人而異。</li>
+</ol>
+<h2 id="從誰開始？"><a href="#從誰開始？" class="headerlink" title="從誰開始？"></a>從誰開始？</h2><p>找到最重要的幾件事情後，要決定從哪個部分開始。</p>
+<p>這裡的重點是「減少風險」。只要能減少風險，從誰開始都可以。所謂風險，諸如 schedule 來不及、做出不是客戶要的東西等等。</p>
+<p>在設計架構的階段要做可以減少風險的事，延後不能減少風險的事情。</p>
+<h3 id="如何減少風險？"><a href="#如何減少風險？" class="headerlink" title="如何減少風險？"></a>如何減少風險？</h3><ul>
+<li>用 scenario 找出大部分的重要 requirement<br>scenario 是穿過 use case 裡的一個路徑，也就是一段系統如何被使用的敘述。</li>
+<li>延後進入細節的時間，因為在架構階段進入細節無法減少風險。<ul>
+<li>不要在架構階段寫詳細的 use case。</li>
+<li>延後細節的 coding<br>可以先有個框，但不要開始寫邏輯細節。</li>
+</ul>
+</li>
+<li>有好的 design<ul>
+<li>一開始就把事情做對</li>
+<li>利用 commonality analysis（共通性分析）設計具有彈性的軟體</li>
+</ul>
+</li>
+<li>搞不清楚意思或軟體要幹嘛時去問客戶，以降低做出不是客戶要的東西的風險。</li>
+</ul>
+<p>寫好軟體的方式是先做好了解需求、規劃、組織、架構以及減少風險，盡可能延後 coding、避免在前期一頭栽進細節。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1171,111 +1288,6 @@
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clone</span><span class="params">(<span class="keyword">int</span> (*fn)(<span class="keyword">void</span> *), <span class="keyword">void</span> *child_stack,</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="keyword">int</span> flags, <span class="keyword">void</span> *arg, ...</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* pid_t *ptid, struct user_desc *tls, pid_t *ctid */</span> )</span></span>;</span><br></pre></td></tr></table></figure>
 <p>也有純 system call：</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">clone</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> flags, <span class="keyword">void</span> *child_stack,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">void</span> *ptid, <span class="keyword">void</span> *ctid,</span></span></span><br><span class="line"><span class="function"><span class="params">           struct pt_regs *regs)</span></span>;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Class-Diagram/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Class-Diagram/" class="post-title-link" itemprop="url">Class Diagram</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-12-04 21:04:50" itemprop="dateCreated datePublished" datetime="2014-12-04T21:04:50+08:00">2014-12-04</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2015-05-09 20:33:00" itemprop="dateModified" datetime="2015-05-09T20:33:00+08:00">2015-05-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Class-Diagram/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Class-Diagram/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>class diagram 只是個概觀，不會說明所有細節（例如如何實作），可以為需要建立的 class 進行 modeling。</p>
-<p>用一張圖解釋：</p>
-<img src="/images/class_diagram_ex.png" class="" width="800">
-
-
-<h1 id="class-間的關係"><a href="#class-間的關係" class="headerlink" title="class 間的關係"></a>class 間的關係</h1><p>抽象上來看 class 之間的關係，程式語言裡不見得有對應的語法，但是釐清抽象上的關係有助寫 code。只要對系統來說是合理的，class 間的關係可能因為系統的演進而改變。</p>
-<p>association 是 class 間的關係，aggregation 及 composition 則是更特定的關係。</p>
-<p>關聯強度：composition &gt; aggregation &gt; association</p>
-<h2 id="Association"><a href="#Association" class="headerlink" title="Association"></a>Association</h2><p>class 間有關係但關聯性較弱。</p>
-<p>UML 以一條線表示：</p>
-<p><img src="/images/association.png" alt="Association"></p>
-<h2 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h2><p>class 間是 <strong>has a</strong> 的關係。</p>
-<p>main object 不負責 composed object 的 create 及 destroy，composed object 可以獨立於 main object 之外。例如車子跟輪胎間的關係（Car has a Tire），輪胎可以獨立於車子之外（可以從車子上拆下來）。</p>
-<p>UML 以空心菱形表示：</p>
-<p><img src="/images/aggregation.png" alt="Aggregation"></p>
-<h2 id="Composition"><a href="#Composition" class="headerlink" title="Composition"></a>Composition</h2><p>class 間是 <strong>own</strong> 的關係。<del>（碎念：own 跟 has 根本沒辦法用中文區分…）</del></p>
-<p>main object own composed object.</p>
-<p>composed object 是 main object 的一部分（a part of），composed object 不會獨立存在於 main object 之外。main object 負責 composed object 的 create 及 destroy，main object destroy 時 composed object 也會 destroy。例如生物跟細胞間的關係（Animal owns Cell）。</p>
-<p>UML 以實心菱形表示：</p>
-<p><img src="/images/composition.png" alt="Composition"></p>
-<p>composition 跟 aggregation 最大的不同在於 composed object 的生命週期是否與 main object 有關。</p>
-
       
     </div>
 

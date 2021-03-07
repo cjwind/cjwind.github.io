@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-count">169</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,111 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Class-Diagram/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Class-Diagram/" class="post-title-link" itemprop="url">Class Diagram</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-12-04 21:04:50" itemprop="dateCreated datePublished" datetime="2014-12-04T21:04:50+08:00">2014-12-04</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2015-05-09 20:33:00" itemprop="dateModified" datetime="2015-05-09T20:33:00+08:00">2015-05-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Class-Diagram/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Class-Diagram/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>class diagram 只是個概觀，不會說明所有細節（例如如何實作），可以為需要建立的 class 進行 modeling。</p>
+<p>用一張圖解釋：</p>
+<img src="/images/class_diagram_ex.png" class="" width="800">
+
+
+<h1 id="class-間的關係"><a href="#class-間的關係" class="headerlink" title="class 間的關係"></a>class 間的關係</h1><p>抽象上來看 class 之間的關係，程式語言裡不見得有對應的語法，但是釐清抽象上的關係有助寫 code。只要對系統來說是合理的，class 間的關係可能因為系統的演進而改變。</p>
+<p>association 是 class 間的關係，aggregation 及 composition 則是更特定的關係。</p>
+<p>關聯強度：composition &gt; aggregation &gt; association</p>
+<h2 id="Association"><a href="#Association" class="headerlink" title="Association"></a>Association</h2><p>class 間有關係但關聯性較弱。</p>
+<p>UML 以一條線表示：</p>
+<p><img src="/images/association.png" alt="Association"></p>
+<h2 id="Aggregation"><a href="#Aggregation" class="headerlink" title="Aggregation"></a>Aggregation</h2><p>class 間是 <strong>has a</strong> 的關係。</p>
+<p>main object 不負責 composed object 的 create 及 destroy，composed object 可以獨立於 main object 之外。例如車子跟輪胎間的關係（Car has a Tire），輪胎可以獨立於車子之外（可以從車子上拆下來）。</p>
+<p>UML 以空心菱形表示：</p>
+<p><img src="/images/aggregation.png" alt="Aggregation"></p>
+<h2 id="Composition"><a href="#Composition" class="headerlink" title="Composition"></a>Composition</h2><p>class 間是 <strong>own</strong> 的關係。<del>（碎念：own 跟 has 根本沒辦法用中文區分…）</del></p>
+<p>main object own composed object.</p>
+<p>composed object 是 main object 的一部分（a part of），composed object 不會獨立存在於 main object 之外。main object 負責 composed object 的 create 及 destroy，main object destroy 時 composed object 也會 destroy。例如生物跟細胞間的關係（Animal owns Cell）。</p>
+<p>UML 以實心菱形表示：</p>
+<p><img src="/images/composition.png" alt="Composition"></p>
+<p>composition 跟 aggregation 最大的不同在於 composed object 的生命週期是否與 main object 有關。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1085,106 +1190,6 @@
           <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a target="_blank" rel="noopener" href="https://swiftype.com">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
 <p>註冊、輸入 URL，它處理完後到 INSTALL 頁面 copy source code 到 theme 中相應 call <code>search_form()</code> 的地方。每個 theme 的位置不太一樣，nut 在 <code>layout/_widget/search.ejs</code>，landscape 在 <code>layout/_partial/header.ejs</code>。</p>
 <p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a target="_blank" rel="noopener" href="https://swiftype.com/documentation/widget">這裡</a>看怎麼改。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-google-code-jam-round-1c/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2014-google-code-jam-round-1c/" class="post-title-link" itemprop="url">2014 Google Code Jam Round 1C</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-05-11 20:38:48" itemprop="dateCreated datePublished" datetime="2014-05-11T20:38:48+08:00">2014-05-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2014-google-code-jam-round-1c/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014-google-code-jam-round-1c/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>沒進，只對 A，不過這是我第一次 R1 破蛋……2013 年掛蛋，2011 年也是，其他年份沒參加。</p>
-<script src="//gist.github.com/2a50020d3a0fbdaf5c17.js"></script>
-
-<p>一整個亂……= =</p>
-<p>考慮過從最遠古的祖先直接建表，但想想覺得應該不行。就變成往回推的判斷：</p>
-<ol>
-<li>若 Q 是奇數，則 impossible。</li>
-<li>若 <code>Q / P = x (x 為整數) = 2 ^ n</code>，則 <code>ans = n</code>。</li>
-<li><code>Q&#39; = Q / 2</code> 直到 <code>Q&#39; &lt; P</code>（記錄除的次數 n），<code>P&#39; = P - Q&#39;</code>，recursive 檢查 <code>P&#39;/Q&#39;</code> 是否可能出現。是則 <code>ans = n</code>，否則 impossible。</li>
-</ol>
-<p>既然有 code 可以檢討還是檢討一下好了。</p>
-<ol>
-<li>看看那精美的 <code>scanf()</code>，又一次 C++ format input/output 不熟。</li>
-<li>邏輯上有方向但細節沒想清楚，像 Q 一直除 2 的時候原本沒先檢查是不是能整除，原本也沒處理處理特殊值 1。</li>
-<li>大測資一開始沒用 <code>long long int</code>，然後就 segementation fault 了。</li>
-</ol>
 
       
     </div>
