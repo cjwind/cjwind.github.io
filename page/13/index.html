@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -219,7 +219,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,6 +268,108 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Toy-booksr/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Toy-booksr/" class="post-title-link" itemprop="url">[做玩具] booksr - Simple book searcher in Ruby</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-01-31 15:08:48" itemprop="dateCreated datePublished" datetime="2015-01-31T15:08:48+08:00">2015-01-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Toy-booksr/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Toy-booksr/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><del>做玩具的碎念心得。</del></p>
+<p>用 Google Book API 找書的 Ruby 小程式。</p>
+<p>一開始因為 anobii  改版後變得超級難用，一氣之下不用了，又找不到好用的，就想自己寫一個網路書櫃。但是網路書櫃有點大，而且暫時不想架需要維護的平台，索性簡化，結果簡化成這個小玩具<del>（也簡化太多）</del>。</p>
+<p>目標是學寫 Ruby 程式、包 gem 跟丟上 RubyGems。</p>
+<p>程式邏輯本身很簡單，而且 Ruby 有很多現成的套件可以用，節省不少時間。不過沒用過這套 test framework，bundler 跟 gem 的熟悉度只有 <code>bundle install</code>，所以花比較多時間在 test 跟包 gem。</p>
+<h2 id="關於功能"><a href="#關於功能" class="headerlink" title="關於功能"></a>關於功能</h2><p>原本功能縮小到只想寫 book wrapper，把書籍資料包成 class，寫完覺得實在太陽春才變成找書。擴大功能後卻開始不只想用 Google Book API，還想加上 search Amazon 跟 ISBNDB。但以原本作為練習的目的來說，這些功能有點多餘。</p>
+<p>我有時候會因為某個功能看起來好酷就想加上去，有時候是覺得東西很陽春、太簡單，想加更複雜的能力進去。如果這些事情不斷發生，程式會越長越大、越長越大，<strong>卻永遠沒有完成的一天</strong>。這裡說的完成是指階段性完成──什麼時候要喊「夠了，可以了」然後把東西丟出去。</p>
+<p>這些讓我在中途思考要以「看起來很厲害」為優先，還是以「完成核心功能及達到最初目的」為優先。最後決定縮小範圍，以後者為優先。</p>
+<p><del>雖然弄完覺得像寫了個垃圾就是了…</del></p>
+<h2 id="關於搜尋結果"><a href="#關於搜尋結果" class="headerlink" title="關於搜尋結果"></a>關於搜尋結果</h2><p>有想過搜尋結果的筆數會不會太多？考慮過用其他方式當 output，例如一開始可以設最多只找幾筆之類的。但是試了一下，書籍的搜尋結果似乎不會多到太誇張，又懶得把介面搞得太複雜，就變成很簡單的全部 search 完一次傳回結果。</p>
+<h2 id="關於測試"><a href="#關於測試" class="headerlink" title="關於測試"></a>關於測試</h2><p>我糾結了一陣子到底要怎麼測，中間 test case 一直換一直換。測試有用 Google API 抓資料，不能太多，太多會被 403 擋掉…XD 搜尋結果不是固定的，做太詳細的資料檢驗沒什麼意義，所以最後只有兩種 test case：</p>
+<ol>
+<li>用找 isbn 測 class Book 是好的</li>
+<li>用找 title 測當搜尋結果超過 40 筆時回傳的結果筆數大於 40。<br>這是因為 API 限制一次的 search 結果最多只能有 40 筆，可以用起始 index 決定要顯示哪些 search 結果。</li>
+</ol>
+<h2 id="關於-Ruby"><a href="#關於-Ruby" class="headerlink" title="關於 Ruby"></a>關於 Ruby</h2><p>為什麼選 Ruby？</p>
+<p>沒為什麼……只是它有點名氣，然後我想寫點高階的東西，不然一天到晚在用 C++ 做輪子有點煩……</p>
+<p>越方便的技術代表它抽象化的程度越高，寫起來通常比較快，像在把現成的積木拼起來。但也代表它隱藏更多細節，我有時候會覺得不知道這些細節很沒有安全感(?)。到目前為止，Ruby 寫起來有很多方便的地方，可是我隱約覺得真要用得好還是要了解背後的原理，但那些原理可就不像一開始學的這種方便性那麼容易了。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1153,103 +1255,6 @@
 <li><a href="/delegate">Delegate</a><br>將達成某功能的任務委託給原本想擴充的 class，也就是<del>不負責任的</del>丟給別人做。</li>
 <li><a href="relationships-between-classes">Composition</a></li>
 <li><a href="relationships-between-classes">Aggregation</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Single-Responsibility-Principle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Single-Responsibility-Principle/" class="post-title-link" itemprop="url">Single Responsibility Principle (SRP)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-12-02 22:44:09" itemprop="dateCreated datePublished" datetime="2014-12-02T22:44:09+08:00">2014-12-02</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2016-11-14 22:00:13" itemprop="dateModified" datetime="2016-11-14T22:00:13+08:00">2016-11-14</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Single-Responsibility-Principle/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Single-Responsibility-Principle/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>class 應該只負責一件事、只有一個改變的理由，class 聚焦於實作該責任。避免一個 class 有多重責任，或者一個責任分散在多個 class 中。SRP 的主要目的是增加 class 的 cohesion（內聚力）。</p>
-<p>OO 中會以 class 為單位，但可以提升到 process level。舉例來說，將多個 process 啟動與結束的控制分散在各個 process 以及 watch dog，就讓「控制 process 的啟動與結束」這個責任分散在多個地方。這會導致較難理解控制流程、不知道某個時間點是誰在控制，修改時也容易出 bug。</p>
-<p>一個 class 可以負責一個「大」責任。運用 SRP 應該會讓系統中的 class 比較少但比較大，因為會將功能性集中在負責該功能的 class。在思考一個 class 應該負責什麼時，用較抽象的方式去想會比較好，想這 class 要做什麼？它的名稱顯示它該負責什麼？某件事究竟關不關它的事？</p>
-<p>我覺得區分 class 的責任蠻困難的，取決於設計者怎麼想、怎麼看待一個 class 以及其想法的合理性。</p>
-<h2 id="SRP-分析"><a href="#SRP-分析" class="headerlink" title="SRP 分析"></a>SRP 分析</h2><p>分析一個 class 是否符合 SRP。把 class 跟 method 名稱套到以下句子，用人類語言看看通不通順。</p>
-<p><code>The [class] [method] itself.</code><br><code>The [class] [method] [arg] itself.</code><br><code>該 [class] [method] 它自己</code><br><code>該 [class] 自己 [method]</code></p>
-<p>想起來順表示該 method 屬於這個 class、符合 SRP，反之則表示這 method 應該移到其他地方。</p>
-<p>分析時要注意參數可能在 construct 已先傳入，不一定是 method 的 argument。</p>
-<h2 id="Related-Posts"><a href="#Related-Posts" class="headerlink" title="Related Posts"></a>Related Posts</h2><ul>
-<li><a href="/Open-Closed-Principle">Open Closed Principle（OCP）</a></li>
-<li><a href="/Dont-Repeat-Yourself">Don’t Repeat Yourself（DRY）</a></li>
-<li><a href="/encapsulate-change">封裝會改變的東西</a></li>
 </ul>
 
       

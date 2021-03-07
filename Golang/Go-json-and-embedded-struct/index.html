@@ -22,22 +22,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="《科技渴望社會》第四篇。這篇在說「技術物」如何對人及其生活方式產生影響，「技術物」指的是各種各樣具體的技術或系統，例如核能電廠、鐵路、各種通訊方式、公路網、飛機等等，將「技術」這個較為廣義的詞定義得比較狹義但具體。整篇常常提到政治性、權威、權力、社會組織，我理解為在試圖說明技術物對人的生活以及社會產生的影響。  最偉大的權力不在於君臨天下的帝國威望，而在於權力內化成人們的「生活方式」而無法察覺，更">
+<meta name="description" content="使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。 使用 embedded structtype Serving struct &amp;#123;    Amount float64    Unit">
 <meta property="og:type" content="article">
-<meta property="og:title" content="科技物有政治性嗎？">
-<meta property="og:url" content="http://www.cjwind.idv.tw/STS1-04/index.html">
+<meta property="og:title" content="Go json and embedded struct">
+<meta property="og:url" content="http://www.cjwind.idv.tw/Golang/Go-json-and-embedded-struct/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
-<meta property="og:description" content="《科技渴望社會》第四篇。這篇在說「技術物」如何對人及其生活方式產生影響，「技術物」指的是各種各樣具體的技術或系統，例如核能電廠、鐵路、各種通訊方式、公路網、飛機等等，將「技術」這個較為廣義的詞定義得比較狹義但具體。整篇常常提到政治性、權威、權力、社會組織，我理解為在試圖說明技術物對人的生活以及社會產生的影響。  最偉大的權力不在於君臨天下的帝國威望，而在於權力內化成人們的「生活方式」而無法察覺，更">
+<meta property="og:description" content="使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。 使用 embedded structtype Serving struct &amp;#123;    Amount float64    Unit">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2016-10-22T16:31:39.000Z">
-<meta property="article:modified_time" content="2020-08-09T03:17:09.000Z">
+<meta property="article:published_time" content="2020-11-15T14:00:46.000Z">
+<meta property="article:modified_time" content="2020-11-15T14:09:42.000Z">
 <meta property="article:author" content="cjwind">
-<meta property="article:tag" content="Reading">
-<meta property="article:tag" content="STS">
+<meta property="article:tag" content="Go">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://www.cjwind.idv.tw/STS1-04/">
+<link rel="canonical" href="http://www.cjwind.idv.tw/Golang/Go-json-and-embedded-struct/">
 
 
 <script class="page-configurations">
@@ -49,7 +48,7 @@
     lang   : 'en'
   };
 </script>
-<title>科技物有政治性嗎？ | cjwind's note</title>
+<title>Go json and embedded struct | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -186,7 +185,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           Table of Contents
@@ -199,6 +198,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-embedded-struct"><span class="nav-number">1.</span> <span class="nav-text">使用 embedded struct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E4%BD%BF%E7%94%A8-embedded-struct"><span class="nav-number">2.</span> <span class="nav-text">不使用 embedded struct</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -212,7 +212,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -225,7 +225,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -284,7 +284,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS1-04/">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Golang/Go-json-and-embedded-struct/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -297,7 +297,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          科技物有政治性嗎？
+          Go json and embedded struct
         </h1>
 
         <div class="post-meta-container">
@@ -307,16 +307,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">Posted on</span>
+      
 
-      <time title="Created: 2016-10-23 00:31:39" itemprop="dateCreated datePublished" datetime="2016-10-23T00:31:39+08:00">2016-10-23</time>
+      <time title="Created: 2020-11-15 22:00:46 / Modified: 22:09:42" itemprop="dateCreated datePublished" datetime="2020-11-15T22:00:46+08:00">2020-11-15</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
 
   
   
@@ -327,8 +321,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/STS1-04/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS1-04/" itemprop="commentCount"></span>
+    <a title="disqus" href="/Golang/Go-json-and-embedded-struct/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Golang/Go-json-and-embedded-struct/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -342,21 +336,14 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>《科技渴望社會》第四篇。這篇在說「技術物」如何對人及其生活方式產生影響，「技術物」指的是各種各樣具體的技術或系統，例如核能電廠、鐵路、各種通訊方式、公路網、飛機等等，將「技術」這個較為廣義的詞定義得比較狹義但具體。整篇常常提到政治性、權威、權力、社會組織，我理解為在試圖說明技術物對人的生活以及社會產生的影響。</p>
-<blockquote>
-<p>最偉大的權力不在於君臨天下的帝國威望，而在於權力內化成人們的「生活方式」而無法察覺，更因是生活方式而成為價值觀而為其辯護與效命，從而促成了權力的再生產。而權力的社會運作在於使人們無法思考「另類生活方式」的可能性。</p>
-</blockquote>
-<blockquote>
-<p>技術作為一種對內的控制性力量，就在於讓我們覺得「只有」一種生活方式。</p>
-</blockquote>
-<p>導讀以汽車作為一種生活方式、一種「必須」舉例。因為認為汽車是必須，所以道路規劃等等就以汽車為主，人們出門以考量汽車可及性與停車便利為主。汽車作為生活方式的一部分，於是很難想像以其他交通方式生活，例如芬蘭的單車與大眾運輸。即使有所想像，甚至會受限於當前硬體設施而較難實現其他交通方式。</p>
-<p>引入一個技術的原因不見得是表面上的原因，如引入新技術帶動進步，而可能是達到其他政治或操弄的目的……例如本篇文章提到的低架橋設計，高度故意不足以讓公車通過，使得較依靠公車作為交通手段的族群變得較難前往某些區域，達到了某個程度的隔離目的。</p>
-<p>以低架橋這個例子來說，我會認為這是人「刻意」將技術用於較壞的方向。我的想法偏向技術本身是中立的，可以用在好的方向，也可以用到壞的方向，技術本身並不帶有其原生的影響，是好是壞端看人如何使用。</p>
-<p>文章後面提到，有時候技術的影響並不見得是當事人的本意與意圖。當事人可能並無將技術用於好或壞的動機，但技術本身仍然帶來某些影響，或好或壞。例如早期公共設施較沒有無障礙設施，這不見得是誰特意為之，但結果讓身心障礙者較難以前往某些地方，而在某個程度上遭到排除。這觀點稍微改變了我認為技術是中立的想法。</p>
-<p>技術物甚至會影響圍繞其的社會組織結構與運作方式，例如有了自動化生產系統，原本員工做的事是生產、製造某個東西，但有自動化生產系統後，員工變成是去維護這個系統的運作，而可能為了配合機器而在工作上得要更制式、更機械化。講難聽點，人從做重複性的生產作業，變成機器系統的活零件。</p>
-<p>要維持一個龐大的系統順暢運作，組織上就變得需要有階層與管理，需要管理階層去確定每個部分都有人確實的做好維護與運作。但接著要問的是，維持一個系統，是否必然要使用中央集權式的方式予以管理才能有效率並安全的運作？又如，在這個資訊科技講究創新的時代，由上而下、中央集權式的階層管理是否還適用？看到這我有點訝異，雖然有淺淺的想過一項技術會帶來些影響，可是沒有想那麼深。</p>
-<p>而當「進步」成為主流，對於技術大多只考慮實用性時，拒絕技術之引進容易被扣上「反進步」的帽子，或許使技術的影響性反而變得不被考量。</p>
-<p>murmur：這其實是拉哩拉紮的整理跟心得，目前來說無法更有條理了。看這書大概有四五成是每個字都看得懂但整個句子看起來其實不懂那些字詞真正想表達的意義……</p>
+        <p>使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。</p>
+<h2 id="使用-embedded-struct"><a href="#使用-embedded-struct" class="headerlink" title="使用 embedded struct"></a>使用 embedded struct</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Serving <span class="keyword">struct</span> &#123;</span><br><span class="line">    Amount <span class="keyword">float64</span></span><br><span class="line">    Unit   <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Food <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Serving    <span class="comment">// embedded struct</span></span><br><span class="line">    NutritionInfo</span><br><span class="line">    Comment <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>marshal 結果：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;Name&quot;</span>:<span class="string">&quot;Banana&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Amount&quot;</span>:<span class="number">100</span>,</span><br><span class="line">  <span class="attr">&quot;Unit&quot;</span>:<span class="string">&quot;g&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Calorie&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Carb&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Fat&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Protein&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span>:<span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不使用-embedded-struct"><a href="#不使用-embedded-struct" class="headerlink" title="不使用 embedded struct"></a>不使用 embedded struct</h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Food <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Serving Serving    <span class="comment">// not embedded struct</span></span><br><span class="line">    NutritionInfo</span><br><span class="line">    Comment <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>marshal 結果：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;Name&quot;</span>:<span class="string">&quot;Banana&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Serving&quot;</span>:</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;Amount&quot;</span>:<span class="number">100</span>,</span><br><span class="line">    <span class="attr">&quot;Unit&quot;</span>:<span class="string">&quot;g&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">&quot;Calorie&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Carb&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Fat&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Protein&quot;</span>:<span class="number">0</span>,</span><br><span class="line">  <span class="attr">&quot;Comment&quot;</span>:<span class="string">&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不用 embeded struct 就會有一層 <code>Serving</code>，用 embedded struct 就會省略 <code>Serving</code> 這層。</p>
 
     </div>
 
@@ -366,21 +353,20 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Reading/" rel="tag"># Reading</a>
-              <a href="/tags/STS/" rel="tag"># STS</a>
+              <a href="/tags/Go/" rel="tag"># Go</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/Iterator-Pattern/" rel="prev" title="Iterator Pattern">
-                  <i class="fa fa-chevron-left"></i> Iterator Pattern
+                <a href="/Git-submodule/" rel="prev" title="Git submodule">
+                  <i class="fa fa-chevron-left"></i> Git submodule
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/Qt-d-pointer-and-q-pointer/" rel="next" title="Qt d-pointer & q-pointer">
-                  Qt d-pointer & q-pointer <i class="fa fa-chevron-right"></i>
+                <a href="/Dockerfile/" rel="next" title="Dockerfile">
+                  Dockerfile <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -471,9 +457,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "http://www.cjwind.idv.tw/STS1-04/";
-    this.page.identifier = "STS1-04/";
-    this.page.title = "科技物有政治性嗎？";
+    this.page.url = "http://www.cjwind.idv.tw/Golang/Go-json-and-embedded-struct/";
+    this.page.identifier = "Golang/Go-json-and-embedded-struct/";
+    this.page.title = "Go json and embedded struct";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {

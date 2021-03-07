@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -219,7 +219,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,6 +268,109 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dependency-Injection-Extract-Dependency-Object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Dependency-Injection-Extract-Dependency-Object/" class="post-title-link" itemprop="url">Dependency Injection - Extract Dependency Object</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2018-12-17 21:20:10" itemprop="dateCreated datePublished" datetime="2018-12-17T21:20:10+08:00">2018-12-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dependency-Injection-Extract-Dependency-Object/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dependency-Injection-Extract-Dependency-Object/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>External Dependency 是系統中與被測試程式互動但你無法控制的物件。被測試程式受到 external dependency 行為影響可能有不同結果，為了保持 unit test 穩定，不會一下結果該是 A、一下結果該是 B，我們希望能掌控 external dependency──藉由 <a href="/Stub-in-test/">stub object</a> 模擬 external dependency 的行為並將其 inject 到被測試程式中，基本步驟如下：</p>
+<ol>
+<li>抽出 external dependency object 的 interface</li>
+<li>stub implement 該 interface 並實作 function</li>
+<li>inject stub 到被測試程式<ul>
+<li>Constructor Injection</li>
+<li>Setter Injection</li>
+<li>Extract and Override</li>
+</ul>
+</li>
+</ol>
+<p>本篇用例子說明步驟 1 跟 2：<code>MyClass</code> 是被測試程式，<code>Foo</code> 是 external dependency。（為了讓 code 短一點直接在 header 實作）</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Dependency-Injection-Extract-Dependency-Object/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1127,105 +1230,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/prefix-scan/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/the-clean-coder/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/the-clean-coder/" class="post-title-link" itemprop="url">The Clean Coder</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-10-30 20:00:18" itemprop="dateCreated datePublished" datetime="2017-10-30T20:00:18+08:00">2017-10-30</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/the-clean-coder/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="the-clean-coder/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Bob 大叔的書之一《The Clean Coder》，算是《Clean Code》的續集吧。</p>
-<p>《Clean Code》講怎麼寫 code，《The Clean Coder》講怎麼當 clean coder。記錄些心有戚戚焉的片段跟感想。</p>
-<h2 id="測試"><a href="#測試" class="headerlink" title="測試"></a>測試</h2><blockquote>
-<p>設計「易於測試的程式碼」(p.48)</p>
-</blockquote>
-<p>我想設計良好的程式應該也會好測試？從設計還是從測試出發，最後目標是一樣的，偏好哪種我覺得沒什麼差。</p>
-<p>到目前為止，我大多從設計出發。先想概略設計、class 的責任、class 之間的關係等等，接著實作會邊寫功能邊寫測試，但不是 TDD。通常是實作一小塊、寫那一小塊的測試，而不是先寫測試才實作。即使從設計出發還是需要測試的，因為可以確保程式是對的，之後也不怕修改。</p>
-<p>沒有實際用 TDD 寫 code，只在 dojo 小小玩過，所以說不上從測試出發是不是會導向好設計，能想像的只有因為要測試所以功能切分上應該不會太糟。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/the-clean-coder/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>

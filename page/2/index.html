@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -219,7 +219,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -277,7 +277,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Golang-init-func/">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Git-submodule/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -290,7 +290,96 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/Golang-init-func/" class="post-title-link" itemprop="url">Go init() function</a>
+          <a href="/Git-submodule/" class="post-title-link" itemprop="url">Git submodule</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2020-10-08 23:12:57" itemprop="dateCreated datePublished" datetime="2020-10-08T23:12:57+08:00">2020-10-08</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Git-submodule/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Git-submodule/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>submodule 是在 git repos 中使用別的 repos 的方式之一。</p>
+<p>git 的 submodule 是記錄一個指到別人 repo 某個 commit 的指標。對主 repo 來說，記錄的只是一個 submodule commit hash。</p>
+<p>切到 submodule 的目錄時做 git 操作會是在操作另一個 repo。</p>
+<h2 id="加入-submodule"><a href="#加入-submodule" class="headerlink" title="加入 submodule"></a>加入 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule add &lt;repo path&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="clone-含有-submodule-的-repos"><a href="#clone-含有-submodule-的-repos" class="headerlink" title="clone 含有 submodule 的 repos"></a>clone 含有 submodule 的 repos</h2><p>clone 含有 submodule 的 repos 後，submodule 的目錄會是空的，要做以下動作來初始化：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update</span></span><br></pre></td></tr></table></figure>
+<p><code>git submodule update</code> 會讓 submodule 的內容回到記錄的 commit。</p>
+<h2 id="更新-submodule"><a href="#更新-submodule" class="headerlink" title="更新 submodule"></a>更新 submodule</h2><p>submodule 的 repo 更新或者想用不同版本（commit）的 submodule 時，要做以下操作：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull</span>	</span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ..</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git a submodule_dir		<span class="comment"># 更新主 repo 記錄的 submodule commit hash</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git ci</span></span><br></pre></td></tr></table></figure>
+<p>概念是把 submodule 的 repo 更新或者 checkout 到想要的 commit，再在主 repo 更新記錄的 submodule commit hash。</p>
+<h2 id="移除-submodule"><a href="#移除-submodule" class="headerlink" title="移除 submodule"></a>移除 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -rf submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim .git/config		<span class="comment"># 移掉 submodule 相關設定</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="gitmodules"><a href="#gitmodules" class="headerlink" title=".gitmodules"></a>.gitmodules</h2><p>檔案 <code>.gitmodules</code> 會記錄有哪些 submodule。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Golang/Golang-init-func/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Golang/Golang-init-func/" class="post-title-link" itemprop="url">Go init() function</a>
         </h2>
 
         <div class="post-meta-container">
@@ -320,8 +409,8 @@
       </span>
       <span class="post-meta-item-text">Disqus: </span>
     
-    <a title="disqus" href="/Golang-init-func/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Golang-init-func/" itemprop="commentCount"></span>
+    <a title="disqus" href="/Golang/Golang-init-func/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Golang/Golang-init-func/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1309,143 +1398,6 @@
 <li><code>asmhead.nas</code>：OS 的組語部份</li>
 <li><code>bootpack.c</code>：OS 的 C 語言部份</li>
 <li><code>naskfunc.nas</code>：給 C 語言部份使用的組語 function</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/30dayos/day2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/30dayos/day2/" class="post-title-link" itemprop="url">Day 2 組合語言學習與 Makefile 入門</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2020-04-14 21:55:35" itemprop="dateCreated datePublished" datetime="2020-04-14T21:55:35+08:00">2020-04-14</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">In</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/30-%E5%A4%A9%E8%87%AA%E8%A3%BD%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/" itemprop="url" rel="index"><span itemprop="name">30 天自製作業系統</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/30dayos/day2/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="30dayos/day2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>來解釋這段組語在幹嘛~</p>
-<figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; hello-os</span></span><br><span class="line"><span class="comment">; TAB=4</span></span><br><span class="line"></span><br><span class="line">        ORG		<span class="number">0x7c00</span>			<span class="comment">; 指明程式的 load 位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 以下的記述用於標準 FAT12 格式的磁片</span></span><br><span class="line">        <span class="keyword">JMP</span>		entry</span><br><span class="line">        <span class="built_in">DB</span>		<span class="number">0x90</span></span><br><span class="line"></span><br><span class="line">--- (中略) ---</span><br><span class="line"></span><br><span class="line"><span class="comment">; 程式核心</span></span><br><span class="line"><span class="symbol">entry:</span>							<span class="comment">; label</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">AX</span>,<span class="number">0</span>			<span class="comment">; initialize register</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">SS</span>,<span class="built_in">AX</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">SP</span>,<span class="number">0x7c00</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">ES</span>,<span class="built_in">AX</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">SI</span>,msg			<span class="comment">; SI = msg 的 address</span></span><br><span class="line"><span class="symbol">putloop:</span></span><br><span class="line">        <span class="comment">; 將 memory address 為 SI register 值的資料 assign 給 AL</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">AL</span>,[<span class="built_in">SI</span>]			</span><br><span class="line">        <span class="keyword">ADD</span>		<span class="built_in">SI</span>,<span class="number">1</span>			<span class="comment">; SI + 1</span></span><br><span class="line">        <span class="keyword">CMP</span>		<span class="built_in">AL</span>,<span class="number">0</span>			<span class="comment">; 比較 AL 的值是否為 0</span></span><br><span class="line">        <span class="keyword">JE</span>		fin</span><br><span class="line">        <span class="keyword">MOV</span>		<span class="number">AH</span>,<span class="number">0x0e</span>			<span class="comment">; 顯示一個文字</span></span><br><span class="line">        <span class="keyword">MOV</span>		<span class="built_in">BX</span>,<span class="number">15</span>			<span class="comment">; 指定文字顏色</span></span><br><span class="line">        <span class="keyword">INT</span>		<span class="number">0x10</span>			<span class="comment">; call 顯卡 BIOS</span></span><br><span class="line">        <span class="keyword">JMP</span>		putloop</span><br><span class="line"><span class="symbol">fin:</span></span><br><span class="line">        <span class="keyword">HLT</span>					<span class="comment">; 讓 CPU 停止，等待指令</span></span><br><span class="line">        <span class="keyword">JMP</span>		fin			<span class="comment">; infinite loop</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">msg:</span></span><br><span class="line">        <span class="built_in">DB</span>		<span class="number">0x0a</span>, <span class="number">0x0a</span>		<span class="comment">; 換行兩次</span></span><br><span class="line">        <span class="built_in">DB</span>		<span class="string">&quot;hello, world&quot;</span></span><br><span class="line">        <span class="built_in">DB</span>		<span class="number">0x0a</span>			<span class="comment">; 換行</span></span><br><span class="line">        <span class="built_in">DB</span>		<span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p><code>ORG</code> 指令告訴 nask 程式要從指定的 address 開始，即要把程式 load 到 memory 中指定的 address <em>（這裡總有點半懂不懂）</em>。有這個指令時，<a href="30dayos/day1/">Day 1 從計算機結構到組合語言程式入門</a> 提到的 <code>$</code> 不再是 output file 的第幾個 byte，而是代表將要 read 的 memory address。</p>
-<p><code>entry:</code> 是 label，每個 label 都代表一個 address。位置的值是由 assembler 根據 ORG 計算出「label 所在的地方對應的 address」。</p>
-<p><code>MOV</code> 基本上就是 assignment，source 跟 destination 可以是 register、常數或者 memory address。</p>
-<p>CPU 裡比較重要的 register 及其完整名稱：</p>
-<ul>
-<li>AX：accumulator</li>
-<li>CX：counter</li>
-<li>DX：data</li>
-<li>BX：base</li>
-<li>SP：stack pointer</li>
-<li>BP：base pointer</li>
-<li>SI：source index</li>
-<li>DI：destination index</li>
-</ul>
-<p>這些 register 都是 16 bit。</p>
-<p>另外 CPU 還有 8 個 8 bit register：</p>
-<ul>
-<li>AL：accumulator low</li>
-<li>CL：counter low</li>
-<li>DL：data low</li>
-<li>BL：base low</li>
-<li>AH：accumulator high</li>
-<li>CH：counter high</li>
-<li>DH：data high</li>
-<li>BH：base high</li>
-</ul>
-<p>這些 register 是上面其中幾個 16 bit register 的高位跟低位而已，不是額外的 register。</p>
-<p>那 32 bit register 呢？就是 EAX、ECX、EDX、EBX、ESP、EBP、ESI 跟 EDI 啦～也就是 16 bit register 再擴展一倍，實際上 EAX 有一部分是跟 AX 共用的，跟 8 bit register 與 16 bit register 的關係一樣。</p>
-<p><code>MOV</code> 中，以方括號 <code>[ ]</code> 包起來，表示 memory address。</p>
-<p><code>MOV WORD [678], 123</code> 表示把 123 以 WORD 的大小（16 bit）放到 memory address 678 的地方。數字 123 的二進位表示成 16 bit 是 <code>0000000001111011</code> ，低位 byte <code>01111011</code> 會放在 address 678（memory address 小），高位 byte <code>00000000</code> 則會放在 address 679（memory address 大）。</p>
-<p>位元組順序（Endianness）是指資料在 memory 或傳輸過程中 byte 的擺放順序。將資料的低位 byte 放在 memory address 小、高位 byte 放在 memory address 大的擺放方式稱為 Little-Endian。反之，資料低位 byte 放在 memory address 大、高位 byte 放在 memory address 小，稱為 Big-Endian。一般 x86 的機器是使用 Little-Endian。</p>
-<p>指定 address 的方式，除了用常數，也可以用 register 的值。不過不是所有 register 都可以拿來做這件事，只有 BX、BP、SI 跟 DI 可以。所以 <code>MOV AL, BYTE [SI]</code> 是將 SI register 裡的值當作 address 去 memory 取得一個 byte 的資料並將 assign 給 register AL。另外，<code>MOV</code> 指令有個規則：source 跟 destination 的 byte 數必須相同。能放進 AL 的只有 BYTE，所以上面的指令可以省略 <code>BYTE</code> 變成 <code>MOV AL, [SI]</code>。</p>
-<p><code>JE</code>：如果比較結果相等，則 jump 到特定的 address；若不等，則不 jump，繼續做下一個指令。</p>
-<p>BIOS 是讓 OS 開發人員可以使用的各種 function 的集合。可以用指令 <code>INT</code> call 這些 function，它後面是個數字，不同數字代表不同 function，<code>0x10</code> 的功能是控制顯卡。</p>
-<p>使用 BIOS 的 function 跟其他 level 的程式 call function 一樣，查要的功能是用哪個數字（像 function name），接著照 function 定義在各 register 放值（像 function 參數），register 設好後用 <code>INT</code> call function。</p>
-<p><code>HLT</code> 是讓 CPU 進入待機狀態的指令，才不會 infinite loop 瞎跑。</p>
-<p>在整個 memory 裡，有些區域是有特定用途、不能隨便用的。其中 <code>0x00007c00</code> 到 <code>0x00007dff</code> 這段是 boot sector 的 loading address。所以 <code>ORG</code> 指令才要寫 <code>0x00007c00</code> ，把這份程式 load 到那個 address 才會被當作 boot sector 來 run～（至於為什麼要是這個 address……不知道又是誰訂的XD）</p>
-<p>電腦開機時 BIOS 會在可開機 device 中找 boot signature──在 boot sector 裡最後兩個 byte <code>0x55 AA</code>。BIOS 找到這樣的 boot sector，便將 boot sector load 到 memory address <code>0x00007c00</code> 的位置。接著便開始執行剛 load 進來的 boot record。floppy disk 的整個 boot sector 都是可執行 code（除了最後兩個 byte）。hard disk 的 MBR（Master Boot Record）在（硬碟 boot sector）位置 <code>0x0000</code> ~ <code>0x01bd</code> 是可執行 code，接著後面是 parition table（<code>0x01be</code> ~ <code>0x01fd</code>）以及 boot signature（<code>0x01fe</code> ~ <code>0x01ff</code>）。</p>
-<p>因為 BIOS 會把 boot sector load 到 memory address <code>0x00007c00</code>，所以用 <code>ORG</code> 指令就要寫 <code>0x00007c00</code>。這樣組譯出來的 machine code 裡的各個 memory address 才會是對的。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://wiki.osdev.org/Boot_Sequence#Master_Boot_Record">Boot Sequence - Master Boot Record</a></li>
 </ul>
 
       

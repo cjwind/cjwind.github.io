@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -219,7 +219,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,6 +268,143 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dynamic-Linking-Relocation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Dynamic-Linking-Relocation/" class="post-title-link" itemprop="url">Dynamic Linking Relocation</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-03-18 22:42:42" itemprop="dateCreated datePublished" datetime="2017-03-18T22:42:42+08:00">2017-03-18</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2017-04-14 23:04:00" itemprop="dateModified" datetime="2017-04-14T23:04:00+08:00">2017-04-14</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Dynamic-Linking-Relocation/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dynamic-Linking-Relocation/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a href="/Load-process/">Load process</a> 在 dynamic linking 的差別是 load 完執行檔後 OS 會先看 ELF 的 <code>.interp</code> section 知道要 load 哪個 dynamic linker，OS load dynamic linker 並將控制權先交給它，在 linux 下是 <code>/lib/x86_64-linux-gnu/ld-2.19.so</code>（很明顯也是個 shared library）。</p>
+<p>dynamic linker 做的事情分成三步：</p>
+<ol>
+<li>啟動</li>
+<li>load 所有需要的 shared library</li>
+<li>relocation &amp; initialization</li>
+</ol>
+<p>dynamic linker 本身也是個 shared library，但它有一些限制，例如不能有依賴的 shared library、不能使用 global 變數、不能 call function 等等。在啟動階段，dynamic linker 會先找到自己的 GOT，而 GOT 第一個 entry 存的是 <code>.dynamic</code> section 的 offset。<code>.dynamic</code> section 保存了 dynamic linker 需要的資訊，例如依賴哪些 shared library，dynamic symbol table、dynamic relocation table 的位置等等。<code>readelf -d</code> 可以查看 <code>.dynamic</code> section。</p>
+<p>透過 <code>.dynamic</code> 裡的資訊，linker 可以知道自己的 relocation table 以及 symbol table，能對自己進行 relocation。linker 做完針對自己的 relocation 後，才能開始使用 global 變數、call function 等等。</p>
+<p>啟動完成後，dynamic linker 將自己的 symbol 以及 executable file 的 symbol 合併到 global symbol table。接著開始從 executable file 的  <code>.dynamic</code> 得知依賴哪些 shared library，一一打開 shared library 並將之 load 到 memory 中、建立 mapping，並且將 shared library 的 symbol 合併到 global symbol table，再搜尋 shared library 的 dependency。如此 traverse 整棵 shared library dependency tree 之後，即 load 完所需的 shared library。通常會以 BFS traverse dependency tree。</p>
+<p>symbol 的部份，ELF 以 dynamic symbol table 保存模組間 import 及 export symbol 的關係，位於 <code>.dynsym</code>，作用以及記錄的資訊跟 <code>.symtab</code> 差不多，但只記錄給其他模組使用的 symbol 以及使用其他模組的 symbol。</p>
+<p>traverse dependency tree 的順序跟 symbol 的優先度有關──當兩個 shared library 有相同的 symbol 時要使用誰的？在 Linux 中會優先使用先 load 的 symbol。也就是說，shared library 的 load 順序會影響 symbol 的優先度，而 link 時指定的 library 順序會影響 load 的順序。</p>
+<p>接著，linker 開始 traverse executable file 以及 shared library 的 relocation table，使用 global symbol table 來修正 GOT 及 PLT 內的 address。dynamic linking 中的 relocation table <code>.rela.dyn</code> 用來修正 <code>.got</code> 及 data section，<code>.rela.plt</code> 則修正 <code>.got.plt</code> section 內的 address。relocation 完成後，如果 shared library 擁有 <code>.init</code> section，dynamic linker 會執行它以進行對 shared library 的初始化。</p>
+<p>最後，dynamic linker 將控制權交給程式的入口開始執行。</p>
+<h2 id="Relocation-example"><a href="#Relocation-example" class="headerlink" title="Relocation example"></a>Relocation example</h2><p>雖然簡單來說 dynamic linker 會在 load shared library 時進行 relocation，但如<a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a>所說的，實際上 ELF 是以 lazy binding 來 bind symbol。用個簡單例子看看怎麼做的：</p>
+<figure class="highlight h"><figcaption><span>foo.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __FOO_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __FOO_H</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (x + y);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight h"><figcaption><span>bar.h</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __BAR_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __BAR_H</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><figcaption><span>bar.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;foo.h&quot;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bar</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    foo(a, b);</span><br><span class="line">    foo(b, n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight h"><figcaption><span>main.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;bar.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    bar(<span class="number">2</span>, <span class="number">3</span>, <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="code"><pre><span class="line">$ gcc -g -shared -fPIC foo<span class="selector-class">.c</span> -o libfoo.so</span><br><span class="line">$ gcc -g -shared -fPIC bar<span class="selector-class">.c</span> -o libbar.so</span><br><span class="line">$ gcc -g <span class="selector-tag">main</span><span class="selector-class">.c</span> ./libfoo<span class="selector-class">.so</span> ./libbar<span class="selector-class">.so</span> -o main</span><br></pre></td></tr></table></figure>
+<p>最後編 executable file 時指定的 library 順序會影響 load library 的順序。</p>
+<p>在 <code>main()</code>、<code>bar()</code> 跟 <code>foo()</code> 設中斷點，停在 <code>main()</code> 之後觀察 <code>foo</code> 的 relocation 資訊：</p>
+<figure class="highlight gradle"><table><tr><td class="code"><pre><span class="line">$ gdb ./main</span><br><span class="line">Reading symbols <span class="keyword">from</span> ./main...done.</span><br><span class="line">(gdb) b main</span><br><span class="line">Breakpoint <span class="number">1</span> at <span class="number">0</span>x40067a: <span class="keyword">file</span> main.c, line <span class="number">5</span>.</span><br><span class="line">(gdb) b bar</span><br><span class="line">Breakpoint <span class="number">2</span> at <span class="number">0</span>x400550</span><br><span class="line">(gdb) b foo</span><br><span class="line">Function <span class="string">&quot;foo&quot;</span> not defined.</span><br><span class="line">Make breakpoint pending on future shared library load? (y or [n]) y</span><br><span class="line">Breakpoint <span class="number">3</span> (foo) pending.</span><br><span class="line">(gdb) r</span><br><span class="line">Starting program: <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/m</span>ain</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">1</span>, main () at main.c:<span class="number">5</span></span><br><span class="line"><span class="number">5</span>           bar(<span class="number">2</span>, <span class="number">3</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">$ cat <span class="regexp">/proc/</span>`pgrep main`/maps</span><br><span class="line"><span class="number">00400000</span>-<span class="number">00401000</span> r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259464</span>                            <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/m</span>ain</span><br><span class="line"><span class="number">00600000</span>-<span class="number">00601000</span> rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259464</span>                            <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/m</span>ain</span><br><span class="line"><span class="number">7</span>ffff762f000-<span class="number">7</span>ffff77d0000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">22</span> <span class="number">1572872</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/libc-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff77d0000-<span class="number">7</span>ffff79d0000 ---p <span class="number">001</span>a1000 <span class="number">08</span>:<span class="number">22</span> <span class="number">1572872</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/libc-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff79d0000-<span class="number">7</span>ffff79d4000 r--p <span class="number">001</span>a1000 <span class="number">08</span>:<span class="number">22</span> <span class="number">1572872</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/libc-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff79d4000-<span class="number">7</span>ffff79d6000 rw-p <span class="number">001</span>a5000 <span class="number">08</span>:<span class="number">22</span> <span class="number">1572872</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/libc-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff79d6000-<span class="number">7</span>ffff79da000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="number">7</span>ffff79da000-<span class="number">7</span>ffff79db000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259463</span>                    <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/</span>libbar.so</span><br><span class="line"><span class="number">7</span>ffff79db000-<span class="number">7</span>ffff7bda000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259463</span>                    <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/</span>libbar.so</span><br><span class="line"><span class="number">7</span>ffff7bda000-<span class="number">7</span>ffff7bdb000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259463</span>                    <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/</span>libbar.so</span><br><span class="line"><span class="number">7</span>ffff7bdb000-<span class="number">7</span>ffff7bdc000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259445</span>                    <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/</span>libfoo.so</span><br><span class="line"><span class="number">7</span>ffff7bdc000-<span class="number">7</span>ffff7ddb000 ---p <span class="number">00001000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259445</span>                    <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/</span>libfoo.so</span><br><span class="line"><span class="number">7</span>ffff7ddb000-<span class="number">7</span>ffff7ddc000 rw-p <span class="number">00000000</span> <span class="number">08</span>:<span class="number">24</span> <span class="number">8259445</span>                    <span class="regexp">/home/</span>cjw<span class="regexp">/source/</span>dynamic-link<span class="regexp">/relocate/</span>libfoo.so</span><br><span class="line"><span class="number">7</span>ffff7ddc000-<span class="number">7</span>ffff7dfc000 r-xp <span class="number">00000000</span> <span class="number">08</span>:<span class="number">22</span> <span class="number">1572869</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/ld-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff7fd5000-<span class="number">7</span>ffff7fd8000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="number">7</span>ffff7ff6000-<span class="number">7</span>ffff7ff8000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="number">7</span>ffff7ff8000-<span class="number">7</span>ffff7ffa000 r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [vdso]</span><br><span class="line"><span class="number">7</span>ffff7ffa000-<span class="number">7</span>ffff7ffc000 r--p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [vvar]</span><br><span class="line"><span class="number">7</span>ffff7ffc000-<span class="number">7</span>ffff7ffd000 r--p <span class="number">00020000</span> <span class="number">08</span>:<span class="number">22</span> <span class="number">1572869</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/ld-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff7ffd000-<span class="number">7</span>ffff7ffe000 rw-p <span class="number">00021000</span> <span class="number">08</span>:<span class="number">22</span> <span class="number">1572869</span>                    <span class="regexp">/lib/</span>x86_64-linux-gnu/ld-<span class="number">2.19</span>.so</span><br><span class="line"><span class="number">7</span>ffff7ffe000-<span class="number">7</span>ffff7fff000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span></span><br><span class="line"><span class="number">7</span>ffffffdd000-<span class="number">7</span>ffffffff000 rw-p <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                          [stack]</span><br><span class="line">ffffffffff600000-ffffffffff601000 r-xp <span class="number">00000000</span> <span class="number">00</span>:<span class="number">00</span> <span class="number">0</span>                  [vsyscall]</span><br><span class="line"></span><br><span class="line">$ readelf -r libbar.so</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.dyn&#x27;</span> at offset <span class="number">0</span>x430 contains <span class="number">8</span> entries:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">Relocation section <span class="string">&#x27;.rela.plt&#x27;</span> at offset <span class="number">0</span>x4f0 contains <span class="number">3</span> entries:</span><br><span class="line">  Offset          Info           Type           Sym. Value    Sym. Name + Addend</span><br><span class="line"><span class="number">000000200980</span>  <span class="number">000300000007</span> R_X86_64_JUMP_SLO <span class="number">0000000000000000</span> __gmon_start__ + <span class="number">0</span></span><br><span class="line"><span class="number">000000200988</span>  <span class="number">000400000007</span> R_X86_64_JUMP_SLO <span class="number">0000000000000000</span> foo + <span class="number">0</span></span><br><span class="line"><span class="number">000000200990</span>  <span class="number">000700000007</span> R_X86_64_JUMP_SLO <span class="number">0000000000000000</span> __cxa_finalize + <span class="number">0</span></span><br><span class="line"></span><br><span class="line">(gdb) x/<span class="number">1</span>xbg <span class="number">0</span>x7ffff79da000+<span class="number">0</span>x000000200988</span><br><span class="line"><span class="number">0</span>x7ffff7bda988: <span class="number">0</span>x00007ffff79da586</span><br><span class="line"></span><br><span class="line">(gdb) info address foo</span><br><span class="line">Symbol <span class="string">&quot;foo&quot;</span> is a function at address <span class="number">0</span>x7ffff7bdb660.</span><br></pre></td></tr></table></figure>
+<p><code>libbar.so</code> 裡需要修正 address 的位置是 <code>0x7ffff79da000 + 0x000000200988</code>，因為 library 要到 load 的時候才能知道起始位置，所以必須用 offset 算出要修改的地方，因為還沒用過 <code>foo</code>，這個 address 的內容還不是 <code>foo</code> 的 address。</p>
+<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">$ readelf -S libbar.so</span><br><span class="line">...</span><br><span class="line">  [20] .got.plt          PROGBITS        <span class="number"> 0000000000200968 </span> 00000968</span><br><span class="line">      <span class="number"> 0000000000000030 </span><span class="number"> 0000000000000008 </span> WA      <span class="number"> 0 </span>   <span class="number"> 0 </span>    8</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>從 relocation entry 來看，relocate 的 offset 是 <code>0x000000200988</code>，在 <code>.got.plt</code> 裡。<code>0x7ffff7bda988</code> 這個位置在 load <code>libbar.so</code> 的第三個 segment，屬性是 <code>rw-p</code>，是可以修改的。</p>
+<p>繼續跑看第一次 call <code>foo()</code>：</p>
+<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">2</span>, bar (a=<span class="number">2</span>, b=<span class="number">3</span>, <span class="built_in">n</span>=<span class="number">10</span>) at bar.<span class="symbol">c:7</span></span><br><span class="line"><span class="number">7</span>           foo(a, b);</span><br><span class="line">(gdb) x/<span class="number">10</span>i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da6b1 &lt;bar+<span class="number">17</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>x8(%rbp),%edx</span><br><span class="line">   <span class="number">0</span>x7ffff79da6b4 &lt;bar+<span class="number">20</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>x4(%rbp),%eax</span><br><span class="line">   <span class="number">0</span>x7ffff79da6b7 &lt;bar+<span class="number">23</span>&gt;<span class="symbol">:</span>     mov    %edx,%esi</span><br><span class="line">   <span class="number">0</span>x7ffff79da6b9 &lt;bar+<span class="number">25</span>&gt;<span class="symbol">:</span>     mov    %eax,%edi</span><br><span class="line">   <span class="number">0</span>x7ffff79da6bb &lt;bar+<span class="number">27</span>&gt;<span class="symbol">:</span>     callq  <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c0 &lt;bar+<span class="number">32</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>xc(%rbp),%edx</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c3 &lt;bar+<span class="number">35</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>x8(%rbp),%eax</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c6 &lt;bar+<span class="number">38</span>&gt;<span class="symbol">:</span>     mov    %edx,%esi</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c8 &lt;bar+<span class="number">40</span>&gt;<span class="symbol">:</span>     mov    %eax,%edi</span><br><span class="line">   <span class="number">0</span>x7ffff79da6ca &lt;bar+<span class="number">42</span>&gt;<span class="symbol">:</span>     callq  <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;</span><br><span class="line">(gdb) b *<span class="number">0</span>x7ffff79da6bb</span><br><span class="line">(gdb) c</span><br><span class="line">(gdb) x/<span class="number">1</span>i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da6bb &lt;bar+<span class="number">27</span>&gt;<span class="symbol">:</span>     callq  <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;</span><br><span class="line">(gdb) si</span><br><span class="line"><span class="number">0</span>x00007ffff79da580 in foo@plt () from ./libbar.so</span><br><span class="line">(gdb) x/<span class="number">3</span>i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;<span class="symbol">:</span>    jmpq   *<span class="number">0</span>x200402(%rip)        # <span class="number">0</span>x7ffff7bda988</span><br><span class="line">   <span class="number">0</span>x7ffff79da586 &lt;foo@plt+<span class="number">6</span>&gt;<span class="symbol">:</span>  pushq  $<span class="number">0</span>x1</span><br><span class="line">   <span class="number">0</span>x7ffff79da58b &lt;foo@plt+<span class="number">11</span>&gt;<span class="symbol">:</span> jmpq   <span class="number">0</span>x7ffff79da560</span><br><span class="line">(gdb) si</span><br><span class="line"><span class="number">0</span>x00007ffff79da586 in foo@plt () from ./libbar.so</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da586 &lt;foo@plt+<span class="number">6</span>&gt;<span class="symbol">:</span>  pushq  $<span class="number">0</span>x1</span><br><span class="line">(gdb) </span><br><span class="line"><span class="number">0</span>x00007ffff79da58b in foo@plt () from ./libbar.so</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da58b &lt;foo@plt+<span class="number">11</span>&gt;<span class="symbol">:</span> jmpq   <span class="number">0</span>x7ffff79da560</span><br><span class="line">(gdb) </span><br><span class="line"><span class="number">0</span>x00007ffff79da560 in ?? () from ./libbar.so</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79<span class="symbol">da560:</span>      pushq  <span class="number">0</span>x20040a(%rip)        # <span class="number">0</span>x7ffff7bda970</span><br><span class="line">(gdb) </span><br><span class="line"><span class="number">0</span>x00007ffff79da566 in ?? () from ./libbar.so</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79<span class="symbol">da566:</span>      jmpq   *<span class="number">0</span>x20040c(%rip)        # <span class="number">0</span>x7ffff7bda978</span><br><span class="line">(gdb) x/<span class="number">3</span>i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79<span class="symbol">da566:</span>      jmpq   *<span class="number">0</span>x20040c(%rip)        # <span class="number">0</span>x7ffff7bda978</span><br><span class="line">   <span class="number">0</span>x7ffff79da56<span class="symbol">c:</span>      nopl   <span class="number">0</span>x0(%rax)</span><br><span class="line">   <span class="number">0</span>x7ffff79da570 &lt;__gmon_start__@plt&gt;<span class="symbol">:</span> jmpq   *<span class="number">0</span>x20040a(%rip)        # <span class="number">0</span>x7ffff7bda980</span><br><span class="line">(gdb) si</span><br><span class="line">_dl_runtime_resolve () at ../sysdeps/x86_64/dl-trampoline.<span class="symbol">S:34</span></span><br><span class="line"><span class="number">34</span>      ../sysdeps/x86_64/dl-trampoline.<span class="symbol">S:</span> No such file <span class="built_in">or</span> directory.</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff7df02b0 &lt;_dl_runtime_resolve&gt;<span class="symbol">:</span>        sub    $<span class="number">0</span>x38,%rsp</span><br><span class="line">(gdb) x/<span class="number">1</span>xbg <span class="number">0</span>x7ffff7bda978</span><br><span class="line"><span class="number">0</span>x7ffff7b<span class="symbol">da978:</span> <span class="number">0</span>x00007ffff7df02b0</span><br></pre></td></tr></table></figure>
+<p><code>0x7ffff79da580</code> 是 <code>foo</code> 在 PLT 裡的位置，call <code>foo()</code> 的時候會跳過去。這個位置位於 load <code>libbar.so</code> 的第一個 segment，屬性 <code>r-xp</code>，可執行，同時也代表 PLT 是被放在可執行的 segment 裡。到 <code>foo@plt</code> 後會再跳到 <code>foo</code> 在 <code>.got.plt</code> 的 entry 所指的 address，也就是前面看到的 <code>0x00007ffff79da586</code>，同時也是 <code>foo@plt</code> 的下一個指令，最後在 <code>0x7ffff79da566:      jmpq   *0x20040c(%rip)        # 0x7ffff7bda978</code> 會跳到 <code>0x7ffff7bda978</code> 記錄的位置 <code>0x00007ffff7df02b0</code>，即 <code>_dl_runtime_resolve</code> 的入口，到這邊當然是要 resolve symbol 啦，至於中間 push 的動作跟給 <code>_dl_runtime_resolve</code> 參數有關。</p>
+<p>設中斷點在 call 完 <code>foo()</code> 之後，看看 resolve 完 <code>foo</code> 在 <code>.got.plt</code> 裡對應的 entry 會如何：</p>
+<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">(gdb) b *<span class="number">0</span>x7ffff79da6c0</span><br><span class="line">Breakpoint <span class="number">5</span> at <span class="number">0</span>x7ffff79da6<span class="symbol">c0:</span> file bar.c, line <span class="number">8</span>.</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">3</span>, foo (x=<span class="number">2</span>, y=<span class="number">3</span>) at foo.<span class="symbol">c:3</span></span><br><span class="line"><span class="number">3</span>           return (x + y);</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff7bdb66a &lt;foo+<span class="number">10</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>x4(%rbp),%edx</span><br><span class="line"><span class="symbol">1:</span> $pc = (void (*)()) <span class="number">0</span>x7ffff7bdb66a &lt;foo+<span class="number">10</span>&gt;</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">5</span>, bar (a=<span class="number">2</span>, b=<span class="number">3</span>, <span class="built_in">n</span>=<span class="number">10</span>) at bar.<span class="symbol">c:8</span></span><br><span class="line"><span class="number">8</span>           foo(b, <span class="built_in">n</span>);</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da6c0 &lt;bar+<span class="number">32</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>xc(%rbp),%edx</span><br><span class="line"><span class="symbol">1:</span> $pc = (void (*)()) <span class="number">0</span>x7ffff79da6c0 &lt;bar+<span class="number">32</span>&gt;</span><br><span class="line">(gdb) x/<span class="number">7</span>i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da6c0 &lt;bar+<span class="number">32</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>xc(%rbp),%edx</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c3 &lt;bar+<span class="number">35</span>&gt;<span class="symbol">:</span>     mov    -<span class="number">0</span>x8(%rbp),%eax</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c6 &lt;bar+<span class="number">38</span>&gt;<span class="symbol">:</span>     mov    %edx,%esi</span><br><span class="line">   <span class="number">0</span>x7ffff79da6c8 &lt;bar+<span class="number">40</span>&gt;<span class="symbol">:</span>     mov    %eax,%edi</span><br><span class="line">   <span class="number">0</span>x7ffff79da6ca &lt;bar+<span class="number">42</span>&gt;<span class="symbol">:</span>     callq  <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;</span><br><span class="line">   <span class="number">0</span>x7ffff79da6cf &lt;bar+<span class="number">47</span>&gt;<span class="symbol">:</span>     leaveq </span><br><span class="line">   <span class="number">0</span>x7ffff79da6d0 &lt;bar+<span class="number">48</span>&gt;<span class="symbol">:</span>     retq   </span><br><span class="line">(gdb) x/<span class="number">1</span>xbg <span class="number">0</span>x7ffff79da000+<span class="number">0</span>x000000200988</span><br><span class="line"><span class="number">0</span>x7ffff7b<span class="symbol">da988:</span> <span class="number">0</span>x00007ffff7bdb660</span><br><span class="line">(gdb) <span class="built_in">info</span> <span class="built_in">address</span> foo</span><br><span class="line">Symbol <span class="string">&quot;foo&quot;</span> is a function at <span class="built_in">address</span> <span class="number">0</span>x7ffff7bdb660.</span><br></pre></td></tr></table></figure>
+<p>出現 <code>foo</code> 的 address 啦！</p>
+<p>再看第二次 call <code>foo()</code> 會怎樣：</p>
+<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">(gdb) b *<span class="number">0</span>x7ffff79da6ca</span><br><span class="line">Breakpoint <span class="number">6</span> at <span class="number">0</span>x7ffff79da6<span class="symbol">ca:</span> file bar.c, line <span class="number">8</span>.</span><br><span class="line">(gdb) c</span><br><span class="line">Continuing.</span><br><span class="line"></span><br><span class="line">Breakpoint <span class="number">6</span>, <span class="number">0</span>x00007ffff79da6ca in bar (a=<span class="number">2</span>, b=<span class="number">3</span>, <span class="built_in">n</span>=<span class="number">10</span>) at bar.<span class="symbol">c:8</span></span><br><span class="line"><span class="number">8</span>           foo(b, <span class="built_in">n</span>);</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da6ca &lt;bar+<span class="number">42</span>&gt;<span class="symbol">:</span>     callq  <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;</span><br><span class="line">(gdb) si</span><br><span class="line"><span class="number">0</span>x00007ffff79da580 in foo@plt () from ./libbar.so</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;<span class="symbol">:</span>    jmpq   *<span class="number">0</span>x200402(%rip)        # <span class="number">0</span>x7ffff7bda988</span><br><span class="line"><span class="symbol">1:</span> $pc = (void (*)()) <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;</span><br><span class="line">(gdb) x/<span class="number">5</span>i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff79da580 &lt;foo@plt&gt;<span class="symbol">:</span>    jmpq   *<span class="number">0</span>x200402(%rip)        # <span class="number">0</span>x7ffff7bda988</span><br><span class="line">   <span class="number">0</span>x7ffff79da586 &lt;foo@plt+<span class="number">6</span>&gt;<span class="symbol">:</span>  pushq  $<span class="number">0</span>x1</span><br><span class="line">   <span class="number">0</span>x7ffff79da58b &lt;foo@plt+<span class="number">11</span>&gt;<span class="symbol">:</span> jmpq   <span class="number">0</span>x7ffff79da560</span><br><span class="line">   <span class="number">0</span>x7ffff79da590 &lt;__cxa_finalize@plt&gt;<span class="symbol">:</span> jmpq   *<span class="number">0</span>x2003fa(%rip)        # <span class="number">0</span>x7ffff7bda990</span><br><span class="line">   <span class="number">0</span>x7ffff79da596 &lt;__cxa_finalize@plt+<span class="number">6</span>&gt;<span class="symbol">:</span>       pushq  $<span class="number">0</span>x2</span><br><span class="line">(gdb) si</span><br><span class="line">foo (x=<span class="number">2</span>, y=<span class="number">3</span>) at foo.<span class="symbol">c:2</span></span><br><span class="line"><span class="number">2</span>       &#123;</span><br><span class="line"><span class="symbol">2:</span> x/i $pc</span><br><span class="line">=&gt; <span class="number">0</span>x7ffff7bdb660 &lt;foo&gt;<span class="symbol">:</span>        push   %rbp</span><br><span class="line"><span class="symbol">1:</span> $pc = (void (*)()) <span class="number">0</span>x7ffff7bdb660 &lt;foo&gt;</span><br></pre></td></tr></table></figure>
+<p>一樣跳到 <code>foo@plt</code>，接著會跳到 <code>foo</code> 於 <code>.got.plt</code> 所記錄的 address，現在是 <code>foo()</code> 的 address 了所以就會進 <code>foo()</code> 了！</p>
+<p>總結上面的 lazy binding 行為，call function 時會跳到 PLT 裡執行，進到 PLT 的第一個指令是跳到 symbol 於 GOT 裡所指向的位置。第一次 call 時 GOT 記錄的 address 會是 PLT 對應的下一個指令，相當於繼續執行 PLT 的 instruction，接著一路 call 到 resolve symbol 的 function 找 symbol 以及將 address 填進 GOT。之後再 call 到相同 function 一樣會先到 PLT，但第一個指令就會從 GOT 得到正確 address、跳去該 function 執行。</p>
+<p>觀察 <code>main</code> 裡的 <code>bar</code> 也會有類似的情況，只是 <code>main</code> 因為是 executable file，relocation entry 的 offset 已經是 load 進 memory 的 address，可以不用像 shared library 那樣要用 load 的 memory 開頭算 offset。</p>
+<h2 id="Initialization"><a href="#Initialization" class="headerlink" title="Initialization"></a>Initialization</h2><p>除了一般會進入 shared library 的 <code>.init</code> section 進行初始化外，GCC 還提供了 shared library 的 constructor 及 destructor 擴充語法，可以讓 function 在 load shared library 時執行以做更多初始化的動作，宣告語法如下：</p>
+<figure class="highlight delphi"><table><tr><td class="code"><pre><span class="line">void __attribute__((<span class="function"><span class="keyword">constructor</span>)) <span class="title">init</span><span class="params">()</span>;</span></span><br><span class="line">void __attribute__((<span class="function"><span class="keyword">destructor</span>)) <span class="title">fini</span><span class="params">()</span>;</span></span><br></pre></td></tr></table></figure>
+<p>使用這種 constructor 跟 destructor 必須使用系統預設的 standard runtime library 以及啟動檔案，不可以用 <code>-nostartfiles</code> 以及 <code>-nostdlib</code> 參數。constructor 會在 load shared library 時執行（執行 main 之前），而 destructor 則會在執行 <code>exit()</code> 時執行。如果是 <a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a>，constructor 會在 <code>dlopen()</code> 時執行，destructor 則在 <code>dlclose()</code> 時執行。</p>
+<h2 id="Murmur-amp-省略的細節"><a href="#Murmur-amp-省略的細節" class="headerlink" title="Murmur &amp; 省略的細節"></a>Murmur &amp; 省略的細節</h2><p>上面這樣順順列下來看起來好簡單，但其實我找 GOT 跟 PLT 到底在做什麼找～很～久～一直錯把 GOT 當 PLT，就搞不懂是在幹嘛……</p>
+<p>PIC 跟 GOT/PLT 還有不少細節，例如 ELF 怎麼處理 library 內跟跨 library 的 function call？變數的 relocation 怎麼做的？resolve function 怎麼知道要找哪個 symbol？這些先暫時略過，不然我永遠寫不完……Orz</p>
+<h2 id="Related-posts-amp-Ref"><a href="#Related-posts-amp-Ref" class="headerlink" title="Related posts &amp; Ref"></a>Related posts &amp; Ref</h2><ul>
+<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
+<li><a href="/Dynamic-Linking-PIC/">Dynamic Linking PIC</a></li>
+<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
+<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
+<li><a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a></li>
+<li>《程式設計師的自我修養》ch7</li>
+<li><a target="_blank" rel="noopener" href="https://www.bottomupcs.com/chapter08.xhtml">https://www.bottomupcs.com/chapter08.xhtml</a></li>
+<li><a target="_blank" rel="noopener" href="https://hackmd.io/s/HkK7Uf4Ml">你所不知道的 C 語言：動態連結器篇</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1219,141 +1356,6 @@
 <p>開 servo 終於正常了…\T_T/</p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li><a target="_blank" rel="noopener" href="http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html">http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Design-Pattern-Overview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Design-Pattern-Overview/" class="post-title-link" itemprop="url">Design Pattern Overview</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-12-24 13:34:04" itemprop="dateCreated datePublished" datetime="2016-12-24T13:34:04+08:00">2016-12-24</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Design-Pattern-Overview/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Design-Pattern-Overview/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Design Pattern <strong>提供某個情境下針對某問題的某種解決方法</strong>。這些解法通常是前人整理出來、經過驗證的。</p>
-<ul>
-<li>「情境」是某種不斷出現的狀況。</li>
-<li>「問題」是在某個情境下希望達到的目標，也可能是情境下的限制。</li>
-<li>「解決方法」希望是個 general 的設計，用來解決限制、達到目標。</li>
-</ul>
-<p>常用來描述 design pattern 的方式是 GoF 書裡使用的格式。</p>
-<h2 id="使用-Design-Pattern"><a href="#使用-Design-Pattern" class="headerlink" title="使用 Design Pattern"></a>使用 Design Pattern</h2><p><strong>能用簡單方法解決問題就用簡單方法。</strong>pattern 會為系統增加額外複雜度，只有需要的時候才使用。</p>
-<p>使用 pattern 要注意是否有意義以及是否對系統其他部分造成影響，不要為了用而用。如果預期系統在未來會有實際的改變，也可以用 pattern 預先加上彈性。不過要注意，必須是實際的改變，而不是假定的改變。自己覺得可能會改變就用一堆 pattern 也不對，至於什麼叫做「未來實際會有的改變」又是另一個故事了……(喂</p>
-<p>熟悉大部分 pattern 後，需要時大概會知道需要什麼 pattern，接著可以參考 pattern 的 motivation 確認想法對不對，再來要考量會不會對系統造成不良影響。設計上確認後，實作可以參考 UML 跟範例了解實作上的眉眉角角。</p>
-<p>GoF 把 design pattern 分成三大類：creational、structural、behavioral patterns。有時候不知道確切需要哪個 pattern，可以先對問題分類再從類別中找適合的 pattern。</p>
-<h2 id="Design-Pattern-分類"><a href="#Design-Pattern-分類" class="headerlink" title="Design Pattern 分類"></a>Design Pattern 分類</h2><h3 id="Creational-pattern"><a href="#Creational-pattern" class="headerlink" title="Creational pattern"></a>Creational pattern</h3><p>處理「產生 object」。主要的目的有二，一是希望封裝 concrete class，二是想封裝「如何產生並結合 concrete class 的 instance」的過程。</p>
-<ul>
-<li>Abstract Factory</li>
-<li>Builder</li>
-<li>Factory Method</li>
-<li>Prototype</li>
-<li><a href="/singleton">Singleton</a></li>
-</ul>
-<h3 id="Structural-pattern"><a href="#Structural-pattern" class="headerlink" title="Structural pattern"></a>Structural pattern</h3><p>可以合成 class 跟 object 到更大的結構中。</p>
-<ul>
-<li><a href="/Adapter-Pattern">Adapter</a></li>
-<li>Bridge</li>
-<li><a href="/Composite-Pattern">Composite</a></li>
-<li>Decorator</li>
-<li><a href="/Facade-Pattern">Facade</a></li>
-<li>Flyweight</li>
-<li><a href="/Proxy-Pattern">Proxy</a></li>
-</ul>
-<h3 id="Behavior-pattern"><a href="#Behavior-pattern" class="headerlink" title="Behavior pattern"></a>Behavior pattern</h3><p>重點在 class 與 object 間的互動，以及各自的責任。</p>
-<ul>
-<li>Chain of Responsibility</li>
-<li>Command</li>
-<li>Interpreter</li>
-<li><a href="/Iterator-Pattern">Iterator</a></li>
-<li>Mediator</li>
-<li>Memento</li>
-<li><a href="/Observer-Pattern">Observer</a></li>
-<li><a href="/State-Pattern">State</a></li>
-<li><a href="/Strategy-Pattern">Strategy</a></li>
-<li><a href="/Template-Method-Pattern">Template Method</a></li>
-<li>Visitor</li>
-</ul>
-<h2 id="Anti-pattern"><a href="#Anti-pattern" class="headerlink" title="Anti-pattern"></a>Anti-pattern</h2><p>anti-pattern 就是不好的 pattern，告訴大家什麼叫用不好的解決方式解決一個問題，好避免用到這些方法。一個好的 anti-pattern 除了說明不好的方法之外，會建議改用其他 pattern。<del>不然就沒建設性啦</del></p>
-<h2 id="pattern-世界"><a href="#pattern-世界" class="headerlink" title="pattern 世界"></a>pattern 世界</h2><p>除了 design pattern 之外，還有像特定領域如 concurrent 系統的 pattern、組織溝通上的 pattern、UI/UX 的 pattern 等等。pattern 是蠻 general 的概念，在蠻多領域都會出現的，共通的概念是「在面對某種重複出現的情境、狀況或問題時的應對方式」。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Design Patterns: Elements of Reusable Object-Oriented Software》</li>
-<li>《Head First Design Patterns》</li>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software_design_pattern">https://en.wikipedia.org/wiki/Software_design_pattern</a></li>
-<li><a target="_blank" rel="noopener" href="http://hillside.net/">http://hillside.net/</a></li>
 </ul>
 
       

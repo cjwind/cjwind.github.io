@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -219,7 +219,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -268,6 +268,101 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/set-up-existing-octopress-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/set-up-existing-octopress-blog/" class="post-title-link" itemprop="url">Clone 已有 Octopress blog</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-05 23:57:35" itemprop="dateCreated datePublished" datetime="2014-04-05T23:57:35+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/set-up-existing-octopress-blog/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="set-up-existing-octopress-blog/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Octopress 的後端就是自己的電腦，有多台電腦時需要在其他電腦再建立 Octopress 的撰寫環境，並且拿 Github 上面的 repos 下來繼續寫。</p>
+<h2 id="安裝環境"><a href="#安裝環境" class="headerlink" title="安裝環境"></a>安裝環境</h2><p>基本環境：<a target="_blank" rel="noopener" href="http://msysgit.github.io/">Git for Windows</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">RubyInstaller 1.9.3</a>、<a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">Ruby Development kit</a>。如果用到 code highlight，要裝 <a target="_blank" rel="noopener" href="https://www.python.org/">Python 2</a>，否則 <code>rake generate</code> 會生出空白頁。安裝完 Ruby 跟 Python 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑以及 Python 的安裝路徑，如 <code>C:\Ruby193\bin</code> 及 <code>C:\Python27</code>。</p>
+<h2 id="Clone-repository"><a href="#Clone-repository" class="headerlink" title="Clone repository"></a>Clone repository</h2><figure class="highlight asciidoc"><table><tr><td class="code"><pre><span class="line">$ git clone -b source <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io octopress</span><br><span class="line"></span><br><span class="line">$ cd octopress</span><br><span class="line">$ git clone <span class="link">https://github.com/</span>[<span class="string">username</span>]/[username].github.io _deploy</span><br></pre></td></tr></table></figure>
+<p>Octopress 將 master branch 放在 <code>_deploy/</code>。</p>
+<h2 id="Rake-installation-and-configuration"><a href="#Rake-installation-and-configuration" class="headerlink" title="Rake installation and configuration"></a>Rake installation and configuration</h2><figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line">$ gem <span class="keyword">install </span><span class="keyword">bundler</span></span><br><span class="line"><span class="keyword">$ </span><span class="keyword">bundle </span><span class="keyword">install</span></span><br><span class="line"><span class="keyword">$ </span>rake setup_github_pages</span><br></pre></td></tr></table></figure>
+<p>最後一個指令會要求輸入 Github 的 repository URL。</p>
+<h2 id="Pull-repository"><a href="#Pull-repository" class="headerlink" title="Pull repository"></a>Pull repository</h2><p>有多台電腦編輯時，開始前要記得將 local repository 更新到最新。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git pull origin <span class="built_in">source</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> _deploy</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull origin master</span></span><br></pre></td></tr></table></figure>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/">http://blog.zerosharp.com/clone-your-octopress-to-blog-from-two-places/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1113,134 +1208,6 @@
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/phpunit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/phpunit/" class="post-title-link" itemprop="url">PHPUnit</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-04-05 00:21:54" itemprop="dateCreated datePublished" datetime="2014-04-05T00:21:54+08:00">2014-04-05</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/phpunit/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="phpunit/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>PHP 的 Unit Test Framework。</p>
-<blockquote>
-<p>Whenever you are tempted to type something into a print statement or a debugger expression, write it as a test instead.<br>~ Martin Fowler</p>
-</blockquote>
-<p>test 要是 independent。一個 test 的 result 不能 depend 其他 test 的 result。</p>
-<h2 id="Install-on-Ubuntu-12-04"><a href="#Install-on-Ubuntu-12-04" class="headerlink" title="Install on Ubuntu 12.04"></a>Install on Ubuntu 12.04</h2><figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> sudo apt-get remove phpunit    <span class="comment">// 應該是前面有先用 apt-get install 裝了才需要</span></span><br><span class="line"><span class="symbol">$</span> sudo pear upgrade pear         <span class="comment">// pear 只要裝了 php 就有</span></span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover pear.phpunit.de</span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover pear.symfony-project.com</span><br><span class="line"><span class="symbol">$</span> sudo pear channel-discover components.ez.<span class="keyword">no</span></span><br><span class="line"><span class="symbol">$</span> sudo pear update-channels</span><br><span class="line"><span class="symbol">$</span> sudo pear upgrade-<span class="keyword">all</span></span><br><span class="line"><span class="symbol">$</span> sudo pear install -alldeps phpunit/PHPUnit</span><br><span class="line"><span class="symbol">$</span> sudo pear uninstall phpunit/PHPUnit</span><br><span class="line"><span class="symbol">$</span> sudo pear install phpunit/PHPUnit</span><br></pre></td></tr></table></figure>
-<p>最後兩個指令看起來很好笑，好像是 pear 的 script 有問題。用倒數第三行裝完之後，又會說找不到 <code>PHP_CodeCoverage_Filter::getInstance()</code>，後來做這兩行就動了。</p>
-<h3 id="失敗的安裝"><a href="#失敗的安裝" class="headerlink" title="失敗的安裝"></a>失敗的安裝</h3><p>不能直接用</p>
-<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install phpunit</span><br></pre></td></tr></table></figure>
-<p>不然 run 的時候會該找不到 PHP Code Coverage。</p>
-<h2 id="Run-test"><a href="#Run-test" class="headerlink" title="Run test"></a>Run test</h2><p>run all tests</p>
-<figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="variable">$ </span>phpunit</span><br><span class="line"><span class="variable">$ </span>phpunit --stderr</span><br></pre></td></tr></table></figure>
-<p>PHPUnit 在一些系統上會有 header already sent 的錯誤，加 <code>--stderr</code> 可以避免 PHPUnit 把這視為測試錯誤。</p>
-<p>執行單一測試，指定某測試檔做測試。</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line">$ phpunit --stderr &lt;<span class="keyword">test</span> <span class="keyword">file</span> path&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Basic-conventions"><a href="#Basic-conventions" class="headerlink" title="Basic conventions"></a>Basic conventions</h2><ol>
-<li>class “Class” 的 test 放在 class “ClassTest”</li>
-<li>ClassTest 要繼承 PHPUnit_Framework_TestCase</li>
-<li>test 為 public method，method name 為 test*</li>
-<li>在 test 中，用 assert*() function check value 是否符合預期</li>
-</ol>
-<h2 id="failure-vs-error"><a href="#failure-vs-error" class="headerlink" title="failure vs error"></a>failure vs error</h2><p>failure 是 assertion function fail（要測試的 function 的 output 不符合預期）。以 F 代表。</p>
-<p>error 是出現 unexpected exception 或 PHP error。以 E 代表。</p>
-<h2 id="setUp-amp-tearDown"><a href="#setUp-amp-tearDown" class="headerlink" title="setUp() &amp; tearDown()"></a>setUp() &amp; tearDown()</h2><p>為了讓測試是正確且獨立的，要保持執行 test 時環境是乾淨的。在每次執行一個 test method 前會 call <code>setUp()</code> 建立 test 所需要的 object、變數等等。run 完 test method 後會 call <code>tearDown()</code> 清東西。</p>
-<p>通常只需 implement <code>tearDown()</code>，用來 close file、socket 等。</p>
-<h2 id="用-file-system-組合-test-suite"><a href="#用-file-system-組合-test-suite" class="headerlink" title="用 file system 組合 test suite"></a>用 file system 組合 test suite</h2><p>可以用 file system 的 directory structure 達到組合出一個 test suite 的目的。這也是最簡單的方式。:)</p>
-<p>建立一 test dir 並建立跟 project dir 中一樣的 directory structure。把 test case source file（就是 test method 的 source code）以相應 project source file 的位置放進去。PHPUnit 會自動 traverse test dir 做 test。</p>
-<p>舉例說明：</p>
-<p>這是 project directory：</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">object</span>/</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">MyStack</span>.</span></span>php</span><br></pre></td></tr></table></figure>
-<p>這是 test directory：</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">tests/</span><br><span class="line">    <span class="module-access"><span class="module"><span class="identifier">MyStackTest</span>.</span></span>php</span><br></pre></td></tr></table></figure>
-<p>PHPUnit 會在 test dir（上例的 tests/）底下找 *Test.php 來做測試。</p>
-<h3 id="執行-test-suite"><a href="#執行-test-suite" class="headerlink" title="執行 test suite"></a>執行 test suite</h3><figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">$ phpunit --stderr &lt;test <span class="built_in">dir</span> <span class="built_in">path</span>&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="寫-test-就是…"><a href="#寫-test-就是…" class="headerlink" title="寫 test 就是…"></a>寫 test 就是…</h2><ol>
-<li>生一些 testcase（input 及預期的 output）</li>
-<li>在 test method 裡 call 要測的 function，把 test case 的 input 當作 arg 丟進去。</li>
-<li>用 asseert function 判斷 function 的 output 是否符合預期。</li>
-</ol>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://www.phpunit.de/manual/3.6/en/index.html">PHPUnit manual</a></li>
-</ul>
-
       
     </div>
 

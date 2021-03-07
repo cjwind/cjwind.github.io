@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-02-27T10:28:46.252Z</updated>
+  <updated>2021-03-07T07:49:16.504Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -17,9 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>ch1 跑者成功的要素</title>
+    <link href="http://www.cjwind.idv.tw/daniels-running-formula/ch1/"/>
+    <id>http://www.cjwind.idv.tw/daniels-running-formula/ch1/</id>
+    <published>2021-03-07T07:45:41.000Z</published>
+    <updated>2021-03-07T07:49:16.504Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/images/daniels-running-formula/ch1-mindmap.png" alt=""></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;/images/daniels-running-formula/ch1-mindmap.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
+    
+    <category term="Running" scheme="http://www.cjwind.idv.tw/tags/Running/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ch2 API Paradigms</title>
-    <link href="http://www.cjwind.idv.tw/Designing-Web-APIs-ch2/"/>
-    <id>http://www.cjwind.idv.tw/Designing-Web-APIs-ch2/</id>
+    <link href="http://www.cjwind.idv.tw/Designing-Web-APIs/Designing-Web-APIs-ch2/"/>
+    <id>http://www.cjwind.idv.tw/Designing-Web-APIs/Designing-Web-APIs-ch2/</id>
     <published>2021-02-27T10:27:28.000Z</published>
     <updated>2021-02-27T10:28:46.252Z</updated>
     
@@ -111,9 +136,9 @@
     
     
     
-    <category term="Go" scheme="http://www.cjwind.idv.tw/tags/Go/"/>
-    
     <category term="Project" scheme="http://www.cjwind.idv.tw/tags/Project/"/>
+    
+    <category term="Go" scheme="http://www.cjwind.idv.tw/tags/Go/"/>
     
   </entry>
   
@@ -170,8 +195,8 @@
   
   <entry>
     <title>Go Module</title>
-    <link href="http://www.cjwind.idv.tw/Go-Module/"/>
-    <id>http://www.cjwind.idv.tw/Go-Module/</id>
+    <link href="http://www.cjwind.idv.tw/Golang/Go-Module/"/>
+    <id>http://www.cjwind.idv.tw/Golang/Go-Module/</id>
     <published>2021-01-24T09:34:34.000Z</published>
     <updated>2021-01-24T09:35:40.000Z</updated>
     
@@ -215,8 +240,8 @@
   
   <entry>
     <title>Go json and embedded struct</title>
-    <link href="http://www.cjwind.idv.tw/Go-json-and-embedded-struct/"/>
-    <id>http://www.cjwind.idv.tw/Go-json-and-embedded-struct/</id>
+    <link href="http://www.cjwind.idv.tw/Golang/Go-json-and-embedded-struct/"/>
+    <id>http://www.cjwind.idv.tw/Golang/Go-json-and-embedded-struct/</id>
     <published>2020-11-15T14:00:46.000Z</published>
     <updated>2020-11-15T14:09:42.000Z</updated>
     
@@ -261,8 +286,8 @@
   
   <entry>
     <title>Go init() function</title>
-    <link href="http://www.cjwind.idv.tw/Golang-init-func/"/>
-    <id>http://www.cjwind.idv.tw/Golang-init-func/</id>
+    <link href="http://www.cjwind.idv.tw/Golang/Golang-init-func/"/>
+    <id>http://www.cjwind.idv.tw/Golang/Golang-init-func/</id>
     <published>2020-08-29T09:48:15.000Z</published>
     <updated>2021-02-26T14:42:35.572Z</updated>
     
@@ -477,31 +502,6 @@
       
       
     <summary type="html">&lt;h2 id=&quot;製作真正的-IPL&quot;&gt;&lt;a href=&quot;#製作真正的-IPL&quot; class=&quot;headerlink&quot; title=&quot;製作真正的 IPL&quot;&gt;&lt;/a&gt;製作真正的 IPL&lt;/h2&gt;&lt;p&gt;IPL 是 Initial Program Loader，現在要開始做真正的 IPL</summary>
-      
-    
-    
-    
-    <category term="30 天自製作業系統" scheme="http://www.cjwind.idv.tw/categories/30-%E5%A4%A9%E8%87%AA%E8%A3%BD%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/"/>
-    
-    
-    <category term="OS" scheme="http://www.cjwind.idv.tw/tags/OS/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Day 2 組合語言學習與 Makefile 入門</title>
-    <link href="http://www.cjwind.idv.tw/30dayos/day2/"/>
-    <id>http://www.cjwind.idv.tw/30dayos/day2/</id>
-    <published>2020-04-14T13:55:35.000Z</published>
-    <updated>2020-08-09T03:17:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>來解釋這段組語在幹嘛~</p><figure class="highlight x86asm"><table><tr><td class="code"><pre><span class="line"><span class="comment">; hello-os</span></span><br><span class="line"><span class="comment">; TAB=4</span></span><br><span class="line"></span><br><span class="line">        ORG<span class="number">0x7c00</span><span class="comment">; 指明程式的 load 位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">; 以下的記述用於標準 FAT12 格式的磁片</span></span><br><span class="line">        <span class="keyword">JMP</span>entry</span><br><span class="line">        <span class="built_in">DB</span><span class="number">0x90</span></span><br><span class="line"></span><br><span class="line">--- (中略) ---</span><br><span class="line"></span><br><span class="line"><span class="comment">; 程式核心</span></span><br><span class="line"><span class="symbol">entry:</span><span class="comment">; label</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">AX</span>,<span class="number">0</span><span class="comment">; initialize register</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">SS</span>,<span class="built_in">AX</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">SP</span>,<span class="number">0x7c00</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">DS</span>,<span class="built_in">AX</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">ES</span>,<span class="built_in">AX</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">SI</span>,msg<span class="comment">; SI = msg 的 address</span></span><br><span class="line"><span class="symbol">putloop:</span></span><br><span class="line">        <span class="comment">; 將 memory address 為 SI register 值的資料 assign 給 AL</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">AL</span>,[<span class="built_in">SI</span>]</span><br><span class="line">        <span class="keyword">ADD</span><span class="built_in">SI</span>,<span class="number">1</span><span class="comment">; SI + 1</span></span><br><span class="line">        <span class="keyword">CMP</span><span class="built_in">AL</span>,<span class="number">0</span><span class="comment">; 比較 AL 的值是否為 0</span></span><br><span class="line">        <span class="keyword">JE</span>fin</span><br><span class="line">        <span class="keyword">MOV</span><span class="number">AH</span>,<span class="number">0x0e</span><span class="comment">; 顯示一個文字</span></span><br><span class="line">        <span class="keyword">MOV</span><span class="built_in">BX</span>,<span class="number">15</span><span class="comment">; 指定文字顏色</span></span><br><span class="line">        <span class="keyword">INT</span><span class="number">0x10</span><span class="comment">; call 顯卡 BIOS</span></span><br><span class="line">        <span class="keyword">JMP</span>putloop</span><br><span class="line"><span class="symbol">fin:</span></span><br><span class="line">        <span class="keyword">HLT</span><span class="comment">; 讓 CPU 停止，等待指令</span></span><br><span class="line">        <span class="keyword">JMP</span>fin<span class="comment">; infinite loop</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">msg:</span></span><br><span class="line">        <span class="built_in">DB</span><span class="number">0x0a</span>, <span class="number">0x0a</span><span class="comment">; 換行兩次</span></span><br><span class="line">        <span class="built_in">DB</span><span class="string">&quot;hello, world&quot;</span></span><br><span class="line">        <span class="built_in">DB</span><span class="number">0x0a</span><span class="comment">; 換行</span></span><br><span class="line">        <span class="built_in">DB</span><span class="number">0</span></span><br></pre></td></tr></table></figure><p><code>ORG</code> 指令告訴 nask 程式要從指定的 address 開始，即要把程式 load 到 memory 中指定的 address <em>（這裡總有點半懂不懂）</em>。有這個指令時，<a href="30dayos/day1/">Day 1 從計算機結構到組合語言程式入門</a> 提到的 <code>$</code> 不再是 output file 的第幾個 byte，而是代表將要 read 的 memory address。</p><p><code>entry:</code> 是 label，每個 label 都代表一個 address。位置的值是由 assembler 根據 ORG 計算出「label 所在的地方對應的 address」。</p><p><code>MOV</code> 基本上就是 assignment，source 跟 destination 可以是 register、常數或者 memory address。</p><p>CPU 裡比較重要的 register 及其完整名稱：</p><ul><li>AX：accumulator</li><li>CX：counter</li><li>DX：data</li><li>BX：base</li><li>SP：stack pointer</li><li>BP：base pointer</li><li>SI：source index</li><li>DI：destination index</li></ul><p>這些 register 都是 16 bit。</p><p>另外 CPU 還有 8 個 8 bit register：</p><ul><li>AL：accumulator low</li><li>CL：counter low</li><li>DL：data low</li><li>BL：base low</li><li>AH：accumulator high</li><li>CH：counter high</li><li>DH：data high</li><li>BH：base high</li></ul><p>這些 register 是上面其中幾個 16 bit register 的高位跟低位而已，不是額外的 register。</p><p>那 32 bit register 呢？就是 EAX、ECX、EDX、EBX、ESP、EBP、ESI 跟 EDI 啦～也就是 16 bit register 再擴展一倍，實際上 EAX 有一部分是跟 AX 共用的，跟 8 bit register 與 16 bit register 的關係一樣。</p><p><code>MOV</code> 中，以方括號 <code>[ ]</code> 包起來，表示 memory address。</p><p><code>MOV WORD [678], 123</code> 表示把 123 以 WORD 的大小（16 bit）放到 memory address 678 的地方。數字 123 的二進位表示成 16 bit 是 <code>0000000001111011</code> ，低位 byte <code>01111011</code> 會放在 address 678（memory address 小），高位 byte <code>00000000</code> 則會放在 address 679（memory address 大）。</p><p>位元組順序（Endianness）是指資料在 memory 或傳輸過程中 byte 的擺放順序。將資料的低位 byte 放在 memory address 小、高位 byte 放在 memory address 大的擺放方式稱為 Little-Endian。反之，資料低位 byte 放在 memory address 大、高位 byte 放在 memory address 小，稱為 Big-Endian。一般 x86 的機器是使用 Little-Endian。</p><p>指定 address 的方式，除了用常數，也可以用 register 的值。不過不是所有 register 都可以拿來做這件事，只有 BX、BP、SI 跟 DI 可以。所以 <code>MOV AL, BYTE [SI]</code> 是將 SI register 裡的值當作 address 去 memory 取得一個 byte 的資料並將 assign 給 register AL。另外，<code>MOV</code> 指令有個規則：source 跟 destination 的 byte 數必須相同。能放進 AL 的只有 BYTE，所以上面的指令可以省略 <code>BYTE</code> 變成 <code>MOV AL, [SI]</code>。</p><p><code>JE</code>：如果比較結果相等，則 jump 到特定的 address；若不等，則不 jump，繼續做下一個指令。</p><p>BIOS 是讓 OS 開發人員可以使用的各種 function 的集合。可以用指令 <code>INT</code> call 這些 function，它後面是個數字，不同數字代表不同 function，<code>0x10</code> 的功能是控制顯卡。</p><p>使用 BIOS 的 function 跟其他 level 的程式 call function 一樣，查要的功能是用哪個數字（像 function name），接著照 function 定義在各 register 放值（像 function 參數），register 設好後用 <code>INT</code> call function。</p><p><code>HLT</code> 是讓 CPU 進入待機狀態的指令，才不會 infinite loop 瞎跑。</p><p>在整個 memory 裡，有些區域是有特定用途、不能隨便用的。其中 <code>0x00007c00</code> 到 <code>0x00007dff</code> 這段是 boot sector 的 loading address。所以 <code>ORG</code> 指令才要寫 <code>0x00007c00</code> ，把這份程式 load 到那個 address 才會被當作 boot sector 來 run～（至於為什麼要是這個 address……不知道又是誰訂的XD）</p><p>電腦開機時 BIOS 會在可開機 device 中找 boot signature──在 boot sector 裡最後兩個 byte <code>0x55 AA</code>。BIOS 找到這樣的 boot sector，便將 boot sector load 到 memory address <code>0x00007c00</code> 的位置。接著便開始執行剛 load 進來的 boot record。floppy disk 的整個 boot sector 都是可執行 code（除了最後兩個 byte）。hard disk 的 MBR（Master Boot Record）在（硬碟 boot sector）位置 <code>0x0000</code> ~ <code>0x01bd</code> 是可執行 code，接著後面是 parition table（<code>0x01be</code> ~ <code>0x01fd</code>）以及 boot signature（<code>0x01fe</code> ~ <code>0x01ff</code>）。</p><p>因為 BIOS 會把 boot sector load 到 memory address <code>0x00007c00</code>，所以用 <code>ORG</code> 指令就要寫 <code>0x00007c00</code>。這樣組譯出來的 machine code 裡的各個 memory address 才會是對的。</p><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://wiki.osdev.org/Boot_Sequence#Master_Boot_Record">Boot Sequence - Master Boot Record</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;來解釋這段組語在幹嘛~&lt;/p&gt;
-&lt;figure class=&quot;highlight x86asm&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;; hello-os&lt;/sp</summary>
       
     
     
