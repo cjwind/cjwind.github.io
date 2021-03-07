@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">167</span>
+          <span class="site-state-item-count">168</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,101 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Strategy-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Strategy-Pattern/" class="post-title-link" itemprop="url">Strategy Pattern</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-04-20 21:28:26" itemprop="dateCreated datePublished" datetime="2015-04-20T21:28:26+08:00">2015-04-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2015-06-29 22:01:22" itemprop="dateModified" datetime="2015-06-29T22:01:22+08:00">2015-06-29</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Strategy-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Strategy-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>定義演算法家族，將個別演算法封裝起來，讓它們可以互相替換。</p>
+<p>此 pattern 讓演算法的變動不會影響到使用演算法的部分。</p>
+<p>例子：最短路徑搜尋</p>
+<p><img src="/images/StrategyPatternEx.png" alt="Strategy Pattern 最短路徑搜尋 class diagram"></p>
+<p>將 shortest path algorithm 封裝起來，讓 RouteFinder 使用。RouteFinder 使用 ShortestPathStrategy 找 shortest path（RouteFinder 將找路徑的工作 delegate 給 ShortestPathStrategy），ShortestPathStrategy 的 instance 則依據使用哪種 algorithm 決定。</p>
+<p>有新的 algorithm 或 strategy 時只要 implement ShortestPathStrategy 並換掉 RouteFinder 使用的 instance 即可。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《深入淺出設計模式》</li>
+<li><a target="_blank" rel="noopener" href="http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html">http://teddy-chen-tw.blogspot.tw/2013/08/strategy-pattern.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx">http://www.dotblogs.com.tw/joysdw12/archive/2013/03/07/95769.aspx</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1115,118 +1210,6 @@
 <li>搞不清楚意思或軟體要幹嘛時去問客戶，以降低做出不是客戶要的東西的風險。</li>
 </ul>
 <p>寫好軟體的方式是先做好了解需求、規劃、組織、架構以及減少風險，盡可能延後 coding、避免在前期一頭栽進細節。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/use-case/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/use-case/" class="post-title-link" itemprop="url">Use case</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-01-31 16:52:27" itemprop="dateCreated datePublished" datetime="2015-01-31T16:52:27+08:00">2015-01-31</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2015-05-13 21:10:00" itemprop="dateModified" datetime="2015-05-13T21:10:00+08:00">2015-05-13</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/use-case/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="use-case/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>首先，來點文言文…</p>
-<blockquote>
-<p>A use case describes <strong>what</strong> your system does to accomplish a particular customer goal.</p>
-</blockquote>
-<blockquote>
-<p>use case 是捕捉新系統或軟體變更的潛在需求之技術。每個 use case 提供一或多個 scenario，傳達系統如何與 end user 或其他系統互動，完成特定目標。</p>
-</blockquote>
-<p>以上文言文看完我也不知道自己是不是知道它在寫什麼。(喂)</p>
-<p>白話文來說，use case 會寫出一堆使用這軟體的情境跟過程，藉由這些情境跟流程來描述軟體要做些什麼好達到客戶的目標。<del>（這樣有白話文一點嗎？）</del></p>
-<p>use case 描述軟體要<strong>「做什麼」（what）</strong>，而非描述「如何做」（how）。</p>
-<h2 id="組成-Use-case-的三部分"><a href="#組成-Use-case-的三部分" class="headerlink" title="組成 Use case 的三部分"></a>組成 Use case 的三部分</h2><ol>
-<li>clear value<br>軟體要幫客戶做的事，也是客戶的目標。</li>
-<li>starting and stoping point<br>use case 的開始及結束點<del>，總不會一直繞圈圈沒完沒了吧</del>。</li>
-<li>external initialtor<br>既然是軟體的使用流程，總有個開始「使用軟體」的人或其他系統。</li>
-</ol>
-<h2 id="Main-amp-Alternative-path"><a href="#Main-amp-Alternative-path" class="headerlink" title="Main &amp; Alternative path"></a>Main &amp; Alternative path</h2><p>main path 是當世界一片美好、沒有任何事情出錯時，使用者會遵循的使用流程。但通常世界不是那麼美好的，工程師的工作之一就是要找出這些不美好(?)，讓軟體也能妥妥善善的處理它。alternative path 即是在 use case 中負責描述及處理這些「出錯狀況」的使用流程。</p>
-<p>alternative path 可以是…</p>
-<ol>
-<li>完全替代原本的部分 path。遇到某個選擇時可以選 main path 繼續下去，也可以選 alternative path 做。<br>例如可以選吃飯或吃麵完成吃晚餐這件事。</li>
-<li>optional 的，用來處理額外、例外以及出錯的狀況。<br>例如想吃牛肉麵但沒開的時候該怎麼辦。</li>
-</ol>
-<h2 id="關於-Use-case"><a href="#關於-Use-case" class="headerlink" title="關於 Use case"></a>關於 Use case</h2><p>形式上沒有固定的限制，我通常會寫成流程步驟，不管形式如何，重點只有一個──看得懂、能正確表達意思。</p>
-<p>寫 use case 的時候會進到幾乎可以將 use case 裡的 logic 變成 code 的細節部分。</p>
-<p>use case 也要包含檢驗步驟，例如檢驗輸入是否合法、某個物件是否存在等等。</p>
-<h2 id="Textual-Analysis"><a href="#Textual-Analysis" class="headerlink" title="Textual Analysis"></a>Textual Analysis</h2><p>寫好 use case，然後咧？跟程式有什麼關係？這時候就是 textual analysis 上場的時候啦！</p>
-<p>分析 use case 裡的名詞及動詞，整理出 class 及 method 即為 texttual analysis。</p>
-<p>use case 中的名詞有可能是系統中的 class，動詞通常是 class 的 method。當然不是 use case 裡所有的名詞跟動詞都是 class 跟 method，所以需要經過分析，好決定要為那些名詞及動詞建立 class 跟 method。</p>
-<p>做完 textual analysis 決定要有哪些 class 跟 method 後，就可以進入設計物件跟物件間關係的階段了。</p>
 
       
     </div>

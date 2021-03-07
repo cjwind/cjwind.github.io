@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">167</span>
+          <span class="site-state-item-count">168</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,126 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/solve-servo-blank/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/solve-servo-blank/" class="post-title-link" itemprop="url">解決執行 Servo 只有白畫面問題</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-02-05 21:04:39" itemprop="dateCreated datePublished" datetime="2017-02-05T21:04:39+08:00">2017-02-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/solve-servo-blank/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="solve-servo-blank/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>build 好 servo 之後執行 <code>./mach run -d tests/html/about-mozilla.html</code> 視窗只出現白白的畫面。這怎麼看都不正常啊……ˊ（´;ω;｀)</p>
+<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><ul>
+<li>LMDE 2 Cinnamon 64 bits</li>
+<li>NVIDIA GeForce GTS 250</li>
+<li>kernel 3.16.0-4-amd64</li>
+</ul>
+<h2 id="各種測試"><a href="#各種測試" class="headerlink" title="各種測試"></a>各種測試</h2><p>build release 版後 <code>./mach run -r tests/html/about-mozilla.html</code> 跟從 <a target="_blank" rel="noopener" href="https://download.servo.org/">https://download.servo.org/</a> 抓 pre-built 版都白白的。</p>
+<p>用 gdb 跑跑看</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">./mcah <span class="builtin-name">run</span> -d --debug</span><br><span class="line">gdb&gt; r tests/html/about-mozilla.html</span><br><span class="line"><span class="built_in">..</span>.blahblah</span><br></pre></td></tr></table></figure>
+<p>所以有在動啊……</p>
+<p><code>./mach run -d tests/html/about-mozilla.html -o output.png</code> 輸出圖檔，圖片也是一片白。</p>
+<p>update 系統再 try 也不行。</p>
+<p>用 VM LMDE 跑 pre-built 出現其他 error <code>0:1(10): error: GLSL 1.50 is not supported. Supported versions are 1.10, 1.20, 1.30, 1.00 ES, and 3.00 ES</code>，<a target="_blank" rel="noopener" href="https://github.com/servo/servo/issues/11124">可能跟 VM 沒 support OpenGL 有關</a>，有點岔題所以不管。</p>
+<p>另一台電腦 Ubuntu 跑 pre-built，正常。</p>
+<h2 id="猜猜樂"><a href="#猜猜樂" class="headerlink" title="猜猜樂"></a>猜猜樂</h2><p>pre-built 不會動表示不是我 build 的有問題。猜是 render 有問題，測輸出圖檔也不行，應該八九不離十是 render 問題。google 看不出所以然，Ubuntu 是好的但應該不至於 Ubuntu 可以 LMDE 卻不能用。</p>
+<p>畫不出來，不然更新看看 driver。</p>
+<p>先說結果，猜中了。(′‧ω‧‵)</p>
+<h2 id="檢查顯卡型號-amp-driver"><a href="#檢查顯卡型號-amp-driver" class="headerlink" title="檢查顯卡型號 &amp; driver"></a>檢查顯卡型號 &amp; driver</h2><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line">$ lspci <span class="string">| grep VGA</span></span><br><span class="line"><span class="number">01</span>:<span class="number">00.0</span> VGA compatible controller: NVIDIA Corporation G92 [GeForce GTS <span class="number">250</span>] (rev a2)</span><br></pre></td></tr></table></figure>
+<p>看顯卡型號。</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ glxinfo | OpenGL</span><br><span class="line">OpenGL vendor strin<span class="variable">g:</span> NVIDIA Corporation</span><br><span class="line">OpenGL renderer strin<span class="variable">g:</span> GeForce GTS <span class="number">250</span>/PCIe/SSE2</span><br><span class="line">OpenGL core <span class="keyword">profile</span> <span class="keyword">version</span> strin<span class="variable">g:</span> <span class="number">3.3</span>.<span class="number">0</span> NVIDIA <span class="number">340.101</span></span><br><span class="line">OpenGL core <span class="keyword">profile</span> shading <span class="keyword">language</span> <span class="keyword">version</span> strin<span class="variable">g:</span> <span class="number">3.30</span> NVIDIA via Cg <span class="keyword">compiler</span></span><br><span class="line">OpenGL core <span class="keyword">profile</span> context flag<span class="variable">s:</span> (none)</span><br><span class="line">OpenGL core <span class="keyword">profile</span> <span class="keyword">profile</span> mask: core <span class="keyword">profile</span></span><br><span class="line">OpenGL core <span class="keyword">profile</span> extension<span class="variable">s:</span></span><br><span class="line">OpenGL <span class="keyword">version</span> strin<span class="variable">g:</span> <span class="number">3.3</span>.<span class="number">0</span> NVIDIA <span class="number">340.101</span></span><br><span class="line">OpenGL shading <span class="keyword">language</span> <span class="keyword">version</span> strin<span class="variable">g:</span> <span class="number">3.30</span> NVIDIA via Cg <span class="keyword">compiler</span></span><br><span class="line">OpenGL context flag<span class="variable">s:</span> (none)</span><br><span class="line">OpenGL <span class="keyword">profile</span> mask: (none)</span><br><span class="line">OpenGL extension<span class="variable">s:</span></span><br><span class="line">OpenGL ES <span class="keyword">profile</span> <span class="keyword">version</span> strin<span class="variable">g:</span> OpenGL ES <span class="number">2.0</span> NVIDIA <span class="number">340.101</span> <span class="number">340.101</span></span><br><span class="line">OpenGL ES <span class="keyword">profile</span> shading <span class="keyword">language</span> <span class="keyword">version</span> strin<span class="variable">g:</span> OpenGL ES GLSL ES <span class="number">1.00</span></span><br><span class="line">OpenGL ES <span class="keyword">profile</span> extension<span class="variable">s:</span></span><br></pre></td></tr></table></figure>
+<p>看顯卡 driver，這是已經換成 NVIDIA driver 的結果。如果 <code>OpenGL renderer string</code> 出現 Mesa 之類的表示不是用 NVIDIA 的 driver。</p>
+<h2 id="更新顯卡-driver"><a href="#更新顯卡-driver" class="headerlink" title="更新顯卡 driver"></a>更新顯卡 driver</h2><p>為了更新顯卡搞了半天……總結如下。</p>
+<p><a target="_blank" rel="noopener" href="http://www.nvidia.com/Download/index.aspx?lang=en-us">抓 NVIDIA driver</a>。</p>
+<p>修改 <code>/etc/default/grub</code>：<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;nouveau.blacklist=1 quiet splash text&quot;</code>，之後</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> sudo <span class="built_in">update-grub</span></span><br><span class="line"><span class="variable">$</span> sudo <span class="built_in">update-initramfs</span></span><br><span class="line"><span class="variable">$</span> sudo reboot</span><br></pre></td></tr></table></figure>
+<p><code>nouveau.blacklist=1</code> 是 disable nouveau，nouveau 是 open source 社群做的 NVIDIA 顯卡的 driver。</p>
+<p><code>text</code> 則是開機不進 GUI，因為得關掉 X server 才能裝 driver，乾脆直接進文字模式裝。我以為是改 run level，但是 google 到一堆都這樣搞就這樣了。有人說用 recovery mode 也可以裝 driver，不過我沒試。</p>
+<p>從 NVIDIA 抓下 <code>NVIDIA-Linux-x86_64-340.101.run</code>，是個 script，要用 root 權限跑。</p>
+<figure class="highlight vala"><table><tr><td class="code"><pre><span class="line"><span class="meta"># export CC=gcc-4.8</span></span><br><span class="line"><span class="meta"># sh NVIDIA-Linux-x86_64-340.101.run</span></span><br></pre></td></tr></table></figure>
+<p>需要設 <code>CC</code> 是因為我 gcc 預設版本是 4.9，但是 compile driver 需要 4.8。</p>
+<p>安裝過程是 console 的互動介面（忘記這叫什麼了啦）就不細寫了。中間有問要不要 build 成什麼 module 之類的，選 yes 會 fail，懶得研究那是什麼東西，用 no 就安裝成功了。</p>
+<p>最後，修改 <code>/etc/default/grub</code> 以 GUI 開機：<code>GRUB_CMDLINE_LINUX_DEFAULT=&quot;nouveau.blacklist=1 quiet splash&quot;</code> 再 update grub 跟 reboot。</p>
+<p>開 servo 終於正常了…\T_T/</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html">http://www.cgl.ucsf.edu/chimera/graphics/updatelinux.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1191,96 +1311,6 @@
 <p>要維持一個龐大的系統順暢運作，組織上就變得需要有階層與管理，需要管理階層去確定每個部分都有人確實的做好維護與運作。但接著要問的是，維持一個系統，是否必然要使用中央集權式的方式予以管理才能有效率並安全的運作？又如，在這個資訊科技講究創新的時代，由上而下、中央集權式的階層管理是否還適用？看到這我有點訝異，雖然有淺淺的想過一項技術會帶來些影響，可是沒有想那麼深。</p>
 <p>而當「進步」成為主流，對於技術大多只考慮實用性時，拒絕技術之引進容易被扣上「反進步」的帽子，或許使技術的影響性反而變得不被考量。</p>
 <p>murmur：這其實是拉哩拉紮的整理跟心得，目前來說無法更有條理了。看這書大概有四五成是每個字都看得懂但整個句子看起來其實不懂那些字詞真正想表達的意義……</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Iterator-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Iterator-Pattern/" class="post-title-link" itemprop="url">Iterator Pattern</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-10-18 22:19:26" itemprop="dateCreated datePublished" datetime="2016-10-18T22:19:26+08:00">2016-10-18</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Iterator-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Iterator-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p><strong>讓使用者能取得一個 collection 內的每個 element，而不需要暴露此 collection 的 implememtation。</strong></p>
-<p>Iterator Pattern 封裝了「拿出下一個 element」這件事，讓外部可以不需要知道 collection 實際上以什麼方式實作，如 array、list、stack 等等，就能以一致的方式取得 element。iterator 也讓 collection 的責任更簡單，collection 負責管理一群 object，而 iterator 負責 traverse element。</p>
-<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>有多種 collection 一同使用，希望能用同樣方式 traverse element 時。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/iterator_pattern.png" alt="Iterator Pattern"></p>
-<h2 id="library-及語言支援"><a href="#library-及語言支援" class="headerlink" title="library 及語言支援"></a>library 及語言支援</h2><p>C++ STL、Qt、Java 等等的 container 都有支援 iterator。用 iterator 要注意 iterate 過程中能不能更動該 container，因為 iterator 會直接或間接的 access container 內部資料，所以不同實作方式會影響 iterator 的使用。例如 Qt 對 container 用 <a target="_blank" rel="noopener" href="http://doc.qt.io/qt-5/containers.html#implicit-sharing-iterator-problem">implicit sharing</a>，所以使用 iterator 期間 copy container 要注意會不會搞爛 iterator 或 iterator 指向的 container 跟預想不同。</p>
-<p>在某些語言，如 PHP，會提供 foreach 的語法，這進一步將 iterator 變成 syntax 了。</p>
 
       
     </div>
