@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-03-07T07:49:16.504Z</updated>
+  <updated>2021-03-07T07:50:25.872Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.cjwind.idv.tw/daniels-running-formula/ch1/"/>
     <id>http://www.cjwind.idv.tw/daniels-running-formula/ch1/</id>
     <published>2021-03-07T07:45:41.000Z</published>
-    <updated>2021-03-07T07:49:16.504Z</updated>
+    <updated>2021-03-07T07:50:25.872Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/images/daniels-running-formula/ch1-mindmap.png" alt=""></p>]]></content>
     
@@ -36,6 +36,8 @@
     
     
     <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
+    
+    <category term="Mindmap" scheme="http://www.cjwind.idv.tw/tags/Mindmap/"/>
     
     <category term="Running" scheme="http://www.cjwind.idv.tw/tags/Running/"/>
     
