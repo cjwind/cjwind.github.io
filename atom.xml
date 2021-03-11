@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-03-11T15:06:10.615Z</updated>
+  <updated>2021-03-11T15:12:27.182Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.cjwind.idv.tw/Is-High-Quality-Software-Worth-the-Cost/"/>
     <id>http://www.cjwind.idv.tw/Is-High-Quality-Software-Worth-the-Cost/</id>
     <published>2021-03-11T15:02:56.000Z</published>
-    <updated>2021-03-11T15:06:10.615Z</updated>
+    <updated>2021-03-11T15:12:27.182Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://martinfowler.com/articles/is-quality-worth-cost.html">原文</a></p><p>Mindmap 筆記：</p><p><img src="/images/is-high-quality-software-worth-the-cost.png" alt=""></p>]]></content>
     
@@ -35,6 +35,8 @@
     
     
     
+    
+    <category term="Mindmap" scheme="http://www.cjwind.idv.tw/tags/Mindmap/"/>
     
   </entry>
   
