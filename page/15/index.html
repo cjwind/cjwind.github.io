@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,93 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/change-search-engine-to-swiftype/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/change-search-engine-to-swiftype/" class="post-title-link" itemprop="url">更換 search engine 為 Swiftype</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-05-17 15:37:11" itemprop="dateCreated datePublished" datetime="2014-05-17T15:37:11+08:00">2014-05-17</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/change-search-engine-to-swiftype/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="change-search-engine-to-swiftype/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a target="_blank" rel="noopener" href="https://swiftype.com">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
+<p>註冊、輸入 URL，它處理完後到 INSTALL 頁面 copy source code 到 theme 中相應 call <code>search_form()</code> 的地方。每個 theme 的位置不太一樣，nut 在 <code>layout/_widget/search.ejs</code>，landscape 在 <code>layout/_partial/header.ejs</code>。</p>
+<p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a target="_blank" rel="noopener" href="https://swiftype.com/documentation/widget">這裡</a>看怎麼改。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1146,132 +1233,6 @@
 <p>下載回來後解壓縮 Classes，在要使用的 PHP 檔案中 include。</p>
 <h2 id="產生-Excel"><a href="#產生-Excel" class="headerlink" title="產生 Excel"></a>產生 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// include PHPExcel 相關檔案</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel.php&quot;</span>);</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel/Writer/Excel2007.php&quot;</span>);    <span class="comment">// Excel 2007 格式</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;includes/PHPExcel/IOFactory.php&quot;</span>);           <span class="comment">// 放置圖片</span></span><br><span class="line"></span><br><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line"><span class="variable">$objPHPExcel</span> = <span class="keyword">new</span> PHPExcel(); </span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;setActiveSheetIndex(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定儲存格的內容，中文要用 iconv() 轉換，不然會顯示不出來</span></span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;getActiveSheet()-&gt;setCellValue(<span class="string">&#x27;A1&#x27;</span>, iconv(<span class="string">&quot;big5&quot;</span>, <span class="string">&quot;utf-8&quot;</span>, <span class="string">&quot;測試&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以用指定 column 跟 row 的方式設定內容，column 是從 0 開始編號，row 是從 1 開始編號</span></span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;getActiveSheet()-&gt;setCellValueByColumnAndRow(<span class="number">0</span>, <span class="number">1</span>, iconv(<span class="string">&#x27;big5&#x27;</span>, <span class="string">&#x27;utf-8&#x27;</span>, <span class="string">&#x27;哈囉&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自動設定欄寬</span></span><br><span class="line"><span class="variable">$objPHPExcel</span>-&gt;getActiveSheet()-&gt;getColumnDimension(<span class="string">&#x27;A&#x27;</span>)-&gt;setAutoSize(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Excel 中放圖片</span></span><br><span class="line"><span class="variable">$objDrawing</span> = <span class="keyword">new</span> PHPExcel_Worksheet_Drawing();</span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setName(<span class="string">&#x27;cat&#x27;</span>);                        <span class="comment">// 圖片名稱</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setDescription(<span class="string">&#x27;cat&#x27;</span>);                 <span class="comment">// 圖片描述</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setPath(<span class="string">&#x27;cat.jpg&#x27;</span>);                    <span class="comment">// 圖片檔案路徑，支援JPG及PNG格式</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setWidth(<span class="number">1000</span>);                        <span class="comment">// 圖片寬</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setCoordinates(<span class="string">&quot;A2&quot;</span>);                  <span class="comment">// 圖片放置的儲存格位置</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setOffsetX(<span class="number">30</span>);                        <span class="comment">// X偏移量</span></span><br><span class="line"><span class="variable">$objDrawing</span>-&gt;setWorksheet(<span class="variable">$objPHPExcel</span>-&gt;getActiveSheet());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 儲存 Excel 檔，這裡會存成 .xlsx 格式</span></span><br><span class="line"><span class="variable">$objWriter</span> = <span class="keyword">new</span> PHPExcel_Writer_Excel2007(<span class="variable">$objPHPExcel</span>);</span><br><span class="line"><span class="variable">$objWriter</span>-&gt;save(str_replace(<span class="string">&#x27;.php&#x27;</span>, <span class="string">&#x27;.xlsx&#x27;</span>, <span class="keyword">__FILE__</span>));    <span class="comment">// Excel 檔案路徑</span></span><br></pre></td></tr></table></figure>
 <h2 id="讀取-Excel"><a href="#讀取-Excel" class="headerlink" title="讀取 Excel"></a>讀取 Excel</h2><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="keyword">include</span>(<span class="string">&#x27;includes/PHPExcel/IOFactory.php&#x27;</span>);</span><br><span class="line">    </span><br><span class="line"><span class="comment">// read excel</span></span><br><span class="line"><span class="variable">$filename</span> = <span class="string">&quot;test.xlsx&quot;</span>;</span><br><span class="line"><span class="variable">$objPHPExcel</span> = PHPExcel_IOFactory::createReader(<span class="string">&#x27;Excel5&#x27;</span>);	<span class="comment">// 與舊版相容</span></span><br><span class="line"><span class="variable">$objPHPExcel</span> = PHPExcel_IOFactory::load(<span class="variable">$filename</span>);</span><br><span class="line"><span class="variable">$objWorksheet</span> = <span class="variable">$objPHPExcel</span>-&gt;getSheet(<span class="number">0</span>);                  <span class="comment">// 讀取第一個工作表</span></span><br><span class="line"><span class="variable">$data</span> = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 iterator 依序讀取 rows, columns, 並將資料存到 $data</span></span><br><span class="line"><span class="keyword">foreach</span> ( <span class="variable">$objWorksheet</span>-&gt;getRowIterator() <span class="keyword">as</span> <span class="variable">$rowidx</span> =&gt; <span class="variable">$row</span> ) &#123;</span><br><span class="line">    <span class="variable">$cellIterator</span> = <span class="variable">$row</span>-&gt;getCellIterator();     </span><br><span class="line">    <span class="variable">$cellIterator</span>-&gt;setIterateOnlyExistingCells(<span class="literal">false</span>);      <span class="comment">// 讀入整行, 若為空回傳 null</span></span><br><span class="line">    <span class="keyword">foreach</span> ( <span class="variable">$cellIterator</span> <span class="keyword">as</span> <span class="variable">$cellidx</span> =&gt; <span class="variable">$cell</span> ) &#123;  </span><br><span class="line">        <span class="variable">$data</span>[<span class="variable">$rowidx</span>][<span class="variable">$cellidx</span>] = <span class="variable">$cell</span>-&gt;getValue(); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/design-a-new-c-plus-plus-class/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/design-a-new-c-plus-plus-class/" class="post-title-link" itemprop="url">設計 C++ class</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-04-13 15:40:02" itemprop="dateCreated datePublished" datetime="2014-04-13T15:40:02+08:00">2014-04-13</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/design-a-new-c-plus-plus-class/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design-a-new-c-plus-plus-class/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>列出設計一新 class 時需要注意的問題跟與其相關的東西：</p>
-<ul>
-<li><p>真的需要一個新 class 嗎？<em>（我覺得這最重要）</em></p>
-<p>使用既有 class 是否能達成需求？</p>
-</li>
-<li><p>如何產生及銷毀新 class 的 object？</p>
-<p>與 constructor、destructor、new、new[]、delete、delete[] 有關</p>
-</li>
-<li><p>物件的 initialization 跟 assignment 有何區別？</p>
-<p>與 constructor、assignment operator 的行為有關</p>
-</li>
-<li><p>如果以 pass by value 的方式傳遞新 class 的 object 時是什麼意思？</p>
-<p>與 copy constructor 有關</p>
-</li>
-<li><p>新 class 的合法值為何？</p>
-<p>需維護的條件、member function（如 constructor、assignment operator、setter）所做的錯誤檢查、exception、exception specification</p>
-</li>
-<li><p>新 class 是否繼承某個繼承架構？</p>
-<p>base class 的 non-virtual 及 virtual function</p>
-<p>virtual distructor</p>
-</li>
-<li><p>新 class 需要那些轉型？</p>
-<p>轉型 function</p>
-</li>
-<li><p>那些 operator、function 對此 class 來說是合法的？</p>
-<p>牽涉到要宣告那些 function？是否為 member？</p>
-</li>
-<li><p>不想使用哪些 compiler 會自動生成的 function（如 constructor）？</p>
-<p>如果不使用，將它宣告成 private。</p>
-</li>
-<li><p>誰可以使用新 class 的 memeber？</p>
-<p>public、protected、private、friend</p>
-</li>
-<li><p>新 class 的 undeclared interface 是？</p>
-</li>
-<li><p>這個 class 需要多 general？</p>
-<p>class template</p>
-</li>
-</ul>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》item 19</li>
-</ul>
-
       
     </div>
 

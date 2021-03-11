@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-03-07T08:25:51.608Z</updated>
+  <updated>2021-03-11T15:06:10.615Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Is High Quality Software Worth the Cost?</title>
+    <link href="http://www.cjwind.idv.tw/Is-High-Quality-Software-Worth-the-Cost/"/>
+    <id>http://www.cjwind.idv.tw/Is-High-Quality-Software-Worth-the-Cost/</id>
+    <published>2021-03-11T15:02:56.000Z</published>
+    <updated>2021-03-11T15:06:10.615Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://martinfowler.com/articles/is-quality-worth-cost.html">原文</a></p><p>Mindmap 筆記：</p><p><img src="/images/is-high-quality-software-worth-the-cost.png" alt=""></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://martinfowler.com/articles/is-quality-worth-cost.html&quot;&gt;原文&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Mindmap 筆記：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/is-high-quality</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>ch3 個人的有氧與訓練能力指標</title>
@@ -496,33 +518,6 @@
     
     
     <category term="Linux" scheme="http://www.cjwind.idv.tw/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git diff &amp; patch</title>
-    <link href="http://www.cjwind.idv.tw/Git-diff-and-patch/"/>
-    <id>http://www.cjwind.idv.tw/Git-diff-and-patch/</id>
-    <published>2020-07-05T06:35:44.000Z</published>
-    <updated>2020-08-09T03:17:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>用 Git diff 生 patch file</p><p><code>$ git diff [file] &gt; [path_file]</code></p><p>上 patch</p><p><code>$ patch -p1 &lt; [path_file]</code></p><ul><li>加 <code>-d [dir path]</code> 可以切換 directory</li></ul><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://blog.longwin.com.tw/2013/08/linux-diff-patch-learn-note-2013/">https://blog.longwin.com.tw/2013/08/linux-diff-patch-learn-note-2013/</a></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;用 Git diff 生 patch file&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;$ git diff [file] &amp;gt; [path_file]&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;上 patch&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;$ patch -p1 &amp;lt; [path_file]&lt;/</summary>
-      
-    
-    
-    
-    
-    <category term="Linux" scheme="http://www.cjwind.idv.tw/tags/Linux/"/>
-    
-    <category term="Git" scheme="http://www.cjwind.idv.tw/tags/Git/"/>
     
   </entry>
   

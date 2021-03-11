@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,96 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Thread-on-Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Thread-on-Linux/" class="post-title-link" itemprop="url">Thread on Linux</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-12-20 16:00:29" itemprop="dateCreated datePublished" datetime="2014-12-20T16:00:29+08:00">2014-12-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Thread-on-Linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Thread-on-Linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Linux 本身沒有 thread 的概念，它把 process 跟 thread 都視為 <strong>Task</strong>。</p>
+<p><code>fork()</code> 用來生 child process，生出來的是概念上的 process。</p>
+<p>而 <code>clone()</code> 可以生出跟 parent process 共用 memory space、file descriptor 的 table、signal handler 的 table 等東西的 child process，也就是概念上的 thread。Linux 用 <code>clone()</code> 實作 thread 概念。</p>
+<p><code>clone()</code> 有 glibc 包過的：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sched.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clone</span><span class="params">(<span class="keyword">int</span> (*fn)(<span class="keyword">void</span> *), <span class="keyword">void</span> *child_stack,</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="keyword">int</span> flags, <span class="keyword">void</span> *arg, ...</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* pid_t *ptid, struct user_desc *tls, pid_t *ctid */</span> )</span></span>;</span><br></pre></td></tr></table></figure>
+<p>也有純 system call：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">clone</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">long</span> flags, <span class="keyword">void</span> *child_stack,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">void</span> *ptid, <span class="keyword">void</span> *ctid,</span></span></span><br><span class="line"><span class="function"><span class="params">           struct pt_regs *regs)</span></span>;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1103,93 +1193,6 @@
           <p>簡單記錄一下。</p>
 <p>我把 <code>node_modules/</code>、<code>scaffolds/</code>、<code>source/</code>、<code>themes/</code>、<code>_config.yml</code>、<code>package.json</code> 放到 bitbucket 的 private git repository，另一台電腦裝 node.js 跟 hexo，clone repository 下來就可以了。</p>
 <p>原本順利弄完也就好了，我就手賤的做了 <code>npm update -g</code> 更新 hexo，然後 generate 就爛了。後來約莫是 <code>hexo init .</code> 再 <code>npm install</code>，然後 merge 一些改過的 theme 檔案跟 config，才總算好了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/change-search-engine-to-swiftype/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/change-search-engine-to-swiftype/" class="post-title-link" itemprop="url">更換 search engine 為 Swiftype</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-05-17 15:37:11" itemprop="dateCreated datePublished" datetime="2014-05-17T15:37:11+08:00">2014-05-17</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/change-search-engine-to-swiftype/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="change-search-engine-to-swiftype/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>技術 blog 沒有搜尋挺麻煩的，儘管有設 tag，但還是搜尋最方便。之前在 Octopress 用的 Tapir 不支援中文，看起來沒什麼解，只好另尋新歡(?)。找到 <a target="_blank" rel="noopener" href="https://swiftype.com">Swiftype</a> 這套，除了基本搜尋功能外，Swiftype 還提供調整搜尋結果、統計分析等功能。</p>
-<p>註冊、輸入 URL，它處理完後到 INSTALL 頁面 copy source code 到 theme 中相應 call <code>search_form()</code> 的地方。每個 theme 的位置不太一樣，nut 在 <code>layout/_widget/search.ejs</code>，landscape 在 <code>layout/_partial/header.ejs</code>。</p>
-<p>發現一個問題：在 overlay 的顯示方式下，搜尋結果的頁面太長，scroll bar 無法捲到最下面。想改成結果直接顯示在頁面，不用 overlay，之後參考<a target="_blank" rel="noopener" href="https://swiftype.com/documentation/widget">這裡</a>看怎麼改。</p>
 
       
     </div>

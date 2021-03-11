@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">169</span>
+          <span class="site-state-item-count">170</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,94 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/PhpStorm-input-chinese-in-Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/PhpStorm-input-chinese-in-Linux/" class="post-title-link" itemprop="url">Linux 下 PhpStorm 輸入中文</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-09-09 23:43:04" itemprop="dateCreated datePublished" datetime="2019-09-09T23:43:04+08:00">2019-09-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/PhpStorm-input-chinese-in-Linux/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PhpStorm-input-chinese-in-Linux/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>問題：Linux 下的 PhpStorm 無法切換輸入法輸入中文。</p>
+<p>在 PhpStorm 啟動 script <code>bin/phpstorm.sh</code> 的 <code>Run the IDE</code> 前加入：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="attribute">XMODIFIERS</span>=<span class="string">&quot;@im=fcitx&quot;</span></span><br><span class="line"><span class="builtin-name">export</span> XMODIFIERS</span><br></pre></td></tr></table></figure>
+<p>這樣用 shell 啟動 PhpStorm 就能切到中文輸入法（前提當然是已經有裝好了），不過從 launcher 啟動 PhpStorm 還是不行。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1278,103 +1366,6 @@
 <p>驗證假 event listener 有沒有被 call 到不一定要用 mock object，也可以是假 event listener 在被 call 到時修改 test 裡的變數，最後直接驗證該變數，這跟語言支援有關。</p>
 <h3 id="test-framework-支援"><a href="#test-framework-支援" class="headerlink" title="test framework 支援"></a>test framework 支援</h3><p>有些 test framework 的支援「某個 event 是否有被 trigger 或 emit 的驗證」。</p>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Add-system-call-to-linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Add-system-call-to-linux/" class="post-title-link" itemprop="url">Linux kernel 5.0 增加 System Call</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2019-02-05 22:08:57" itemprop="dateCreated datePublished" datetime="2019-02-05T22:08:57+08:00">2019-02-05</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Add-system-call-to-linux/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Add-system-call-to-linux/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Download-kernel-source-code"><a href="#Download-kernel-source-code" class="headerlink" title="Download kernel source code"></a>Download kernel source code</h2><p>我用的 kernel source code 是從 <code>https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git</code> clone 的，寫這篇的版本是 <code>5.0.0-rc3</code>。</p>
-<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">$ git clone https:<span class="regexp">//gi</span>t.kernel.org<span class="regexp">/pub/</span>scm<span class="regexp">/linux/</span>kernel<span class="regexp">/git/</span>stable/linux.git linux-stable</span><br></pre></td></tr></table></figure>
-<h2 id="Add-system-call"><a href="#Add-system-call" class="headerlink" title="Add system call"></a>Add system call</h2><p>首先在 kernel source code root 建立一個資料夾 <code>mysyscall/</code>：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">cd</span> linux<span class="literal">-stable</span></span><br><span class="line"><span class="variable">$</span> mkdir mysyscall</span><br></pre></td></tr></table></figure>
-<p>新增 <code>mysyscall/hello.c</code>、加入新的 system call <code>sys_hello()</code>（不可免俗的來 hello world 一下）：</p>
-<figure class="highlight c"><figcaption><span>mysyscall/hello.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function">asmlinkage <span class="keyword">long</span> <span class="title">sys_hello</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    printk(<span class="string">&quot;Hello Kernel World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Add-system-call-to-linux/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
