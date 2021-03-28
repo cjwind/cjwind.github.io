@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,98 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Composite-Pattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Composite-Pattern/" class="post-title-link" itemprop="url">Composite Pattern</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-10-25 00:04:15" itemprop="dateCreated datePublished" datetime="2016-10-25T00:04:15+08:00">2016-10-25</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Composite-Pattern/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Composite-Pattern/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>讓使用者將物件合成為樹狀結構，呈現「部分/整體」的階層關係。如此可讓使用的程式以相同的方式處理單獨或合成的物件。</strong><del>這句話沒解釋的話根本看不懂吧……</del></p>
+<p>讓樹狀結構的 node 都是同樣的 interface，因而可以用相同的方式（相同的 interface）操作 subtree root node（合成物件）以及操作 leaf node（單獨物件）。</p>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/composite_pattern.png" alt="Composite Pattern"></p>
+<p><code>Composite</code> 就是 tree 中非 leaf 的 node。<code>Client</code> 可以透過 <code>Component</code> interface 同時操作 leaf node 及 subtree node。</p>
+<p>這做法會讓 <code>Leaf</code> 繼承一些它不需要的 function 如 <code>getChild()</code>。實作上可以在 <code>Component</code> class 將 function 們的 default 行為 implement 成「不 support 此操作」，由 <code>Composite</code> 跟 <code>Leaf</code> override 對其有意義的 function。至於「不 support 此操作」的實作方式可以是丟出 exception、印 log、return false 等等……</p>
+<h2 id="設計取捨"><a href="#設計取捨" class="headerlink" title="設計取捨"></a>設計取捨</h2><p><code>Component</code> interface 包含對 leaf node 沒意義、對 subtree root node 才有意義的操作，就這個 interface 來看包含了兩種責任，操作 leaf node 與操作 subtree root node，不符合 class 單一責任的設計原則。不過呢，這就是設計上的取捨，以單一責任交換能統一操作 tree 中的 node，實際使用上就是要看情境決定哪一個比較重要。</p>
+<h2 id="似曾相識的-fu"><a href="#似曾相識的-fu" class="headerlink" title="似曾相識的 fu (?)"></a>似曾相識的 fu (?)</h2><p>範例程式生一堆 Component 又 add 來 add 去，看著看著總覺得跟 Qt 的 QStandardItem 寫法很像。看了下 Qt 的 code，<code>QStandardItem</code> 不像是用 composite pattern，應該是打從一開始就定義 item 是個可以有 child 的東西了。</p>
+<p><del>這也是為什麼上一篇是用 QStandardItem 當例子…</del></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1227,101 +1319,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Facade-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Facade-Pattern/" class="post-title-link" itemprop="url">Facade Pattern</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-04-03 14:26:12" itemprop="dateCreated datePublished" datetime="2016-04-03T14:26:12+08:00">2016-04-03</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2018-10-26 23:47:00" itemprop="dateModified" datetime="2018-10-26T23:47:00+08:00">2018-10-26</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Facade-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Facade-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Facade 定義較簡單（抽象程度更高）的 interface 來讓 client 更容易使用複雜的 sub system。</p>
-<p>目的在簡化 sub system 的使用方式。</p>
-<h2 id="使用情境"><a href="#使用情境" class="headerlink" title="使用情境"></a>使用情境</h2><p>sub system 提供很多功能與 interface 但太複雜，希望有簡單的方式使用 sub system。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/facade_pattern.png" alt="Facade Pattern"></p>
-<p>Facade 沒有封裝 sub system，只是提供簡化的 interface 方便使用。</p>
-<p>client 可以用 Facade 的簡單 interface，也可以使用原本 sub system 提供的 interface。就像有些軟體在設定頁只放一般常用設定，需要調整細部設定的使用者再按「進階」鈕進入設定。</p>
-<h2 id="相關-pattern"><a href="#相關-pattern" class="headerlink" title="相關 pattern"></a>相關 pattern</h2><ul>
-<li><a href="/Adapter-Pattern/">Adapater</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/8/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/10/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 

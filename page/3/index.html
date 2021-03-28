@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,91 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Debian-10-Desktop-Chinese/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Debian-10-Desktop-Chinese/" class="post-title-link" itemprop="url">Debian 10 Desktop 中文輸入</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2020-08-09 14:41:36 / Modified: 15:10:54" itemprop="dateCreated datePublished" datetime="2020-08-09T14:41:36+08:00">2020-08-09</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Debian-10-Desktop-Chinese/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Debian-10-Desktop-Chinese/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>先安裝 ibus：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install ibus ibus-chewing</span><br></pre></td></tr></table></figure>
+<p>在 <code>~/.bashrc</code>  加入：</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">GTK_IM_MODULE</span>=ibus</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">XMODIFIERS</span>=@im=ibus</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_IM_MODULE</span>=ibus</span><br></pre></td></tr></table></figure>
+<p>寫個 shell script：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">ibus-daemon -d -x</span><br></pre></td></tr></table></figure>
+<p>在 KDE Setting 的 Autostart 設定啟動時執行 shell script 來啟動 ibus</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1414,98 +1499,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OpenAPI-PSR-7-Message-Validator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/OpenAPI-PSR-7-Message-Validator/" class="post-title-link" itemprop="url">OpenAPI PSR-7 Message Validator required field</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2019-10-25 22:28:10" itemprop="dateCreated datePublished" datetime="2019-10-25T22:28:10+08:00">2019-10-25</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/OpenAPI-PSR-7-Message-Validator/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="OpenAPI-PSR-7-Message-Validator/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/thephpleague/openapi-psr7-validator">https://github.com/thephpleague/openapi-psr7-validator</a></li>
-</ul>
-<p>如果要驗證 response「要有某個欄位」，在 api 定義（yaml 或 json 檔）裡該欄位要設 <code>required</code>：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">                <span class="attr">properties:</span></span><br><span class="line">                  <span class="attr">id:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">                  <span class="attr">username:</span></span><br><span class="line">                    <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">                <span class="attr">required:</span>    <span class="comment"># 沒有這個的話, response 有或沒有這些欄位都會過</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">                  <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
-<p>用 component 的版本：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">paths:</span></span><br><span class="line">  <span class="string">/general/test:</span></span><br><span class="line">    <span class="attr">get:</span></span><br><span class="line">      <span class="attr">summary:</span> <span class="string">test</span></span><br><span class="line">      <span class="attr">responses:</span></span><br><span class="line">        <span class="attr">200:</span></span><br><span class="line">          <span class="attr">description:</span> <span class="string">test</span></span><br><span class="line">          <span class="attr">content:</span></span><br><span class="line">            <span class="attr">application/json:</span></span><br><span class="line">              <span class="attr">schema:</span></span><br><span class="line">                <span class="string">\$ref:</span> <span class="string">&#x27;#/components/schemas/User&#x27;</span></span><br><span class="line"><span class="attr">components:</span></span><br><span class="line">  <span class="attr">schemas:</span></span><br><span class="line">    <span class="attr">User:</span></span><br><span class="line">      <span class="attr">type:</span> <span class="string">object</span></span><br><span class="line">      <span class="attr">properties:</span></span><br><span class="line">        <span class="attr">id:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">integer</span></span><br><span class="line">        <span class="attr">username:</span></span><br><span class="line">          <span class="attr">type:</span> <span class="string">string</span></span><br><span class="line">      <span class="attr">required:</span> <span class="comment"># 這裡</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">        <span class="bullet">-</span> <span class="string">username</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 

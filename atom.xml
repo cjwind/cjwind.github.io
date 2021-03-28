@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-03-11T15:12:27.182Z</updated>
+  <updated>2021-03-28T08:29:04.931Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Synology NAS Docker private registry</title>
+    <link href="http://www.cjwind.idv.tw/Synology-NAS-Docker-private-registry/"/>
+    <id>http://www.cjwind.idv.tw/Synology-NAS-Docker-private-registry/</id>
+    <published>2021-03-28T08:14:42.000Z</published>
+    <updated>2021-03-28T08:29:04.931Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><ul><li>Synology NAS 型號：DS920+</li><li>DSM 版本：DSM 6.2.4-25556</li></ul><h2 id="建立-Private-Docker-Registry-步驟"><a href="#建立-Private-Docker-Registry-步驟" class="headerlink" title="建立 Private Docker Registry 步驟"></a>建立 Private Docker Registry 步驟</h2><ol><li>download registry image from Docker hub</li><li>start registry container</li><li>ssh 進 NAS</li><li>到 <code>/var/packages/Docker/etc/</code> 編輯 <code>dockerd.json</code></li><li>加入 <code>&quot;insecure-registries&quot;:[&quot;host:port&quot;]</code></li><li>重新啟動 docker <em>（我是把套件停用再啟用啦…）</em></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;環境&quot;&gt;&lt;a href=&quot;#環境&quot; class=&quot;headerlink&quot; title=&quot;環境&quot;&gt;&lt;/a&gt;環境&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Synology NAS 型號：DS920+&lt;/li&gt;
+&lt;li&gt;DSM 版本：DSM 6.2.4-25556&lt;/li&gt;
+&lt;/ul</summary>
+      
+    
+    
+    
+    
+    <category term="Docker" scheme="http://www.cjwind.idv.tw/tags/Docker/"/>
+    
+  </entry>
   
   <entry>
     <title>Is High Quality Software Worth the Cost?</title>
@@ -497,29 +522,6 @@
     <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
     
     <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Debian 10 Desktop 中文輸入</title>
-    <link href="http://www.cjwind.idv.tw/Debian-10-Desktop-Chinese/"/>
-    <id>http://www.cjwind.idv.tw/Debian-10-Desktop-Chinese/</id>
-    <published>2020-08-09T06:41:36.000Z</published>
-    <updated>2020-08-09T07:10:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>先安裝 ibus：</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">$ sudo apt-<span class="builtin-name">get</span> install ibus ibus-chewing</span><br></pre></td></tr></table></figure><p>在 <code>~/.bashrc</code>  加入：</p><figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">GTK_IM_MODULE</span>=ibus</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">XMODIFIERS</span>=@im=ibus</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">QT_IM_MODULE</span>=ibus</span><br></pre></td></tr></table></figure><p>寫個 shell script：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">ibus-daemon -d -x</span><br></pre></td></tr></table></figure><p>在 KDE Setting 的 Autostart 設定啟動時執行 shell script 來啟動 ibus</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;先安裝 ibus：&lt;/p&gt;
-&lt;figure class=&quot;highlight routeros&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ sudo apt-&lt;span class=&quot;builtin-name</summary>
-      
-    
-    
-    
-    
-    <category term="Linux" scheme="http://www.cjwind.idv.tw/tags/Linux/"/>
     
   </entry>
   

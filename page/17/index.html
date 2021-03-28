@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,98 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/" class="post-title-link" itemprop="url">C++ 應避免在 constructor 及 destructor 中 call virtual function</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-05 12:42:21" itemprop="dateCreated datePublished" datetime="2014-04-05T12:42:21+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-avoid-to-call-virtual-function-in-constructor-and-destructor/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>應避免在 constructor 跟 destructor 中 call virtual function，否則容易造成跟預期不符的行為（誤以為可以 call 到 derived class 的 virtual function）。</p>
+<p>construct 到 base class 時，C++ 視該 object 為 base class object，derived class 的 virtual function 跟 member 都還沒建出來，所以 call 不到 derived class 的 virtual function。</p>
+<p>反過來的 destruct 則是在 derived class destructor 跑完後，derived class 的東西都刪光光了，該 object 就被當作 base class object，所以在 base class destructor 裡 call virtual function 不會 call 到 derived class 的 virtual function。</p>
+<p>除了要避免 constructor 跟 destructor call 到 virtual function，也要避免它們 call 的 function 再間接 call 到 virtual function。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》item 9</li>
+<li><a target="_blank" rel="noopener" href="http://www.artima.com/cppsource/nevercall.html">http://www.artima.com/cppsource/nevercall.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1195,108 +1287,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/hello-octopress/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/hello-octopress/" class="post-title-link" itemprop="url">Hello Octopress</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-03-16 13:10:36" itemprop="dateCreated datePublished" datetime="2014-03-16T13:10:36+08:00">2014-03-16</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2014-05-20 20:15:00" itemprop="dateModified" datetime="2014-05-20T20:15:00+08:00">2014-05-20</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/hello-octopress/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="hello-octopress/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>不可免俗的，Octopress 第一篇文章是 say hello。</p>
-<p>在 Windows 上玩 Octopress + Github。</p>
-<h2 id="Prepare"><a href="#Prepare" class="headerlink" title="Prepare"></a>Prepare</h2><p>要先裝好 Git 跟 Ruby 環境。Git 是用 <a target="_blank" rel="noopener" href="http://msysgit.github.io/">Git for Windows</a>，Ruby 環境則從從 <a target="_blank" rel="noopener" href="http://rubyinstaller.org/downloads">http://rubyinstaller.org/downloads</a> 下載 RubyInstaller 1.9.3 跟 Development kit 來安裝。</p>
-<p>Development kit 下載後先解壓縮，用以下指令安裝：</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> <span class="built_in">cd</span> &lt;DEVKIT_INSTALL_DIR&gt;</span><br><span class="line"><span class="variable">$</span> ruby dk.rb init</span><br><span class="line"><span class="variable">$</span> ruby dk.rb install</span><br></pre></td></tr></table></figure>
-<p>安裝完 Ruby 要在環境變數 PATH 加入 Ruby 的 bin 資料夾路徑，如 <code>C:\Ruby193\bin</code>。</p>
-<h2 id="Install-Octopress"><a href="#Install-Octopress" class="headerlink" title="Install Octopress"></a>Install Octopress</h2><p>我直接用 Git Bash 下指令。</p>
-<figure class="highlight gams"><table><tr><td class="code"><pre><span class="line"><span class="symbol">$</span> git clone git:<span class="comment">//github.com/imathis/octopress.git octopress</span></span><br><span class="line"><span class="symbol">$</span> gem update --<span class="keyword">system</span></span><br><span class="line"><span class="symbol">$</span> gem install bundler</span><br><span class="line"><span class="symbol">$</span> cd octopress</span><br><span class="line"><span class="symbol">$</span> bundle install</span><br><span class="line"><span class="symbol">$</span> rake install</span><br></pre></td></tr></table></figure>
-<h3 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h3><p>編輯 <code>_config.yml</code> 可修改 blog 的主要設定。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/hello-octopress/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 

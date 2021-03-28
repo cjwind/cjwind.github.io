@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,96 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Synology-NAS-Docker-private-registry/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Synology-NAS-Docker-private-registry/" class="post-title-link" itemprop="url">Synology NAS Docker private registry</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-03-28 16:14:42 / Modified: 16:29:04" itemprop="dateCreated datePublished" datetime="2021-03-28T16:14:42+08:00">2021-03-28</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Synology-NAS-Docker-private-registry/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Synology-NAS-Docker-private-registry/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="環境"><a href="#環境" class="headerlink" title="環境"></a>環境</h2><ul>
+<li>Synology NAS 型號：DS920+</li>
+<li>DSM 版本：DSM 6.2.4-25556</li>
+</ul>
+<h2 id="建立-Private-Docker-Registry-步驟"><a href="#建立-Private-Docker-Registry-步驟" class="headerlink" title="建立 Private Docker Registry 步驟"></a>建立 Private Docker Registry 步驟</h2><ol>
+<li>download registry image from Docker hub</li>
+<li>start registry container</li>
+<li>ssh 進 NAS</li>
+<li>到 <code>/var/packages/Docker/etc/</code> 編輯 <code>dockerd.json</code></li>
+<li>加入 <code>&quot;insecure-registries&quot;:[&quot;host:port&quot;]</code></li>
+<li>重新啟動 docker <em>（我是把套件停用再啟用啦…）</em></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1187,94 +1277,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/You-should-know-these-running-data/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/You-should-know-these-running-data/" class="post-title-link" itemprop="url">《跑者都該懂的跑步關鍵數據》跑步技術</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-04 23:23:08" itemprop="dateCreated datePublished" datetime="2021-02-04T23:23:08+08:00">2021-02-04</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-03-07 15:50:47" itemprop="dateModified" datetime="2021-03-07T15:50:47+08:00">2021-03-07</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/You-should-know-these-running-data/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="You-should-know-these-running-data/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Mindmap-v1"><a href="#Mindmap-v1" class="headerlink" title="Mindmap v1"></a>Mindmap v1</h2><p><img src="/images/20210204_%E3%80%8A%E8%B7%91%E8%80%85%E9%83%BD%E8%A9%B2%E6%87%82%E7%9A%84%E9%97%9C%E9%8D%B5%E6%95%B8%E6%93%9A%E3%80%8B%E8%B7%91%E6%AD%A5%E6%8A%80%E8%A1%93_v1.png" alt=""></p>
-<h2 id="Mindmap-v2"><a href="#Mindmap-v2" class="headerlink" title="Mindmap v2"></a>Mindmap v2</h2><p><img src="/images/20210209_%E3%80%8A%E8%B7%91%E8%80%85%E9%83%BD%E8%A9%B2%E6%87%82%E7%9A%84%E9%97%9C%E9%8D%B5%E6%95%B8%E6%93%9A%E3%80%8B%E8%B7%91%E6%AD%A5%E6%8A%80%E8%A1%93_v2.png" alt=""></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 

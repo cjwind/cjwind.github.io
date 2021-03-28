@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">171</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,101 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/test-event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/test-event/" class="post-title-link" itemprop="url">如何測試 event</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2019-04-07 16:01:04" itemprop="dateCreated datePublished" datetime="2019-04-07T16:01:04+08:00">2019-04-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/test-event/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="test-event/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>測試 event 分成兩邊：</p>
+<ul>
+<li>測試 event listener：有沒有在 event 發生後做該做的事。</li>
+<li>測試 trigger event：有沒有正確 trigger event。</li>
+</ul>
+<p>基本概念是驗證一方時假造另一方。</p>
+<h2 id="測試-event-listener"><a href="#測試-event-listener" class="headerlink" title="測試 event listener"></a>測試 event listener</h2><p>檢查 event 有沒有註冊到 event listener。用「event 發生後 event listener 有沒有做該做的事」來驗證，而不是試圖 access class 的內部 event 資訊來看是否有註冊成功。例如發生 event 後系統某些狀態會改變，測試方式是在測試裡 trigger event（假造 trigger event），驗證系統狀態是否有正確改變。</p>
+<p>如果發生 event 後會 call 某些 third party function，測試方式是先做個 mock object、inject mock object 到被測試 class，接著 trigger event，最後驗證 mock object 是否有被 call 到該 call 的 function。</p>
+<h2 id="測試是否有-trigger-event"><a href="#測試是否有-trigger-event" class="headerlink" title="測試是否有 trigger event"></a>測試是否有 trigger event</h2><p>在測試中給要測試的 event 註冊一個假的 event listener，接著讓被測試 class 做應該要 trigger event 的事情，最後驗證假 event listener 有沒有被 call 到。</p>
+<p>驗證假 event listener 有沒有被 call 到不一定要用 mock object，也可以是假 event listener 在被 call 到時修改 test 裡的變數，最後直接驗證該變數，這跟語言支援有關。</p>
+<h3 id="test-framework-支援"><a href="#test-framework-支援" class="headerlink" title="test framework 支援"></a>test framework 支援</h3><p>有些 test framework 的支援「某個 event 是否有被 trigger 或 emit 的驗證」。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1154,103 +1249,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/review-of-Clean-Code/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/review-of-Clean-Code/" class="post-title-link" itemprop="url">Clean Code</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2018-10-07 20:27:19" itemprop="dateCreated datePublished" datetime="2018-10-07T20:27:19+08:00">2018-10-07</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/review-of-Clean-Code/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="review-of-Clean-Code/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>忙了半年左右，我回來了(?)，來寫點早該看完的《Clean Code》小心得。</p>
-<p>整本書講 clean code 的原則，最後以一個大例子運用原則跟示範 refactor。寫那些原則像在抄書，只針對比較有感的原則跟 code smell 寫點心得。</p>
-<h3 id="最少驚奇（嚇）原則"><a href="#最少驚奇（嚇）原則" class="headerlink" title="最少驚奇（嚇）原則"></a>最少驚奇（嚇）原則</h3><p>讓看你的 code 的人（很可能就是你自己）對那段 code 的預期符合實際結果，儘量符合 common sense 以減少驚奇、驚嚇與驚恐。code 愈能符合預期，愈能減少進去實作看細節的時間。反之，如果常常不符預期，不用多久大家就會戒慎恐懼的每次都進去看實作，不然天知道它會發生什麼事，對吧？</p>
-<p>不過我承認，似乎不是所有人的 commen sense 都一樣。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/review-of-Clean-Code/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
