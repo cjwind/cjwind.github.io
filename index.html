@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">172</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,91 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Golang-method-receiver-type/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Golang-method-receiver-type/" class="post-title-link" itemprop="url">Golang method receiver type 的差異</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-03-28 20:59:58 / Modified: 21:01:29" itemprop="dateCreated datePublished" datetime="2021-03-28T20:59:58+08:00">2021-03-28</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Golang-method-receiver-type/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Golang-method-receiver-type/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在 Go 裡，method 的 receiver 是用 <code>*Obj</code> 還是用 <code>Obj</code> 會有不同的行為。</p>
+<p>來個例子：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</span><br><span class="line">    X, Y <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">moveX</span><span class="params">(movement <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">    v.X += movement</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *Vertex)</span> <span class="title">moveY</span><span class="params">(movement <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">    v.Y += movement</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    v := Vertex&#123;X: <span class="number">10</span>, Y: <span class="number">20</span>&#125;</span><br><span class="line"></span><br><span class="line">    log.Println(v.X, v.Y, v.Abs())	<span class="comment">// 10 20 22.360679774997898</span></span><br><span class="line"></span><br><span class="line">    v.moveX(<span class="number">2</span>)</span><br><span class="line">    log.Println(v.X, v.Y, v.Abs())	<span class="comment">// 10 20 22.360679774997898</span></span><br><span class="line"></span><br><span class="line">    v.moveY(<span class="number">3</span>)</span><br><span class="line">    log.Println(v.X, v.Y, v.Abs())	<span class="comment">// 10 23 25.079872407968907</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>v</code> 可以看成像參數。</p>
+<p>用 <code>Vertex</code> 就是 copy by value，caller 跟 callee 的 <code>Vertex</code> instance 是不同的。</p>
+<p>用 <code>*Vertex</code> 就像 C 語言 pointer 參數，本質上還是 copy by value 但因為是 pointer，所以在 <code>moveY()</code> 中的 <code>v</code> 變成是指向 caller 的那個 <code>Vertex</code> instance。</p>
+<p>基本上 method 會動到 struct 內的 field 內容都會用 pointer。習慣上當有一個 method 的 receiver 是用 pointer 時，所有 method 的 receiver 都會用 pointer。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1167,98 +1252,6 @@
 <p>可以從閱讀記錄拿到基本的書籍資料跟劃線。</p>
 <p>細節見 <a target="_blank" rel="noopener" href="https://github.com/cjwind/readmoo">Github</a>。</p>
 <p><em>應該要把拿 token 弄得簡單點，現在很手動…</em></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/PhpStorm-shortcut/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/PhpStorm-shortcut/" class="post-title-link" itemprop="url">PhpStorm 快捷鍵</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-05 23:57:41" itemprop="dateCreated datePublished" datetime="2021-02-05T23:57:41+08:00">2021-02-05</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/PhpStorm-shortcut/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="PhpStorm-shortcut/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>我的 keymap 是 Sublime + Jetbrains 部份按鍵 + 自己設再配 vim 的大雜燴</p>
-<ul>
-<li><code>ctrl + shift + p</code>：執行動作（action）</li>
-<li><code>ctrl + p</code>：找檔案</li>
-<li><code>ctrl + r</code>：檔案中找 symbol</li>
-<li><code>ctrl + alt + shift + t</code>：refactor 選單</li>
-<li><code>alt + enter</code>：各種神奇功能(?)</li>
-<li><code>alt + insert</code>：加入各種 code</li>
-<li><code>shift + f6</code>：rename</li>
-<li><code>alt + 1</code>：project browse window</li>
-<li><code>alt + 3</code>：find window</li>
-<li><code>alt + 4</code>：run window</li>
-<li><code>alt + 9</code>：git window</li>
-</ul>
-<p>TBC…</p>
 
       
     </div>

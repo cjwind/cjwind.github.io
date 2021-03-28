@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">172</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,108 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-interface-inheritance-and-implement-inheritance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/c-plus-plus-interface-inheritance-and-implement-inheritance/" class="post-title-link" itemprop="url">C++ Interface inheritance and Implement inheritance</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-04-05 12:44:46" itemprop="dateCreated datePublished" datetime="2014-04-05T12:44:46+08:00">2014-04-05</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2014-07-05 17:14:00" itemprop="dateModified" datetime="2014-07-05T17:14:00+08:00">2014-07-05</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/c-plus-plus-interface-inheritance-and-implement-inheritance/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-interface-inheritance-and-implement-inheritance/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>繼承分為 interface 繼承與 implement 繼承。interface 繼承僅繼承 interface，implementation 部分則由繼承者決定。implement 繼承則連同實作一同繼承。</p>
+<p>C++ 語意上用 virtual 區分 base class 希望 derived class 自己定義與不希望 derived class 修改的 function，virtual 為希望 derived class 自行定義，non-virtual 則不希望 derived class 修改。</p>
+<p>C++ 在區分 interface 及 implement 繼承上有：</p>
+<ul>
+<li>pure virtual function</li>
+<li>impure virtual function</li>
+<li>non-virtual function</li>
+</ul>
+<p><img src="/images/C++_virtual_and_inheritance.png" alt="C++ virtual and inheritance"></p>
+<h2 id="pure-virtual-function"><a href="#pure-virtual-function" class="headerlink" title="pure virtual function"></a>pure virtual function</h2><p>pure virtual function 是為了讓 derived class 繼承 base class 的 interface，而 implementation 則由 derived class 全權處理。當一 class 宣告 pure virtual function 時，代表要求 derived class 必須 implement 這些 pure virtual function（沒寫會 compile error），通常是這個繼承體系所需要的共同性質。</p>
+<h2 id="impure-virtual-function"><a href="#impure-virtual-function" class="headerlink" title="impure virtual function"></a>impure virtual function</h2><p>impure virtual function 是為了讓 derived class 繼承 interface 及預設的 implementation。也就是說，derived class 可以自己實作，也可以直接用 base class 的實作。</p>
+<p>這有個風險是，因為在 derived class 中並不強迫要寫出 base class 的 impure virtual function，導致在 derived class 應該有自己實作的狀況下，programmer 可能忘記在 derived class 實作。</p>
+<h2 id="non-virtual-function"><a href="#non-virtual-function" class="headerlink" title="non-virtual function"></a>non-virtual function</h2><p>non-virtual function 主要是為了讓 derived class 繼承 base class 的實作。</p>
+<p>雖然語法上 derived class 可 override base class 的 non-virtual function，但語意上的設計不建議 derived class override base class 的 non-virtual function。另外，override virtual function 跟 override non-virtual function 在實際執行上會有不同行為。</p>
+<p>non-virtua function 是 static binding。在一個繼承體系中 call non-virtual function 時會直接 call 宣告 type 的 class function。如果 derived class 沒有 override function，則因繼承關係 call 到 base class 的 function。如果 dervied class override function，則會 call 到 derived class 的。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》Differentiate between inheritance of interface and inheritance of implementation.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1170,104 +1272,6 @@
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li>《Effective C++》</li>
 <li><a target="_blank" rel="noopener" href="http://openhome.cc/Gossip/CppGossip/dynamicCast.html">http://openhome.cc/Gossip/CppGossip/dynamicCast.html</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c-plus-plus-initialization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/c-plus-plus-initialization/" class="post-title-link" itemprop="url">C++ Initialization</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-04-04 20:45:09" itemprop="dateCreated datePublished" datetime="2014-04-04T20:45:09+08:00">2014-04-04</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/c-plus-plus-initialization/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c-plus-plus-initialization/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>C++ 對內建 type（如 int）要手動做 initial。</p>
-<h2 id="class-member-的初始化"><a href="#class-member-的初始化" class="headerlink" title="class member 的初始化"></a>class member 的初始化</h2><p>以 constructor 的 member initialization list 做 member 的初始化，會直接將參數丟給該 member 相對應的 constructor，可避免先 run member 的 default  constructor 後才再做 assign，效率較好。</p>
-<p>member 初始化順序：</p>
-<ol>
-<li>base class -&gt; derived class</li>
-<li>依宣告次序初始化（宣告次序與 member initialization list 的次序可能不同）</li>
-</ol>
-<p>初始化 member 的原則：將所有 member 依照宣告順序列在 member initialization list 中。</p>
-<h2 id="non-local-static-object-的初始化"><a href="#non-local-static-object-的初始化" class="headerlink" title="non-local static object 的初始化"></a>non-local static object 的初始化</h2><p>C++ 未定義在不同 translation unit((產生單一 object file 的 source code))中的 non-local static objects((不在 function 中的 static object，如 global object))的初始化相對次序。</p>
-<p>這會造成一些問題，例如在 source code A 裡的 global object objA 的初始化會用到在 source code B 裡的 global object objB 時可能有問題，因為不知道 objA 是不是會比 objB 晚初始化。</p>
-<p>解法：把 non-local static object 放到一 function 中，讓它不是 non-local，則可以知道初始化的順序。該 function return object 的 reference，要用這類 object 時就 call 相應 function。</p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li>《Effective C++》p.27~28, 31</li>
 </ul>
 
       

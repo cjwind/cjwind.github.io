@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">171</span>
+          <span class="site-state-item-count">172</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,114 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/c++-decrease-compilation-dependency/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/c++-decrease-compilation-dependency/" class="post-title-link" itemprop="url">C++ 降低 Compilation Dependency</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2014-12-29 23:11:04" itemprop="dateCreated datePublished" datetime="2014-12-29T23:11:04+08:00">2014-12-29</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/c++-decrease-compilation-dependency/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="c++-decrease-compilation-dependency/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>一個檔案 include 另一個檔案時，這兩個檔案便形成 compilation dependency。一個被 include 的檔案一旦修改，跟它有 compilation dependency 的檔案（無論直接或間接 include）都需要重新 compile。假設 A.h include B.h，當 B.h 改變或 B.h include 的檔案改變時，所有 include A.h 的檔案都需要重新 compile。</p>
+<p>應該盡量降低 compile dependency，以減少修改一個 header 而需要重新 compile 的檔案數量，免得改個檔案全世界都要重新 compile。<del>（工程師無數青春在哭泣）</del></p>
+<p>原則上盡量<strong>以 declaration 的 dependency 取代 definition 的 dependency</strong>。</p>
+<ul>
+<li><p>可以用 object pointer 或 object reference，就不要用 object。</p>
+<p>可以在 class 裡宣告 pointer 或 reference 作為 member，就不要定義 object 當 member，因為定義 object 就需要該 class 的 definition。</p>
+</li>
+<li><p>分開 class 的宣告與實作</p>
+<p>讓 include（提供 definition）可以從 header file 移到真正使用這些 class、function 的 cpp file。</p>
+<ul>
+<li><p>Handle class</p>
+<p>使用兩個 class，一個代表宣告，一個是真正的實作。前者通常稱為 <code>Handle class</code>，只宣告 function 並有個 pointer 指向後者。外界使用 Handle class，而 Handle class 會轉 call 真正 implement 的 class 達到功能。這個方式用到第一點的概念──避免使用 object，改用 pointer。</p>
+<p>因為兩個 class 會有相同的 function，會造成同時 maintain 兩份類似 class 的問題。</p>
+</li>
+<li><p>Interface class（abstract base class）</p>
+<p>interface class 沒有 member data、沒有 constructor，只有一 virtual destructor 跟一堆 pure virtual function。實作的 class 繼承 interface class 進行功能實作，以 virtual function 的機制讓外界用 interface class 的 pointer 使用。</p>
+</li>
+</ul>
+<p>這兩種方法的 trade off 是速度會慢一點、多用點 memory，不過普遍上來說好處比 trade off 重要。</p>
+</li>
+</ul>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Effective C++》item 31</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1100,101 +1208,6 @@
 <p>要注意在 class 提供外界使用並可供繼承時（如 framework、library 的 class），protected 不比 public 來得更有封裝性，兩者幾乎不相上下。雖然 protected member data 的使用範圍僅限於繼承體系，但由於公開給他人使用，使用該 member 的 code 數量跟直接 public 給他人使用沒什麼區別。<em>（就是都很多啦！）</em></p>
 <h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
 <li>《Effective C++》item 22 Declare data members private</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Hexo-hacking/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Hexo-hacking/" class="post-title-link" itemprop="url">Hexo hacking</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-07-05 23:00:03" itemprop="dateCreated datePublished" datetime="2014-07-05T23:00:03+08:00">2014-07-05</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2014-07-10 23:30:00" itemprop="dateModified" datetime="2014-07-10T23:30:00+08:00">2014-07-10</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Hexo-hacking/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Hexo-hacking/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前置作業"><a href="#前置作業" class="headerlink" title="前置作業"></a>前置作業</h2><p>安裝 <a target="_blank" rel="noopener" href="http://nodejs.org/">Node.js</a></p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> https://github.com/hexojs/hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update --init</span></span><br></pre></td></tr></table></figure>
-<p><code>npm install</code> 應該是為了把需要的 node module 裝起來。</p>
-<p>修改後直接 run <code>bin/hexo</code> 即可。</p>
-<h2 id="改以-updated-排序-post"><a href="#改以-updated-排序-post" class="headerlink" title="改以 updated 排序 post"></a>改以 updated 排序 post</h2><p>抄 <a target="_blank" rel="noopener" href="http://goo.gl/63S6ui">http://goo.gl/63S6ui</a> 的，可從 <code>_config.yml</code> 設定 post 以 date 或 updated 排序。如果 post 沒有設 updated，updated 時間會等於 date。</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae">https://github.com/cjwind/Hexx/commit/f72a82107b4f325a4dfe23641aac78533a499bae</a><br><a target="_blank" rel="noopener" href="https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b">https://github.com/cjwind/Hexx/commit/d115baf9e2d516684d637d79d22f0177129daa0b</a></p>
-<p><em>耍蠢所以變成兩個 commit</em></p>
-<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
-<li><a target="_blank" rel="noopener" href="http://hexo.io/docs/contributing.html">http://hexo.io/docs/contributing.html</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/tommy351/hexo/issues/376">https://github.com/tommy351/hexo/issues/376</a></li>
 </ul>
 
       

@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-03-28T08:29:04.931Z</updated>
+  <updated>2021-03-28T13:01:29.693Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Golang method receiver type 的差異</title>
+    <link href="http://www.cjwind.idv.tw/Golang-method-receiver-type/"/>
+    <id>http://www.cjwind.idv.tw/Golang-method-receiver-type/</id>
+    <published>2021-03-28T12:59:58.000Z</published>
+    <updated>2021-03-28T13:01:29.693Z</updated>
+    
+    <content type="html"><![CDATA[<p>在 Go 裡，method 的 receiver 是用 <code>*Obj</code> 還是用 <code>Obj</code> 會有不同的行為。</p><p>來個例子：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</span><br><span class="line">    X, Y <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">Abs</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> math.Sqrt(v.X*v.X + v.Y*v.Y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v Vertex)</span> <span class="title">moveX</span><span class="params">(movement <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">    v.X += movement</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *Vertex)</span> <span class="title">moveY</span><span class="params">(movement <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">    v.Y += movement</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    v := Vertex&#123;X: <span class="number">10</span>, Y: <span class="number">20</span>&#125;</span><br><span class="line"></span><br><span class="line">    log.Println(v.X, v.Y, v.Abs())<span class="comment">// 10 20 22.360679774997898</span></span><br><span class="line"></span><br><span class="line">    v.moveX(<span class="number">2</span>)</span><br><span class="line">    log.Println(v.X, v.Y, v.Abs())<span class="comment">// 10 20 22.360679774997898</span></span><br><span class="line"></span><br><span class="line">    v.moveY(<span class="number">3</span>)</span><br><span class="line">    log.Println(v.X, v.Y, v.Abs())<span class="comment">// 10 23 25.079872407968907</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>v</code> 可以看成像參數。</p><p>用 <code>Vertex</code> 就是 copy by value，caller 跟 callee 的 <code>Vertex</code> instance 是不同的。</p><p>用 <code>*Vertex</code> 就像 C 語言 pointer 參數，本質上還是 copy by value 但因為是 pointer，所以在 <code>moveY()</code> 中的 <code>v</code> 變成是指向 caller 的那個 <code>Vertex</code> instance。</p><p>基本上 method 會動到 struct 內的 field 內容都會用 pointer。習慣上當有一個 method 的 receiver 是用 pointer 時，所有 method 的 receiver 都會用 pointer。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;在 Go 裡，method 的 receiver 是用 &lt;code&gt;*Obj&lt;/code&gt; 還是用 &lt;code&gt;Obj&lt;/code&gt; 會有不同的行為。&lt;/p&gt;
+&lt;p&gt;來個例子：&lt;/p&gt;
+&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td </summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Synology NAS Docker private registry</title>
@@ -496,32 +518,6 @@
     <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
     
     <category term="Refactor" scheme="http://www.cjwind.idv.tw/tags/Refactor/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ch4 The Seam Model</title>
-    <link href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch4-The-Seam-Model/"/>
-    <id>http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch4-The-Seam-Model/</id>
-    <published>2020-08-11T01:11:13.000Z</published>
-    <updated>2020-09-19T05:08:17.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Seam-amp-Enabling-Point"><a href="#Seam-amp-Enabling-Point" class="headerlink" title="Seam &amp; Enabling Point"></a>Seam &amp; Enabling Point</h1><p>seam（接縫）是指程式中一些特殊的點，在這些點上你不需要修改它本身就可以變動程式行為。</p><p>例如某段程式 call 了一個 function 來計算商品價格，現在想改變計算價格的 strategy。想在不改變 call 計價 function 的情況下，改變計價結果（程式行為）。</p><p>又例如程式 call 到牽連龐大子系統的 function，我們希望在 test 中避免執行到那些複雜的 code（不然很難測或無法測），又要在 prodcution code 裡照常執行到。如果這段 code 有 seam，便能在不改動到原本 call function 的情況下，換掉該 function 的行為來避免在 test 中碰到子系統。</p><p>每個 seam 都有一個 enabling point，在這裡你可以決定使用哪種行為。</p><p>seam 是可以讓你改變程式行為的「縫隙」，enabling point 則是決定那個 seam 要是什麼行為。在 enabling point 給不同的值，可以讓 seam 有不同的行為。例如物件 seam，物件 method 的參數列表是 enabling point，因為我們可以傳入不同的物件來改變程式行為。</p><p>為一團亂的 code 測試時，最好別去修改它本身，盡可能透過 seam 去解開 dependency 來測試。</p><h1 id="Seam-Types"><a href="#Seam-Types" class="headerlink" title="Seam Types"></a>Seam Types</h1><p>seam 有很多種類型。不同的語言，可以使用的類型也不同。一個語言從程式碼轉換到 machine code 的各個階段，擁有不同種類的 seam。</p><ul><li>preprocess 時期 seam<ul><li>在 C/C++ 裡可以用 macro 直接把字換掉來達到改變行為，例如直接把有 dependency 的 function call 用 <code>#define</code> 在 <code>#ifdef TESTING</code> 時換成空的 function。</li><li>enabling point 是 <code>#define TESTING</code></li></ul></li><li>link 時期 seam：在將多個 object file link 起來時的 seam<ul><li>dynamic link：直接換掉 dynamic link 要去找的 library 或 object file。</li><li>static link：透過 build script（像 Makefile），在測試環境去 link 抽換的 object file 而非原本 production code 的 object file。</li><li>enabling point 通常在 build 或 deploy script 裡，因為這時候才決定 link 誰。</li></ul></li><li>object seam<ul><li>一般用 interface、polymorphism 來做 dependency injection，以及 extract and override。</li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Seam-amp-Enabling-Point&quot;&gt;&lt;a href=&quot;#Seam-amp-Enabling-Point&quot; class=&quot;headerlink&quot; title=&quot;Seam &amp;amp; Enabling Point&quot;&gt;&lt;/a&gt;Seam &amp;amp; Enab</summary>
-      
-    
-    
-    
-    <category term="Working Effectively with Legacy Code" scheme="http://www.cjwind.idv.tw/categories/Working-Effectively-with-Legacy-Code/"/>
-    
-    
-    <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
-    
-    <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
     
   </entry>
   
