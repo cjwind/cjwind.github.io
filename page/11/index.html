@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-count">173</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,118 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/API-Design-for-Cpp-ch5-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/API-Design-for-Cpp-ch5-note/" class="post-title-link" itemprop="url">《C++ API 設計》ch5 API Style</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-08-11 20:24:07" itemprop="dateCreated datePublished" datetime="2015-08-11T20:24:07+08:00">2015-08-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/API-Design-for-Cpp-ch5-note/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="API-Design-for-Cpp-ch5-note/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>API 分很多種 style，各有優缺跟取捨。</p>
+<ul>
+<li>C style</li>
+<li>Object Oriented C++ style</li>
+<li>Template style</li>
+<li>Data driven style</li>
+</ul>
+<p>這種分類方式是以 C/C++ 系列區分，但我覺得在其他語言方面也有類似概念。</p>
+<h2 id="C-style"><a href="#C-style" class="headerlink" title="C style"></a>C style</h2><p>一般 C function 們，通常會用 struct 跟一些命名規則來區別不同功能跟 component 等等。</p>
+<p>類似的東西：PHP 那些 <code>mysql_</code> 開頭的 function 們。</p>
+<h3 id="讓-C-可以-call-C-API"><a href="#讓-C-可以-call-C-API" class="headerlink" title="讓 C++ 可以 call C API"></a>讓 C++ 可以 call C API</h3><p>有時候使用者是用 C++ 開發，而 C style 的 API 希望能給這樣的使用者使用。在此狀況下，C style API 需要：</p>
+<ol>
+<li>C API 可以用 C++ compiler 編過</li>
+<li>用 <code>extern &quot;C&quot;</code> 處理 C++ 與 C 之間 linkage 的問題<br>同樣的 function 在 C compiler 跟 C++ 的 compiler 產生的 object file 中會以不同方式呈現，例如 C++ 有 <code>name decoration</code>，但 C 沒有。因此 C API 得用 extern “C” 包起來，讓 C++ compiler 知道這段應該要用 C style 的 link 方式。</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// C API declaration</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+<p>實例：<a href="/Cpp-uses-C-library-example">C++ uses C library example</a></p>
+<h2 id="Object-Oriented-C-style"><a href="#Object-Oriented-C-style" class="headerlink" title="Object Oriented C++ style"></a>Object Oriented C++ style</h2><p>以物件導向為基礎的寫法。</p>
+<p>類似的東西：PHP 的 <code>mysqli</code> 物件。</p>
+<h2 id="Template-style"><a href="#Template-style" class="headerlink" title="Template style"></a>Template style</h2><p>以 template 於 compile time 達到 static polymorphism──相同 interface 可支援多種 type，例如 STL。</p>
+<p>相對物件導向的多型是在 runtime 做，使用 template 有較高的執行效率，但 compile 出來的檔案會比較大。因此，相對 code 大小較著重執行效能時可用 template，反之可用物件導向。</p>
+<p>缺點之一是 template 的定義得放在 header，導致使用的程式需一起 compile template 的 header，但仍有些方式可以將 template 定義藏在 .cpp。另外，template 的 compile error 訊息很複雜，無論自己開發有什麼問題或者使用者使用時有何問題，複雜的 error message 讓人蠻頭大的。<em>被害過…但至今還是沒搞懂…(欸)</em></p>
+<h2 id="Data-driven-style"><a href="#Data-driven-style" class="headerlink" title="Data driven style"></a>Data driven style</h2><p>interface 提供非常 general 的 function，實際上做什麼事由 input 決定。interface 大概像這樣：</p>
+<p><code>Result DoCommand(string cmd, ArgList args)</code></p>
+<p><code>Command()</code> 內部 implement 會依據 <code>cmd</code> 決定要做什麼，<code>args</code> 則是對應 command 的參數，<code>Result</code> 則是回傳值。</p>
+<p>例如 web service，使用者丟想做的命令跟參數給 web service，web service 再依據命令及參數回應。</p>
+<p>由於 interface 非常 general，需要相對應的 general 的參數型態來傳這些參數，像上面的 <code>Result</code>。在不強調 data type 的語言（weakly type language）像 python 中很好處理，但在 C++ 裡就要自己寫或用其他 library 提供的了，如 Qt 的 QVariant。</p>
+<p>好處是 API 修改非常彈性，幾乎不需要動到 interface。壞處是單從 interface 看不出 API 提供的功能，因為太 general 了，這時候只能靠文件。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1197,142 +1309,6 @@
 <li><a target="_blank" rel="noopener" href="http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c">http://stackoverflow.com/questions/630950/pure-virtual-destructor-in-c</a></li>
 <li><a target="_blank" rel="noopener" href="http://www.gotw.ca/gotw/031.htm">http://www.gotw.ca/gotw/031.htm</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/OOAD-software-develop-cycle/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/OOAD-software-develop-cycle/" class="post-title-link" itemprop="url">OOAD 軟體開發週期</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2015-05-11 22:56:44" itemprop="dateCreated datePublished" datetime="2015-05-11T22:56:44+08:00">2015-05-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2015-05-13 21:10:00" itemprop="dateModified" datetime="2015-05-13T21:10:00+08:00">2015-05-13</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/OOAD-software-develop-cycle/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="OOAD-software-develop-cycle/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>看完《深入淺出物件導向分析與設計》的筆記，這篇概括整理用 OOAD 開發軟體的開發週期，沒有太多細節。</p>
-<h2 id="1-搞清楚客戶想要什麼"><a href="#1-搞清楚客戶想要什麼" class="headerlink" title="1. 搞清楚客戶想要什麼"></a>1. 搞清楚客戶想要什麼</h2><p>跟客戶聊天，<del>從模模糊糊中</del>搞清楚他想要什麼。或者問可以決定要做什麼的人，不管那個人是 PM、PL 還是其他各種頭銜…</p>
-<p>利用 <a href="/Commonality-and-Variability">Commonality 及 Variability</a> 了解客戶想要什麼、軟體要做什麼。</p>
-<p>老實講，我覺得這真是門藝術。</p>
-<h2 id="2-建立-feature-list-及-use-case-diagram"><a href="#2-建立-feature-list-及-use-case-diagram" class="headerlink" title="2. 建立 feature list 及 use case diagram"></a>2. 建立 feature list 及 use case diagram</h2><p>跟客戶聊完天、了解系統要做什麼後建立 feature list，表示整個系統的功能概觀。畫張 use case diagram 呈現使用者或其他系統使用這個系統的藍圖，既然是藍圖，當然不會有太細節的東西啦！feature list 是以功能面的角度看整個系統，use case diagram 則是以「使用」的角度來看整個系統。feature list 裡的功能不管直接或間接，得要能跟 use case diagram 的 use case 互相對應。</p>
-<p>Use case diagram example：</p>
-<img src="../images/use_case_diagram.png" width="600">
-
-<p>到這裡，對整個軟體系統，還只有比較概略性的藍圖，還沒進到 detail，我們要盡可能延後 detail！</p>
-<h3 id="Domain-Analysis"><a href="#Domain-Analysis" class="headerlink" title="Domain Analysis"></a>Domain Analysis</h3><blockquote>
-<p>辨識、收集、組織及表示領域相關資訊的流程，根據既有系統與其開發歷程的研究、領域專家的知識、潛在理論、領域中的新興技術。</p>
-</blockquote>
-<p><del>是段看不懂在寫什麼的文言文…好吧這種時候我承認原文比較好懂…</del></p>
-<p>在我的理解裡，這部分包含 survey 相關技術，例如 framework 如何使用，包括分析、了解原有架構及既有程式碼、找出相關的物件、物件間關係與互動等等，也包含了解此系統相關的背景知識、相關流程等等，例如要做一個請假系統，得要了解請假流程。</p>
-<p>用客戶能理解的語言跟方式描述問題以及系統，不要跟他講什麼 class、variable 就對了。簡單來說──「講人話」。</p>
-<h2 id="3-設計架構"><a href="#3-設計架構" class="headerlink" title="3. 設計架構"></a>3. 設計架構</h2><p>根據 feature list、use case diagram 跟現有程式碼等等資訊將大問題分解成多個各自負責不同功能的 module。組織這些 module 並決定從哪個 module 開始動工。這個階段的重點是建立做事情的順序以及減少風險，<a href="/OOAD-Architecture">更多細節</a>。</p>
-<p>如果有需要，套用 design pattern。design pattern 是解決特定問題的方式，能結構化程式，讓程式較易被理解、維護而且更有彈性。</p>
-<h2 id="4-一個個處理小功能"><a href="#4-一個個處理小功能" class="headerlink" title="4. 一個個處理小功能"></a>4. 一個個處理小功能</h2><p>將大問題分成許多小問題之後，準備各個擊破啦！</p>
-<p>不同的開發方式：<a href="/feature-driven-and-use-case-driven-development">Feature driven &amp; Use case driven development</a>。</p>
-<h3 id="4-1-想小功能的-requirement，建立-requirement-list"><a href="#4-1-想小功能的-requirement，建立-requirement-list" class="headerlink" title="4-1. 想小功能的 requirement，建立 requirement list"></a>4-1. 想小功能的 requirement，建立 requirement list</h3><p>依照描述的需求建立需求清單。類似 feature list 的概念，只是小一點，著重在要處理的小功能有何需求，會比最開始的 feature 更進入細節事項。</p>
-<p>需求不只包含客戶想要的，也包含當事情不按正常狀況來時系統依然要能正常運作。畢竟客戶通常希望當事情不如預期時，系統仍然能正常運作。可以從兩方面著手：</p>
-<ol>
-<li>這個功能要拿來做什麼、該做什麼？</li>
-<li>在出錯的情況中，系統要做些什麼事？</li>
-</ol>
-<h3 id="4-2-寫-Use-case"><a href="#4-2-寫-Use-case" class="headerlink" title="4-2. 寫 Use case"></a>4-2. 寫 Use case</h3><img src="../images/requirement_and_usecase.png" width="500">
-
-<p>requirement 及 use case 要能互相對應，跟 feature 與 use case diagram 一樣。</p>
-<p>因為系統是跑在真實世界，不是只跑在預期狀況中，要考慮出錯的狀況。但是呢，有時候系統遇到出錯狀況時「如何反應才是正常」不見得是工程師能決定的，所以，請<del>騷擾</del>請教可以決定這件事的人。</p>
-<p><a href="/use-case">更多跟 Use case 有關的細節</a></p>
-<h3 id="4-3-設計物件細節及物件間的關係"><a href="#4-3-設計物件細節及物件間的關係" class="headerlink" title="4-3. 設計物件細節及物件間的關係"></a>4-3. 設計物件細節及物件間的關係</h3><ul>
-<li>運用 <a href="/use-case">Textual analysis</a> 分析 use case</li>
-<li><a href="/Class-Diagram">Class Diagram</a></li>
-</ul>
-<h3 id="4-4-實作"><a href="#4-4-實作" class="headerlink" title="4-4. 實作"></a>4-4. 實作</h3><p>運用 OO 原則：</p>
-<ul>
-<li>操作 interface，而非操作 implementation。</li>
-<li>class 跟行為及功能性有關，有行為才加 class。</li>
-<li><a href="/encapsulate-change">封裝會改變的東西</a></li>
-<li><a href="/delegate">Delegate</a></li>
-<li><a href="/Open-Closed-Principle">Open Closed Principle（OCP）</a></li>
-<li><a href="/Single-Responsibility-Principle">Single Responsibility Principle（SRP）</a></li>
-<li><a href="/Dont-Repeat-Yourself">Don’t Repeat Yourself（DRY）</a></li>
-<li><a href="/liskov-substitution-principle">Liskov Substitution Principle（LSP）</a></li>
-</ul>
-<h2 id="5-測試"><a href="#5-測試" class="headerlink" title="5. 測試"></a>5. 測試</h2><p>測試所有能想到的可能使用狀況跟不按規矩來的使用狀況。</p>
-<p>unit test 已經有抽象上的「功能」觀念。unit test 一次只測一個小功能，但測一個小功能不等於測一個 function，也可能是測很多個 function 組合而成的「功能」。</p>
-<p>在測試中要模擬 code 真正被使用的狀況跟情境，而不是測試簡單 call function 但實際上並不會這麼使用的狀況。</p>
-<h2 id="Murmur"><a href="#Murmur" class="headerlink" title="Murmur"></a>Murmur</h2><p>這只是大通則，裡面很多細節是要依照 project 各自狀況不同有所改變的。雖然說是 OOAD 軟體開發週期，但以概念上來說我覺得前面的需求分析等等跟 OO 沒多大關係。</p>
-<p>現在理解到程式設計到處都是 divide and conquer，小時候(?)不懂以為 divide and conquer 只存在 algorithm 裡……</p>
-<p>最開始我很容易犯的毛病是一下子就想動手寫 code，然後搞得很崩潰，幾次之後就不會想這麼幹了。還有會一下子就掉進細節而且還出不來，難以維持以 big picture 的角度去看，就整個攪再一起，這點現在到底治好了沒我也不太確定…(欸)</p>
-<p>雖然目前我只用到裡面的部分方法，但是似乎有個開發週期的框架後變得比較知道自己在幹嘛，腦子比較不會像果醬糊成一團。</p>
 
       
     </div>

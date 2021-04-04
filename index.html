@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-count">173</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,98 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/AWS-ECR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/AWS-ECR/" class="post-title-link" itemprop="url">AWS ECR</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2021-04-04 14:35:13 / Modified: 14:37:44" itemprop="dateCreated datePublished" datetime="2021-04-04T14:35:13+08:00">2021-04-04</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/AWS-ECR/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="AWS-ECR/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p>
+<h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><ol>
+<li>做個 docker image</li>
+<li>authenticate<br> <code>$ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazonaws.com</code></li>
+<li>create repository，例如 <code>hello-ecr</code></li>
+<li>幫 image 上 tag，例如 <code>[AWSUserID].dkr.ecr.us-east-2.amazonaws.com/hello-ecr:latest</code></li>
+<li>docker push</li>
+</ol>
+<h2 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h2><p>一樣先 login，接著 <code>docker run</code>，例如：<code>$ docker run [AWSUserID].dkr.ecr.us-east-2.amazonaws.com/hello-ecr:latest</code></p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/install-cliv2-linux.html">在 Linux AWS CLI 第 2 版 上安裝、更新和解除安裝</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/cli-configure-files.html#cli-configure-files-methods">組態與登入資料檔案設定</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html">搭配 Amazon ECR 使用 AWS CLI</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1171,88 +1263,6 @@
     <div class="post-body" itemprop="articleBody">
           <p>老是失憶……</p>
 <figure class="highlight elixir"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 跑起一個 ubuntu container 並且用 foreground 模式進入 bash</span></span><br><span class="line"><span class="variable">$ </span>sudo docker run -it ubuntu bash</span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>sudo docker run -d -p [HOST_PORT]<span class="symbol">:</span>[CONTAINER_PORT] --name [CONTAINER_NAME] [IMAGE_NAME]<span class="symbol">:</span>[version]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止並移除 container</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rm --force [CONTAINER]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出 local 有的 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker images</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在 Docker Hub 搜尋 image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker search [KEYWORD]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在有 Dockerfile 的資料夾 build Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker build --tag [NAME]<span class="symbol">:</span>[TAG] .</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker rmi [IMAGE]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Login to a Docker registry</span></span><br><span class="line"><span class="comment"># 如果是 private registry 就要 login 才能 push</span></span><br><span class="line"><span class="variable">$ </span>sudo docker login</span><br><span class="line"></span><br><span class="line"><span class="comment"># Push Docker image</span></span><br><span class="line"><span class="variable">$ </span>sudo docker push [IMAGE_NAME]<span class="symbol">:</span>[TAG]</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Readmoo-API/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Readmoo-API/" class="post-title-link" itemprop="url">Readmoo API Go Package</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-      
-
-      <time title="Created: 2021-02-09 16:51:05 / Modified: 17:30:46" itemprop="dateCreated datePublished" datetime="2021-02-09T16:51:05+08:00">2021-02-09</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Readmoo-API/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Readmoo-API/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>用 Go 寫了個可以讀 Readmoo 的閱讀記錄跟劃線的 package。</p>
-<p>可以從閱讀記錄拿到基本的書籍資料跟劃線。</p>
-<p>細節見 <a target="_blank" rel="noopener" href="https://github.com/cjwind/readmoo">Github</a>。</p>
-<p><em>應該要把拿 token 弄得簡單點，現在很手動…</em></p>
-
       
     </div>
 

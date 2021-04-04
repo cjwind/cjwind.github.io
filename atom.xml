@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-03-28T13:01:29.693Z</updated>
+  <updated>2021-04-04T06:37:44.807Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AWS ECR</title>
+    <link href="http://www.cjwind.idv.tw/AWS-ECR/"/>
+    <id>http://www.cjwind.idv.tw/AWS-ECR/</id>
+    <published>2021-04-04T06:35:13.000Z</published>
+    <updated>2021-04-04T06:37:44.807Z</updated>
+    
+    <content type="html"><![CDATA[<p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p><h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><ol><li>做個 docker image</li><li>authenticate<br> <code>$ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazonaws.com</code></li><li>create repository，例如 <code>hello-ecr</code></li><li>幫 image 上 tag，例如 <code>[AWSUserID].dkr.ecr.us-east-2.amazonaws.com/hello-ecr:latest</code></li><li>docker push</li></ol><h2 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h2><p>一樣先 login，接著 <code>docker run</code>，例如：<code>$ docker run [AWSUserID].dkr.ecr.us-east-2.amazonaws.com/hello-ecr:latest</code></p><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/install-cliv2-linux.html">在 Linux AWS CLI 第 2 版 上安裝、更新和解除安裝</a></li><li><a href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/cli-configure-files.html#cli-configure-files-methods">組態與登入資料檔案設定</a></li><li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html">搭配 Amazon ECR 使用 AWS CLI</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;安裝 AWS CLI 後先 &lt;code&gt;aws configure&lt;/code&gt; 設定&lt;/p&gt;
+&lt;h2 id=&quot;Push&quot;&gt;&lt;a href=&quot;#Push&quot; class=&quot;headerlink&quot; title=&quot;Push&quot;&gt;&lt;/a&gt;Push&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;做個 do</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Golang method receiver type 的差異</title>
@@ -488,36 +510,6 @@
     
     
     <category term="DB" scheme="http://www.cjwind.idv.tw/tags/DB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ch5 Tools</title>
-    <link href="http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch5-Tools/"/>
-    <id>http://www.cjwind.idv.tw/Working-Effectively-with-Legacy-Code/ch5-Tools/</id>
-    <published>2020-08-13T01:19:58.000Z</published>
-    <updated>2020-09-19T05:07:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><ul><li>自動化重構工具<ul><li>像 JetBrains、Visual Studio 等 IDE 的 refactor 功能。</li><li>在工具夠好的情況下，可以在沒有為 code 寫測試的情況下用工具進行自動化 refactor。但有時工具可能有問題，refactor 卻會修改到程式行為，所以使用工具進行 refactor 前，如果能先寫測試還是比較好的。</li><li>要注意工具在 refactor 時會跟不會進行哪些檢查<ul><li>例如 extract method，如果將新 method 命名為已存在 method 的名字，工具會不會顯示錯誤？</li></ul></li></ul></li><li>Unit Test 工具<ul><li>xUnit framework<br>  這類型 framework 執行測試大致的作法：找到 test class 裡所有 test method（依據語言不同有不同作法，有些語言可以用 reflection），為每個 test method 產生一個單獨的 object，該 object 的任務是去執行那個 test method。利用不同 object 隔離 test case，讓 test case 不會互相影響。</li></ul></li><li>一般測試控制工具<ul><li>FIT (Framework for Integration Test）</li><li>Fitnesse</li><li>Selenium</li><li><em>……等等其他</em></li></ul></li></ul>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;Summary&quot;&gt;&lt;a href=&quot;#Summary&quot; class=&quot;headerlink&quot; title=&quot;Summary&quot;&gt;&lt;/a&gt;Summary&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;自動化重構工具&lt;ul&gt;
-&lt;li&gt;像 JetBrains、Visual Studio 等 </summary>
-      
-    
-    
-    
-    <category term="Working Effectively with Legacy Code" scheme="http://www.cjwind.idv.tw/categories/Working-Effectively-with-Legacy-Code/"/>
-    
-    
-    <category term="Reading" scheme="http://www.cjwind.idv.tw/tags/Reading/"/>
-    
-    <category term="Unit Test" scheme="http://www.cjwind.idv.tw/tags/Unit-Test/"/>
-    
-    <category term="Refactor" scheme="http://www.cjwind.idv.tw/tags/Refactor/"/>
     
   </entry>
   

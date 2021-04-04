@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">172</span>
+          <span class="site-state-item-count">173</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,98 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Cohesion/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Cohesion/" class="post-title-link" itemprop="url">Cohesion 內聚力</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2015-03-14 17:46:36" itemprop="dateCreated datePublished" datetime="2015-03-14T17:46:36+08:00">2015-03-14</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Cohesion/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Cohesion/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>A cohensive class does one thing really well and does not try to do or be something else.</p>
+</blockquote>
+<p>來來來翻譯一下：一個 class 只做一件事，不會插手做別人的事。</p>
+<p>但是，這「一件事」的大小跟規模是由設計的人定義的，可以很大也可以很小，定義清楚即可。</p>
+<p>class 內聚力越高，class 間的耦合度（改動一個 class 就要改動其他 code 的程度）越低，越容易 reuse 及擴展。</p>
+<p>讓一個 class 只做一件事，只有那件事情需要修改時才會讓這個 class 改變。這樣每次修改的影響範圍可以縮小，可能產生 bug 的範圍也就縮小啦。另一個好處是 debug 的時候，programmer 可以較迅速的知道可能出問題的範圍，降低時間成本。</p>
+<p>檢查內聚力的方式：做一項改變時是否牽動到許多 class？是的話表示內聚力低、耦合度高，程式不易修改跟擴充。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1169,120 +1261,6 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span>&lt;(<span class="keyword">const</span> XXX&amp; rhs) <span class="keyword">const</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (fieldA != rhs.fieldA)</span><br><span class="line">        <span class="keyword">return</span> fieldA &lt; rhs.fieldA;</span><br><span class="line">    <span class="keyword">if</span> (fieldB != rhs.fieldB)</span><br><span class="line">        <span class="keyword">return</span> fieldB &lt; rhs.fieldB;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>這表示在比較上，fieldA 的 priority 比 fieldB 高，也就是先比 fieldA 再比 fieldB。</p>
 <p><code>x &lt; y</code> 跟 <code>y &lt; x</code> 都為 false 時表示 <code>x == y</code>。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/2014-and-2015/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2014-and-2015/" class="post-title-link" itemprop="url">2014 年回顧與 2015 年目標</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2014-12-30 23:13:58" itemprop="dateCreated datePublished" datetime="2014-12-30T23:13:58+08:00">2014-12-30</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2014-and-2015/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014-and-2015/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>今年，專業上：</p>
-<ul>
-<li>開了這個 blog</li>
-<li>看完《Effective C++》（跳過 template 就是了，那塊太不熟根本看不懂）</li>
-<li>《深入淺出物件導向分析與設計》一到九章（剩一章，耶！）</li>
-<li>正在看《程式設計師的自我修養──連結、載入、程式庫》</li>
-<li>邊做邊學 Ruby on Rails</li>
-<li>對 C++ 有再熟一點，吧？</li>
-<li>設計架構崩崩中</li>
-<li>有比較會切細工作，吧？</li>
-<li>多會一點 Git</li>
-</ul>
-<p>2015 年目標：</p>
-<ul>
-<li>吃掉《深入淺出物件導向分析與設計》</li>
-<li>啃掉《程式設計師的自我修養──連結、載入、程式庫》</li>
-<li>看《深入淺出設計模式》</li>
-<li>看《Clean Code》<del>（寫到這裡我在想是不是在找死？）</del></li>
-<li>寫個 Ruby Gem</li>
-<li>練習 OOAD</li>
-<li>練習「想清楚再做」跟「避免分析癱瘓」（有時候會一直在那裡想然後做不了決定 X_X）</li>
-<li>找些 open source project 來 follow（好像有點抽象）</li>
-<li>填補理論跟實務之間的空虛地帶（具體上還沒決定，先列些主題）<ul>
-<li>OS</li>
-<li>Compiler</li>
-<li>Multi-Thread Programming</li>
-</ul>
-</li>
-</ul>
-<p>我也不知道寫這些目標會不會照著做，很具體的應該會，寫得越抽象的越容易歪掉就是了。明年底再來看哪些有做到、哪些歪掉、又有什麼是吃飽太閒在亂玩。:P</p>
 
       
     </div>
