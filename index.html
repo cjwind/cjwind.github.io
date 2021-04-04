@@ -290,7 +290,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/AWS-ECR/" class="post-title-link" itemprop="url">AWS ECR</a>
+          <a href="/AWS-ECR/" class="post-title-link" itemprop="url">以 AWS CLI 使用 ECR</a>
         </h2>
 
         <div class="post-meta-container">
@@ -302,7 +302,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-04-04 14:35:13 / Modified: 14:37:44" itemprop="dateCreated datePublished" datetime="2021-04-04T14:35:13+08:00">2021-04-04</time>
+      <time title="Created: 2021-04-04 14:35:13 / Modified: 14:40:34" itemprop="dateCreated datePublished" datetime="2021-04-04T14:35:13+08:00">2021-04-04</time>
     </span>
 
   
@@ -329,7 +329,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p>
+          <p>ECR 全名是 Elastic Container Registry，是 Amazon 的 docker container registry。</p>
+<p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p>
 <h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><ol>
 <li>做個 docker image</li>
 <li>authenticate<br> <code>$ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazonaws.com</code></li>

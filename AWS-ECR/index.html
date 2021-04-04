@@ -22,15 +22,15 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="安裝 AWS CLI 後先 aws configure 設定 Push 做個 docker image authenticate $ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazona">
+<meta name="description" content="ECR 全名是 Elastic Container Registry，是 Amazon 的 docker container registry。 安裝 AWS CLI 後先 aws configure 設定 Push 做個 docker image authenticate $ aws ecr get-login-password --region [region] | sudo docker l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AWS ECR">
+<meta property="og:title" content="以 AWS CLI 使用 ECR">
 <meta property="og:url" content="http://www.cjwind.idv.tw/AWS-ECR/index.html">
 <meta property="og:site_name" content="cjwind&#39;s note">
-<meta property="og:description" content="安裝 AWS CLI 後先 aws configure 設定 Push 做個 docker image authenticate $ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazona">
+<meta property="og:description" content="ECR 全名是 Elastic Container Registry，是 Amazon 的 docker container registry。 安裝 AWS CLI 後先 aws configure 設定 Push 做個 docker image authenticate $ aws ecr get-login-password --region [region] | sudo docker l">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-04T06:35:13.000Z">
-<meta property="article:modified_time" content="2021-04-04T06:37:44.807Z">
+<meta property="article:modified_time" content="2021-04-04T06:40:34.024Z">
 <meta property="article:author" content="cjwind">
 <meta name="twitter:card" content="summary">
 
@@ -47,7 +47,7 @@
     lang   : 'en'
   };
 </script>
-<title>AWS ECR | cjwind's note</title>
+<title>以 AWS CLI 使用 ECR | cjwind's note</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-62800351-2"></script>
     <script>
@@ -296,7 +296,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          AWS ECR
+          以 AWS CLI 使用 ECR
         </h1>
 
         <div class="post-meta-container">
@@ -308,7 +308,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-04-04 14:35:13 / Modified: 14:37:44" itemprop="dateCreated datePublished" datetime="2021-04-04T14:35:13+08:00">2021-04-04</time>
+      <time title="Created: 2021-04-04 14:35:13 / Modified: 14:40:34" itemprop="dateCreated datePublished" datetime="2021-04-04T14:35:13+08:00">2021-04-04</time>
     </span>
 
   
@@ -335,7 +335,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p>
+        <p>ECR 全名是 Elastic Container Registry，是 Amazon 的 docker container registry。</p>
+<p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p>
 <h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><ol>
 <li>做個 docker image</li>
 <li>authenticate<br> <code>$ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazonaws.com</code></li>
@@ -458,7 +459,7 @@
   var disqus_config = function() {
     this.page.url = "http://www.cjwind.idv.tw/AWS-ECR/";
     this.page.identifier = "AWS-ECR/";
-    this.page.title = "AWS ECR";
+    this.page.title = "以 AWS CLI 使用 ECR";
     };
   NexT.utils.loadComments('#disqus_thread', () => {
     if (window.DISQUS) {
