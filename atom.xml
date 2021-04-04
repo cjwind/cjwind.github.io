@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-04-04T06:40:34.024Z</updated>
+  <updated>2021-04-04T06:40:52.592Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.cjwind.idv.tw/AWS-ECR/"/>
     <id>http://www.cjwind.idv.tw/AWS-ECR/</id>
     <published>2021-04-04T06:35:13.000Z</published>
-    <updated>2021-04-04T06:40:34.024Z</updated>
+    <updated>2021-04-04T06:40:52.592Z</updated>
     
     <content type="html"><![CDATA[<p>ECR 全名是 Elastic Container Registry，是 Amazon 的 docker container registry。</p><p>安裝 AWS CLI 後先 <code>aws configure</code> 設定</p><h2 id="Push"><a href="#Push" class="headerlink" title="Push"></a>Push</h2><ol><li>做個 docker image</li><li>authenticate<br> <code>$ aws ecr get-login-password --region [region] | sudo docker login --username AWS --password-stdin [AWSUserID].dkr.ecr.[region].amazonaws.com</code></li><li>create repository，例如 <code>hello-ecr</code></li><li>幫 image 上 tag，例如 <code>[AWSUserID].dkr.ecr.us-east-2.amazonaws.com/hello-ecr:latest</code></li><li>docker push</li></ol><h2 id="Run"><a href="#Run" class="headerlink" title="Run"></a>Run</h2><p>一樣先 login，接著 <code>docker run</code>，例如：<code>$ docker run [AWSUserID].dkr.ecr.us-east-2.amazonaws.com/hello-ecr:latest</code></p><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/install-cliv2-linux.html">在 Linux AWS CLI 第 2 版 上安裝、更新和解除安裝</a></li><li><a href="https://docs.aws.amazon.com/zh_tw/cli/latest/userguide/cli-configure-files.html#cli-configure-files-methods">組態與登入資料檔案設定</a></li><li><a href="https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html">搭配 Amazon ECR 使用 AWS CLI</a></li></ul>]]></content>
     
@@ -35,6 +35,8 @@
     
     
     
+    
+    <category term="AWS" scheme="http://www.cjwind.idv.tw/tags/AWS/"/>
     
   </entry>
   
