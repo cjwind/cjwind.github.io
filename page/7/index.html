@@ -206,7 +206,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">173</span>
+          <span class="site-state-item-count">174</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -268,6 +268,98 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Concurrency-and-Parallelism/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Concurrency-and-Parallelism/" class="post-title-link" itemprop="url">Concurrency and Parallelism</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-08-31 22:40:28" itemprop="dateCreated datePublished" datetime="2017-08-31T22:40:28+08:00">2017-08-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Concurrency-and-Parallelism/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Concurrency-and-Parallelism/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="Concurrency-vs-Parallelism"><a href="#Concurrency-vs-Parallelism" class="headerlink" title="Concurrency vs Parallelism"></a>Concurrency vs Parallelism</h2><p>concurrency 是如何拆分程式成多個獨立的工作，讓這些工作可以一起「正在進行（in progress）」但不一定要「同時執行」。「正在進行」是多個工作可以輪流到 CPU（或者 core）上執行，雖然不是同時執行但這些工作都是正在進行中的。而 parallelism 則是多個工作「同時執行」，也就是實際上必須要有多個 core 能同時執行工作。</p>
+<p>打個比方，有一個廚師要煮一頓飯，他「同時」（實際上是輪流，廚師不會分身術）洗菜、切菜、炒菜跟煮湯，這是 concurrency，把煮一頓飯分成四個工作。現在<del>廚師會分身術</del>喔不是，是有四個廚師，一個洗菜、一個切菜、一個煮湯、一個炒菜，所有人<strong>一起動作</strong>就是 parallelism（如果同時間只有一個廚師能動作，不算 parallelism）。煮一頓飯也可以拆成炒青菜、煮飯、煮湯三件事，每件事各自從洗到切到煮或炒，這樣也是一個 concurrency solution，而如果有多個廚師一起做，便成了 parallelism。</p>
+<p>concurrency 關乎程式結構，parallelism 關乎程式執行。concurrency 是程式或系統怎麼切分成多個工作，而 parallelism 則得要同時「執行」。</p>
+<h2 id="關於中文翻譯"><a href="#關於中文翻譯" class="headerlink" title="關於中文翻譯"></a>關於中文翻譯</h2><p>concurrency 的中文翻譯是「並行」，parallelism 是「平行」。但「平行」很容易出現在描述裡，常常搞不清楚到底「平行」是指 parallelism 還是只是一個形容？我比較喜歡在需要精準指出是 concurrency 或 parallelism 的時候用原文，單純的形容或者描述用「平行」，除非英文用在中文句子有點怪才會用中文「並行」跟「平行」並且加註英文。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.golang.org/concurrency-is-not-parallelism">https://blog.golang.org/concurrency-is-not-parallelism</a></li>
+<li>《The Art of Concurrency》</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1336,125 +1428,6 @@
 <p>後來我用比較彈性的做法，讓之後可以用新增 class 或一小段 code 而不修改原本 code 的方式加新的邏輯。咦？好眼熟喔！阿不就<a href="/Open-Closed-Principle/">OCP</a>？真是突然體會了為什麼那些 principle 那麼討厭「修改原有 code」，因為改原本的 code 就有風險、有可能造成意想不掉的 bug。這種事就是工程師最討厭的──我明明沒動那裡為什麼那邊會壞。</p>
 <p>修改意味著可能有 bug，而且蠻高的機率需要修改，來不及架測試安全網，至少以遵守 OCP 的方式避免之後生 bug，也是一個方法。無法降低風險至零，但應該要能降低到能夠掌控。</p>
 <p>設計原則也好，自動測試也好，它們只是方法不同，最終的目標是一樣的──完成一個有品質的軟體、系統。漸漸覺得，好像是看情況使用，而不見得非得如何。當然，有好設計以及自動測試的軟體是更好的。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Dynamic-Linking-PIC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Dynamic-Linking-PIC/" class="post-title-link" itemprop="url">Dynamic Linking Position-independent Code（PIC）</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2017-03-07 23:45:15" itemprop="dateCreated datePublished" datetime="2017-03-07T23:45:15+08:00">2017-03-07</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2017-03-18 22:47:00" itemprop="dateModified" datetime="2017-03-18T22:47:00+08:00">2017-03-18</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Dynamic-Linking-PIC/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Dynamic-Linking-PIC/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Dynamic-linking-遇到的問題"><a href="#Dynamic-linking-遇到的問題" class="headerlink" title="Dynamic linking 遇到的問題"></a>Dynamic linking 遇到的問題</h2><p>Dynamic linking 想解決的一大問題是 memory 浪費。直覺想法是如果能讓不同 process 都會使用到的 library 在 memory 只有一份就能節省空間。對不同 process 來說 library 的內容必須是相同的才能共用。library 主要是 instruction 以及 data （executable file 都是這樣辣），data 不可能在 process 間共用，因為每個 process 都需要它自己的 data，不然會互相干擾（好像有古代系統是共用的…），因此能共用的主要是 instruction。</p>
-<p>excutable file、object file 以及 library 等 binary file 中 instruction 會以不同定址方式 access symbol，絕對定址模式會將 symbol 的 virtual address 寫進 instruction，相對定址模式則跟 instruction 及 data 之間的相對位置有關。也就是說，無論是 executable file 還是要共用的 library，instruction 都可能涉及 symbol 的 address 資訊。</p>
-<p>不像 executable file，library 在 compile time 無法知道會被 load 到哪，因為系統裡會有多個 library，如果各自指定要 load 到哪可能會撞到，所以得等到 runtime 由系統決定，其中 symbol 位置也要到 runtime 才能決定。這使得 compile time 無法修改 instruction 內的 address 資訊，也就是 static linking 做的事。</p>
-<p>另一方面，即使在 runtime 修改 library 的 instruction，也會造成不同 process 實際上有不同的 library instruction 而無法共用。例如 library A 使用某個外部 symbol <code>foo</code>，process 1 跟 process 2 都有使用 library A，但它們分別以 library B 跟 library C 來提供 symbol <code>foo</code> 給 library A。此時，process 1 的 <code>foo</code> 的 address 在 library B，process 2 則在 library C，runtime 修改 library A instruction 會有兩種版本。</p>
-<h2 id="Position-independent-Code（PIC）"><a href="#Position-independent-Code（PIC）" class="headerlink" title="Position-independent Code（PIC）"></a>Position-independent Code（PIC）</h2><p>上面的問題基本上是因為 instruction 裡含有 symbol address 相關資訊，就出現 Position-independent Code（PIC）「與位置無關的程式碼」來解決。</p>
-<p>由於 process 有各自的 data section 而且可以修改裡面的值，PIC 將 library 會被修改的部分（instruction 中的 address 相關資訊）放到 data section，讓 instruction 跟 address 無關而能共用。</p>
-<p>library 的 address reference 可分為 library 內與跨 library，各自又再分成 reference 到資料或 instruction（function call 或 jump），處理方式主要依據 library 內或跨 library 而不同。</p>
-<h3 id="library-內"><a href="#library-內" class="headerlink" title="library 內"></a>library 內</h3><p>同一 library 內的 instruction 跟資料間相對位置是固定的，所以可以用相對位置來 access 資料、call function 或 jump。</p>
-<h3 id="跨-library"><a href="#跨-library" class="headerlink" title="跨 library"></a>跨 library</h3><p>ELF 在 data section 放一個指向其他 library 的 symbol 的 pointer array，稱為 Global Offset Table（GOT）。instruction 可以從 GOT 找到對應的 element 進行間接 reference。先找到 GOT（不同平台有不同作法，可以用相對定址也可以有特殊 register 記錄），再從 GOT 以及 instruction 所知道的「該 symbol 在 GOT 裡的 offset」得到 element，最後得到 symbol address。</p>
-<p>GOT 由 linker 載入 library 時填填內容，同樣使用 relocation table 的 entry 標示需要修改的位置及如何修改。relocation table 不會管 offset 指向的位置是什麼，改那個地方的內容就對了，放 GOT element 就會改 GOT。至於變數與 call function 的差別在 GOT element 存的是變數還是 function 的 address，不過實際上 ELF 有區分變數跟 function，這部份下一篇再說。</p>
-<p>雖然 GOT 可以達到 PIC，但代價是 access symbol 的速度會變慢，因為要先找到 GOT 再間接定址。</p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><figure class="highlight c"><figcaption><span>foo.c</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> sum;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span>* p = (<span class="keyword">int</span>*)<span class="number">123</span>;    <span class="comment">// avoid to be placed in .bss</span></span><br><span class="line">    p = &amp;sum;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ gcc -<span class="keyword">c</span> foo.<span class="keyword">c</span></span><br><span class="line">$ gcc -fPIC -<span class="keyword">c</span> foo.<span class="keyword">c</span> -o foo.o.pic</span><br></pre></td></tr></table></figure>
-<p>有 <code>-fPIC</code> 跟沒有的差別：</p>
-<figure class="highlight llvm"><table><tr><td class="code"><pre><span class="line">$ objdump -d foo.o</span><br><span class="line"></span><br><span class="line">foo.o:     file format elf<span class="number">64</span>-<span class="keyword">x</span><span class="number">86</span><span class="number">-64</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of <span class="keyword">section</span> .text:</span><br><span class="line"></span><br><span class="line"><span class="number">0000000000000000</span> &lt;foo&gt;:</span><br><span class="line">   <span class="number">0</span>:   <span class="number">55</span>                      push   <span class="variable">%rbp</span></span><br><span class="line">   <span class="number">1</span>:   <span class="number">48</span> <span class="number">89</span> e<span class="number">5</span>                mov    <span class="variable">%rsp</span><span class="punctuation">,</span><span class="variable">%rbp</span></span><br><span class="line">   <span class="number">4</span>:   <span class="number">89</span> <span class="number">7</span>d fc                mov    <span class="variable">%edi</span><span class="punctuation">,</span><span class="number">-0</span><span class="keyword">x</span><span class="number">4</span>(<span class="variable">%rbp</span>)</span><br><span class="line">   <span class="number">7</span>:   <span class="number">89</span> <span class="number">75</span> f<span class="number">8</span>                mov    <span class="variable">%esi</span><span class="punctuation">,</span><span class="number">-0</span><span class="keyword">x</span><span class="number">8</span>(<span class="variable">%rbp</span>)</span><br><span class="line"><span class="symbol">   a:</span>   <span class="number">48</span> <span class="keyword">c</span><span class="number">7</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    movq   $<span class="number">0x0</span><span class="punctuation">,</span><span class="number">0x0</span>(<span class="variable">%rip</span>)        # <span class="number">15</span> &lt;foo+<span class="number">0x15</span>&gt;</span><br><span class="line">  <span class="number">11</span>:   <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> </span><br><span class="line">  <span class="number">15</span>:   <span class="number">8</span>b <span class="number">55</span> fc                mov    <span class="number">-0</span><span class="keyword">x</span><span class="number">4</span>(<span class="variable">%rbp</span>)<span class="punctuation">,</span><span class="variable">%edx</span></span><br><span class="line">  <span class="number">18</span>:   <span class="number">8</span>b <span class="number">45</span> f<span class="number">8</span>                mov    <span class="number">-0</span><span class="keyword">x</span><span class="number">8</span>(<span class="variable">%rbp</span>)<span class="punctuation">,</span><span class="variable">%eax</span></span><br><span class="line">  <span class="number">1</span>b:   <span class="number">01</span> d<span class="number">0</span>                   <span class="keyword">add</span>    <span class="variable">%edx</span><span class="punctuation">,</span><span class="variable">%eax</span></span><br><span class="line">  <span class="number">1</span>d:   <span class="number">5</span>d                      pop    <span class="variable">%rbp</span></span><br><span class="line">  <span class="number">1</span>e:   <span class="keyword">c</span><span class="number">3</span>                      retq   </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ objdump -d foo.o.pic</span><br><span class="line"></span><br><span class="line">foo.o.pic:     file format elf<span class="number">64</span>-<span class="keyword">x</span><span class="number">86</span><span class="number">-64</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Disassembly of <span class="keyword">section</span> .text:</span><br><span class="line"></span><br><span class="line"><span class="number">0000000000000000</span> &lt;foo&gt;:</span><br><span class="line">   <span class="number">0</span>:   <span class="number">55</span>                      push   <span class="variable">%rbp</span></span><br><span class="line">   <span class="number">1</span>:   <span class="number">48</span> <span class="number">89</span> e<span class="number">5</span>                mov    <span class="variable">%rsp</span><span class="punctuation">,</span><span class="variable">%rbp</span></span><br><span class="line">   <span class="number">4</span>:   <span class="number">89</span> <span class="number">7</span>d fc                mov    <span class="variable">%edi</span><span class="punctuation">,</span><span class="number">-0</span><span class="keyword">x</span><span class="number">4</span>(<span class="variable">%rbp</span>)</span><br><span class="line">   <span class="number">7</span>:   <span class="number">89</span> <span class="number">75</span> f<span class="number">8</span>                mov    <span class="variable">%esi</span><span class="punctuation">,</span><span class="number">-0</span><span class="keyword">x</span><span class="number">8</span>(<span class="variable">%rbp</span>)</span><br><span class="line"><span class="symbol">   a:</span>   <span class="number">48</span> <span class="number">8</span>b <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    mov    <span class="number">0x0</span>(<span class="variable">%rip</span>)<span class="punctuation">,</span><span class="variable">%rax</span>        # <span class="number">11</span> &lt;foo+<span class="number">0x11</span>&gt;</span><br><span class="line">  <span class="number">11</span>:   <span class="number">48</span> <span class="number">89</span> <span class="number">05</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span> <span class="number">00</span>    mov    <span class="variable">%rax</span><span class="punctuation">,</span><span class="number">0x0</span>(<span class="variable">%rip</span>)        # <span class="number">18</span> &lt;foo+<span class="number">0x18</span>&gt;</span><br><span class="line">  <span class="number">18</span>:   <span class="number">8</span>b <span class="number">55</span> fc                mov    <span class="number">-0</span><span class="keyword">x</span><span class="number">4</span>(<span class="variable">%rbp</span>)<span class="punctuation">,</span><span class="variable">%edx</span></span><br><span class="line">  <span class="number">1</span>b:   <span class="number">8</span>b <span class="number">45</span> f<span class="number">8</span>                mov    <span class="number">-0</span><span class="keyword">x</span><span class="number">8</span>(<span class="variable">%rbp</span>)<span class="punctuation">,</span><span class="variable">%eax</span></span><br><span class="line">  <span class="number">1</span>e:   <span class="number">01</span> d<span class="number">0</span>                   <span class="keyword">add</span>    <span class="variable">%edx</span><span class="punctuation">,</span><span class="variable">%eax</span></span><br><span class="line">  <span class="number">20</span>:   <span class="number">5</span>d                      pop    <span class="variable">%rbp</span></span><br><span class="line">  <span class="number">21</span>:   <span class="keyword">c</span><span class="number">3</span>                      retq   </span><br></pre></td></tr></table></figure>
-<p>結果是用 <code>-fPIC</code> compile 出來跟沒有用的 object file 不一樣<del>（好像廢話）</del>，而且沒有 <code>-fPIC</code> 無法 link 成 shared object。</p>
-<figure class="highlight nim"><table><tr><td class="code"><pre><span class="line">$ gcc -<span class="literal">shared</span> foo.o -o foo.so</span><br><span class="line">/usr/bin/ld: foo.o: relocation <span class="type">R_X86_64_32S</span> against `sum&#x27; can <span class="keyword">not</span> be used <span class="keyword">when</span> making a <span class="literal">shared</span> <span class="keyword">object</span>; recompile <span class="keyword">with</span> -fPIC</span><br></pre></td></tr></table></figure>
-<p>relocation table 如果有 <code>R_X86_64_32S</code> 定址無法變成 DSO。</p>
-<figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">$ readelf -r foo.o</span><br><span class="line"></span><br><span class="line">Relocation section &#x27;.rela.text&#x27; at <span class="built_in">offset</span> <span class="number">0</span>x240 contains <span class="number">2</span> entri<span class="symbol">es:</span></span><br><span class="line">  <span class="built_in">Offset</span>          <span class="built_in">Info</span>           <span class="built_in">Type</span>           Sym. <span class="built_in">Value</span>    Sym. Name + Addend</span><br><span class="line"><span class="number">00000000000</span>d  <span class="number">000300000002</span> R_X86_64_PC32     <span class="number">0000000000000000</span> .data - <span class="number">8</span></span><br><span class="line"><span class="number">000000000011</span>  <span class="number">000</span>a0000000b R_X86_64_32S      <span class="number">0000000000000000</span> <span class="built_in">sum</span> + <span class="number">0</span></span><br><span class="line"></span><br><span class="line">Relocation section &#x27;.rela.eh_frame&#x27; at <span class="built_in">offset</span> <span class="number">0</span>x270 contains <span class="number">1</span> entri<span class="symbol">es:</span></span><br><span class="line">  <span class="built_in">Offset</span>          <span class="built_in">Info</span>           <span class="built_in">Type</span>           Sym. <span class="built_in">Value</span>    Sym. Name + Addend</span><br><span class="line"><span class="number">000000000020</span>  <span class="number">000200000002</span> R_X86_64_PC32     <span class="number">0000000000000000</span> .<span class="built_in">text</span> + <span class="number">0</span></span><br><span class="line"></span><br><span class="line">$ readelf -r foo.o.pic</span><br><span class="line"></span><br><span class="line">Relocation section &#x27;.rela.text&#x27; at <span class="built_in">offset</span> <span class="number">0</span>x278 contains <span class="number">2</span> entri<span class="symbol">es:</span></span><br><span class="line">  <span class="built_in">Offset</span>          <span class="built_in">Info</span>           <span class="built_in">Type</span>           Sym. <span class="built_in">Value</span>    Sym. Name + Addend</span><br><span class="line"><span class="number">00000000000</span>d  <span class="number">000</span>b00000009 R_X86_64_GOTPCREL <span class="number">0000000000000000</span> <span class="built_in">sum</span> - <span class="number">4</span></span><br><span class="line"><span class="number">000000000014</span>  <span class="number">000300000002</span> R_X86_64_PC32     <span class="number">0000000000000000</span> .data - <span class="number">4</span></span><br><span class="line"></span><br><span class="line">Relocation section &#x27;.rela.eh_frame&#x27; at <span class="built_in">offset</span> <span class="number">0</span>x2a8 contains <span class="number">1</span> entri<span class="symbol">es:</span></span><br><span class="line">  <span class="built_in">Offset</span>          <span class="built_in">Info</span>           <span class="built_in">Type</span>           Sym. <span class="built_in">Value</span>    Sym. Name + Addend</span><br><span class="line"><span class="number">000000000020</span>  <span class="number">000200000002</span> R_X86_64_PC32     <span class="number">0000000000000000</span> .<span class="built_in">text</span> + <span class="number">0</span></span><br></pre></td></tr></table></figure>
-<p>再看看 shared library 的 section 們，只列出比較相關的部份。</p>
-<figure class="highlight tap"><table><tr><td class="code"><pre><span class="line">$ gcc -fPIC -shared -o foo.so foo.c</span><br><span class="line">$ readelf -S foo.so</span><br><span class="line">There are<span class="number"> 27 </span>section headers, starting at offset 0x1170:</span><br><span class="line"></span><br><span class="line">Section Headers:</span><br><span class="line">  [Nr] Name              Type             Address           Offset</span><br><span class="line">       Size              EntSize          Flags  Link  Info  Align</span><br><span class="line">  ...</span><br><span class="line">  [ 3] .dynsym           DYNSYM           00000000000001f8  000001f8</span><br><span class="line">      <span class="number"> 0000000000000150 </span><span class="number"> 0000000000000018 </span>  A      <span class="number"> 4 </span>   <span class="number"> 2 </span>    8</span><br><span class="line">  [ 4] .dynstr           STRTAB          <span class="number"> 0000000000000348 </span> 00000348</span><br><span class="line">       00000000000000ab <span class="number"> 0000000000000000 </span>  A      <span class="number"> 0 </span>   <span class="number"> 0 </span>    1</span><br><span class="line">  ...</span><br><span class="line">  [ 7] .rela.dyn         RELA            <span class="number"> 0000000000000430 </span> 00000430</span><br><span class="line">       00000000000000d8 <span class="number"> 0000000000000018 </span>  A      <span class="number"> 3 </span>   <span class="number"> 0 </span>    8</span><br><span class="line">  [ 8] .rela.plt         RELA            <span class="number"> 0000000000000508 </span> 00000508</span><br><span class="line">      <span class="number"> 0000000000000030 </span><span class="number"> 0000000000000018 </span> AI      <span class="number"> 3 </span>  <span class="number"> 10 </span>    8</span><br><span class="line">  ...</span><br><span class="line">  [10] .plt              PROGBITS        <span class="number"> 0000000000000560 </span> 00000560</span><br><span class="line">      <span class="number"> 0000000000000030 </span><span class="number"> 0000000000000010 </span> AX      <span class="number"> 0 </span>   <span class="number"> 0 </span>    16</span><br><span class="line">  ...</span><br><span class="line">  [18] .dynamic          DYNAMIC         <span class="number"> 0000000000200760 </span> 00000760</span><br><span class="line">       00000000000001c0 <span class="number"> 0000000000000010 </span> WA      <span class="number"> 4 </span>   <span class="number"> 0 </span>    8</span><br><span class="line">  [19] .got              PROGBITS        <span class="number"> 0000000000200920 </span> 00000920</span><br><span class="line">      <span class="number"> 0000000000000030 </span><span class="number"> 0000000000000008 </span> WA      <span class="number"> 0 </span>   <span class="number"> 0 </span>    8</span><br><span class="line">  [20] .got.plt          PROGBITS        <span class="number"> 0000000000200950 </span> 00000950</span><br><span class="line">      <span class="number"> 0000000000000028 </span><span class="number"> 0000000000000008 </span> WA      <span class="number"> 0 </span>   <span class="number"> 0 </span>    8</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
-
-<h2 id="Lazy-Binding"><a href="#Lazy-Binding" class="headerlink" title="Lazy Binding"></a>Lazy Binding</h2><p>dynamic linking 以犧牲一點效能達到模組使用的靈活度。效能降低發生在兩個地方：程式開始執行時的 linking 工作以及 GOT 帶來的間接定址。</p>
-<p>程式裡可能有很多 function 在執行過程中不會或很少被用到，例如錯誤處理跟少用的功能。一開始執行就 link 所有 library 裡的 function 顯然有點浪費，畢竟可能花時間 link 了卻沒用到。如果等到 function 第一次被使用時才 bind symbol（找 symbol、relocate 等等）可以加快程式啟動的速度，這個方法稱為 lazy binding。</p>
-<p>ELF 用 Procedure Linkage Table（PLT）來實作 lazy binding。在沒有 lazy binding 前，會藉由 GOT 進行間接跳轉來 access 另一個模組的 function 。有了 lazy binding 表示一開始 load 模組時不會把 GOT 填完，所以使用 GOT 跳轉前要多一層 PLT 的處理：如果 GOT element 沒有值，會先由 dynamic linker 找到該 function 的 address，填入 GOT 後跳去該 function 執行。之後再使用到同一個 function，由於 GOT 裡已經有值，可以直接進行間接跳轉。</p>
-<h2 id="Related-posts-amp-Ref"><a href="#Related-posts-amp-Ref" class="headerlink" title="Related posts &amp; Ref"></a>Related posts &amp; Ref</h2><ul>
-<li><a href="/Dynamic-Linking-Basic/">Dynamic Linking Basic</a></li>
-<li><a href="/Dynamic-Linking-Relocation/">Dynamic Linking Relocation</a></li>
-<li><a href="/Shared-Library-Versioning/">Shared Library Versioning</a></li>
-<li><a href="/Use-Shared-Library-in-Linux/">Use Shared Library in Linux</a></li>
-<li><a href="/Explicit-Runtime-Linking/">Explicit Runtime Linking</a></li>
-<li>《程式設計師的自我修養》ch7</li>
-<li><a target="_blank" rel="noopener" href="https://www.bottomupcs.com/chapter08.xhtml">https://www.bottomupcs.com/chapter08.xhtml</a></li>
-<li><a target="_blank" rel="noopener" href="https://hackmd.io/s/HkK7Uf4Ml">你所不知道的 C 語言：動態連結器篇</a></li>
-</ul>
 
       
     </div>
