@@ -117,7 +117,6 @@
       <h1 class="site-title">cjwind's note</h1>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">要夠努力，但不要太努力</p>
   </div>
 
   <div class="site-nav-right">
@@ -302,7 +301,7 @@
       <span class="post-meta-item-text">Posted on</span>
       
 
-      <time title="Created: 2021-04-16 23:42:31 / Modified: 23:42:52" itemprop="dateCreated datePublished" datetime="2021-04-16T23:42:31+08:00">2021-04-16</time>
+      <time title="Created: 2021-04-16 23:42:31 / Modified: 23:43:34" itemprop="dateCreated datePublished" datetime="2021-04-16T23:42:31+08:00">2021-04-16</time>
     </span>
 
   
@@ -335,7 +334,6 @@
 <p>當然這個檔案的權限要是 <code>600</code>。</p>
 <h2 id="Backup"><a href="#Backup" class="headerlink" title="Backup"></a>Backup</h2><figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">$ pg_dump \</span><br><span class="line">    <span class="comment">--dbname=&quot;[DBNAME]&quot; \</span></span><br><span class="line">    <span class="comment">--file=&quot;[FILEPATH]&quot; \</span></span><br><span class="line">    <span class="comment">--inserts --create \</span></span><br><span class="line">    -h [HOST] \</span><br><span class="line">    -p [PORT] \</span><br><span class="line">    -U [<span class="keyword">USER</span>] \</span><br><span class="line">    -w</span><br></pre></td></tr></table></figure>
 <h2 id="Restore"><a href="#Restore" class="headerlink" title="Restore"></a>Restore</h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">psql -d <span class="selector-attr">[DBNAME]</span> -f <span class="selector-attr">[SQL_FILE_PATH]</span> -h <span class="selector-attr">[HOST]</span> -<span class="selector-tag">p</span> <span class="selector-attr">[PORT]</span> -U <span class="selector-attr">[USER]</span></span><br></pre></td></tr></table></figure>
-
       
     </div>
 
