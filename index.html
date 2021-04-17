@@ -205,7 +205,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-count">175</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -267,6 +267,140 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/ch4-Design-Best-Practices/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/ch4-Design-Best-Practices/" class="post-title-link" itemprop="url">ch4 Design Best Practices</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2021-04-17 17:36:31" itemprop="dateCreated datePublished" datetime="2021-04-17T17:36:31+08:00">2021-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Designing-Web-Apis/" itemprop="url" rel="index"><span itemprop="name">Designing Web Apis</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/ch4-Design-Best-Practices/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="ch4-Design-Best-Practices/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>這章在講設計 API 的 best practice。</p>
+<h2 id="Designing-for-Real-Life-Use-Cases"><a href="#Designing-for-Real-Life-Use-Cases" class="headerlink" title="Designing for Real-Life Use Cases"></a>Designing for Real-Life Use Cases</h2><p>設計 API 時要以特定的、實際的 use case 進行決策，不要空想。</p>
+<blockquote>
+<p>千萬不要公開內部基礎架構，把焦點放在與外部開發者（或 API 使用者）與 API 的互動體驗上。</p>
+</blockquote>
+<blockquote>
+<p>藉由選擇特定的工作流程或 use case，你可以把重點放在一項設計上，並測試它是否可以幫助你的使用者。</p>
+</blockquote>
+<p>在 brainstorming 階段去想「如果怎樣的話…」是有幫助的，可是到了設計階段，太多的「如果怎樣的話」的想像，反而會讓設計失焦，所以針對特定的 use case 是比較好的。</p>
+<h2 id="Designing-for-a-Great-Developer-Experience"><a href="#Designing-for-a-Great-Developer-Experience" class="headerlink" title="Designing for a Great Developer Experience"></a>Designing for a Great Developer Experience</h2><p>提供開發者好的開發體驗。</p>
+<h3 id="讓-API-能更快、更容易上手"><a href="#讓-API-能更快、更容易上手" class="headerlink" title="讓 API 能更快、更容易上手"></a>讓 API 能更快、更容易上手</h3><p>文件可以幫開發者上手，有 tutorial 跟 getting started guide 也很好。</p>
+<p>也可以提供線上互動式文件、線上的 sandbox 來讓 developer 可以實際測試。</p>
+<p>提供 SDK 也可以幫助 developer 使用 API。</p>
+<p>最後是應該要讓 developer 不需要登入或註冊就能使用 API。如果一定得要註冊，要盡可能減少註冊需要的資料。如果 API 使用 OAuth 保護，那麼應該要能讓 developer 在 UI 中產生 token 以使用 API。</p>
+<h3 id="維持一致性"><a href="#維持一致性" class="headerlink" title="維持一致性"></a>維持一致性</h3><p>像是 entry nmae、request 參數、response 等等，應該要維持一致性，讓 developer 即使不看文件也能猜到部份的 API。</p>
+<blockquote>
+<p>在漸進修改的過程中，盡量與既有的設計模式保持一致，對使用者來說是最好的做法。</p>
+</blockquote>
+<p>不要讓同樣的東西使用不同的名稱。</p>
+<blockquote>
+<p>一致性很重要的原因是它可以減少試著了解你的 API 的 developer 的認知負擔（cognitive load）</p>
+</blockquote>
+<h2 id="Make-Troubleshooting-Easy"><a href="#Make-Troubleshooting-Easy" class="headerlink" title="Make Troubleshooting Easy"></a>Make Troubleshooting Easy</h2><p>藉由回傳有意義的 error 跟 building tool 做到這點。</p>
+<p>設計 API 時應該有系統的組織跟分類錯誤以及他們的回傳方式來方便 developer 排除問題。</p>
+<p>有意義的 error 容易了解、明確而且可以讓人採取行動。它們可以協助 developer 了解問題並處理它。提供這些 error 的 detail 可以帶來較佳的使用者體驗。</p>
+<p>machine-readable 的 error code 字串可以讓 developer 以程式處理錯誤。</p>
+<p>除了 machine-readable 的 error code 之外，也可以加入 human-readable 的敘述，來讓 developer 更了解發生了什麼問題。</p>
+<p>error 要講出具體錯誤的原因，像是「token 因為被撤銷而造成驗證失敗」，用 token_revoked 比 invalid_auth 好。</p>
+<h3 id="幫-error-分類"><a href="#幫-error-分類" class="headerlink" title="幫 error 分類"></a>幫 error 分類</h3><p>將 API request 過程（從 request 開始，到 architecture 的各種 service 邊界）的各種 high-level error 分門別類，例如：</p>
+<p><img src="/images/upload_b00ea4546907b7cbad47aa8c428e31b5.png" alt=""></p>
+<p>按照程式碼路徑將 error 分類後，要考慮對這些 error 而言，採取哪個 level 的 communication 是有意義的。一種方式是在 response payload 中放入 HTTP status code 跟 header，以及 machine-readable 的 code 或更詳細的 human-readable 的錯誤訊息。</p>
+<p>大部分情況下，要盡量具體的說明來讓 developer 採取正確的後續動作。但有些時候，尤其跟安全有關的時候，可能要回傳比較籠統的資訊，不然原始訊息可能會透漏如資料庫 connection 資訊等會引發安全問題的資訊。</p>
+<p><img src="/images/upload_a448184ccb3714b8ef41156e7e2ac580.png" alt=""></p>
+<p>在程式結構上，可以用一套相同的 library 檢查 request 並將 error format 成相同的格式來 response。</p>
+<p>將 error 文件化，像是寫在 API 文件中。</p>
+<p>與 HTTP API 錯誤與問題相關可以參考 <a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7807">RFC 7807</a>。</p>
+<h3 id="Build-tooling"><a href="#Build-tooling" class="headerlink" title="Build tooling"></a>Build tooling</h3><p>log HTTP status、error、error 的頻率以及其他 request metadata，好方便在內部或外部進行 debug 或處理問題。</p>
+<p>建立 dashboard 來協助 developer 分析 API request 的 metadata，例如可以統計最常用的 API entry、找出沒被用過的 API 參數、分類常見錯誤等等。</p>
+<p>log 跟 dashboard 都有很多現成的工具。</p>
+<h2 id="Make-Your-API-Extensible"><a href="#Make-Your-API-Extensible" class="headerlink" title="Make Your API Extensible"></a>Make Your API Extensible</h2><p>要擬定 API 的發展策略，讓 API 是可擴展的（extensible）。</p>
+<blockquote>
+<p>API 應該提供可開啟新工作流程的基本元素，而非只是對映你的 app 的工作流程。API 的建立方式決定了 API 的使用者可用他來做什麼事情。如果你提供太低階的操作，可能會讓整合者負擔太多工作。如果你提供太高階的操作，可能會讓大多數的整合只是對應你自己的 app 所作的工作而已。為了實踐創新，你必須找到適當的平衡點，讓使用者能夠啟動不屬於你的 app 或 API 本身的工作流程。</p>
+</blockquote>
+<p>在前後端分離的架構下，要區分內部使用跟對外公開的 API。兩者對於要提供什麼樣的 API 會有不同的考量。</p>
+<p>extensible 的其中一個部份是確保 top partner 有提供 feedback 的機會。要設法 release 某些功能給 top partner 用用看，讓他們給予 feedback。</p>
+<p>在想要用版本管理 API 時，如果早期就加入版本管理系統會比較容易，越晚加入越難實作。版本管理系統的好處在於它可以讓你用新版本進行 breaking changes，同時又能維持就版本的回溯相容性（backward  compatibility）。breaking changes 就是會讓之前使用你的 API 可以正常運作的 app 無法繼續運作的 changes。</p>
+<p>不過，維護版本是需要成本的。如果很多年沒有能力支援舊版本，或者認為 API 不太需要變動，那麼可以不用版本，改用 additive（附加式）變動策略，在單一、穩定的版本中維持 backward compatibility。</p>
+<p>如果預計在「未來任何時刻」都有可能出現 breaking changes 與更新，最好建立版本管理系統。在一開始就建立版本管理系統需要付出的成本比之後迫切需要它的時候才加入低得多。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1181,91 +1315,6 @@
 <img src="/images/designing-web-apis/ch2-5.png" class="" width="620">
 
 <h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>沒有一體適用的 API paradigm。每種 API paradigm 只適合特定類型的 use case，所以在實際狀況下有可能需要支援多種 paradigm。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Atomic-Habits/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Atomic-Habits/" class="post-title-link" itemprop="url">《原子習慣》</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2021-02-16 18:01:51" itemprop="dateCreated datePublished" datetime="2021-02-16T18:01:51+08:00">2021-02-16</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2021-02-26 09:18:35" itemprop="dateModified" datetime="2021-02-26T09:18:35+08:00">2021-02-26</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Atomic-Habits/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Atomic-Habits/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h2><p><img src="/images/atomic_habits_mindmap1.png" alt=""></p>
 
       
     </div>

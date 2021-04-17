@@ -205,7 +205,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">174</span>
+          <span class="site-state-item-count">175</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -267,6 +267,97 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/RD-murmur-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/RD-murmur-1/" class="post-title-link" itemprop="url">工程師碎碎念 1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2017-03-11 23:51:27" itemprop="dateCreated datePublished" datetime="2017-03-11T23:51:27+08:00">2017-03-11</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/RD-murmur-1/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="RD-murmur-1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>想不到標題只好亂寫。跟<a href="/Murmur-software-flexibility">這篇</a>有點相關，但講點別的。</p>
+<p>因為某些邏輯有點複雜，修改程式很容易會改壞東西，而且改的那個人也不見得會測到所有該測的條件。</p>
+<p>這種問題的解法之一是 unit test，用充分的測試保護那個 module，就能確保之後的修改比較不會改壞原本好的東西。但是那個 project 還沒裝 unit test framework，我也不熟，而且有點時間壓力，我認為先做出一個堪用的版本比架起 unit test framework 重要。</p>
+<p>不過我也真的覺得要是之後改了一點 code，就可能會<del>山崩</del>，阿不是，是壞一堆沒想到的地方啊啊啊。光想到可能會 bug 相連到天邊、牽一髮動全身就覺得可怕。</p>
+<p>後來我用比較彈性的做法，讓之後可以用新增 class 或一小段 code 而不修改原本 code 的方式加新的邏輯。咦？好眼熟喔！阿不就<a href="/Open-Closed-Principle/">OCP</a>？真是突然體會了為什麼那些 principle 那麼討厭「修改原有 code」，因為改原本的 code 就有風險、有可能造成意想不掉的 bug。這種事就是工程師最討厭的──我明明沒動那裡為什麼那邊會壞。</p>
+<p>修改意味著可能有 bug，而且蠻高的機率需要修改，來不及架測試安全網，至少以遵守 OCP 的方式避免之後生 bug，也是一個方法。無法降低風險至零，但應該要能降低到能夠掌控。</p>
+<p>設計原則也好，自動測試也好，它們只是方法不同，最終的目標是一樣的──完成一個有品質的軟體、系統。漸漸覺得，好像是看情況使用，而不見得非得如何。當然，有好設計以及自動測試的軟體是更好的。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1265,106 +1356,6 @@
 <p>view 通常用 composite pattern 管理內部的顯示 component，例如 window、panel、widget、button 的階層式結構。</p>
 <p>另外，如果需要轉換某個 model 的 interface 就輪到 <a href="/Adapter-Pattern">Adapter pattern</a> 上場啦。例如 db table 的 primary key 改了，新程式碼希望用新的 primary key 當參數又不想改舊 model，就可以用 adapter 轉換 interface。</p>
 <h2 id="Murmur"><a href="#Murmur" class="headerlink" title="Murmur"></a>Murmur</h2><p>最早遇到 MVC 是在網頁 framework，所以一直理解 model 為「資料」。後來發現 model 好像不只是資料，有文件說 model 包含商業邏輯，但我還是說不上來到底是什麼。現在的理解是絕大多數的程式都是 model，只是把 view 拆出去並且引進 controller 作為類似中介的角色。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Proxy-Pattern/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/Proxy-Pattern/" class="post-title-link" itemprop="url">Proxy Pattern</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-12-11 15:31:47" itemprop="dateCreated datePublished" datetime="2016-12-11T15:31:47+08:00">2016-12-11</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/Proxy-Pattern/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Proxy-Pattern/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>讓某個物件有個替身，藉以控制外界對物件的接觸。<del>就是個經紀人的概念。(欸)</del></p>
-<p>Proxy pattern 主要目的在於「控制存取」，被代理的物件可以是遠端主機上的物件、建立成本高（例如需要時間下載）的物件、或者需要做存取權限管控的物件。</p>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/proxy_pattern.png" alt="Proxy Pattern"></p>
-<p>很簡單的 UML，client 透過 interface Subject 使用物件，所以它不用知道使用的是真正有功能的物件 RealSubject 還是只是代理人 Proxy。Proxy 依據型態不同會用不同方式取得 RealSubject、使用 RealSubject 的功能，再將結果丟回給 client。</p>
-<p>除了操作 interface 外，要讓 client 使用 proxy 而非真正的 object，有個方法是用 factory 產生物件、傳回給 client，不然 client 自己 new 了個 XXXProxy，看也知道不是真正的 object 啊 XD。不過，是不是真有必要再加一層 factory 隱藏使用 proxy 的事實倒是依情況而定，簡單的情境下讓 client 自己去生 XXXProxy 也不會怎麼樣，不見得非得用 factory 增加複雜度。</p>
-<h2 id="Proxy-與它的變種們"><a href="#Proxy-與它的變種們" class="headerlink" title="Proxy 與它的變種們"></a>Proxy 與它的變種們</h2><h3 id="Remote-Proxy"><a href="#Remote-Proxy" class="headerlink" title="Remote Proxy"></a>Remote Proxy</h3><p>代理另一台電腦上的物件或 service 等等的代理人。使用 proxy 的 client 基本上不會知道 proxy 多做了網路連線、傳遞資料等等的事情，例如 Java 的 RMI（Remote Method Invocation）（這東西應該有點年代了，就當作是個簡單的例子就好）。</p>
-<h3 id="Virtual-Proxy"><a href="#Virtual-Proxy" class="headerlink" title="Virtual Proxy"></a>Virtual Proxy</h3><p>代理建立成本很高的 object，所謂成本很高可能是需要比較多時間等等，例如 video object 需要從網路抓影片、回應很慢的 API 等等。等待過程中但又不希望卡到 UI 操作，這時候就可以透過 virtual proxy 先回一個 loading 畫面，等到 video 抓好或 API 回來之後，就由真正的 object 做事。</p>
-<h3 id="Protection-Proxy"><a href="#Protection-Proxy" class="headerlink" title="Protection Proxy"></a>Protection Proxy</h3><p>顧名思義，保護真正 object 的 proxy，它會根據權限決定外部可不可以存取真正的 object。</p>
-<h3 id="Dynamic-Proxy"><a href="#Dynamic-Proxy" class="headerlink" title="Dynamic Proxy"></a>Dynamic Proxy</h3><p>Java 把事情搞得更複雜，弄了個 dynamic proxy 出來，在 package <code>java.lang.reflect</code>。</p>
-<p>簡單來說，Java 讓 programmer 連 proxy 都不用寫了，只要寫個 <code>InvocationHandler</code> 讓 proxy object call，runtime 才依據要代理的 object 生出 proxy object。<del>除了讓人更懶之外不太懂為什麼要搞這個出來…</del></p>
-<h3 id="其他奇奇怪怪的-Proxy-們"><a href="#其他奇奇怪怪的-Proxy-們" class="headerlink" title="其他奇奇怪怪的 Proxy 們"></a>其他奇奇怪怪的 Proxy 們</h3><p>放關鍵字，需要用再查。</p>
-<p>Firewall proxy、Caching proxy、Synchronization proxy、Smart Reference proxy、Complexity Hiding proxy、Copy-On-Wrtie proxy。</p>
-<p>網路上常說的 proxy server，就有 cache 跟控制網頁存取的功能。</p>
-<h2 id="Proxy-與其他-pattern-的不同"><a href="#Proxy-與其他-pattern-的不同" class="headerlink" title="Proxy 與其他 pattern 的不同"></a>Proxy 與其他 pattern 的不同</h2><h3 id="Decorator"><a href="#Decorator" class="headerlink" title="Decorator"></a>Decorator</h3><p>proxy 跟 decorator 都是對一個物件包裝，有點像，但是兩者的意圖不同。proxy 的目的是控制存取，decorator 則是增加功能。而且 proxy 通常不會一直包一直包、像洋蔥一樣好多層，decorator 會依據想要的功能一直包。</p>
-<h3 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a>Adapter</h3><p>proxy 看到一半，我就想，啊這跟 <a href="/Adapter-Pattern">adapter</a> 不是一樣嗎！不都是在使用的 client 跟真正的 objec 之間加一層！！！（施主冷靜）</p>
-<p>還是不一樣啦。adapter 會改變 interface，例如 function 參數不一樣，proxy 會 implement 同樣的 interface。</p>
 
       
     </div>
