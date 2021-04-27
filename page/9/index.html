@@ -16,11 +16,11 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css">
 
 <script class="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+    var CONFIG = {"hostname":"www.cjwind.idv.tw","root":"/","images":"/images","scheme":"Gemini","version":"8.3.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
 <meta property="og:type" content="website">
 <meta property="og:title" content="cjwind&#39;s note">
@@ -205,7 +205,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">175</span>
+          <span class="site-state-item-count">177</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -256,7 +256,7 @@
     </header>
 
     
-  <div class="back-to-top" role="button">
+  <div class="back-to-top" role="button" aria-label="Back to top">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
@@ -267,6 +267,239 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/Design-Pattern-Overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/Design-Pattern-Overview/" class="post-title-link" itemprop="url">Design Pattern Overview</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-12-24 13:34:04" itemprop="dateCreated datePublished" datetime="2016-12-24T13:34:04+08:00">2016-12-24</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/Design-Pattern-Overview/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="Design-Pattern-Overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Design Pattern <strong>提供某個情境下針對某問題的某種解決方法</strong>。這些解法通常是前人整理出來、經過驗證的。</p>
+<ul>
+<li>「情境」是某種不斷出現的狀況。</li>
+<li>「問題」是在某個情境下希望達到的目標，也可能是情境下的限制。</li>
+<li>「解決方法」希望是個 general 的設計，用來解決限制、達到目標。</li>
+</ul>
+<p>常用來描述 design pattern 的方式是 GoF 書裡使用的格式。</p>
+<h2 id="使用-Design-Pattern"><a href="#使用-Design-Pattern" class="headerlink" title="使用 Design Pattern"></a>使用 Design Pattern</h2><p><strong>能用簡單方法解決問題就用簡單方法。</strong>pattern 會為系統增加額外複雜度，只有需要的時候才使用。</p>
+<p>使用 pattern 要注意是否有意義以及是否對系統其他部分造成影響，不要為了用而用。如果預期系統在未來會有實際的改變，也可以用 pattern 預先加上彈性。不過要注意，必須是實際的改變，而不是假定的改變。自己覺得可能會改變就用一堆 pattern 也不對，至於什麼叫做「未來實際會有的改變」又是另一個故事了……(喂</p>
+<p>熟悉大部分 pattern 後，需要時大概會知道需要什麼 pattern，接著可以參考 pattern 的 motivation 確認想法對不對，再來要考量會不會對系統造成不良影響。設計上確認後，實作可以參考 UML 跟範例了解實作上的眉眉角角。</p>
+<p>GoF 把 design pattern 分成三大類：creational、structural、behavioral patterns。有時候不知道確切需要哪個 pattern，可以先對問題分類再從類別中找適合的 pattern。</p>
+<h2 id="Design-Pattern-分類"><a href="#Design-Pattern-分類" class="headerlink" title="Design Pattern 分類"></a>Design Pattern 分類</h2><h3 id="Creational-pattern"><a href="#Creational-pattern" class="headerlink" title="Creational pattern"></a>Creational pattern</h3><p>處理「產生 object」。主要的目的有二，一是希望封裝 concrete class，二是想封裝「如何產生並結合 concrete class 的 instance」的過程。</p>
+<ul>
+<li>Abstract Factory</li>
+<li>Builder</li>
+<li>Factory Method</li>
+<li>Prototype</li>
+<li><a href="/singleton">Singleton</a></li>
+</ul>
+<h3 id="Structural-pattern"><a href="#Structural-pattern" class="headerlink" title="Structural pattern"></a>Structural pattern</h3><p>可以合成 class 跟 object 到更大的結構中。</p>
+<ul>
+<li><a href="/Adapter-Pattern">Adapter</a></li>
+<li>Bridge</li>
+<li><a href="/Composite-Pattern">Composite</a></li>
+<li>Decorator</li>
+<li><a href="/Facade-Pattern">Facade</a></li>
+<li>Flyweight</li>
+<li><a href="/Proxy-Pattern">Proxy</a></li>
+</ul>
+<h3 id="Behavior-pattern"><a href="#Behavior-pattern" class="headerlink" title="Behavior pattern"></a>Behavior pattern</h3><p>重點在 class 與 object 間的互動，以及各自的責任。</p>
+<ul>
+<li>Chain of Responsibility</li>
+<li>Command</li>
+<li>Interpreter</li>
+<li><a href="/Iterator-Pattern">Iterator</a></li>
+<li>Mediator</li>
+<li>Memento</li>
+<li><a href="/Observer-Pattern">Observer</a></li>
+<li><a href="/State-Pattern">State</a></li>
+<li><a href="/Strategy-Pattern">Strategy</a></li>
+<li><a href="/Template-Method-Pattern">Template Method</a></li>
+<li>Visitor</li>
+</ul>
+<h2 id="Anti-pattern"><a href="#Anti-pattern" class="headerlink" title="Anti-pattern"></a>Anti-pattern</h2><p>anti-pattern 就是不好的 pattern，告訴大家什麼叫用不好的解決方式解決一個問題，好避免用到這些方法。一個好的 anti-pattern 除了說明不好的方法之外，會建議改用其他 pattern。<del>不然就沒建設性啦</del></p>
+<h2 id="pattern-世界"><a href="#pattern-世界" class="headerlink" title="pattern 世界"></a>pattern 世界</h2><p>除了 design pattern 之外，還有像特定領域如 concurrent 系統的 pattern、組織溝通上的 pattern、UI/UX 的 pattern 等等。pattern 是蠻 general 的概念，在蠻多領域都會出現的，共通的概念是「在面對某種重複出現的情境、狀況或問題時的應對方式」。</p>
+<h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul>
+<li>《Design Patterns: Elements of Reusable Object-Oriented Software》</li>
+<li>《Head First Design Patterns》</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Software_design_pattern">https://en.wikipedia.org/wiki/Software_design_pattern</a></li>
+<li><a target="_blank" rel="noopener" href="http://hillside.net/">http://hillside.net/</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/MVC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="cjwind">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="cjwind's note">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/MVC/" class="post-title-link" itemprop="url">MVC (Model-View-Controller)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2016-12-20 23:15:40" itemprop="dateCreated datePublished" datetime="2016-12-20T23:15:40+08:00">2016-12-20</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">Edited on</span>
+        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
+      </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/MVC/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="MVC/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>大名鼎鼎的 MVC（Model-View-Controller）是一種 compound pattern，要說是個架構也行，這篇主要用 design pattern 的角度去看 MVC。</p>
+<p>compound pattern 是一堆 design pattern 被結合起來使用以解決一般性問題。</p>
+<p>MVC 將 component 分成 model、view 以及 controller：</p>
+<ul>
+<li>model 包含商業邏輯、資料、狀態等等，真正的功能跟做事的 code 會放在 model。</li>
+<li>view 負責呈現各種資料跟畫面。</li>
+<li>controller 接收來自 view 的 input，解讀後要 model 做事。依據使用的 model 不同，controller 對 input 的解讀會不同。</li>
+</ul>
+<h2 id="MVC-中的-design-pattern"><a href="#MVC-中的-design-pattern" class="headerlink" title="MVC 中的 design pattern"></a>MVC 中的 design pattern</h2><p>MVC 中有 <a href="/Observer-Pattern">Observer pattern</a>、<a href="/Strategy-Pattern">Strategy pattern</a> 以及 <a href="/Composite-Pattern">Composite pattern</a>。</p>
+<p>model 利用 observer pattern 通知 controller 及 view 狀態改變。如果 observer 使用 pull 的方式取得資料，model 會開 getter。如果用 push，model 會在 notify 時將 state 傳給 observer。view 一般只從 model 取得資料、不會改變 model。要 model 做事或改變 model 是 controller 的工作。有 controller 可以讓 model 跟 view 不要綁那麼緊。</p>
+<p>view 跟 controller 使用 strategy pattern，controller 是 view 的 strategy。view 負責管理呈現，任何操作與動作都交給 controller 處理。strategy 讓 view 只需要更換 controller 就能有不同動作。</p>
+<p>view 通常用 composite pattern 管理內部的顯示 component，例如 window、panel、widget、button 的階層式結構。</p>
+<p>另外，如果需要轉換某個 model 的 interface 就輪到 <a href="/Adapter-Pattern">Adapter pattern</a> 上場啦。例如 db table 的 primary key 改了，新程式碼希望用新的 primary key 當參數又不想改舊 model，就可以用 adapter 轉換 interface。</p>
+<h2 id="Murmur"><a href="#Murmur" class="headerlink" title="Murmur"></a>Murmur</h2><p>最早遇到 MVC 是在網頁 framework，所以一直理解 model 為「資料」。後來發現 model 好像不只是資料，有文件說 model 包含商業邏輯，但我還是說不上來到底是什麼。現在的理解是絕大多數的程式都是 model，只是把 view 拆出去並且引進 controller 作為類似中介的角色。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1047,214 +1280,6 @@
 <h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><p><img src="/images/iterator_pattern.png" alt="Iterator Pattern"></p>
 <h2 id="library-及語言支援"><a href="#library-及語言支援" class="headerlink" title="library 及語言支援"></a>library 及語言支援</h2><p>C++ STL、Qt、Java 等等的 container 都有支援 iterator。用 iterator 要注意 iterate 過程中能不能更動該 container，因為 iterator 會直接或間接的 access container 內部資料，所以不同實作方式會影響 iterator 的使用。例如 Qt 對 container 用 <a target="_blank" rel="noopener" href="http://doc.qt.io/qt-5/containers.html#implicit-sharing-iterator-problem">implicit sharing</a>，所以使用 iterator 期間 copy container 要注意會不會搞爛 iterator 或 iterator 指向的 container 跟預想不同。</p>
 <p>在某些語言，如 PHP，會提供 foreach 的語法，這進一步將 iterator 變成 syntax 了。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/STS/STS1-01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/STS/STS1-01/" class="post-title-link" itemprop="url">美國的電氣化過程：系統建構者</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-09-21 23:44:46" itemprop="dateCreated datePublished" datetime="2016-09-21T23:44:46+08:00">2016-09-21</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/STS/STS1-01/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="STS/STS1-01/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>《科技渴望社會》的第一篇。這本書集結了科技與社會有關的文章與演講稿等等的翻譯，是 STS (Science, Technology and Society) 領域的讀本。</p>
-<p>這篇描述三個在美國電氣化過程中十分活耀的人：愛迪生、英瑟爾、密契爾，分別在電氣化不同階段扮演不同角色。愛迪生主要技術但跨越了管理以及財務等等，讓電氣化得以開始推展。英瑟爾有技術知識也是財務專家，但長處在於管理，透過管理將電力事業的規模擴大。而密契爾則是以金融策略使電力事業進一步擴大為區域系統。三位都對多個領域有所涉獵與了解，綜合各種因素以不同所長推展美國的電力發展。</p>
-<p>其中愛迪生的篇幅是我看得最能理解在幹嘛的部分……</p>
-<p>從這篇文章的研究中，可以看到愛迪生的思考脈絡以及因果邏輯。因目的是取代煤氣燈，所以先考量經濟效益，才結合科學上的靈感，繼而搜尋與試驗特定目標，而非如給小朋友看的故事所述──只是不斷地嘗試。姑且不論從眾多文獻中回推因果是否真是當年愛迪生所想，但看到回推出有邏輯的思考脈絡，才能認為這是合理、可行可能的，而非如神話般的不可思議。</p>
-<p>科學歷史應該要呈現這樣的部份，呈現科學發展的交錯跟曲折性，呈現當時人們的思考脈絡，而非講得科學猶如直升飛機筆直上升，各個有所成果的科學家不是天才就是堅忍不拔云云。像是《科學發現幕後的黑色喜劇》跟《電的旅程》就有這種交(ㄨㄞ)錯(ㄑ一)曲(ㄋ一ㄡˇ)折(ㄅㄚ)但比較真實的科學史。</p>
-<p>至於英瑟爾跟密契爾因為又是管理又是金融的，我實在看不太懂到底在寫什麼……Orz</p>
-<p>總之，可以說是三個人都有跨領域的能力，一步步推展電力發展。從一間公司需要技術的不斷改良以突破擴大的障礙，接著公司開始變大、變多而需要管理才能繼續擴大，之後需要用金融方式讓系統進一步擴張到區域等級，每個時期有不同的關鍵知識跟能力。</p>
-<p>要說有 fu 的感想……應該是「只會技術很難完整建立或推展一個事業系統」。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://www.cjwind.idv.tw/How-Google-Works/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="cjwind">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="cjwind's note">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/How-Google-Works/" class="post-title-link" itemprop="url">Google 模式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">Posted on</span>
-
-      <time title="Created: 2016-09-16 21:57:11" itemprop="dateCreated datePublished" datetime="2016-09-16T21:57:11+08:00">2016-09-16</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">Edited on</span>
-        <time title="Modified: 2020-08-09 11:17:09" itemprop="dateModified" datetime="2020-08-09T11:17:09+08:00">2020-08-09</time>
-      </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/How-Google-Works/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="How-Google-Works/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>不愧是技術出身的人創辦的公司，完全以技術為重。喜歡這本書所呈現的務實觀，以真正做出好用東西為最高原則的務實。 </p>
-<h2 id="職業生涯"><a href="#職業生涯" class="headerlink" title="職業生涯"></a>職業生涯</h2><blockquote>
-<p>思考五年後你希望從事的理想工作，你希望在哪裡工作？你想做什麼？希望賺多少錢？敘述這個職務：如果你在網路上看到這個工作機會，徵才內容會是什麼？現在，快轉到四、五年後，假設你在做這份工作，你這五年間的履歷表內容是什麼模樣？從現在起，你經過哪些途徑，到達那個時候的理想工作？</p>
-<p>持續想著這份理想工作，根據它來評估你目前的長處與缺點，你需要做出哪些改進？這一步需要外人提供的意見，因此和你的經理或同儕談談，徵詢他們的意見。最後，你要如何獲得這份理想工作？你需要哪些訓練？需要什麼工作經驗？</p>
-</blockquote>
-<p>我想補充，思考職涯前要先想生涯，因為工作是生活的一部份，是讓工作配合生活，而不是反過來。你重視的是什麼？想要的生活是什麼？現在有的是什麼？有什麼能力能幫助你獲得想要的？</p>
-<p>釐清生涯之後才去想怎麼樣的工作能配合？畢竟，有偉大的理想或願景很好，但那並不是每個人都想要的。每個人重要的事物都不同，本來就不該用一套標準套用在所有人。</p>
-<h2 id="共識跟搖鈴"><a href="#共識跟搖鈴" class="headerlink" title="共識跟搖鈴"></a>共識跟搖鈴</h2><p>所謂共識，在於找到最佳方法，而不是用自己的方法。 </p>
-<p>最佳方法應該是對團隊、對工作最有益的。</p>
-<p>然後呢，討論要有人拿捏什麼時候該喊停做出結論，會開得久但沒結論實在是很浪費。</p>
-<h2 id="歐普拉法則"><a href="#歐普拉法則" class="headerlink" title="歐普拉法則"></a>歐普拉法則</h2><blockquote>
-<p>科技人常犯一個錯，總認為如果根據資料和明智的分析提出一個聰明、考慮周到的論點，人們就會改變他們的看法。其實不然。如果你想改變人們的行為，你不能只在論點上勝出，你必須感動他們的心</p>
-</blockquote>
-<p>（狀態顯示為中箭）</p>
-<p>要說故事讓人家有 fu，才會想去做那件事……</p>
-<p>想想也是，人不是理性的生物呀~ˊ_&gt;ˋ</p>
-<h2 id="70-20-10-的資源分配法則"><a href="#70-20-10-的資源分配法則" class="headerlink" title="70/20/10 的資源分配法則"></a>70/20/10 的資源分配法則</h2><p>70% 資源用於核心事業，20% 資源用於有一些小成功的新產品，10% 資源分配給全新的計畫。</p>
-<p>這是資源分配喔，不是那個 20% 時間。這邊指的資源應該是人員，畢竟 Google 做軟體的，資源最主要就是人了。</p>
-<p>投資高風險的新東西要小心過度投資，過度投資會讓人想回收過去投注的資源而傾向只看好的、不容易承認失敗或錯誤，簡單講就是個賭徒的概念。(欸)</p>
-<h2 id="20-時間計畫"><a href="#20-時間計畫" class="headerlink" title="20% 時間計畫"></a>20% 時間計畫</h2><p>20% 時間計劃應該是 Google 有名的制度之一。</p>
-<p>重點在自由而不在時間，重點在可以自由地去做想做的事。</p>
-<blockquote>
-<p>根據自我決定理論，人類對於自主（根據自己的意志和抉擇而行為，而非受外界施壓而行為）、勝任能力，以及和其他人的關聯都有強烈的需求。自我決定理論認為，人們是否覺得他們的工作有動力且有成就感，有相當程度取決於工作能否滿足他們的這些需求。</p>
-</blockquote>
-<p>20% 時間計畫不需要金錢酬勞，因為他們不想讓外在獎酬取代內在獎酬而扼殺創造力。</p>
-<p>看起來也不是一個自己悶著頭做就行的，除了有點子之外也要能吸引其他人一起加入。</p>
-<p>從書中看起來，20% 時間要產生很棒的新產品不是很容易，它需要員工有足夠的自身動力，更需要有無數無數的時間與嘗試。如書中所說，20% 時間產生的產品或功能並非最重要的「產出」，真正重要的是在過程中得到經驗以及學習的智慧創作者，這些經驗會帶在這些人身上繼續下一次的發揮。比起產生新創產品，20% 時間或許更重要的反而是在教育訓練上。</p>
-<p>20% 時間與其說是 Google 的一個與眾不同的制度，不如說他們只是將那種鼓勵創新、不怕失敗的文化變成一個制度。先有文化才有制度，而不是想以這個制度去培養創新文化，先後順序不一樣的。 </p>
-<h2 id="詢問困難的問題"><a href="#詢問困難的問題" class="headerlink" title="詢問困難的問題"></a>詢問困難的問題</h2><p>「當這家公司的成功與獲利最仰賴的競爭優勢消失時，公司該怎麼辦？」</p>
-<p>在剛開始看到對手的時候，甚至在更早、還很順利的時候就詢問困難的問題，然後思考對策、解決方式。</p>
-<p>問這問題難，難在這樣的問題令人不安。回答這樣的問題也難，但沒有好的答案能問出問題總是一線希望。</p>
-<p>最後書中也列舉許多重要的問題，當作結語總結整本書。</p>
 
       
     </div>

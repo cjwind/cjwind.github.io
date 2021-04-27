@@ -6,7 +6,7 @@
   <link href="http://www.cjwind.idv.tw/atom.xml" rel="self"/>
   
   <link href="http://www.cjwind.idv.tw/"/>
-  <updated>2021-04-17T09:36:31.412Z</updated>
+  <updated>2021-04-27T01:35:56.562Z</updated>
   <id>http://www.cjwind.idv.tw/</id>
   
   <author>
@@ -15,6 +15,53 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>搬家啦～</title>
+    <link href="http://www.cjwind.idv.tw/Move-domain/"/>
+    <id>http://www.cjwind.idv.tw/Move-domain/</id>
+    <published>2021-04-27T01:34:13.000Z</published>
+    <updated>2021-04-27T01:35:56.562Z</updated>
+    
+    <content type="html"><![CDATA[<p>搬到 <a href="www.cjwind.io">www.cjwind.io</a>～</p><p>這裡不會再更新，但是會放到 domain name 到期為止。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;搬到 &lt;a href=&quot;www.cjwind.io&quot;&gt;www.cjwind.io&lt;/a&gt;～&lt;/p&gt;
+&lt;p&gt;這裡不會再更新，但是會放到 domain name 到期為止。&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Codepipeline 練習 deploy blog</title>
+    <link href="http://www.cjwind.idv.tw/Codepipeline-deploy-blog/"/>
+    <id>http://www.cjwind.idv.tw/Codepipeline-deploy-blog/</id>
+    <published>2021-04-27T01:27:09.000Z</published>
+    <updated>2021-04-27T01:27:32.745Z</updated>
+    
+    <content type="html"><![CDATA[<p>以 build &amp; deploy blog 練習使用 CodePipeline 相關 service。</p><ol><li>在 CodeCommit 開 repository，把 blog source 放上去。</li><li>CodePipeline 的 Source stage 設定 source 為 CodeCommit。</li><li>Build stage 使用 AWS 的 Ubuntu image。</li><li>在 source code 裡加入 <code>buildspec.yml</code>，內容如下：</li></ol><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="number">0.2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">phases:</span></span><br><span class="line">  <span class="attr">install:</span></span><br><span class="line">    <span class="attr">on-failure:</span> <span class="string">ABORT</span></span><br><span class="line">    <span class="attr">commands:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./blog</span> <span class="string">init</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">on-failure:</span> <span class="string">ABORT</span></span><br><span class="line">    <span class="attr">commands:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./blog</span> <span class="string">g</span></span><br><span class="line"></span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line">  <span class="attr">files:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">&#x27;**/*&#x27;</span></span><br><span class="line">  <span class="attr">base-directory:</span> <span class="string">public</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">blog-$(date</span> <span class="string">+%Y-%m-%d)</span> </span><br></pre></td></tr></table></figure><ol start="5"><li>deploy stage 設定 deploy 到 S3 的 static web hosting bucket。</li></ol><p>pipeline 會在 push code 後自動開始跑，一路 build 出 static html、deploy 到 S3。source stage 跟 build stage 的 artifact 會存到 S3。</p><h2 id="Ref"><a href="#Ref" class="headerlink" title="Ref"></a>Ref</h2><ul><li><a href="https://docs.aws.amazon.com/codebuild/latest/userguide/build-spec-ref.html">Build specification reference for CodeBuild</a></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;以 build &amp;amp; deploy blog 練習使用 CodePipeline 相關 service。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在 CodeCommit 開 repository，把 blog source 放上去。&lt;/li&gt;
+&lt;li&gt;CodePipeline 的</summary>
+      
+    
+    
+    
+    
+    <category term="AWS" scheme="http://www.cjwind.idv.tw/tags/AWS/"/>
+    
+  </entry>
   
   <entry>
     <title>ch4 Design Best Practices</title>
@@ -455,52 +502,6 @@
       
     <summary type="html">&lt;p&gt;使用 embedded struct 做 json 的 marshal 跟 unmarshal 時，json 欄位會省略 struct embedded 欄位的中間名，以比較簡潔的形式呈現。如果 struct 有寫出欄位名稱，json 欄位就會多那一層。&lt;/p&gt;
 &lt;h2 i</summary>
-      
-    
-    
-    
-    
-    <category term="Go" scheme="http://www.cjwind.idv.tw/tags/Go/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Git submodule</title>
-    <link href="http://www.cjwind.idv.tw/Git-submodule/"/>
-    <id>http://www.cjwind.idv.tw/Git-submodule/</id>
-    <published>2020-10-08T15:12:57.000Z</published>
-    <updated>2020-10-08T15:12:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>submodule 是在 git repos 中使用別的 repos 的方式之一。</p><p>git 的 submodule 是記錄一個指到別人 repo 某個 commit 的指標。對主 repo 來說，記錄的只是一個 submodule commit hash。</p><p>切到 submodule 的目錄時做 git 操作會是在操作另一個 repo。</p><h2 id="加入-submodule"><a href="#加入-submodule" class="headerlink" title="加入 submodule"></a>加入 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule add &lt;repo path&gt;</span></span><br></pre></td></tr></table></figure><h2 id="clone-含有-submodule-的-repos"><a href="#clone-含有-submodule-的-repos" class="headerlink" title="clone 含有 submodule 的 repos"></a>clone 含有 submodule 的 repos</h2><p>clone 含有 submodule 的 repos 後，submodule 的目錄會是空的，要做以下動作來初始化：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git submodule init</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git submodule update</span></span><br></pre></td></tr></table></figure><p><code>git submodule update</code> 會讓 submodule 的內容回到記錄的 commit。</p><h2 id="更新-submodule"><a href="#更新-submodule" class="headerlink" title="更新 submodule"></a>更新 submodule</h2><p>submodule 的 repo 更新或者想用不同版本（commit）的 submodule 時，要做以下操作：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git pull</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> ..</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git a submodule_dir<span class="comment"># 更新主 repo 記錄的 submodule commit hash</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git ci</span></span><br></pre></td></tr></table></figure><p>概念是把 submodule 的 repo 更新或者 checkout 到想要的 commit，再在主 repo 更新記錄的 submodule commit hash。</p><h2 id="移除-submodule"><a href="#移除-submodule" class="headerlink" title="移除 submodule"></a>移除 submodule</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git rm -rf submodule_dir</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim .git/config<span class="comment"># 移掉 submodule 相關設定</span></span></span><br></pre></td></tr></table></figure><h2 id="gitmodules"><a href="#gitmodules" class="headerlink" title=".gitmodules"></a>.gitmodules</h2><p>檔案 <code>.gitmodules</code> 會記錄有哪些 submodule。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;submodule 是在 git repos 中使用別的 repos 的方式之一。&lt;/p&gt;
-&lt;p&gt;git 的 submodule 是記錄一個指到別人 repo 某個 commit 的指標。對主 repo 來說，記錄的只是一個 submodule commit hash。&lt;/</summary>
-      
-    
-    
-    
-    
-    <category term="Git" scheme="http://www.cjwind.idv.tw/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Go init() function</title>
-    <link href="http://www.cjwind.idv.tw/Golang/Golang-init-func/"/>
-    <id>http://www.cjwind.idv.tw/Golang/Golang-init-func/</id>
-    <published>2020-08-29T09:48:15.000Z</published>
-    <updated>2021-02-26T14:42:35.572Z</updated>
-    
-    <content type="html"><![CDATA[<p>任何檔案可以擁有任意數量的 <code>init()</code> function：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><code>init()</code> 會在程式啟動時自動以宣告的順序執行，但不能被 call 或參考。</p><p>假設有以下兩個 go 檔案：</p><figure class="highlight go"><figcaption><span>foo.go</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;foo.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight go"><figcaption><span>main.go</span></figcaption><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go second init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>在 <code>go run</code> 以不同的順序指定 source file 會有不同結果：</p><figure class="highlight maxima"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">go</span> run foo.<span class="built_in">go</span> main.<span class="built_in">go</span></span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">go</span> run main.<span class="built_in">go</span> foo.<span class="built_in">go</span></span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line"></span><br><span class="line"># 不指定 file</span><br><span class="line">$ <span class="built_in">go</span> run .</span><br><span class="line">foo.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">first</span> init</span><br><span class="line">main.<span class="built_in">go</span> <span class="built_in">second</span> init</span><br></pre></td></tr></table></figure><p>不指定 file 的話 <code>go</code> 會將 file 以其名稱排序。</p><p>如果嘗試直接 call <code>init()</code> 則會 compile error：</p><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;main.go first init&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    init()  <span class="comment">// compile error: undefined: init</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;任何檔案可以擁有任意數量的 &lt;code&gt;init()&lt;/code&gt; function：&lt;/p&gt;
-&lt;figure class=&quot;highlight go&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span cl</summary>
       
     
     
